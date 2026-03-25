@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>리뷰</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      max-width: 430px;
+      margin: 0 auto;
+    }
+
+    /* 리뷰 섹션 */
+    .section { padding: 24px 20px; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    /* 관련성 카드 */
+    .relevance-card {
+      background: #f0f0f0;
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+    .relevance-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .relevance-card p {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    /* 구분선 */
+    .divider {
+      height: 8px;
+      background: #222;
+    }
+
+    /* 태그 + 이미지 섹션 */
+    .tags-section { padding: 24px 20px; }
+    .tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: #e8e8e8;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+    .tag:hover { background: #ddd; }
+
+    .placeholder-image {
+      width: 100%;
+      height: 240px;
+      background: #999;
+      border-radius: 12px;
+    }
+
+    /* 잡플래닛 데이터 인사이트 */
+    .insight-section { padding: 24px 20px; }
+    .insight-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .insight-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+    .insight-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .insight-card .subtitle {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .bar-year {
+      width: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      height: 14px;
+      background: #f0f0f0;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: #333;
+      border-radius: 7px;
+      transition: width 0.6s ease;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 20px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+    .dot.active { background: #666; }
+
+    /* 대중성 섹션 */
+    .popularity-section {
+      margin: 24px 20px;
+      background: #333;
+      border-radius: 16px;
+      padding: 60px 20px;
+      text-align: center;
+      color: #fff;
+    }
+    .popularity-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .popularity-section p {
+      font-size: 15px;
+      color: #ccc;
+    }
+
+    .bottom-space { height: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- 리뷰 헤더 + 관련성 카드 -->
+  <div class="section">
+    <h1 class="section-title">리뷰</h1>
+    <div class="relevance-card">
+      <h3>관련성 → 내 맥락 기반</h3>
+      <p>
+        첫 화면에서 가장 주목도를 높일<br>
+        수 있는 콘텐츠 노출 → 나와 연관<br>
+        있는
+      </p>
+      <p>
+        나와 관련 있는 콘텐츠 위주로 뿌<br>
+        려주기<br>
+        ex. 직군/연차 비슷한 리뷰<br>
+        최근 조회 기업과 유사한 리뷰<br>
+        또 뭐가 있을까
+      </p>
+    </div>
+  </div>
+
+  <!-- 구분선 -->
+  <div class="divider"></div>
+
+  <!-- 태그 + 플레이스홀더 이미지 -->
+  <div class="tags-section">
+    <div class="tags">
+      <button class="tag">높은 연봉</button>
+      <button class="tag">워라밸 보장</button>
+      <button class="tag">수평적 문화</button>
+    </div>
+    <div class="placeholder-image"></div>
+  </div>
+
+  <!-- 잡플래닛 데이터 인사이트 -->
+  <div class="insight-section">
+    <h2>잡플래닛 데이터로 본 인사이트</h2>
+    <div class="insight-card">
+      <h3>IT 업계 워라밸 추이 or 업계별 워라밸 비교</h3>
+      <p class="subtitle">IT 업계 워라밸 점수, 어쩌구 상승</p>
+
+      <div class="bar-row">
+        <span class="bar-year">2025</span>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 55%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-year">2024</span>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 72%"></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-year">2023</span>
+        <div class="bar-track">
+          <div class="bar-fill" style="width: 60%"></div>
+        </div>
+      </div>
+
+      <div class="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 대중성 섹션 -->
+  <div class="popularity-section">
+    <h2>대중성</h2>
+    <p>랭킹 위주의 정보?</p>
+  </div>
+
+  <div class="bottom-space"></div>
+
+</body>
+</html>
