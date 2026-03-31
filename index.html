@@ -1079,6 +1079,62 @@
     body.desktop-mode .desktop-nav { display: block; }
     body.desktop-mode .tab-bar { display: none !important; }
 
+    /* ===== 리뷰 탭 PC 레이아웃 ===== */
+    body.desktop-mode #tab-review {
+      background: var(--bg-secondary);
+      min-height: calc(100vh - 56px);
+    }
+    .review-pc-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .review-pc-section { margin-bottom: 40px; }
+    .review-pc-section-title {
+      font-size: 20px;
+      font-weight: var(--font-bold);
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    .review-pc-card {
+      background: var(--bg-primary);
+      border-radius: 12px;
+      border: 1px solid var(--line-primary);
+      padding: 24px;
+      box-shadow: var(--shadow-default);
+    }
+    .review-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line-secondary);
+    }
+    .review-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .review-item:first-child { padding-top: 0; }
+    .review-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .review-item-company { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .review-item-meta { font-size: 13px; color: var(--text-tertiary); margin-left: 8px; }
+    .review-item-stars { display: flex; align-items: center; gap: 2px; font-size: 14px; }
+    .review-item-body { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+    .review-rank-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line-secondary);
+    }
+    .review-rank-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .review-rank-item:first-child { padding-top: 0; }
+    .review-rank-num { font-size: 18px; font-weight: 700; color: var(--brand-primary); width: 28px; flex-shrink: 0; }
+    .review-rank-num.gray { color: var(--text-tertiary); }
+    .review-rank-label { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+    .review-rank-count { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+    .review-rank-badge { font-size: 12px; color: var(--error); margin-left: auto; flex-shrink: 0; }
+
     .desktop-nav-inner {
       max-width: 1440px;
       margin: 0 auto;
@@ -2202,8 +2258,9 @@
       <a class="desktop-nav-logo" id="shared-logo">Jobplanet</a>
       <div class="desktop-nav-links">
         <a href="#">기업 랭킹</a>
+        <a href="#" data-nav="review" onclick="event.preventDefault();switchTab('tab-review')">리뷰</a>
         <a href="#">커뮤니티</a>
-        <a href="#" class="active" data-nav="job" onclick="event.preventDefault();switchTab('tab-job')">채용</a>
+        <a href="#" data-nav="job" onclick="event.preventDefault();switchTab('tab-job')">채용</a>
         <a href="#">뉴스</a>
         <a href="#">연봉</a>
         <a href="#" class="membership-btn">멤버십</a>
@@ -2882,68 +2939,129 @@
 
   <!-- ==================== 리뷰 탭 ==================== -->
   <div id="tab-review" class="tab-content">
+    <div class="review-pc-container">
 
-    <div class="section">
-      <h1 class="section-title">리뷰</h1>
-      <div class="relevance-card">
-        <h3>관련성 → 내 맥락 기반</h3>
-        <p>
-          첫 화면에서 가장 주목도를 높일<br>
-          수 있는 콘텐츠 노출 → 나와 연관<br>
-          있는
-        </p>
-        <p>
-          나와 관련 있는 콘텐츠 위주로 뿌<br>
-          려주기<br>
-          ex. 직군/연차 비슷한 리뷰<br>
-          최근 조회 기업과 유사한 리뷰<br>
-          또 뭐가 있을까
-        </p>
+      <!-- 섹션 1: 나와 관련있는 리뷰 -->
+      <div class="review-pc-section">
+        <h2 class="review-pc-section-title">나와 관련있는 리뷰</h2>
+        <div class="review-pc-card">
+          <div class="tags" style="margin-bottom: 20px;">
+            <button class="tag">높은 연봉</button>
+            <button class="tag">워라밸 보장</button>
+            <button class="tag">수평적 문화</button>
+            <button class="tag">성장 기회</button>
+            <button class="tag">좋은 복지</button>
+          </div>
+          <div class="review-item">
+            <div class="review-item-header">
+              <div>
+                <span class="review-item-company">(주)잡플래닛</span>
+                <span class="review-item-meta">프로덕트 디자이너 · 3년차</span>
+              </div>
+              <div class="review-item-stars">
+                <span style="color:#f5c518;">★★★★</span><span style="color:#ddd;">★</span>
+                <span style="font-size:13px; color:var(--text-secondary); margin-left:4px;">4.0</span>
+              </div>
+            </div>
+            <p class="review-item-body">워라밸이 잘 보장되는 편이고 수평적인 문화가 잘 잡혀있습니다. 자유롭게 의견을 낼 수 있는 환경이라 성장하기 좋습니다.</p>
+          </div>
+          <div class="review-item">
+            <div class="review-item-header">
+              <div>
+                <span class="review-item-company">카카오</span>
+                <span class="review-item-meta">UX 디자이너 · 2년차</span>
+              </div>
+              <div class="review-item-stars">
+                <span style="color:#f5c518;">★★★★★</span>
+                <span style="font-size:13px; color:var(--text-secondary); margin-left:4px;">4.5</span>
+              </div>
+            </div>
+            <p class="review-item-body">연봉 수준이 높고 복지 혜택이 훌륭합니다. 특히 자기계발 지원이 잘 되어있어 직무 역량을 키우기 좋은 환경입니다.</p>
+          </div>
+          <div class="review-item">
+            <div class="review-item-header">
+              <div>
+                <span class="review-item-company">네이버</span>
+                <span class="review-item-meta">서비스 기획 · 4년차</span>
+              </div>
+              <div class="review-item-stars">
+                <span style="color:#f5c518;">★★★★</span><span style="color:#ddd;">★</span>
+                <span style="font-size:13px; color:var(--text-secondary); margin-left:4px;">3.8</span>
+              </div>
+            </div>
+            <p class="review-item-body">업무 자율성이 높고 다양한 도전을 할 수 있습니다. 연차가 쌓일수록 성장 기회가 많아지는 구조입니다.</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="divider"></div>
-
-    <div class="tags-section">
-      <div class="tags">
-        <button class="tag">높은 연봉</button>
-        <button class="tag">워라밸 보장</button>
-        <button class="tag">수평적 문화</button>
-      </div>
-      <div class="placeholder-image"></div>
-    </div>
-
-    <div class="insight-section">
-      <h2>잡플래닛 데이터로 본 인사이트</h2>
-      <div class="insight-card">
-        <h3>IT 업계 워라밸 추이 or 업계별 워라밸 비교</h3>
-        <p class="subtitle">IT 업계 워라밸 점수, 어쩌구 상승</p>
-        <div class="bar-row">
-          <span class="bar-year">2025</span>
-          <div class="bar-track"><div class="bar-fill" style="width: 55%"></div></div>
-        </div>
-        <div class="bar-row">
-          <span class="bar-year">2024</span>
-          <div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div>
-        </div>
-        <div class="bar-row">
-          <span class="bar-year">2023</span>
-          <div class="bar-track"><div class="bar-fill" style="width: 60%"></div></div>
-        </div>
-        <div class="dots">
-          <div class="dot active"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
+      <!-- 섹션 2: 잡플래닛 데이터로 본 인사이트 -->
+      <div class="review-pc-section">
+        <h2 class="review-pc-section-title">잡플래닛 데이터로 본 인사이트</h2>
+        <div class="review-pc-card">
+          <h3 style="font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:4px;">IT 업계 워라밸 추이</h3>
+          <p style="font-size:13px; color:var(--text-tertiary); margin-bottom:24px;">최근 3년간 IT 업계 워라밸 점수 변화</p>
+          <div class="bar-row">
+            <span class="bar-year">2025</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 55%"></div></div>
+            <span style="font-size:13px; font-weight:600; color:var(--text-primary); margin-left:12px; flex-shrink:0;">3.7</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-year">2024</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div>
+            <span style="font-size:13px; font-weight:600; color:var(--text-primary); margin-left:12px; flex-shrink:0;">3.9</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-year">2023</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 60%"></div></div>
+            <span style="font-size:13px; font-weight:600; color:var(--text-primary); margin-left:12px; flex-shrink:0;">3.5</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="popularity-section">
-      <h2>대중성</h2>
-      <p>랭킹 위주의 정보?</p>
-    </div>
+      <!-- 섹션 3: 지금 인기있는 리뷰 키워드 -->
+      <div class="review-pc-section">
+        <h2 class="review-pc-section-title">지금 인기있는 리뷰 키워드</h2>
+        <div class="review-pc-card">
+          <div class="review-rank-item">
+            <span class="review-rank-num">1</span>
+            <div style="flex:1;">
+              <div class="review-rank-label">워라밸</div>
+              <div class="review-rank-count">리뷰 12,483개</div>
+            </div>
+            <span class="review-rank-badge">🔥 급상승</span>
+          </div>
+          <div class="review-rank-item">
+            <span class="review-rank-num gray">2</span>
+            <div style="flex:1;">
+              <div class="review-rank-label">성장 기회</div>
+              <div class="review-rank-count">리뷰 9,201개</div>
+            </div>
+          </div>
+          <div class="review-rank-item">
+            <span class="review-rank-num gray">3</span>
+            <div style="flex:1;">
+              <div class="review-rank-label">높은 연봉</div>
+              <div class="review-rank-count">리뷰 8,774개</div>
+            </div>
+          </div>
+          <div class="review-rank-item">
+            <span class="review-rank-num gray">4</span>
+            <div style="flex:1;">
+              <div class="review-rank-label">수평적 문화</div>
+              <div class="review-rank-count">리뷰 7,356개</div>
+            </div>
+          </div>
+          <div class="review-rank-item">
+            <span class="review-rank-num gray">5</span>
+            <div style="flex:1;">
+              <div class="review-rank-label">자율적인 업무 환경</div>
+              <div class="review-rank-count">리뷰 6,892개</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="bottom-space"></div>
+    </div>
   </div>
 
   <!-- ==================== 이력서 작성 탭 ==================== -->
@@ -4064,11 +4182,21 @@
       var btn = document.querySelector('[data-tab="' + tabId + '"]');
       if (btn) btn.classList.add('active');
 
-      var desktopTabs = ['tab-job', 'tab-job-detail', 'tab-resume', 'tab-resume-editor', 'tab-my'];
+      var desktopTabs = ['tab-job', 'tab-job-detail', 'tab-resume', 'tab-resume-editor', 'tab-my', 'tab-review'];
       if (desktopTabs.indexOf(tabId) !== -1) {
         document.body.classList.add('desktop-mode');
       } else {
         document.body.classList.remove('desktop-mode');
+      }
+
+      // 네비 활성화 상태 업데이트
+      document.querySelectorAll('.desktop-nav-links a[data-nav]').forEach(function(a) {
+        a.classList.remove('active');
+      });
+      var navMap = { 'tab-job': 'job', 'tab-job-detail': 'job', 'tab-review': 'review' };
+      if (navMap[tabId]) {
+        var activeNav = document.querySelector('.desktop-nav-links a[data-nav="' + navMap[tabId] + '"]');
+        if (activeNav) activeNav.classList.add('active');
       }
 
       window.scrollTo(0, 0);
