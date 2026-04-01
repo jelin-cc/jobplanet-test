@@ -1087,15 +1087,24 @@
     .review-pc-container {
       max-width: 700px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: 40px 20px 120px;
     }
     .review-pc-section { margin-bottom: 40px; }
+    .review-pc-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
     .review-pc-section-title {
       font-size: 20px;
       font-weight: var(--font-bold);
       color: var(--text-primary);
-      margin-bottom: 16px;
       letter-spacing: -0.3px;
+    }
+    .review-pc-section-sub {
+      font-size: 13px;
+      color: var(--text-tertiary);
     }
     .review-pc-card {
       background: var(--bg-primary);
@@ -1104,36 +1113,399 @@
       padding: 24px;
       box-shadow: var(--shadow-default);
     }
-    .review-item {
-      padding: 16px 0;
-      border-bottom: 1px solid var(--line-secondary);
-    }
-    .review-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .review-item:first-child { padding-top: 0; }
-    .review-item-header {
+
+    /* ===== 내가 다녔던 기업 — 카드 (PC 가로형) ===== */
+    .mine-card {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 8px;
+      gap: 20px;
+      padding: 20px;
+      border: 1px solid var(--line-primary);
+      border-left: 4px solid var(--brand-primary);
+      border-radius: 10px;
+      background: var(--bg-primary);
+      margin-bottom: 12px;
+      transition: box-shadow 0.15s;
     }
-    .review-item-company { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-    .review-item-meta { font-size: 13px; color: var(--text-tertiary); margin-left: 8px; }
-    .review-item-stars { display: flex; align-items: center; gap: 2px; font-size: 14px; }
-    .review-item-body { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
-    .review-rank-item {
+    .mine-card:last-child { margin-bottom: 0; }
+    .mine-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .mine-card--prev { border-left-color: var(--text-tertiary); }
+    .mine-card-left {
+      flex-shrink: 0;
+      width: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mine-card-company { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .mine-card-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .mine-card-badge--current { background: #e8f5e9; color: #2e7d32; }
+    .mine-card-badge--prev    { background: #f3f4f6; color: #6b7280; }
+    .mine-card-meta { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; }
+    .mine-card-rating { font-size: 13px; margin-top: 4px; }
+    .mine-card-divider {
+      width: 1px;
+      background: var(--line-secondary);
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+    .mine-card-right { flex: 1; min-width: 0; }
+    .mine-card-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin: 0 0 12px;
+    }
+    .mine-card-body strong { color: var(--text-primary); font-weight: 600; }
+    .mine-card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      background: #f0faf4;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .mine-card-action:hover { background: #d4edda; }
+
+    /* 섹션 A — 동적 CTA */
+    .mine-cta {
+      margin-top: 20px;
+      padding: 20px 22px;
+      background: #f0faf2;
+      border: 1.5px dashed #a5d6a7;
+      border-radius: 10px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
-      padding: 14px 0;
+    }
+    .mine-cta-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .mine-cta-text strong { color: var(--text-primary); font-weight: 700; display: block; margin-bottom: 2px; }
+    .mine-cta-btn {
+      flex-shrink: 0;
+      background: var(--brand-primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .mine-cta-btn:hover { background: #00a854; }
+
+    /* 리뷰 아이템 (섹션 B용) */
+    .review-item {
+      padding: 18px 0;
       border-bottom: 1px solid var(--line-secondary);
     }
-    .review-rank-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .review-rank-item:first-child { padding-top: 0; }
-    .review-rank-num { font-size: 18px; font-weight: 700; color: var(--brand-primary); width: 28px; flex-shrink: 0; }
-    .review-rank-num.gray { color: var(--text-tertiary); }
-    .review-rank-label { font-size: 15px; font-weight: 600; color: var(--text-primary); }
-    .review-rank-count { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
-    .review-rank-badge { font-size: 12px; color: var(--error); margin-left: auto; flex-shrink: 0; }
+    .review-item:first-child { padding-top: 0; }
+    .review-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .review-item-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .review-item-company { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .review-item-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+    .review-item-badge--similar { background: #fff3e0; color: #e65100; }
+    .review-item-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .review-item-meta { font-size: 13px; color: var(--text-tertiary); }
+    .review-item-stars { font-size: 13px; }
+    .review-item-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 0 0 12px;
+    }
+    .review-item-body strong { color: var(--text-primary); font-weight: 600; }
+    .review-item-body .highlight { color: #c62828; font-weight: 600; }
+    .review-item-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      background: #e8f5e9;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .review-item-cta:hover { background: #c8e6c9; }
+
+    /* 섹션 B 하단 CTA */
+    .review-section-cta {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: #fff8f0;
+      border: 1.5px dashed #ffcc80;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .review-section-cta-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .review-section-cta-text strong { color: var(--text-primary); font-weight: 700; }
+    .review-section-cta-btn {
+      flex-shrink: 0;
+      background: var(--brand-primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .review-section-cta-btn:hover { background: #00a854; }
+
+    /* 플로팅 작성 버튼 */
+    .review-fab {
+      display: none;
+      position: fixed;
+      bottom: 36px;
+      right: calc(50% - 350px - 68px);
+      z-index: 300;
+      background: var(--brand-primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(0,195,98,0.35);
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+    }
+    body.desktop-mode .review-fab { display: flex; }
+    .review-fab:hover { background: #00a854; transform: translateY(-1px); }
+
+    /* ===== 관심 기업 / 주목 리뷰 섹션 ===== */
+    .rpc-chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .rpc-chip {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--line-primary);
+      background: var(--bg-primary);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .rpc-chip.active {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+    .rpc-chip:hover { background: var(--bg-secondary); }
+
+    .rpc-notice {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 14px;
+    }
+
+    /* 관심 기업 리뷰 카드 2열 */
+    .rpc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .rpc-grid-card {
+      border: 1px solid var(--line-primary);
+      border-radius: 10px;
+      padding: 16px;
+      background: var(--bg-primary);
+    }
+    .rpc-grid-card-company { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .rpc-grid-card-meta { font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px; }
+    .rpc-grid-card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .rpc-grid-card-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+      margin-top: 8px;
+    }
+    .rpc-grid-card-tag--pro { background: #e8f5e9; color: #2e7d32; }
+    .rpc-grid-card-tag--con { background: #fce4ec; color: #c62828; }
+
+    /* 최근 조회 기업 칩 */
+    .rpc-recent-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .rpc-recent-chip {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--line-primary);
+      background: var(--bg-primary);
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .rpc-recent-chip:hover { background: var(--bg-secondary); }
+
+    /* 주목받는 리뷰 카드 */
+    .rpc-headline-card {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line-secondary);
+    }
+    .rpc-headline-card:first-child { padding-top: 0; }
+    .rpc-headline-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .rpc-headline-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .rpc-headline-company { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .rpc-headline-role { font-size: 13px; color: var(--text-tertiary); }
+    .rpc-headline-industry { font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px; }
+    .rpc-headline-quote {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .rpc-headline-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rpc-headline-helpful { font-size: 13px; color: var(--text-tertiary); }
+    .rpc-headline-rating { font-size: 13px; color: var(--text-secondary); }
+
+    /* 섹션 탭 (주목 리뷰 등) */
+    .rpc-tab-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .rpc-tab {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--line-primary);
+      background: var(--bg-primary);
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .rpc-tab.active {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      border-color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* 이런 리뷰 어떠세요 카드 */
+    .rpc-trending-card {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line-secondary);
+    }
+    .rpc-trending-card:first-child { padding-top: 0; }
+    .rpc-trending-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .rpc-trending-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .rpc-trending-company { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .rpc-trending-industry { font-size: 13px; color: var(--text-tertiary); }
+    .rpc-trending-quote {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .rpc-trending-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rpc-trending-stat { font-size: 13px; color: var(--text-tertiary); }
+    .rpc-trending-up { color: #e53935; font-weight: 600; }
+    .rpc-trending-rating { font-size: 13px; color: var(--text-secondary); }
+    .rpc-more-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-top: 1px solid var(--line-secondary);
+      margin-top: 4px;
+    }
+    .rpc-more-btn:hover { color: var(--text-primary); background: var(--bg-secondary); }
+
+    /* 섹션 헤더 with 서브라벨 */
+    .rpc-section-label {
+      font-size: 13px;
+      color: #e53935;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    /* 가설 레이블 */
+    .hypothesis-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-inverse);
+      background: var(--text-secondary);
+      border-radius: 4px;
+      padding: 2px 7px;
+      letter-spacing: 0.3px;
+      vertical-align: middle;
+    }
 
     .desktop-nav-inner {
       max-width: 1440px;
@@ -2941,127 +3313,313 @@
   <div id="tab-review" class="tab-content">
     <div class="review-pc-container">
 
-      <!-- 섹션 1: 나와 관련있는 리뷰 -->
+      <!-- 섹션 A: 내 전/현직장 리뷰 -->
       <div class="review-pc-section">
-        <h2 class="review-pc-section-title">나와 관련있는 리뷰</h2>
+        <div class="review-pc-section-header">
+          <h2 class="review-pc-section-title">내가 다녔던 기업 리뷰</h2>
+          <span class="hypothesis-label">가설 ① 리뷰 작성 전환</span>
+        </div>
+
+        <!-- 회사 chip 필터 -->
+        <div class="rpc-chip-row" id="mine-chip-row">
+          <button class="rpc-chip active" data-mine="all" onclick="filterMineReview('all')">전체</button>
+          <button class="rpc-chip" data-mine="jobplanet" onclick="filterMineReview('jobplanet')">(주)잡플래닛</button>
+          <button class="rpc-chip" data-mine="kakao" onclick="filterMineReview('kakao')">카카오</button>
+          <button class="rpc-chip" data-mine="naver" onclick="filterMineReview('naver')">네이버</button>
+          <button class="rpc-chip" data-mine="toss" onclick="filterMineReview('toss')">토스</button>
+          <button class="rpc-chip" data-mine="line" onclick="filterMineReview('line')">라인플러스</button>
+        </div>
+
+        <!-- 리뷰 카드 목록 -->
+        <div id="mine-review-list">
+
+          <div class="mine-card" data-company="jobplanet">
+            <div class="mine-card-left">
+              <span class="mine-card-company">(주)잡플래닛</span>
+              <span class="mine-card-badge mine-card-badge--current">현직장</span>
+              <span class="mine-card-meta">프로덕트 디자이너<br>3년차</span>
+              <span class="mine-card-rating"><span style="color:#f5c518;">★★★★</span><span style="color:#ddd;">★</span> 4.0</span>
+            </div>
+            <div class="mine-card-divider"></div>
+            <div class="mine-card-right">
+              <p class="mine-card-body">팀 분위기가 수평적이고 자유롭게 의견을 낼 수 있어요. 디자이너가 기획 단계부터 참여하는 구조라 <strong>주도적으로 일하는 느낌</strong>이 강합니다. 다만 스타트업 특성상 인력이 부족해 멀티 롤을 요구받는 경우가 많아요.</p>
+              <button class="mine-card-action">✏️ 잡플래닛 리뷰 남기기</button>
+            </div>
+          </div>
+
+          <div class="mine-card mine-card--prev" data-company="kakao">
+            <div class="mine-card-left">
+              <span class="mine-card-company">카카오</span>
+              <span class="mine-card-badge mine-card-badge--prev">전직장</span>
+              <span class="mine-card-meta">UX 디자이너<br>2년차</span>
+              <span class="mine-card-rating"><span style="color:#f5c518;">★★★</span><span style="color:#ddd;">★★</span> 3.2</span>
+            </div>
+            <div class="mine-card-divider"></div>
+            <div class="mine-card-right">
+              <p class="mine-card-body">브랜드 가치는 높지만 <strong>실제 업무 환경은 많이 달랐어요.</strong> 디자인 의사결정권이 제한적이고, 프로세스가 복잡해 작은 변경도 오래 걸립니다. 연봉은 만족스럽지만 성장 속도는 개인 역량에 달렸어요.</p>
+              <button class="mine-card-action">✏️ 카카오 리뷰 남기기</button>
+            </div>
+          </div>
+
+          <div class="mine-card mine-card--prev" data-company="naver">
+            <div class="mine-card-left">
+              <span class="mine-card-company">네이버</span>
+              <span class="mine-card-badge mine-card-badge--prev">전직장</span>
+              <span class="mine-card-meta">서비스 기획<br>4년차</span>
+              <span class="mine-card-rating"><span style="color:#f5c518;">★★★★</span><span style="color:#ddd;">★</span> 3.8</span>
+            </div>
+            <div class="mine-card-divider"></div>
+            <div class="mine-card-right">
+              <p class="mine-card-body">규모가 크다 보니 개인이 기여할 수 있는 영역이 제한적이에요. 안정적인 환경이지만 <strong>빠른 실행보다 합의 중심의 문화</strong>라 스피드에 익숙한 분들은 답답할 수 있어요.</p>
+              <button class="mine-card-action">✏️ 네이버 리뷰 남기기</button>
+            </div>
+          </div>
+
+          <div class="mine-card mine-card--prev" data-company="toss">
+            <div class="mine-card-left">
+              <span class="mine-card-company">토스</span>
+              <span class="mine-card-badge mine-card-badge--prev">전직장</span>
+              <span class="mine-card-meta">프로덕트 디자이너<br>2년차</span>
+              <span class="mine-card-rating"><span style="color:#f5c518;">★★★★★</span> 4.7</span>
+            </div>
+            <div class="mine-card-divider"></div>
+            <div class="mine-card-right">
+              <p class="mine-card-body">디자이너가 실질적인 의사결정권을 갖고 있고, 데이터 기반 문화가 잘 정착돼 있어요. <strong>연봉과 성장 속도 모두 업계 최상위</strong>지만, 심리적 압박과 경쟁 강도가 높아 번아웃을 경험하는 동료도 많았어요.</p>
+              <button class="mine-card-action">✏️ 토스 리뷰 남기기</button>
+            </div>
+          </div>
+
+          <div class="mine-card mine-card--prev" data-company="line">
+            <div class="mine-card-left">
+              <span class="mine-card-company">라인플러스</span>
+              <span class="mine-card-badge mine-card-badge--prev">전직장</span>
+              <span class="mine-card-meta">서비스 디자이너<br>3년차</span>
+              <span class="mine-card-rating"><span style="color:#f5c518;">★★★</span><span style="color:#ddd;">★★</span> 2.9</span>
+            </div>
+            <div class="mine-card-divider"></div>
+            <div class="mine-card-right">
+              <p class="mine-card-body">글로벌 서비스라는 기대와 달리 국내팀은 예산 우선순위에서 항상 밀렸어요. 디자인 시스템도 사실상 방치 수준이었고, <strong>성장보다 유지에 초점 맞춰진 조직 문화</strong>가 아쉬웠습니다.</p>
+              <button class="mine-card-action">✏️ 라인플러스 리뷰 남기기</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 동적 CTA -->
+        <div class="mine-cta" id="mine-cta">
+          <div class="mine-cta-text">
+            <strong id="mine-cta-title">내 경험이 누군가의 결정을 바꿀 수 있어요.</strong>
+            <span id="mine-cta-desc">다녔던 기업의 솔직한 이야기, 다음 지원자에게 진짜 도움이 됩니다.</span>
+          </div>
+          <button class="mine-cta-btn" id="mine-cta-btn">리뷰 작성하기 →</button>
+        </div>
+      </div>
+
+      <!-- 섹션 B: 비슷한 직군·업계의 자극적인 리뷰 -->
+      <div class="review-pc-section">
+        <div class="review-pc-section-header">
+          <h2 class="review-pc-section-title">UX 디자이너들이 요즘 많이 보는 리뷰</h2>
+          <span class="hypothesis-label">가설 ① 리뷰 작성 전환</span>
+        </div>
         <div class="review-pc-card">
-          <div class="tags" style="margin-bottom: 20px;">
-            <button class="tag">높은 연봉</button>
-            <button class="tag">워라밸 보장</button>
-            <button class="tag">수평적 문화</button>
-            <button class="tag">성장 기회</button>
-            <button class="tag">좋은 복지</button>
-          </div>
+
           <div class="review-item">
-            <div class="review-item-header">
-              <div>
-                <span class="review-item-company">(주)잡플래닛</span>
-                <span class="review-item-meta">프로덕트 디자이너 · 3년차</span>
-              </div>
-              <div class="review-item-stars">
-                <span style="color:#f5c518;">★★★★</span><span style="color:#ddd;">★</span>
-                <span style="font-size:13px; color:var(--text-secondary); margin-left:4px;">4.0</span>
-              </div>
+            <div class="review-item-top">
+              <span class="review-item-company">쿠팡</span>
+              <span class="review-item-badge review-item-badge--similar">IT · 유사 직군</span>
             </div>
-            <p class="review-item-body">워라밸이 잘 보장되는 편이고 수평적인 문화가 잘 잡혀있습니다. 자유롭게 의견을 낼 수 있는 환경이라 성장하기 좋습니다.</p>
+            <div class="review-item-meta-row">
+              <span class="review-item-meta">프로덕트 디자이너 · 4년차</span>
+              <span class="review-item-stars"><span style="color:#f5c518;">★★</span><span style="color:#ddd;">★★★</span> <span style="color:var(--text-secondary);">2.1</span></span>
+            </div>
+            <p class="review-item-body"><span class="highlight">야근이 구조적으로 설계된 회사입니다.</span> 스프린트가 끝날 때마다 번아웃이 오고, 주말 슬랙 메시지는 기본이에요. 디자이너가 단순 실행자 취급받는 문화가 심해서 결국 퇴사했습니다. 연봉만 보고 들어오면 후회합니다.</p>
+            <button class="review-item-cta">✏️ 나도 비슷한 경험 있어요</button>
           </div>
+
           <div class="review-item">
-            <div class="review-item-header">
-              <div>
-                <span class="review-item-company">카카오</span>
-                <span class="review-item-meta">UX 디자이너 · 2년차</span>
-              </div>
-              <div class="review-item-stars">
-                <span style="color:#f5c518;">★★★★★</span>
-                <span style="font-size:13px; color:var(--text-secondary); margin-left:4px;">4.5</span>
-              </div>
+            <div class="review-item-top">
+              <span class="review-item-company">토스</span>
+              <span class="review-item-badge review-item-badge--similar">IT · 유사 직군</span>
             </div>
-            <p class="review-item-body">연봉 수준이 높고 복지 혜택이 훌륭합니다. 특히 자기계발 지원이 잘 되어있어 직무 역량을 키우기 좋은 환경입니다.</p>
+            <div class="review-item-meta-row">
+              <span class="review-item-meta">UX 디자이너 · 3년차</span>
+              <span class="review-item-stars"><span style="color:#f5c518;">★★★★★</span> <span style="color:var(--text-secondary);">4.8</span></span>
+            </div>
+            <p class="review-item-body">디자이너의 의사결정 권한이 매우 강합니다. 데이터 기반으로 일하는 문화가 잘 잡혀있고, <strong>연봉이 업계 최상위</strong>예요. 다만 기대치가 높은 만큼 심리적 압박이 있고, <span class="highlight">내가 이 수준의 성과를 낼 수 있을지 항상 자문하게 됩니다.</span></p>
+            <button class="review-item-cta">✏️ 나도 비슷한 경험 있어요</button>
           </div>
+
           <div class="review-item">
-            <div class="review-item-header">
-              <div>
-                <span class="review-item-company">네이버</span>
-                <span class="review-item-meta">서비스 기획 · 4년차</span>
-              </div>
-              <div class="review-item-stars">
-                <span style="color:#f5c518;">★★★★</span><span style="color:#ddd;">★</span>
-                <span style="font-size:13px; color:var(--text-secondary); margin-left:4px;">3.8</span>
-              </div>
+            <div class="review-item-top">
+              <span class="review-item-company">라인플러스</span>
+              <span class="review-item-badge review-item-badge--similar">IT · 유사 직군</span>
             </div>
-            <p class="review-item-body">업무 자율성이 높고 다양한 도전을 할 수 있습니다. 연차가 쌓일수록 성장 기회가 많아지는 구조입니다.</p>
+            <div class="review-item-meta-row">
+              <span class="review-item-meta">서비스 디자이너 · 5년차</span>
+              <span class="review-item-stars"><span style="color:#f5c518;">★★★</span><span style="color:#ddd;">★★</span> <span style="color:var(--text-secondary);">2.9</span></span>
+            </div>
+            <p class="review-item-body"><span class="highlight">입사 전 기대와 현실의 괴리가 컸습니다.</span> 글로벌 서비스라 좋을 줄 알았는데 국내팀은 예산 우선순위에서 항상 뒤로 밀려요. 디자인 시스템도 사실상 방치 수준. 이직 결심하는 데 오래 걸리지 않았어요.</p>
+            <button class="review-item-cta">✏️ 나도 비슷한 경험 있어요</button>
+          </div>
+
+        </div>
+
+        <!-- 섹션 B CTA -->
+        <div class="review-section-cta">
+          <p class="review-section-cta-text"><strong>나라면 다르게 말할 것 같나요?</strong><br>직접 다녔던 회사의 진짜 이야기를 남겨보세요.</p>
+          <button class="review-section-cta-btn">리뷰 작성하기 →</button>
+        </div>
+      </div>
+
+      <!-- 섹션 C: 관심 기업 -->
+      <div class="review-pc-section">
+        <div class="review-pc-section-header">
+          <h2 class="review-pc-section-title">관심 기업</h2>
+        </div>
+        <div class="rpc-chip-row">
+          <button class="rpc-chip active">전체</button>
+          <button class="rpc-chip">네이버</button>
+          <button class="rpc-chip">삼성전자</button>
+          <button class="rpc-chip">SK 하이닉스</button>
+          <button class="rpc-chip">LG 에너지솔루션</button>
+        </div>
+        <p class="rpc-notice">최근 한 달간 새로운 리뷰 총 3건이 올라왔어요</p>
+        <div class="rpc-grid">
+          <div class="rpc-grid-card">
+            <div class="rpc-grid-card-company">네이버(주)</div>
+            <div class="rpc-grid-card-meta">서비스 기획 / 2026.03</div>
+            <div class="rpc-grid-card-body">수평적인 분위기에서 자율적으로 일할 수 있어요. 다만 조직이 커서 의사결정이 느린 편입니다.</div>
+            <span class="rpc-grid-card-tag rpc-grid-card-tag--pro">👍 자율성</span>
+            <span class="rpc-grid-card-tag rpc-grid-card-tag--con">👎 느린 결정</span>
+          </div>
+          <div class="rpc-grid-card">
+            <div class="rpc-grid-card-company">삼성전자</div>
+            <div class="rpc-grid-card-meta">UX 디자이너 / 2026.02</div>
+            <div class="rpc-grid-card-body">브랜드 파워는 확실하고 복지 수준은 최상입니다. 연차 대비 성장 속도가 느릴 수 있어요.</div>
+            <span class="rpc-grid-card-tag rpc-grid-card-tag--pro">👍 복지</span>
+            <span class="rpc-grid-card-tag rpc-grid-card-tag--con">👎 성장 한계</span>
           </div>
         </div>
       </div>
 
-      <!-- 섹션 2: 잡플래닛 데이터로 본 인사이트 -->
+      <!-- 섹션 D: 최근 조회 기업 -->
       <div class="review-pc-section">
-        <h2 class="review-pc-section-title">잡플래닛 데이터로 본 인사이트</h2>
+        <div class="review-pc-section-header">
+          <h2 class="review-pc-section-title">최근 조회 기업</h2>
+        </div>
+        <div class="rpc-recent-chips">
+          <button class="rpc-recent-chip">네이버</button>
+          <button class="rpc-recent-chip">삼성전자</button>
+          <button class="rpc-recent-chip">SK 하이닉스</button>
+          <button class="rpc-recent-chip">LG 에너지솔루션</button>
+        </div>
+      </div>
+
+      <!-- 섹션 E: 지금 주목받는 리뷰 -->
+      <div class="review-pc-section">
+        <div class="review-pc-section-header">
+          <h2 class="review-pc-section-title">지금 주목받는 리뷰</h2>
+          <span class="rpc-section-label">내 직군 / 산업과 관련된</span>
+        </div>
+        <div class="rpc-tab-row">
+          <button class="rpc-tab active">반응 가장 좋은 👍</button>
+          <button class="rpc-tab">리뷰 조회 상승중 🚀</button>
+        </div>
         <div class="review-pc-card">
-          <h3 style="font-size:16px; font-weight:700; color:var(--text-primary); margin-bottom:4px;">IT 업계 워라밸 추이</h3>
-          <p style="font-size:13px; color:var(--text-tertiary); margin-bottom:24px;">최근 3년간 IT 업계 워라밸 점수 변화</p>
-          <div class="bar-row">
-            <span class="bar-year">2025</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 55%"></div></div>
-            <span style="font-size:13px; font-weight:600; color:var(--text-primary); margin-left:12px; flex-shrink:0;">3.7</span>
+          <div class="rpc-headline-card">
+            <div class="rpc-headline-top">
+              <span class="rpc-headline-company">(주)시큐어로그</span>
+              <span class="rpc-headline-role">디자이너 | 현직자</span>
+            </div>
+            <div class="rpc-headline-industry">IT/웹/통신</div>
+            <div class="rpc-headline-quote">"컨설팅 중소기업치고 좋은 문화로 첫 회사로 나쁘지 않음"</div>
+            <div class="rpc-headline-footer">
+              <span class="rpc-headline-helpful">도움이 됐어요 👍 23 · 2026.03 작성</span>
+              <span class="rpc-headline-rating">⭐ 3.8</span>
+            </div>
           </div>
-          <div class="bar-row">
-            <span class="bar-year">2024</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div>
-            <span style="font-size:13px; font-weight:600; color:var(--text-primary); margin-left:12px; flex-shrink:0;">3.9</span>
+          <div class="rpc-headline-card">
+            <div class="rpc-headline-top">
+              <span class="rpc-headline-company">네이버웹툰</span>
+              <span class="rpc-headline-role">마케터 | 현직자</span>
+            </div>
+            <div class="rpc-headline-industry">IT/웹/통신</div>
+            <div class="rpc-headline-quote">"일이 토나올 정도로 많아서 일, 집 무한 반복이 된다 모두 일하다가 피폐해짐 다들 점점 퇴사한다.."</div>
+            <div class="rpc-headline-footer">
+              <span class="rpc-headline-helpful">도움이 됐어요 👍 35 · 2026.03 작성</span>
+              <span class="rpc-headline-rating">⭐ 3.8</span>
+            </div>
           </div>
-          <div class="bar-row">
-            <span class="bar-year">2023</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 60%"></div></div>
-            <span style="font-size:13px; font-weight:600; color:var(--text-primary); margin-left:12px; flex-shrink:0;">3.5</span>
+          <div class="rpc-headline-card">
+            <div class="rpc-headline-top">
+              <span class="rpc-headline-company">카카오엔터테인먼트</span>
+              <span class="rpc-headline-role">프로덕트 디자이너 | 전직자</span>
+            </div>
+            <div class="rpc-headline-industry">IT/웹/통신</div>
+            <div class="rpc-headline-quote">"성장하고 싶은 주니어라면 추천, 다만 번아웃 주의"</div>
+            <div class="rpc-headline-footer">
+              <span class="rpc-headline-helpful">도움이 됐어요 👍 41 · 2026.02 작성</span>
+              <span class="rpc-headline-rating">⭐ 3.5</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 섹션 3: 지금 인기있는 리뷰 키워드 -->
+      <!-- 섹션 F: 이런 리뷰 어떠세요? -->
       <div class="review-pc-section">
-        <h2 class="review-pc-section-title">지금 인기있는 리뷰 키워드</h2>
-        <div class="review-pc-card">
-          <div class="review-rank-item">
-            <span class="review-rank-num">1</span>
-            <div style="flex:1;">
-              <div class="review-rank-label">워라밸</div>
-              <div class="review-rank-count">리뷰 12,483개</div>
+        <div class="review-pc-section-header">
+          <h2 class="review-pc-section-title">이런 리뷰 어떠세요?</h2>
+        </div>
+        <div class="rpc-tab-row">
+          <button class="rpc-tab active">요즘 뜨는 기업</button>
+          <button class="rpc-tab">평점 상승중</button>
+          <button class="rpc-tab">재발견 중인 기업</button>
+        </div>
+        <div class="review-pc-card" style="padding: 0 24px;">
+          <div class="rpc-trending-card">
+            <div class="rpc-trending-top">
+              <span class="rpc-trending-company">네이버(주)</span>
+              <span class="rpc-trending-industry">IT/웹/통신</span>
             </div>
-            <span class="review-rank-badge">🔥 급상승</span>
-          </div>
-          <div class="review-rank-item">
-            <span class="review-rank-num gray">2</span>
-            <div style="flex:1;">
-              <div class="review-rank-label">성장 기회</div>
-              <div class="review-rank-count">리뷰 9,201개</div>
-            </div>
-          </div>
-          <div class="review-rank-item">
-            <span class="review-rank-num gray">3</span>
-            <div style="flex:1;">
-              <div class="review-rank-label">높은 연봉</div>
-              <div class="review-rank-count">리뷰 8,774개</div>
+            <div class="rpc-trending-quote">"최고의 육각형 회사, IT인이라면 누구나 꿈꿀 회사"</div>
+            <div class="rpc-trending-footer">
+              <span class="rpc-trending-stat">지난 주 대비 리뷰 조회 <span class="rpc-trending-up">34% ↑</span> · 총 리뷰 12,934</span>
+              <span class="rpc-trending-rating">⭐ 3.8</span>
             </div>
           </div>
-          <div class="review-rank-item">
-            <span class="review-rank-num gray">4</span>
-            <div style="flex:1;">
-              <div class="review-rank-label">수평적 문화</div>
-              <div class="review-rank-count">리뷰 7,356개</div>
+          <div class="rpc-trending-card">
+            <div class="rpc-trending-top">
+              <span class="rpc-trending-company">(주)케이티</span>
+              <span class="rpc-trending-industry">IT/웹/통신</span>
+            </div>
+            <div class="rpc-trending-quote">"안정적인 대기업, 워라밸 확실히 보장되는 환경"</div>
+            <div class="rpc-trending-footer">
+              <span class="rpc-trending-stat">지난 주 대비 리뷰 조회 <span class="rpc-trending-up">19% ↑</span> · 총 리뷰 12,934</span>
+              <span class="rpc-trending-rating">⭐ 3.8</span>
             </div>
           </div>
-          <div class="review-rank-item">
-            <span class="review-rank-num gray">5</span>
-            <div style="flex:1;">
-              <div class="review-rank-label">자율적인 업무 환경</div>
-              <div class="review-rank-count">리뷰 6,892개</div>
+          <div class="rpc-trending-card">
+            <div class="rpc-trending-top">
+              <span class="rpc-trending-company">카카오</span>
+              <span class="rpc-trending-industry">IT/웹/통신</span>
+            </div>
+            <div class="rpc-trending-quote">"성장 욕구 강한 사람에게 최적, 단 체력 관리 필수"</div>
+            <div class="rpc-trending-footer">
+              <span class="rpc-trending-stat">지난 주 대비 리뷰 조회 <span class="rpc-trending-up">11% ↑</span> · 총 리뷰 9,210</span>
+              <span class="rpc-trending-rating">⭐ 4.1</span>
             </div>
           </div>
+          <button class="rpc-more-btn">더보기 &gt;</button>
         </div>
       </div>
 
     </div>
+
+    <!-- 플로팅 작성 버튼 -->
+    <button class="review-fab" onclick="showToast('리뷰 작성 화면으로 이동합니다.')">
+      ✏️ 리뷰 작성
+    </button>
+
   </div>
 
   <!-- ==================== 이력서 작성 탭 ==================== -->
@@ -4172,6 +4730,56 @@
   </nav>
 
   <script>
+    /* ===== 내가 다녔던 기업 리뷰 — chip 필터 ===== */
+    var mineCTA = {
+      all: {
+        title: '내 경험이 누군가의 결정을 바꿀 수 있어요.',
+        desc: '다녔던 기업의 솔직한 이야기, 다음 지원자에게 진짜 도움이 됩니다.',
+        btn: '리뷰 작성하기 →'
+      },
+      jobplanet: {
+        title: '지금 다니는 잡플래닛, 솔직하게 어떠세요?',
+        desc: '현직자의 생생한 한마디가 입사를 고민하는 사람에게 가장 큰 도움이 돼요.',
+        btn: '현직자 리뷰 남기기 →'
+      },
+      kakao: {
+        title: '카카오를 떠난 이유, 기억나시나요?',
+        desc: '그 경험이 지금 카카오를 고민하는 누군가에게 꼭 필요한 정보예요.',
+        btn: '전직 경험 솔직하게 →'
+      },
+      naver: {
+        title: '네이버 재직 경험, 아직 유효합니다.',
+        desc: '합의 문화, 성장 속도… 당신이 직접 느낀 이야기를 남겨주세요.',
+        btn: '네이버 경험 공유하기 →'
+      },
+      toss: {
+        title: '토스에서의 압박감, 누군가는 알아야 해요.',
+        desc: '화려한 겉모습 뒤의 진짜 현실, 당신의 리뷰가 균형을 잡아줍니다.',
+        btn: '내 진짜 경험 남기기 →'
+      },
+      line: {
+        title: '기대와 달랐던 라인플러스, 기록해두세요.',
+        desc: '글로벌 vs 현실 — 그 괴리를 겪은 건 당신만이 아닐 수 있어요.',
+        btn: '솔직한 후기 남기기 →'
+      }
+    };
+
+    function filterMineReview(key) {
+      // 칩 활성화
+      document.querySelectorAll('#mine-chip-row .rpc-chip').forEach(function(c) {
+        c.classList.toggle('active', c.dataset.mine === key);
+      });
+      // 카드 표시/숨김
+      document.querySelectorAll('#mine-review-list .mine-card').forEach(function(card) {
+        card.style.display = (key === 'all' || card.dataset.company === key) ? '' : 'none';
+      });
+      // CTA 업데이트
+      var cta = mineCTA[key] || mineCTA.all;
+      document.getElementById('mine-cta-title').textContent = cta.title;
+      document.getElementById('mine-cta-desc').textContent = cta.desc;
+      document.getElementById('mine-cta-btn').textContent = cta.btn;
+    }
+
     function applyTab(tabId) {
       document.querySelectorAll('.tab-item').forEach(function(b) { b.classList.remove('active'); });
       document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
