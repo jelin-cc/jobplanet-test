@@ -988,7 +988,7 @@
           } else {
             cards=[
               {theme:fireImg+' <span style="font-weight:700;">이번 주</span> 가장 많이 본 리뷰',themeBg:'background:#FFF8EE;',helps:47,logo:'https://jelin-cc.github.io/jobplanet-ut/toss.png',co:'비바퍼블리카',badge:'전직장',job:'개발',date:'2026.03',score:'4.1',title:'복지는 점점 줄지만 다니기 좋은 회사. 실력보다는 인맥 관리를 잘해야 살아 남는 조직',pro:'수평적 문화가 실제로 작동해요. 사수 없어도 누구한테든 물어볼 수 있어서 주니어도 빠르게 성장해요.',con:'대부분 야근하는 듯. 자유롭지만 그만큼 압박이 느껴져요 물론 팀바팀일 수 있어요'},
-              {theme:fireImg+' <span style="font-weight:700;">이번 달</span> 가장 많이 본 리뷰',themeBg:'background:#F0F9FF;',helps:32,logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',co:'(주)당근마켓',badge:'현직장',job:'디자인',date:'2026.02',score:'4.0',title:'매우 자유롭고 실행력 있게 할 수 있어요. 다만 야근을 당연시하는 문화가 있어요',pro:'자유롭고 수평적이에요. 식재 지원, 편안한 분위기에요.',con:'커질수록 금전적 보상을 노린 불평러들이 들어오면서 약간 스트레스였음.'}
+              {theme:fireImg+'가장 <span style="font-weight:700;">최근</span>에 올라온 리뷰',themeBg:'background:#F0F9FF;',helps:0,timeAgo:true,logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',co:'(주)당근마켓',badge:'현직장',job:'디자인',date:'2026.02',score:'4.0',title:'매우 자유롭고 실행력 있게 할 수 있어요. 다만 야근을 당연시하는 문화가 있어요',pro:'자유롭고 수평적이에요. 식재 지원, 편안한 분위기에요.',con:'커질수록 금전적 보상을 노린 불평러들이 들어오면서 약간 스트레스였음.'}
             ];
           }
 
@@ -997,7 +997,7 @@
               /* 테마 뚜껑 */
               +'<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;'+c.themeBg+'border-bottom:1px solid var(--ln2);border-radius:var(--r) var(--r) 0 0;">'
               +'<span style="font-size:13px;color:var(--tx2);">'+c.theme+'</span>'
-              +'<span style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--brand);">'+thumbImg+' '+c.helps+'명에게 도움됨</span>'
+              +'<span style="display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:'+(c.timeAgo?'var(--tx4)':'var(--brand)')+';">'+(c.timeAgo?(['1분 전','3분 전','5분 전','12분 전','27분 전','1시간 전','2시간 전'][Math.floor(Math.random()*7)]):(thumbImg+' '+c.helps+'명에게 도움됨'))+'</span>'
               +'</div>'
               +'<div style="padding:18px 20px;">'
               /* 상단: 로고 + 회사명 + 별점 */
