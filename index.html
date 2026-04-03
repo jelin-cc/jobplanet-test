@@ -999,51 +999,8 @@
         <button id="cat-4" onclick="setCatCustom()" style="padding:7px 16px;border-radius:var(--rfull);font-size:13px;font-weight:500;border:1.5px solid var(--ln);background:var(--surface);color:var(--tx3);cursor:pointer;font-family:var(--font);transition:all .2s;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-briefcase.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;"> 직군 맞춤</button>
       </div>
 
-      <!-- 공고 리스트 -->
-      <div class="job-list" id="rjob-list">
-        <div class="job-item" style="padding:18px 20px;">
-          <div class="job-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/naver.png" alt=""></div>
-          <div class="job-info" style="flex:1;">
-            <div class="job-title" style="font-size:15px;margin-bottom:4px;">Frontend Engineer (React)</div>
-            <div class="job-co" style="margin-bottom:8px;">네이버</div>
-            <div style="font-size:12px;color:var(--tx4);margin-bottom:8px;">서울 · 경력 3년↑ · 학력무관</div>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">승진 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>12건</span>
-              <span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 61%</span>
-              <span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">최근 4개월 기준</span>
-            </div>
-          </div>
-          <span class="urg-dday" style="flex-shrink:0;">D-3</span>
-        </div>
-        <div class="job-item" style="padding:18px 20px;">
-          <div class="job-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/toss.png" alt=""></div>
-          <div class="job-info" style="flex:1;">
-            <div class="job-title" style="font-size:15px;margin-bottom:4px;">Frontend Engineer (10년차 리더급)</div>
-            <div class="job-co" style="margin-bottom:8px;">비바리퍼블리카</div>
-            <div style="font-size:12px;color:var(--tx4);margin-bottom:8px;">서울 · 경력 10년↑ · 학력무관</div>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">승진 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>8건</span>
-              <span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 78%</span>
-              <span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">최근 6개월 기준</span>
-            </div>
-          </div>
-          <span class="urg-dday" style="flex-shrink:0;">D-3</span>
-        </div>
-        <div class="job-item" style="padding:18px 20px;">
-          <div class="job-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/kakao.png" alt=""></div>
-          <div class="job-info" style="flex:1;">
-            <div class="job-title" style="font-size:15px;margin-bottom:4px;">Frontend Engineer (2년차 이상)</div>
-            <div class="job-co" style="margin-bottom:8px;">카카오</div>
-            <div style="font-size:12px;color:var(--tx4);margin-bottom:8px;">서울 · 경력 2년↑ · 학력무관</div>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">승진 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>7건</span>
-              <span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 49%</span>
-              <span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">최근 6개월 기준</span>
-            </div>
-          </div>
-          <span class="urg-dday" style="flex-shrink:0;">D-3</span>
-        </div>
-      </div>
+      <!-- 공고 리스트 (JS로 렌더링) -->
+      <div class="job-list" id="rjob-list"></div>
 
       <script>
         var BASE='https://jelin-cc.github.io/jobplanet-ut/';
@@ -1054,25 +1011,27 @@
         var arrowSvg='<svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>';
         var extSvgSm='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
         var tagPool=[
-          {html:'<span style="font-size:12px;font-weight:700;color:#D97706;background:#FFFBEB;padding:3px 8px;border-radius:var(--rfull);display:inline-flex;align-items:center;gap:3px;"><span style="width:14px;height:14px;border-radius:50%;background:var(--brand);display:inline-flex;align-items:center;justify-content:center;"><span style="font-size:7px;font-weight:700;color:#fff;">W</span></span> 취업축하금 100만원</span>',priority:1},
-          {html:'<span style="font-size:12px;font-weight:700;color:#D97706;background:#FFFBEB;padding:3px 8px;border-radius:var(--rfull);display:inline-flex;align-items:center;gap:3px;"><span style="width:14px;height:14px;border-radius:50%;background:var(--brand);display:inline-flex;align-items:center;justify-content:center;"><span style="font-size:7px;font-weight:700;color:#fff;">W</span></span> 취업축하금 200만원</span>',priority:1},
-          {html:'<span style="font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);display:inline-flex;align-items:center;gap:3px;">잡코리아 '+extSvgSm+'</span>',priority:2},
-          {html:'<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">승진 언급 '+arrowSvg+'{n}건</span>',priority:3,dynamic:true},
-          {html:'<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">연봉 언급 '+arrowSvg+'{n}건</span>',priority:3,dynamic:true},
-          {html:'<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">워라밸 언급 '+arrowSvg+'{n}건</span>',priority:3,dynamic:true},
-          {html:'<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 {p}%</span>',priority:4,dynamic:true},
+          {html:'<span style="font-size:12px;font-weight:700;color:#D97706;background:#FFFBEB;padding:3px 8px;border-radius:var(--rfull);display:inline-flex;align-items:center;gap:3px;"><span style="width:14px;height:14px;border-radius:50%;background:#D97706;display:inline-flex;align-items:center;justify-content:center;"><span style="font-size:7px;font-weight:700;color:#fff;">W</span></span> 취업축하금 100만원</span>'},
+          {html:'<span style="font-size:12px;font-weight:700;color:#D97706;background:#FFFBEB;padding:3px 8px;border-radius:var(--rfull);display:inline-flex;align-items:center;gap:3px;"><span style="width:14px;height:14px;border-radius:50%;background:#D97706;display:inline-flex;align-items:center;justify-content:center;"><span style="font-size:7px;font-weight:700;color:#fff;">W</span></span> 취업축하금 200만원</span>'},
+          {html:'<span style="font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);display:inline-flex;align-items:center;gap:3px;">잡코리아 '+extSvgSm+'</span>'},
+          {html:'<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">승진 언급 '+arrowSvg+'{n}건</span>',dynamic:true},
+          {html:'<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">연봉 언급 '+arrowSvg+'{n}건</span>',dynamic:true},
+          {html:'<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">워라밸 언급 '+arrowSvg+'{n}건</span>',dynamic:true},
+          {html:'<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 {p}%</span>',dynamic:true},
+          {html:'<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">최근 {m}개월 기준</span>',dynamic:true},
         ];
         function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
         function shuffle(arr){return arr.slice().sort(function(){return Math.random()-0.5;});}
         function genTags(){
           var pool=shuffle(tagPool);
-          pool.sort(function(a,b){return a.priority-b.priority;});
-          var selected=pool.slice(0,Math.floor(Math.random()*2)+2); // 2~3 tags
+          var count=Math.floor(Math.random()*2)+2; // 2~3 tags
+          var selected=pool.slice(0,count);
           return selected.map(function(t){
             var h=t.html;
             if(t.dynamic){
               h=h.replace('{n}',Math.floor(Math.random()*18)+3);
               h=h.replace('{p}',Math.floor(Math.random()*40)+40);
+              h=h.replace('{m}',Math.floor(Math.random()*6)+3);
             }
             return h;
           }).join('');
@@ -1099,7 +1058,7 @@
         }
         function renderJobCard(j){
           return '<div class="job-item" style="padding:18px 20px;">'+
-            '<div class="job-logo"><img src="'+j.logo+'" alt="" style="width:100%;height:100%;object-fit:contain;"></div>'+
+            '<div style="width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><img src="'+j.logo+'" alt="" style="width:36px;height:36px;object-fit:contain;"></div>'+
             '<div class="job-info" style="flex:1;">'+
               '<div class="job-title" style="font-size:15px;margin-bottom:4px;">'+j.title+'</div>'+
               '<div class="job-co" style="margin-bottom:8px;">'+j.co+'</div>'+
@@ -1185,6 +1144,8 @@
             }
           });
         }
+        // 초기 공고 렌더링
+        document.getElementById('rjob-list').innerHTML = genJobs(3).map(renderJobCard).join('');
       </script>
 
     </div><!-- /left -->
@@ -5231,7 +5192,7 @@ filterInterest('all');
   .card-toggle button.active{background:var(--brand);color:#fff;}
   /* 필터 칩 */
   .jb-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px;}
-  .jb-fc{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--tx4);border-radius:var(--rfull);padding:6px 14px;font-size:13px;font-weight:500;color:var(--tx2);background:var(--surface);cursor:pointer;font-family:var(--font);transition:all .15s;}
+  .jb-fc{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--gray-200, #dfe1e5);border-radius:var(--rfull);padding:6px 14px;font-size:13px;font-weight:500;color:var(--tx2);background:var(--surface);cursor:pointer;font-family:var(--font);transition:all .15s;}
   .jb-fc:hover{border-color:var(--brand);color:var(--brand);}
   .jb-fc.active{border-color:var(--brand);color:var(--brand);background:var(--brand-lt);}
   .jb-fc svg{width:12px;height:12px;}
