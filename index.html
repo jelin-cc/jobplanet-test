@@ -1083,16 +1083,19 @@
             var jLogoInner = jImgFile
               ? '<img src="' + jImgFile + '" alt="">'
               : '<span style="font-size:11px;font-weight:700;color:var(--tx3);">' + j.logo + '</span>';
-            return '<div class="job-item">'+
+            return '<div class="job-item" style="padding:18px 20px;">'+
               '<div class="job-logo">'+jLogoInner+'</div>'+
-              '<div class="job-info">'+
-                '<div class="job-co">'+j.co+'</div>'+
-                '<div class="job-title">'+j.title+'</div>'+
+              '<div class="job-info" style="flex:1;">'+
+                '<div class="job-title" style="font-size:15px;margin-bottom:4px;">'+j.title+'</div>'+
+                '<div class="job-co" style="margin-bottom:8px;">'+j.co+'</div>'+
+                '<div style="font-size:12px;color:var(--tx4);margin-bottom:8px;">서울 · 경력 3년↑ · 학력무관</div>'+
+                '<div style="display:flex;gap:8px;align-items:center;">'+
+                  '<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">'+j.kw+'</span>'+
+                  '<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 60%</span>'+
+                  '<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">최근 6개월 기준</span>'+
+                '</div>'+
               '</div>'+
-              '<div style="text-align:right;flex-shrink:0;">'+
-                '<div style="font-size:12px;font-weight:700;color:var(--brand);margin-bottom:3px;">'+j.kw+'</div>'+
-                '<div class="job-dday '+(j.urgent?'urgent':'safe')+'">'+j.dday+'</div>'+
-              '</div>'+
+              '<span class="urg-dday" style="flex-shrink:0;">'+j.dday+'</span>'+
             '</div>';
           }).join('');
           [0,1,2,3,4].forEach(function(i){
@@ -1119,9 +1122,9 @@
           }
           // 직군 입력된 경우 → 맞춤 공고 표시
           var customJobs = [
-            {logo:'T',co:'토스 · 서울 · 경력 3년↑',title:obSelectedJob+' (3년 이상)',kw:obSelectedJob+' 추천',dday:'D-5',urgent:true},
-            {logo:'K',co:'카카오 · 판교 · 경력 무관',title:obSelectedJob+' (신입/경력)',kw:obSelectedJob+' 추천',dday:'D-12',urgent:false},
-            {logo:'N',co:'네이버 · 판교 · 경력 2년↑',title:obSelectedJob+' (주니어)',kw:obSelectedJob+' 추천',dday:'D-18',urgent:false}
+            {logo:'T',co:'토스',meta:'서울 · 경력 3년↑ · 학력무관',title:obSelectedJob+' (3년 이상)',kw:obSelectedJob+' 추천',dday:'D-5',urgent:true},
+            {logo:'K',co:'카카오',meta:'판교 · 경력 무관 · 학력무관',title:obSelectedJob+' (신입/경력)',kw:obSelectedJob+' 추천',dday:'D-12',urgent:false},
+            {logo:'N',co:'네이버',meta:'판교 · 경력 2년↑ · 학력무관',title:obSelectedJob+' (주니어)',kw:obSelectedJob+' 추천',dday:'D-18',urgent:false}
           ];
           document.getElementById('rjob-title').textContent = obSelectedJob+' 분들께 추천해요';
           var list = document.getElementById('rjob-list');
@@ -1130,16 +1133,19 @@
             var jLogoInner = jImgFile
               ? '<img src="' + jImgFile + '" alt="">'
               : '<span style="font-size:11px;font-weight:700;color:var(--tx3);">' + j.logo + '</span>';
-            return '<div class="job-item">'+
+            return '<div class="job-item" style="padding:18px 20px;">'+
               '<div class="job-logo">'+jLogoInner+'</div>'+
-              '<div class="job-info">'+
-                '<div class="job-co">'+j.co+'</div>'+
-                '<div class="job-title">'+j.title+'</div>'+
+              '<div class="job-info" style="flex:1;">'+
+                '<div class="job-title" style="font-size:15px;margin-bottom:4px;">'+j.title+'</div>'+
+                '<div class="job-co" style="margin-bottom:8px;">'+j.co+'</div>'+
+                '<div style="font-size:12px;color:var(--tx4);margin-bottom:8px;">'+j.meta+'</div>'+
+                '<div style="display:flex;gap:8px;align-items:center;">'+
+                  '<span style="font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:3px 8px;border-radius:var(--rfull);">'+j.kw+'</span>'+
+                  '<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">현직자 비중 60%</span>'+
+                  '<span style="font-size:12px;font-weight:600;color:var(--tx4);background:var(--ln2);padding:3px 8px;border-radius:var(--rfull);">최근 6개월 기준</span>'+
+                '</div>'+
               '</div>'+
-              '<div style="text-align:right;flex-shrink:0;">'+
-                '<div style="font-size:12px;font-weight:700;color:var(--brand);margin-bottom:3px;">'+j.kw+'</div>'+
-                '<div class="job-dday '+(j.urgent?'urgent':'safe')+'">'+j.dday+'</div>'+
-              '</div>'+
+              '<span class="urg-dday" style="flex-shrink:0;">'+j.dday+'</span>'+
             '</div>';
           }).join('');
           [0,1,2,3,4].forEach(function(i){
