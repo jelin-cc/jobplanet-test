@@ -14564,6 +14564,7 @@ function closeRatePopup() {
         // List view (no image)
         var logoFiles = [];
         for(var li=1;li<=36;li++) logoFiles.push('https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_'+li+'.svg');
+        for(var lsi=logoFiles.length-1;lsi>0;lsi--){var lsj=Math.floor(Math.random()*(lsi+1));var lst=logoFiles[lsi];logoFiles[lsi]=logoFiles[lsj];logoFiles[lsj]=lst;}
 
         var listHtml = cards.map(function(c, ci) {
           var isExt = c.external === 'jobkorea';
