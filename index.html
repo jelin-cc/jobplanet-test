@@ -3285,12 +3285,27 @@
         function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
         function shuffle(arr){return arr.slice().sort(function(){return Math.random()-0.5;});}
         function genTags(){
-          // 우선순위별 1개씩만, 최대 3개, 우선순위순 노출
+          // 우선순위별 1개씩, 랜덤으로 포함 여부 결정, 최대 3개
           var byPri = {};
           shuffle(tagPool).forEach(function(t){
             if(!byPri[t.priority]) byPri[t.priority] = t;
           });
-          var selected = [byPri[1], byPri[2], byPri[3], byPri[4]].filter(Boolean).slice(0,3);
+          var candidates = [];
+          // 취업축하금: 40% 확률
+          if(byPri[1] && Math.random() < 0.4) candidates.push(byPri[1]);
+          // 잡코리아: 20% 확률
+          if(byPri[2] && Math.random() < 0.2) candidates.push(byPri[2]);
+          // 리뷰태그: 70% 확률
+          if(byPri[3] && Math.random() < 0.7) candidates.push(byPri[3]);
+          // 비중태그: 50% 확률
+          if(byPri[4] && Math.random() < 0.5) candidates.push(byPri[4]);
+          // 최소 1개 보장
+          if(candidates.length === 0) {
+            candidates.push(byPri[3] || byPri[4] || byPri[1]);
+          }
+          // 우선순위순 정렬, 최대 3개
+          candidates.sort(function(a,b){return a.priority - b.priority;});
+          var selected = candidates.slice(0,3);
           return selected.map(function(t){
             var h=t.html;
             if(t.dynamic){
@@ -16663,7 +16678,7 @@ function closeRatePopup() {
       ov=document.createElement('div');
       ov.id='authLoader';
       ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
-      ov.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;gap:12px;"><div style="width:36px;height:36px;border:4px solid var(--ln);border-top-color:var(--brand);border-radius:50%;animation:authSpin .6s linear infinite;"></div><span style="font-size:14px;font-weight:600;color:var(--tx3);">잠시만요...</span></div>';
+      ov.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;gap:12px;"><div style="width:36px;height:36px;border:4px solid var(--ln);border-top-color:var(--brand);border-radius:50%;animation:authSpin .6s linear infinite;"></div><span style="font-size:14px;font-weight:600;color:var(--tx3);">loading...</span></div>';
       var st=document.createElement('style');
       st.textContent='@keyframes authSpin{to{transform:rotate(360deg)}}';
       document.head.appendChild(st);
