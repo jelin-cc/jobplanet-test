@@ -14748,14 +14748,17 @@ function closeRatePopup() {
         salShowTabs = !salShowTabs;
         document.getElementById('sal-tabs').style.display = salShowTabs ? 'block' : 'none';
         document.getElementById('sal-arrow-icon').style.transform = salShowTabs ? 'rotate(180deg)' : 'rotate(0deg)';
-        if (salShowTabs) {
-          setTimeout(function(){ document.addEventListener('click', closeSalTabs, {once:true}); }, 0);
-        }
       }
-      function closeSalTabs(e) {
+      // 드롭다운 외부 클릭 시 닫기
+      document.addEventListener('click', function(e){
+        if(!salShowTabs) return;
         var tabs = document.getElementById('sal-tabs');
-        if (tabs && !tabs.contains(e.target)) { salShowTabs = false; tabs.style.display = 'none'; document.getElementById('sal-arrow-icon').style.transform='rotate(0deg)'; }
-      }
+        var hd = document.getElementById('sal-hd-with');
+        if(tabs && !tabs.contains(e.target) && hd && !hd.contains(e.target)){
+          salShowTabs = false; tabs.style.display = 'none';
+          document.getElementById('sal-arrow-icon').style.transform='rotate(0deg)';
+        }
+      });
 
       function setSalaryTab(idx) {
         salTabIdx = idx;
