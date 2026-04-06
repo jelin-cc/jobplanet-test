@@ -18013,6 +18013,11 @@ function closeRatePopup() {
         var pc = el.querySelector('.fit-pct'); if(pc) pc.textContent = d.pct;
         el.style.background='#F9FAFB'; el.style.boxShadow='none';
       });
+      // 시작하기 결과 → 시작하기 박스 복원
+      var sb = document.getElementById('obStartBox');
+      var rb = document.getElementById('obResultBox');
+      if(sb) sb.style.display = '';
+      if(rb) rb.style.display = 'none';
       if(typeof renderReviewCards==='function') renderReviewCards();
     });
   }
