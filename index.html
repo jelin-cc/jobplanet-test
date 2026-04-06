@@ -17945,18 +17945,24 @@ function closeRatePopup() {
     }
 
     function openResumeEditor() {
-      // 새 이력서: 폼 초기화
-      document.querySelector('.re-title-input').value = '새 이력서';
-      document.querySelectorAll('#re-sec-basic .re-basic-fields .re-input').forEach(function(el){ el.value = ''; });
-      var careerCard = document.querySelector('#careerList .re-card');
-      careerCard.querySelectorAll('.re-input').forEach(function(el){ el.value = ''; });
-      careerCard.querySelector('textarea').value = '';
-      var eduCard = document.querySelector('#eduList .re-card');
-      eduCard.querySelectorAll('input.re-input').forEach(function(el){ el.value = ''; });
-      document.querySelector('#re-sec-intro textarea').value = '';
-      document.getElementById('introCount').textContent = '0';
-      document.getElementById('reProgressFill').style.width = '10%';
-      document.getElementById('reProgressPct').textContent = '10%';
+      try {
+        document.querySelector('.re-title-input').value = '새 이력서';
+        document.querySelectorAll('#re-sec-basic .re-basic-fields .re-input').forEach(function(el){ el.value = ''; });
+        var careerCard = document.querySelector('#careerList .re-card');
+        if(careerCard){
+          careerCard.querySelectorAll('.re-input').forEach(function(el){ el.value = ''; });
+          var ta = careerCard.querySelector('textarea');
+          if(ta) ta.value = '';
+          careerCard.querySelectorAll('.re-task-input').forEach(function(el){ el.value = ''; });
+        }
+        var eduCard = document.querySelector('#eduList .re-card');
+        if(eduCard) eduCard.querySelectorAll('input.re-input').forEach(function(el){ el.value = ''; });
+        var introTa = document.querySelector('#re-sec-intro textarea');
+        if(introTa) introTa.value = '';
+        var ic = document.getElementById('introCount'); if(ic) ic.textContent = '0';
+        var pf = document.getElementById('reProgressFill'); if(pf) pf.style.width = '10%';
+        var pp = document.getElementById('reProgressPct'); if(pp) pp.textContent = '10%';
+      } catch(e){ console.warn('resume init:', e); }
       go('resume-editor');
     }
 
