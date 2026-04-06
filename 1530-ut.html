@@ -3188,15 +3188,24 @@
           var fireImg='<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-fire.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;">';
 
           var cards;
-          if(isLoggedIn&&hasJob){
-            cards=[
-              {theme:fireImg+' <span style="font-weight:700;">전직장</span> 화제의 리뷰',themeBg:'background:#FFF8EE;',helps:47,logo:'https://jelin-cc.github.io/jobplanet-ut/toss.png',co:'비바퍼블리카',badge:'전직장',job:'개발',date:'2026.03',score:'4.1',title:'복지는 점점 줄지만 다니기 좋은 회사. 실력보다는 인맥 관리를 잘해야 살아 남는 조직',pro:'수평적 문화가 실제로 작동해요. 사수 없어도 누구한테든 물어볼 수 있어서 주니어도 빠르게 성장해요.',con:'대부분 야근하는 듯. 자유롭지만 그만큼 압박이 느껴져요 물론 팀바팀일 수 있어요'},
-              {theme:'<span style="font-weight:700;color:var(--brand);">'+obSelectedJob+'</span> 추천 리뷰',themeBg:'background:var(--brand-lt);',helps:32,logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',co:'(주)당근마켓',badge:'현직장',job:'디자인',date:'2026.02',score:'4.0',title:'매우 자유롭고 실행력 있게 할 수 있어요. 다만 야근을 당연시하는 문화가 있어요',pro:'자유롭고 수평적이에요. 식재 지원, 편안한 분위기에요.',con:'커질수록 금전적 보상을 노린 불평러들이 들어오면서 약간 스트레스였음.'}
-            ];
+          var card1_hot = {theme:fireImg+' <span style="font-weight:700;">전직장</span> 화제의 리뷰',themeBg:'background:#FFF8EE;',helps:47,logo:'https://jelin-cc.github.io/jobplanet-ut/toss.png',co:'비바퍼블리카',badge:'전직장',job:'개발',date:'2026.03',score:'4.1',title:'복지는 점점 줄지만 다니기 좋은 회사. 실력보다는 인맥 관리를 잘해야 살아 남는 조직',pro:'수평적 문화가 실제로 작동해요. 사수 없어도 누구한테든 물어볼 수 있어서 주니어도 빠르게 성장해요.',con:'대부분 야근하는 듯. 자유롭지만 그만큼 압박이 느껴져요 물론 팀바팀일 수 있어요'};
+          var card2_recent = {theme:fireImg+'가장 <span style="font-weight:700;">최근</span>에 올라온 리뷰',themeBg:'background:#F0F9FF;',helps:0,timeAgo:true,logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',co:'(주)당근마켓',badge:'현직장',job:'디자인',date:'2026.02',score:'4.0',title:'매우 자유롭고 실행력 있게 할 수 있어요. 다만 야근을 당연시하는 문화가 있어요',pro:'자유롭고 수평적이에요. 식재 지원, 편안한 분위기에요.',con:'커질수록 금전적 보상을 노린 불평러들이 들어오면서 약간 스트레스였음.'};
+          var card2_job = {theme:thumbImg+' <span style="font-weight:700;color:var(--brand);">'+obSelectedJob+'</span> 추천 리뷰',themeBg:'background:var(--brand-lt);',helps:32,logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',co:'(주)당근마켓',badge:'현직장',job:'디자인',date:'2026.02',score:'4.0',title:'매우 자유롭고 실행력 있게 할 수 있어요. 다만 야근을 당연시하는 문화가 있어요',pro:'자유롭고 수평적이에요. 식재 지원, 편안한 분위기에요.',con:'커질수록 금전적 보상을 노린 불평러들이 들어오면서 약간 스트레스였음.'};
+
+          if(isLoggedIn) {
+            // 로그인 상태: 첫번째는 항상 전직장 화제의 리뷰
+            if(hasJob) {
+              // 직무 입력됨: 두번째는 [직무] 추천 리뷰 (엄지 아이콘)
+              cards = [card1_hot, card2_job];
+            } else {
+              // 직무 미입력: 두번째는 최근에 올라온 리뷰
+              cards = [card1_hot, card2_recent];
+            }
           } else {
+            // 비로그인: 이번 주 가장 많이 본 리뷰 + 최근에 올라온 리뷰
             cards=[
               {theme:fireImg+' <span style="font-weight:700;">이번 주</span> 가장 많이 본 리뷰',themeBg:'background:#FFF8EE;',helps:47,logo:'https://jelin-cc.github.io/jobplanet-ut/toss.png',co:'비바퍼블리카',badge:'전직장',job:'개발',date:'2026.03',score:'4.1',title:'복지는 점점 줄지만 다니기 좋은 회사. 실력보다는 인맥 관리를 잘해야 살아 남는 조직',pro:'수평적 문화가 실제로 작동해요. 사수 없어도 누구한테든 물어볼 수 있어서 주니어도 빠르게 성장해요.',con:'대부분 야근하는 듯. 자유롭지만 그만큼 압박이 느껴져요 물론 팀바팀일 수 있어요'},
-              {theme:fireImg+'가장 <span style="font-weight:700;">최근</span>에 올라온 리뷰',themeBg:'background:#F0F9FF;',helps:0,timeAgo:true,logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',co:'(주)당근마켓',badge:'현직장',job:'디자인',date:'2026.02',score:'4.0',title:'매우 자유롭고 실행력 있게 할 수 있어요. 다만 야근을 당연시하는 문화가 있어요',pro:'자유롭고 수평적이에요. 식재 지원, 편안한 분위기에요.',con:'커질수록 금전적 보상을 노린 불평러들이 들어오면서 약간 스트레스였음.'}
+              card2_recent
             ];
           }
 
