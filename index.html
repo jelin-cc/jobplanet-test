@@ -14412,10 +14412,12 @@ function closeRatePopup() {
         for(var si=_thumbShuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var st=_thumbShuffled[si];_thumbShuffled[si]=_thumbShuffled[sj];_thumbShuffled[sj]=st;}
       }
       reshuffleThumbs();
-      function getCardThumb(idx){return _thumbShuffled[idx % _thumbShuffled.length];}
+      var _thumbOffset = 0;
+      function getCardThumb(idx){return _thumbShuffled[(idx + _thumbOffset) % _thumbShuffled.length];}
 
       function renderCards(caseKey) {
         reshuffleThumbs();
+        _thumbOffset = Math.floor(Math.random() * _thumbShuffled.length);
         var cfg = caseConfig[caseKey];
         var allCards = cfg.cards;
         // hotTag 필터
