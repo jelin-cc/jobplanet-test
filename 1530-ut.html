@@ -13531,22 +13531,42 @@ function closeRatePopup() {
   .jb-fc.filtered svg{stroke:var(--brand);}
   /* 12컬럼 그리드 기준: 1060px / 12col / 거터 20px / 컬럼 70px
      이미지형 카드: 3컬럼 span × 4 = repeat(4, 1fr) gap 20px → 카드 250px */
-  .img-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-  .img-card{background:var(--surface);border-radius:var(--r);cursor:pointer;transition:all .2s;overflow:hidden;}
-  .img-card:hover{box-shadow:var(--sh);transform:translateY(-2px);}
-  .img-card .thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;}
+  .img-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 16px;margin-top:24px;}
+  .list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+  .list-card{padding:20px;background:#fff;box-shadow:0 1px 12px rgba(0,0,0,0.08);border-radius:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+  .list-card .lc-body{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .list-card .lc-logo{height:16px;margin-bottom:4px;}
+  .list-card .lc-logo img{height:16px;display:block;}
+  .list-card .lc-title{font-size:16px;font-weight:600;color:#292C32;line-height:1.45;}
+  .list-card .lc-company{font-size:13px;font-weight:600;color:#768091;}
+  .list-card .lc-meta{font-size:11px;font-weight:400;color:#768091;margin-top:0;}
+  .list-card .lc-tags{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .list-card .lc-dday{padding:4px 6px;background:#FFF0F0;border-radius:6px;font-size:11px;font-weight:700;color:#FA5252;}
+  .list-card .lc-dday.normal{background:#F4F5F7;color:#768091;}
+  .list-card .lc-tag{padding:4px 8px;background:#F3FCF9;border-radius:6px;font-size:11px;font-weight:600;color:#00C274;}
+  .list-card .lc-tag.ext-tag{background:#EFF6FF;color:#2563EB;}
+  .list-card .lc-tag.ratio-tag{background:#FFF8E1;color:#F59E0B;}
+  .list-card .lc-bk{flex-shrink:0;color:#AFB5BE;}
+  .list-card .lc-bk svg{width:20px;height:20px;}
+  .img-card{display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:all .2s;}
+  .img-card:hover{transform:translateY(-2px);}
+  .img-card .thumb{width:100%;aspect-ratio:3/2;border-radius:12px;position:relative;overflow:hidden;}
+  .img-card .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
   .img-card .bk-btn{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(255,255,255,.88);border-radius:7px;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity .15s;}
   .img-card:hover .bk-btn{opacity:1;}
-  .img-card .bonus-badge{position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#fff;background:var(--brand);padding:4px 10px;border-radius:var(--rfull);}
+  .img-card .bonus-badge{position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.65);padding:4px 10px;border-radius:var(--rfull);}
   .img-card .bonus-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#fff;flex-shrink:0;}
   .img-card .bk-btn svg{width:13px;height:13px;color:var(--tx3);}
-  .img-card .ic-body{padding:12px 14px;}
-  .img-card .ic-co{font-size:12px;color:var(--tx3);margin-bottom:3px;}
-  .img-card .ic-title{font-size:14px;font-weight:700;line-height:1.4;margin-bottom:4px;color:var(--tx);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  .img-card .ic-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
-  .img-card .ic-tag{font-size:11px;font-weight:500;color:var(--brand);background:var(--brand-lt);padding:2px 7px;border-radius:var(--rfull);}
-  .img-card .ic-meta{font-size:11px;color:var(--tx4);}
-  .img-card .ic-dday{font-size:11px;font-weight:700;color:#EF4444;}
+  .img-card .ic-body{display:flex;flex-direction:column;gap:8px;}
+  .img-card .ic-co{font-size:13px;color:#768091;font-weight:600;}
+  .img-card .ic-title{font-size:16px;font-weight:700;line-height:1.45;color:#1A1A1E;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .img-card .ic-meta{font-size:11px;color:#768091;font-weight:400;}
+  .img-card .ic-tags{display:flex;gap:4px;flex-wrap:wrap;}
+  .img-card .ic-tag{padding:4px 8px;background:#F3FCF9;border-radius:6px;font-size:11px;font-weight:600;color:#00C274;white-space:nowrap;}
+  .img-card .ic-tag.ext-tag{background:#EFF6FF;color:#2563EB;}
+  .img-card .ic-tag.ratio-tag{background:#FFF8E1;color:#F59E0B;}
+  .ic-dday{padding:2px 6px;background:#FFF0F0;border-radius:4px;font-size:11px;font-weight:700;color:#FA5252;}
+  .ic-dday.normal{background:#F4F5F7;color:#768091;}
   /* 로고형 카드 리스트 */
   .logo-list{display:flex;flex-direction:column;gap:8px;}
   .logo-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);display:flex;align-items:center;gap:16px;padding:16px 20px;cursor:pointer;transition:all .2s;}
@@ -13592,7 +13612,7 @@ function closeRatePopup() {
   <main class="jb-main" style="padding:24px 0 60px;">
 
     <!-- 페이지 타이틀 -->
-    <h1 style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:20px;letter-spacing:-.3px;">공고 둘러보기</h1>
+    <h1 style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:20px;letter-spacing:-.3px;cursor:pointer;" onclick="cycleCardView()">공고 둘러보기</h1>
 
     <!-- 필터 드롭다운 행 -->
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
@@ -13626,7 +13646,6 @@ function closeRatePopup() {
         </button>
         <div id="sort-menu" style="display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--surface);border:1.5px solid var(--ln);border-radius:var(--r);box-shadow:0 4px 16px rgba(0,0,0,.1);z-index:100;min-width:140px;overflow:hidden;">
           <button onclick="setSortOrder('latest')" id="so-latest" class="sort-opt active-sort" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:600;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">최신순</button>
-          <button onclick="setSortOrder('review')" id="so-review" class="sort-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;border-top:1px solid var(--ln2);cursor:pointer;font-family:var(--font);">리뷰 평가순</button>
           <button onclick="setSortOrder('popular')" id="so-popular" class="sort-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;border-top:1px solid var(--ln2);cursor:pointer;font-family:var(--font);">인기순</button>
           <button onclick="setSortOrder('deadline')" id="so-deadline" class="sort-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;border-top:1px solid var(--ln2);cursor:pointer;font-family:var(--font);">마감임박순</button>
         </div>
@@ -13635,11 +13654,14 @@ function closeRatePopup() {
 
     <!-- 카드 영역 -->
     <div id="view-img" class="img-grid"></div>
+    <div id="view-list" class="list-grid" style="display:none;"></div>
     <div id="view-logo" class="logo-list" style="display:none;"></div>
 
     <!-- 잡코리아 외부링크가 있는 카드에서는 태그 대신 잡코리아 배지만 표시 -->
 
     <script>
+      var currentCardView = 0; // 0=image, 1=list, 2=list+logo
+      var currentListShowLogo = false;
       var currentView = 'img';
       var currentHotTag = null;
 
@@ -13719,11 +13741,11 @@ function closeRatePopup() {
 
       function setSortOrder(order) {
         currentSortOrder = order;
-        var labels = { review:'리뷰 평가순', popular:'인기순', deadline:'마감임박순 <img src="https://jelin-cc.github.io/jobplanet-ut/emoji-fire.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;">', latest:'최신순' };
+        var labels = { popular:'인기순', deadline:'마감임박순 <img src="https://jelin-cc.github.io/jobplanet-ut/emoji-fire.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;">', latest:'최신순' };
         document.getElementById('sort-label').innerHTML = labels[order];
         document.getElementById('sort-menu').style.display = 'none';
         // 옵션 스타일 업데이트
-        ['review','popular','deadline','latest'].forEach(function(k) {
+        ['popular','deadline','latest'].forEach(function(k) {
           var el = document.getElementById('so-' + k);
           if (!el) return;
           if (k === order) {
@@ -13817,24 +13839,36 @@ function closeRatePopup() {
           var bonusBadge = c.bonus ? '<div class="bonus-badge">' + c.bonus + '</div>' : '';
           var compImg = companyImgByName[c.co] || companyImgMap[c.logo];
           var thumbBg = compImg
-            ? '<img src="' + compImg + '" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">'
+            ? '<img src="' + compImg + '" alt="">'
             : '';
           var thumb = '<div class="thumb ' + (compImg ? '' : c.color) + '">'
             + thumbBg
             + bonusBadge
             + '<div class="bk-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>'
             + '</div>';
-          var tagsHtml = c.tags.map(function(t){ return '<span class="ic-tag">' + t + '</span>'; }).join('');
-          var extTagHtml = isExt ? '<span class="ext-badge" style="margin-top:2px;">잡코리아 ' + extSvg + '</span>' : '';
-          var ddayStyle = c.urgent ? 'color:#EF4444;font-weight:700;' : 'color:var(--tx4);font-weight:600;';
+          // Tag priority: 잡코리아 > 리뷰태그 > 비중태그 (max 2)
+          var cardTags = [];
+          if(isExt) {
+            cardTags.push({text:'잡코리아 ↗', cls:'ext-tag'});
+          }
+          c.tags.forEach(function(t){ cardTags.push({text:t, cls:''}); });
+          if(Math.random() > 0.5 && cardTags.length < 2) {
+            var ratioTags = ['현직자 비중 '+Math.floor(50+Math.random()*30)+'%', '승진 언급 ▲'+Math.floor(5+Math.random()*20)+'건', '연봉 언급 +'+Math.floor(3+Math.random()*15)+'건', '워라밸 언급 +'+Math.floor(3+Math.random()*10)+'건'];
+            cardTags.push({text:ratioTags[Math.floor(Math.random()*ratioTags.length)], cls:'ratio-tag'});
+          }
+          cardTags = cardTags.slice(0, 2);
+          var tagsHtml = cardTags.map(function(t){ return '<span class="ic-tag '+t.cls+'">'+t.text+'</span>'; }).join('');
+          var ddayCls = c.urgent ? 'ic-dday' : 'ic-dday normal';
           var clickAttr = isExt ? ' onclick="openJK()"' : ' onclick="go(\'job-detail\')"';
           return '<div class="img-card"' + clickAttr + '>'
             + thumb
             + '<div class="ic-body">'
+            + '<div style="display:flex;flex-direction:column;gap:4px;">'
             + '<div class="ic-title">' + c.title + '</div>'
-            + '<div class="ic-co" style="display:flex;align-items:center;gap:6px;">' + c.co + ' <span style="' + ddayStyle + 'font-size:12px;">' + c.dday + '</span></div>'
-            + '<div style="font-size:11px;color:var(--tx4);margin-bottom:6px;">' + c.meta + '</div>'
-            + (tagsHtml || extTagHtml ? '<div class="ic-tags">' + (extTagHtml || tagsHtml) + '</div>' : '')
+            + '<div class="ic-co">' + c.co + ' <span class="' + ddayCls + '">' + c.dday + '</span></div>'
+            + '</div>'
+            + '<div class="ic-meta">' + c.meta + '</div>'
+            + (tagsHtml ? '<div class="ic-tags">' + tagsHtml + '</div>' : '')
             + '</div></div>';
         }).join('');
 
@@ -13865,6 +13899,74 @@ function closeRatePopup() {
 
         document.getElementById('view-img').innerHTML = imgHtml;
         document.getElementById('view-logo').innerHTML = logoHtml;
+
+        // List view (no image)
+        var logoFiles = [];
+        for(var li=1;li<=36;li++) logoFiles.push('https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_'+li+'.svg');
+
+        var listHtml = cards.map(function(c, ci) {
+          var isExt = c.external === 'jobkorea';
+          var clickAttr = isExt ? ' onclick="openJK()"' : ' onclick="go(\'job-detail\')"';
+          var ddayCls = c.urgent ? 'lc-dday' : 'lc-dday normal';
+
+          // Tag priority: jobkorea > review tags > ratio tags (max 2)
+          var cardTags2 = [];
+          if(isExt) cardTags2.push({text:'잡코리아 ↗', cls:'ext-tag'});
+          c.tags.forEach(function(t){ cardTags2.push({text:t, cls:''}); });
+          if(cardTags2.length < 2 && Math.random() > 0.3) {
+            var rt2 = ['현직자 비중 '+Math.floor(50+Math.random()*30)+'%','승진 언급 ▲'+Math.floor(5+Math.random()*20)+'건','연봉 언급 +'+Math.floor(3+Math.random()*15)+'건','워라밸 언급 +'+Math.floor(3+Math.random()*10)+'건'];
+            cardTags2.push({text:rt2[Math.floor(Math.random()*rt2.length)], cls:'ratio-tag'});
+          }
+          cardTags2 = cardTags2.slice(0,2);
+          var tags2Html = '<span class="'+ddayCls+'">'+c.dday+'</span>' + cardTags2.map(function(t){return '<span class="lc-tag '+t.cls+'">'+t.text+'</span>';}).join('');
+
+          // Logo for logo view
+          var logoImg = logoFiles[ci % logoFiles.length];
+          var logoHtml2 = currentListShowLogo ? '<div class="lc-logo"><img src="'+logoImg+'" alt=""></div>' : '';
+
+          return '<div class="list-card"'+clickAttr+'>'
+            + '<div class="lc-body">'
+            + logoHtml2
+            + '<div style="display:flex;flex-direction:column;gap:4px;">'
+            + '<div class="lc-title">'+c.title+'</div>'
+            + '<div class="lc-company">'+c.co+'</div>'
+            + '</div>'
+            + '<div class="lc-meta">'+c.meta+'</div>'
+            + '<div class="lc-tags">'+tags2Html+'</div>'
+            + '</div>'
+            + '<div class="lc-bk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>'
+            + '</div>';
+        }).join('');
+
+        document.getElementById('view-list').innerHTML = listHtml;
+      }
+
+      function cycleCardView() {
+        currentCardView = (currentCardView + 1) % 3;
+        var imgEl = document.getElementById('view-img');
+        var listEl = document.getElementById('view-list');
+        var logoViewEl = document.getElementById('view-logo');
+        if(logoViewEl) logoViewEl.style.display = 'none';
+
+        if(currentCardView === 0) {
+          // Image view
+          imgEl.style.display = '';
+          listEl.style.display = 'none';
+          currentListShowLogo = false;
+          renderCards(currentCase);
+        } else if(currentCardView === 1) {
+          // List view (no logo)
+          imgEl.style.display = 'none';
+          listEl.style.display = '';
+          currentListShowLogo = false;
+          renderCards(currentCase);
+        } else {
+          // List view with logo
+          imgEl.style.display = 'none';
+          listEl.style.display = '';
+          currentListShowLogo = true;
+          renderCards(currentCase);
+        }
       }
 
       function setCase(key) {
@@ -14687,7 +14789,6 @@ function closeRatePopup() {
     </button>
     <img class="jk-img" src="https://jelin-cc.github.io/jobplanet-ut/JOBKO.png" alt="">
     <div class="jk-title">잡코리아로 이동중<span class="jk-dots"><span class="jk-dot">.</span><span class="jk-dot">.</span><span class="jk-dot">.</span></span></div>
-    <div class="jk-desc">이 공고는 잡코리아에서 상세 정보를 확인하고 지원할 수 있어요.</div>
   </div>
 </div>
 
