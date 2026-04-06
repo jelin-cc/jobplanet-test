@@ -14607,32 +14607,14 @@ function closeRatePopup() {
             + '</div>';
         }).join('');
 
-        // 리스트 뷰도 점진적 로딩
+        // 리스트 뷰 렌더링 (전체 + 페이드인)
         var listContainer = document.getElementById('view-list');
-        var listSkeletonHtml = '';
-        for(var lsk=0;lsk<9;lsk++) listSkeletonHtml += '<div class="skeleton-card" style="padding:20px;background:#fff;border-radius:16px;box-shadow:0 1px 12px rgba(0,0,0,0.08);"><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>';
-        var tmpList = document.createElement('div');
-        tmpList.innerHTML = listHtml;
-        var listEls = Array.prototype.slice.call(tmpList.children);
-        var firstListBatch = listEls.slice(0,9).map(function(el){return el.outerHTML;}).join('');
-        listContainer.innerHTML = firstListBatch + (listEls.length>9?listSkeletonHtml:'');
-        setTimeout(function(){listContainer.querySelectorAll('.list-card').forEach(function(el){el.classList.add('visible');});},50);
-
-        var listBatchIdx = 1;
-        window.addEventListener('scroll', function(){
-          var lskels = listContainer.querySelectorAll('.skeleton-card');
-          if(!lskels.length) return;
-          var lrect = lskels[0].getBoundingClientRect();
-          if(lrect.top < window.innerHeight + 200){
-            lskels.forEach(function(s){s.remove();});
-            var ls = listBatchIdx*9;
-            var lb = listEls.slice(ls, ls+9);
-            if(!lb.length) return;
-            listContainer.insertAdjacentHTML('beforeend', lb.map(function(el){return el.outerHTML;}).join('') + (ls+9<listEls.length?listSkeletonHtml:''));
-            setTimeout(function(){listContainer.querySelectorAll('.list-card:not(.visible)').forEach(function(el){el.classList.add('visible');});},50);
-            listBatchIdx++;
-          }
-        });
+        listContainer.innerHTML = listHtml;
+        setTimeout(function(){
+          listContainer.querySelectorAll('.list-card').forEach(function(el, i){
+            setTimeout(function(){ el.classList.add('visible'); }, Math.min(i * 30, 500));
+          });
+        }, 50);
       }
 
       function cycleCardView() {
