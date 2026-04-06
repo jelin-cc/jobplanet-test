@@ -18102,7 +18102,30 @@ function closeRatePopup() {
     const idx = Math.floor(Math.random()*100);
     document.getElementById('cdHeroImg').style.background = pick(heroImages);
     document.getElementById('cdBadge').textContent = data.pct ? '🔥 '+data.pct : '⭐ 잡플래닛 추천 기업';
-    document.getElementById('cdLogo').textContent = data.initial||data.name.charAt(0);
+    // 로고: 이미지가 있으면 이미지, 없으면 건물 아이콘
+    var cdLogoEl = document.getElementById('cdLogo');
+    var logoSrc = null;
+    var initial = data.initial || data.name.charAt(0);
+    // logoMap에서 찾기
+    if(typeof logoMap !== 'undefined'){
+      Object.keys(logoMap).forEach(function(k){
+        if(data.name.indexOf(k) !== -1 || initial === k) logoSrc = logoMap[k];
+      });
+    }
+    // D-sample 로고도 매칭 시도
+    var dSampleLogos = {
+      '토스':'toss.png','네이버':'naver.png','카카오':'kakao.png','당근':'당근.png',
+      '쿠팡':'kakao.png','배달의민족':'baemin.webp','라인':'naver.png','야놀자':'toss.png',
+      '무신사':'naver.png','마켓컬리':'kakao.png','하이브':'toss.png','넥슨':'naver.png'
+    };
+    Object.keys(dSampleLogos).forEach(function(k){
+      if(data.name.indexOf(k) !== -1 && !logoSrc) logoSrc = 'https://jelin-cc.github.io/jobplanet-ut/' + dSampleLogos[k];
+    });
+    if(logoSrc){
+      cdLogoEl.innerHTML = '<img src="'+logoSrc+'" alt="" style="width:32px;height:32px;object-fit:contain;">';
+    } else {
+      cdLogoEl.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="#C8CCD4"><path d="M4 21V3h16v18H4zm2-2h3v-3H6v3zm0-5h3v-3H6v3zm0-5h3V6H6v3zm5 10h3v-3h-3v3zm0-5h3v-3h-3v3zm0-5h3V6h-3v3zm5 10h3v-3h-3v3zm0-5h3v-3h-3v3zm0-5h3V6h-3v3z"/></svg>';
+    }
     document.getElementById('cdName').textContent = data.name;
     document.getElementById('cdScore').textContent = data.score;
     document.getElementById('cdInd').textContent = data.industry;
