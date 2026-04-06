@@ -18059,15 +18059,18 @@ function closeRatePopup() {
     }
 
     function openFilter(tabIdx){
+      var body = document.getElementById('filterBody');
+      body.scrollTop = 0;
       document.getElementById('filterOverlay').classList.add('open');
       var tabs = document.querySelectorAll('.filter-tab');
       tabs.forEach(function(t){t.classList.remove('active');});
       var idx = tabIdx || 0;
       if(tabs[idx]) tabs[idx].classList.add('active');
-      var target = document.getElementById(tabs[idx].dataset.section);
-      if(target){
-        var body = document.getElementById('filterBody');
-        body.scrollTop = target.offsetTop - body.offsetTop;
+      if(idx > 0){
+        var target = document.getElementById(tabs[idx].dataset.section);
+        if(target){
+          setTimeout(function(){ body.scrollTop = target.offsetTop - body.offsetTop; }, 50);
+        }
       }
     }
 
