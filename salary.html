@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>잡플래닛 - 연봉 정보</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Pretendard',-apple-system,system-ui,sans-serif; background:#f8f9fa; color:#242628; min-width:1060px; }
+    .gnb { height:56px; background:#fff; border-bottom:1px solid #eaecf0; display:flex; align-items:center; position:sticky; top:0; z-index:100; }
+    .gnb-in { width:1060px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .gnb-logo { font-size:22px; font-weight:800; color:#00c362; cursor:pointer; }
+    .gnb-search { display:flex; align-items:center; gap:8px; height:36px; padding:0 14px; border:1px solid #eaecf0; border-radius:999px; background:#f8f9fa; width:400px; }
+    .gnb-search input { border:none; outline:none; background:transparent; font-size:13px; flex:1; font-family:'Pretendard',sans-serif; }
+    .gnb-r { display:flex; align-items:center; gap:12px; font-size:13px; color:#6b7280; }
+
+    .tabs { width:1060px; margin:0 auto; display:flex; border-bottom:2px solid #eaecf0; }
+    .tab { padding:14px 18px; font-size:14px; font-weight:500; color:#949ba8; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; }
+    .tab.active { color:#242628; font-weight:700; border-bottom-color:#00c362; }
+    .tab span { font-size:12px; color:#949ba8; margin-left:4px; }
+
+    .content { width:1060px; margin:0 auto; display:flex; gap:20px; padding:32px 0 64px; }
+    .main { flex:1; }
+    .sidebar { width:300px; flex-shrink:0; display:flex; flex-direction:column; gap:16px; }
+
+    .card { background:#fff; border:1px solid #eaecf0; border-radius:14px; padding:24px; }
+    .card + .card { margin-top:16px; }
+    .card-title { font-size:16px; font-weight:700; color:#242628; margin-bottom:16px; }
+
+    .job-select { display:flex; gap:12px; margin-bottom:24px; }
+    .job-select select { flex:1; padding:10px 14px; border:1px solid #00c362; border-radius:8px; font-size:14px; font-weight:600; color:#00c362; background:#fff; font-family:'Pretendard',sans-serif; cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%2300c362'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+
+    .salary-hero { text-align:left; margin-bottom:32px; }
+    .salary-label { font-size:14px; font-weight:600; color:#00c362; margin-bottom:8px; }
+    .salary-amount { font-size:42px; font-weight:800; color:#242628; }
+    .salary-amount span { font-size:18px; font-weight:500; color:#686a6d; }
+    .salary-source { font-size:12px; color:#949ba8; margin-top:4px; }
+
+    .salary-bar-wrap { margin:24px 0; }
+    .salary-bar-label { display:inline-block; padding:4px 12px; border:1px solid #00c362; border-radius:20px; font-size:11px; font-weight:600; color:#00c362; margin-bottom:12px; }
+    .salary-bar { height:32px; border-radius:6px; background:#eaecf0; position:relative; overflow:hidden; }
+    .salary-bar-fill { position:absolute; height:100%; background:#00c362; border-radius:6px; left:30%; width:40%; }
+    .salary-bar-ticks { display:flex; justify-content:space-between; margin-top:6px; font-size:11px; color:#949ba8; }
+
+    .salary-note { background:#f0faf4; border:1px solid #c8e6c9; border-radius:10px; padding:16px; text-align:center; margin:24px 0; }
+    .salary-note .highlight { color:#00c362; font-weight:700; }
+    .salary-note .company { color:#2196f3; font-weight:700; }
+
+    .year-title { font-size:16px; font-weight:700; color:#242628; margin-bottom:16px; }
+    .year-chart { display:flex; align-items:flex-end; gap:8px; height:160px; margin-bottom:8px; padding:0 4px; }
+    .year-bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .year-bar { width:100%; background:#00c362; border-radius:4px 4px 0 0; min-height:8px; }
+    .year-label { font-size:10px; color:#949ba8; }
+    .year-value { font-size:9px; font-weight:600; color:#242628; }
+    .chart-axis { display:flex; justify-content:flex-end; gap:16px; font-size:10px; color:#949ba8; margin-bottom:24px; }
+
+    .detail-row { display:flex; gap:12px; margin-bottom:24px; }
+    .detail-card { flex:1; background:#f7f8f9; border-radius:10px; padding:16px; text-align:center; }
+    .detail-card .label { font-size:12px; color:#949ba8; margin-bottom:4px; }
+    .detail-card .value { font-size:18px; font-weight:800; color:#242628; }
+    .detail-card .value.green { color:#00c362; }
+    .detail-card .value.red { color:#f44336; }
+
+    .side-card { background:#fff; border:1px solid #eaecf0; border-radius:14px; padding:20px; }
+    .side-card-title { font-size:14px; font-weight:700; color:#242628; margin-bottom:12px; }
+    .side-btn { width:100%; padding:10px; border:1px solid #242628; border-radius:8px; font-size:13px; font-weight:600; color:#242628; background:#fff; cursor:pointer; font-family:'Pretendard',sans-serif; margin-top:8px; }
+    .side-stat { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f3f3f4; }
+    .side-stat:last-child { border-bottom:none; }
+    .side-stat .label { font-size:13px; color:#242628; }
+    .side-stat .value { font-size:14px; font-weight:700; color:#242628; }
+    .side-stat .value.red { color:#f44336; }
+
+    .job-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f3f3f4; cursor:pointer; }
+    .job-item:last-child { border-bottom:none; }
+    .job-item:hover .job-name { color:#00c362; }
+    .job-logo { width:32px; height:32px; border-radius:8px; background:#f3f3f4; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .job-logo img { width:100%; height:100%; object-fit:contain; }
+    .job-name { font-size:13px; font-weight:600; color:#242628; }
+    .job-company { font-size:11px; color:#949ba8; }
+    .side-more { display:block; text-align:center; font-size:12px; color:#949ba8; margin-top:8px; cursor:pointer; }
+
+    .write-btn { display:flex; align-items:center; gap:6px; position:absolute; top:24px; right:24px; font-size:13px; font-weight:600; color:#242628; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<div class="gnb">
+  <div class="gnb-in">
+    <div class="gnb-logo">Jobplanet</div>
+    <div class="gnb-search">
+      <span>🔍</span>
+      <input type="text" placeholder="기업, 공고, 콘텐츠 검색">
+    </div>
+    <div class="gnb-r">
+      <span id="salary-user">광주여자대학교</span>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab">뉴스룸</div>
+  <div class="tab">프리미엄 리뷰 <span>968</span></div>
+  <div class="tab">리뷰 <span>1,255</span></div>
+  <div class="tab active">연봉 <span>1,241</span></div>
+  <div class="tab">면접 <span>1,190</span></div>
+  <div class="tab">복지</div>
+  <div class="tab">채용 <span>135</span></div>
+</div>
+
+<div class="content">
+  <div class="main">
+    <div class="card" style="position:relative;">
+      <div class="write-btn">✍️ 연봉 리뷰 작성</div>
+      <div class="card-title">직종 선택</div>
+      <div class="job-select">
+        <select id="job1">
+          <option>디자인</option>
+          <option>개발</option>
+          <option>기획/경영</option>
+          <option>데이터</option>
+          <option>마케팅</option>
+        </select>
+        <select id="job2">
+          <option>웹/UI/UX디자인</option>
+          <option>그래픽디자인</option>
+          <option>BX디자인</option>
+          <option>프로덕트디자인</option>
+        </select>
+      </div>
+
+      <div class="salary-hero">
+        <div class="salary-label" id="salary-job-label">웹/UI/UX디자인 평균 연봉</div>
+        <div class="salary-amount" id="salary-amount">5,022<span>만원</span></div>
+        <div class="salary-source">연봉 출처 : 사용자 입력 데이터 ⓘ</div>
+      </div>
+
+      <div class="salary-bar-wrap">
+        <div class="salary-bar-label">전체 응답 중 86%가 응답</div>
+        <div class="salary-bar">
+          <div class="salary-bar-fill"></div>
+        </div>
+        <div class="salary-bar-ticks">
+          <span>2,950</span><span>3,596</span><span>8,056</span><span>10,665</span>
+        </div>
+      </div>
+
+      <div class="salary-note">
+        <div style="font-size:13px;color:#686a6d;line-height:22px;">
+          선택한 직종의 업계 평균 연봉은 <span class="highlight">3,301만원</span>입니다.<br>
+          <span class="company" id="salary-company">(주)비바리퍼블리카</span>은(는) 해당 업계에서 <span class="highlight">상위 3%</span>에 해당하는 연봉을 제공하고 있습니다.
+        </div>
+      </div>
+
+      <div class="year-title">연차별 연봉 정보</div>
+      <div class="year-chart">
+        <div class="year-bar-wrap"><div class="year-bar" style="height:45%;"></div><div class="year-label">1년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:50%;"></div><div class="year-label">2년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:55%;"></div><div class="year-label">3년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:62%;"></div><div class="year-label">4년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:68%;"></div><div class="year-label">5년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:75%;"></div><div class="year-label">6년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:80%;"></div><div class="year-label">7년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:85%;"></div><div class="year-label">8년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:90%;"></div><div class="year-label">9년차</div></div>
+        <div class="year-bar-wrap"><div class="year-bar" style="height:95%;"></div><div class="year-label">10년차+</div></div>
+      </div>
+      <div class="chart-axis">
+        <span>● 잡플래닛 데이터 ⓘ</span>
+        <span>8,000</span><span>6,000</span><span>4,000</span><span>0</span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+        <div class="salary-label" style="margin:0;" id="salary-year-label">웹/UI/UX디자인의</div>
+        <select style="padding:6px 28px 6px 10px;border:1px solid #00c362;border-radius:6px;font-size:13px;font-weight:600;color:#00c362;background:#fff;font-family:'Pretendard',sans-serif;cursor:pointer;appearance:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M5 7L1 3h8z' fill='%2300c362'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 8px center;">
+          <option>6년차</option>
+          <option>1년차</option><option>2년차</option><option>3년차</option><option>4년차</option><option>5년차</option>
+          <option>7년차</option><option>8년차</option><option>9년차</option><option>10년차+</option>
+        </select>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-card">
+          <div class="label">평균 연봉 금액</div>
+          <div class="value">5,438 만원</div>
+        </div>
+        <div class="detail-card">
+          <div class="label">예상 연봉 인상률</div>
+          <div class="value green">1 %</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="side-card">
+      <div class="side-card-title">😊 내 연봉은 상위 몇프로?</div>
+      <button class="side-btn">연봉 분석하기</button>
+    </div>
+
+    <div class="side-card">
+      <div class="side-stat">
+        <span class="label">전체 평균 연봉</span>
+        <span class="value">7,525<span style="font-size:12px;font-weight:400;">만원</span></span>
+      </div>
+      <div style="font-size:10px;color:#949ba8;text-align:right;margin-bottom:8px;">연봉 출처 : 국민연금 ⓘ</div>
+      <div class="side-stat">
+        <span class="label">2026년 입사자</span>
+        <span class="value">98<span style="font-size:12px;font-weight:400;">명</span></span>
+      </div>
+      <div class="side-stat">
+        <span class="label" style="color:#f44336;">2026년 퇴사자</span>
+        <span class="value red">39<span style="font-size:12px;font-weight:400;">명</span></span>
+      </div>
+    </div>
+
+    <div class="side-card">
+      <div class="side-card-title">만족스러운 연봉을 주는 기업</div>
+      <div class="job-item">
+        <div class="job-logo" style="background:#f3f3f4;font-size:8px;font-weight:700;color:#686a6d;">L</div>
+        <div><div class="job-name">[디자인] 시각 디자이너 (과장급)</div><div class="job-company">(주)리브스에드</div></div>
+      </div>
+      <div class="job-item">
+        <div class="job-logo" style="background:#f44336;font-size:8px;font-weight:700;color:#fff;">D</div>
+        <div><div class="job-name">UI Designer (3년 이상)</div><div class="job-company">(주)듀오톤</div></div>
+      </div>
+      <div class="job-item">
+        <div class="job-logo" style="background:#f3f3f4;font-size:8px;font-weight:700;color:#686a6d;">G</div>
+        <div><div class="job-name">게임 UI/UX 디자이너 (3년 이상)</div><div class="job-company">슈퍼센트(주)</div></div>
+      </div>
+      <div class="job-item">
+        <div class="job-logo" style="background:#7c3aed;font-size:8px;font-weight:700;color:#fff;">C</div>
+        <div><div class="job-name">프로덕트 디자인 부트캠프 멘토</div><div class="job-company">(주)코드잇</div></div>
+      </div>
+      <div class="job-item">
+        <div class="job-logo" style="background:#f3f3f4;font-size:8px;font-weight:700;color:#686a6d;">M</div>
+        <div><div class="job-name">Product Designer</div><div class="job-company">(주)마켓보로</div></div>
+      </div>
+      <div class="side-more">더보기 ›</div>
+    </div>
+
+    <div class="side-card">
+      <div class="side-card-title">다른 직종 둘러보기</div>
+      <select style="width:100%;padding:10px 14px;border:1px solid #eaecf0;border-radius:8px;font-size:13px;color:#949ba8;font-family:'Pretendard',sans-serif;">
+        <option>1차 직종 선택</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<script>
+// URL 파라미터로 기업명 받기
+var params = new URLSearchParams(window.location.search);
+var company = params.get('company') || '비바리퍼블리카';
+var companyData = {
+  '비바리퍼블리카': { display:'(주)비바리퍼블리카', short:'토스', amount:'5,022', rank:'상위 3%', avg:'3,301' },
+  '카카오': { display:'카카오', short:'카카오', amount:'4,680', rank:'상위 8%', avg:'3,301' },
+  '네이버': { display:'네이버', short:'네이버', amount:'4,450', rank:'상위 12%', avg:'3,301' }
+};
+var data = companyData[company] || companyData['비바리퍼블리카'];
+document.getElementById('salary-company').textContent = data.display;
+document.getElementById('salary-amount').innerHTML = data.amount + '<span>만원</span>';
+document.title = '잡플래닛 - ' + data.short + ' 연봉 정보';
+</script>
+</body>
+</html>
