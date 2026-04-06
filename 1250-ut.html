@@ -11781,7 +11781,7 @@ filterInterest('all');
       btn.innerHTML = saved
         ? '<i class="jp-bookmark"></i> 저장 완료'
         : '<i class="jp-bookmark"></i> 공고 저장';
-      if (saved) showToast('공고가 저장되었습니다.');
+      if (saved && typeof showSaveToast==='function') showSaveToast();
     });
 
     // 이미지 캐러셀
@@ -11918,6 +11918,7 @@ filterInterest('all');
       document.body.appendChild(toast);
 
       var saveToastTimer;
+      window.showSaveToast = showSaveToast;
       function showSaveToast(){
         toast.classList.add('show');
         clearTimeout(saveToastTimer);
