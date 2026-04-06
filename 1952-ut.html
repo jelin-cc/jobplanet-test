@@ -14417,8 +14417,11 @@ function closeRatePopup() {
         var filtered = currentHotTag
           ? allCards.filter(function(c){ return c.hotTags && c.hotTags.indexOf(currentHotTag) !== -1; })
           : allCards;
+        // 필터 변경 시 셔플 (같은 필터여도 다른 순서)
+        var shuffled = filtered.slice();
+        for(var si=shuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var st=shuffled[si];shuffled[si]=shuffled[sj];shuffled[sj]=st;}
         // 정렬 적용
-        var cards = sortCards(filtered);
+        var cards = sortCards(shuffled);
         var showImg = true;
 
         // 외부링크 SVG 아이콘
