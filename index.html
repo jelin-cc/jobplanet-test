@@ -14407,10 +14407,15 @@ function closeRatePopup() {
       ].map(function(p){return 'https://jelin-cc.github.io/jobplanet-ut/'+p;});
       // 셔플
       var _thumbShuffled = cardThumbPool.slice();
-      for(var si=_thumbShuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var st=_thumbShuffled[si];_thumbShuffled[si]=_thumbShuffled[sj];_thumbShuffled[sj]=st;}
+      function reshuffleThumbs(){
+        _thumbShuffled = cardThumbPool.slice();
+        for(var si=_thumbShuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var st=_thumbShuffled[si];_thumbShuffled[si]=_thumbShuffled[sj];_thumbShuffled[sj]=st;}
+      }
+      reshuffleThumbs();
       function getCardThumb(idx){return _thumbShuffled[idx % _thumbShuffled.length];}
 
       function renderCards(caseKey) {
+        reshuffleThumbs();
         var cfg = caseConfig[caseKey];
         var allCards = cfg.cards;
         // hotTag 필터
