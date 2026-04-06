@@ -14424,6 +14424,31 @@ function closeRatePopup() {
         var filtered = currentHotTag
           ? allCards.filter(function(c){ return c.hotTags && c.hotTags.indexOf(currentHotTag) !== -1; })
           : allCards;
+
+        // 상단 필터 (지역/직무/경력/고용형태/학력) 적용
+        var fRegions = [];
+        document.querySelectorAll('#filterSecRegion input[type="checkbox"]:checked').forEach(function(cb){ fRegions.push(cb.parentElement.textContent.trim()); });
+        var fJobs = [];
+        document.querySelectorAll('#filterSecJob .filter-job-item.active').forEach(function(el){ fJobs.push(el.textContent.trim()); });
+        var fCareer = parseInt(document.getElementById('filterCareerRange') ? document.getElementById('filterCareerRange').value : 0);
+        var fEmploy = [];
+        document.querySelectorAll('#filterSecEmploy .filter-employ-item.active').forEach(function(el){ fEmploy.push(el.textContent.trim()); });
+        var fEdu = [];
+        document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){ fEdu.push(cb.parentElement.textContent.trim()); });
+
+        if(fRegions.length) filtered = filtered.filter(function(c){ return fRegions.some(function(r){ return c.meta.indexOf(r) !== -1; }); });
+        if(fJobs.length) filtered = filtered.filter(function(c){ return fJobs.some(function(j){ return c.title.indexOf(j) !== -1 || c.title.toLowerCase().indexOf(j.toLowerCase()) !== -1; }); });
+        if(fCareer > 0){
+          var careerYears = [0,0,1,2,3,4,5,6,7,8,9,10];
+          var minYr = careerYears[fCareer] || 0;
+          filtered = filtered.filter(function(c){
+            var m = c.meta.match(/경력\s*(\d+)/);
+            if(m) return parseInt(m[1]) >= minYr;
+            if(c.meta.indexOf('신입') !== -1) return minYr === 0;
+            return true;
+          });
+        }
+
         // 필터 변경 시 셔플 (같은 필터여도 다른 순서)
         var shuffled = filtered.slice();
         for(var si=shuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var st=shuffled[si];shuffled[si]=shuffled[sj];shuffled[sj]=st;}
@@ -19771,6 +19796,7 @@ function closeRatePopup() {
     function closeFilter(){
       document.getElementById('filterOverlay').classList.remove('open');
       updateFilterChips();
+      renderCards(currentCase);
     }
 
     function resetFilter(){
@@ -19782,6 +19808,7 @@ function closeRatePopup() {
       document.getElementById('filterCareerValue').textContent='전체';
       if(typeof updateRangeTrack==='function') updateRangeTrack(rng);
       updateFilterChips();
+      renderCards(currentCase);
     }
 
     function truncLabel(s, max){
