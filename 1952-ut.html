@@ -294,7 +294,8 @@
     .cd-hero-content{position:relative;z-index:2;width:1060px;margin:0 auto;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:28px;}
     .cd-hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);padding:5px 12px;border-radius:var(--rfull);font-size:11px;font-weight:600;color:#fff;margin-bottom:14px;width:fit-content;}
     .cd-hero-info{display:flex;align-items:center;gap:14px;}
-    .cd-hero-logo{width:52px;height:52px;border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--brand);box-shadow:0 2px 8px rgba(0,0,0,0.2);flex-shrink:0;}
+    .cd-hero-logo{width:52px;height:52px;border-radius:12px;background:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:none;}
+    .cd-hero-logo img{width:52px;height:52px;object-fit:contain;}
     .cd-hero-name{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px;}
     .cd-hero-rating{display:flex;align-items:center;gap:6px;margin-top:4px;}
     .cd-hero-star{color:#F59E0B;font-size:15px;}
@@ -18381,30 +18382,10 @@ function closeRatePopup() {
     const idx = Math.floor(Math.random()*100);
     document.getElementById('cdHeroImg').style.background = pick(heroImages);
     document.getElementById('cdBadge').textContent = data.pct ? '🔥 '+data.pct : '⭐ 잡플래닛 추천 기업';
-    // 로고: 이미지가 있으면 이미지, 없으면 건물 아이콘
+    // 로고: D-sample 로고만 랜덤 사용
     var cdLogoEl = document.getElementById('cdLogo');
-    var logoSrc = null;
-    var initial = data.initial || data.name.charAt(0);
-    // logoMap에서 찾기
-    if(typeof logoMap !== 'undefined'){
-      Object.keys(logoMap).forEach(function(k){
-        if(data.name.indexOf(k) !== -1 || initial === k) logoSrc = logoMap[k];
-      });
-    }
-    // D-sample 로고도 매칭 시도
-    var dSampleLogos = {
-      '토스':'toss.png','네이버':'naver.png','카카오':'kakao.png','당근':'당근.png',
-      '쿠팡':'kakao.png','배달의민족':'baemin.webp','라인':'naver.png','야놀자':'toss.png',
-      '무신사':'naver.png','마켓컬리':'kakao.png','하이브':'toss.png','넥슨':'naver.png'
-    };
-    Object.keys(dSampleLogos).forEach(function(k){
-      if(data.name.indexOf(k) !== -1 && !logoSrc) logoSrc = 'https://jelin-cc.github.io/jobplanet-ut/' + dSampleLogos[k];
-    });
-    if(logoSrc){
-      cdLogoEl.innerHTML = '<img src="'+logoSrc+'" alt="" style="width:32px;height:32px;object-fit:contain;">';
-    } else {
-      cdLogoEl.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="#C8CCD4"><path d="M4 21V3h16v18H4zm2-2h3v-3H6v3zm0-5h3v-3H6v3zm0-5h3V6H6v3zm5 10h3v-3h-3v3zm0-5h3v-3h-3v3zm0-5h3V6h-3v3zm5 10h3v-3h-3v3zm0-5h3v-3h-3v3zm0-5h3V6h-3v3z"/></svg>';
-    }
+    var randomLogoIdx = Math.floor(Math.random()*36)+1;
+    cdLogoEl.innerHTML = '<img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_'+randomLogoIdx+'.svg" alt="">';
     document.getElementById('cdName').textContent = data.name;
     document.getElementById('cdScore').textContent = data.score;
     document.getElementById('cdInd').textContent = data.industry;
