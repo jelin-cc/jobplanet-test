@@ -18623,6 +18623,7 @@ function closeRatePopup() {
     }
   });
 
+  var _skipPush = false;
   function go(id){
     sessionStorage.setItem("jp_current_page", id);
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -18634,17 +18635,26 @@ function closeRatePopup() {
     document.body.style.background = (id==='community' || id==='resume-editor') ? '#fff' : 'var(--bg)';
     if(id==='news' && typeof renderNews==='function') renderNews();
     if(id==='community' && typeof renderComm==='function') renderComm();
-    // New pages: wire GNB nav highlight for job tab when on job-detail
     if(id==='job-detail'){
       document.querySelectorAll('.gnb-nav a').forEach(a=>{if(a.dataset.page==='job')a.classList.add('active');});
     }
-    // 비로그인 버튼: 기업 리뷰에서만 표시
     var rlBtn = document.getElementById('resetLogoutBtn');
     if(rlBtn){
       var btn = rlBtn.querySelector('button');
       if(btn) btn.style.display = (id==='review') ? '' : 'none';
     }
+    // 히스토리 관리
+    if(!_skipPush) history.pushState({page:id}, '', '#'+id);
   }
+  // 뒤로가기/앞으로가기
+  window.addEventListener('popstate', function(e){
+    var id = (e.state && e.state.page) ? e.state.page : 'home';
+    _skipPush = true;
+    go(id);
+    _skipPush = false;
+  });
+  // 초기 상태
+  history.replaceState({page:'home'}, '', '#home');
   function openS(){document.getElementById('sOv').classList.add('open');document.getElementById('sInput').focus();}
   function closeS(e){if(e.target===document.getElementById('sOv'))document.getElementById('sOv').classList.remove('open');}
   document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('sOv').classList.remove('open');});
@@ -20360,13 +20370,6 @@ function closeRatePopup() {
 
 
     // showToast is defined in base file
-
-    document.getElementById('page-job-detail').addEventListener('click', function(e) {
-      var btn = e.target.closest('.detail-job-bm');
-      if (!btn) return;
-      navigator.clipboard.writeText(window.location.href).catch(function() {});
-      showToast();
-    });
 
     document.getElementById('page-job-detail').addEventListener('click', function(e) {
       var btn = e.target.closest('.detail-wish-btn');
