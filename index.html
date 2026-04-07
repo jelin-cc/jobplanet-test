@@ -90,10 +90,13 @@
     .gnb-icon-btn:hover{background:var(--bg);}
     .gnb-icon-btn svg{display:block;}
     .gnb-profile-wrap{position:relative;display:flex;align-items:center;gap:2px;}
+    .gnb-profile-wrap:hover > .gnb-dropdown{display:block;}
     .gnb-profile-btn{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1.5px solid var(--ln);cursor:pointer;transition:all .15s;background:var(--surface);}
     .gnb-profile-btn:hover{border-color:var(--tx4);}
     .gnb-profile-arrow{display:flex;align-items:center;cursor:pointer;padding:0 2px;}
     .gnb-dropdown{display:none;position:absolute;top:calc(100% + 8px);right:0;width:180px;background:var(--surface);border-radius:var(--r);box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);z-index:300;overflow:hidden;}
+    .gnb-profile-wrap > .gnb-dropdown{overflow:visible;}
+    .gnb-profile-wrap > .gnb-dropdown::before{content:'';position:absolute;top:-12px;left:-20px;right:-20px;height:16px;}
     .gnb-dropdown.open{display:block;}
     .gnb-dd-item{display:block;width:100%;padding:14px 20px;font-size:14px;font-weight:600;color:var(--tx);text-align:left;border:none;background:none;cursor:pointer;font-family:var(--font);transition:background .12s;}
     .gnb-dd-item:hover{background:var(--bg);}
@@ -2590,41 +2593,38 @@
     }
     .detail-job-bm svg { width: 18px; height: 18px; color: var(--text-tertiary); }
     /* 지원 완료 후 추천 공고 팝업 */
+    /* 지원 완료 후 추천 공고 - 전체 페이지 뷰 */
     .post-apply-overlay {
       display: none; position: fixed; inset: 0; z-index: 3000;
-      background: rgba(0,0,0,0.45);
-      align-items: center; justify-content: center;
-      padding: 24px;
+      background: var(--bg);
+      flex-direction: column;
     }
     .post-apply-overlay.show { display: flex; }
-    .post-apply-wrap {
-      display: flex; flex-direction: column;
-      background: #fff; border-radius: 16px;
-      width: 100%; max-width: 520px;
-      max-height: 80vh; overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    .post-apply-page-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 20px 40px; background: #fff; border-bottom: 1px solid var(--line-primary);
+      flex-shrink: 0;
     }
-    .post-apply-header {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      padding: 24px 24px 18px; border-bottom: 1px solid var(--line-secondary);
-      cursor: default; flex-shrink: 0;
-    }
-    .post-apply-header-left { display: flex; align-items: center; gap: 14px; }
-    .post-apply-mascot { font-size: 44px; line-height: 1; }
+    .post-apply-mascot { font-size: 36px; line-height: 1; }
     .post-apply-title { font-size: 18px; font-weight: 700; color: var(--brand-primary); }
-    .post-apply-sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
-    .post-apply-close {
-      background: none; border: none; cursor: pointer;
-      color: var(--text-tertiary); padding: 4px; flex-shrink: 0;
+    .post-apply-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+    .post-apply-page-body {
+      display: flex; flex: 1; overflow: hidden;
+      max-width: 1200px; width: 100%; margin: 0 auto;
     }
-    .post-apply-close:hover { color: var(--text-secondary); }
+    .post-apply-left {
+      width: 440px; flex-shrink: 0; background: #fff;
+      border-right: 1px solid var(--line-primary);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
     .post-apply-list { flex: 1; overflow-y: auto; }
     .post-apply-item {
       display: flex; align-items: center; gap: 14px;
-      padding: 16px 24px; border-bottom: 1px solid var(--line-secondary);
+      padding: 16px 20px; border-bottom: 1px solid var(--line-secondary);
       cursor: pointer; transition: background 0.12s;
     }
     .post-apply-item:hover { background: var(--bg-secondary); }
+    .post-apply-item.active { background: #F0FDF4; }
     .post-apply-item-check {
       width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
       border: 1.5px solid var(--line-primary); cursor: pointer;
@@ -2636,9 +2636,10 @@
       background-size: contain; background-repeat: no-repeat; background-position: center;
     }
     .post-apply-item-thumb {
-      width: 80px; height: 60px; border-radius: 8px; flex-shrink: 0;
+      width: 72px; height: 54px; border-radius: 8px; flex-shrink: 0;
       background: var(--bg-tertiary); overflow: hidden;
     }
+    .post-apply-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .post-apply-item-info { flex: 1; min-width: 0; }
     .post-apply-item-title { font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .post-apply-item-company { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
@@ -2648,15 +2649,46 @@
       font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-top: 5px;
     }
     .post-apply-item-arrow { color: var(--text-tertiary); flex-shrink: 0; }
-    .post-apply-footer {
-      padding: 16px 24px;
-      border-top: 1px solid var(--line-secondary); flex-shrink: 0;
-      background: #fff;
+    .post-apply-right {
+      flex: 1; overflow-y: auto; background: #fff; padding: 0;
     }
+    .post-apply-detail-content { padding: 32px 40px; }
+    .post-apply-detail-images {
+      display: flex; gap: 8px; margin-bottom: 24px; overflow: hidden; border-radius: 12px;
+    }
+    .post-apply-detail-images img { width: 50%; height: 200px; object-fit: cover; border-radius: 12px; }
+    .post-apply-detail-title { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .post-apply-detail-company { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+    .post-apply-detail-meta { font-size: 13px; color: var(--text-tertiary); margin-bottom: 20px; }
+    .post-apply-detail-section { margin-bottom: 24px; }
+    .post-apply-detail-section h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary); }
+    .post-apply-detail-section p, .post-apply-detail-section li { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .post-apply-detail-actions {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 4px; margin-bottom: 20px;
+    }
+    .post-apply-detail-actions button {
+      background: none; border: none; cursor: pointer; padding: 6px;
+      color: var(--text-tertiary); display: flex; align-items: center;
+    }
+    .post-apply-footer {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 3001;
+      padding: 16px 40px;
+      border-top: 1px solid var(--line-primary);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .post-apply-back-btn {
+      padding: 14px 32px; background: #fff; color: var(--text-secondary);
+      border: 1px solid var(--line-primary); border-radius: 10px;
+      font-size: 15px; font-weight: 600; cursor: pointer; font-family: var(--font-family);
+    }
+    .post-apply-back-btn:hover { background: var(--bg-secondary); }
     .post-apply-submit {
-      width: 100%; padding: 14px; background: var(--brand-primary);
-      color: #fff; border: none; border-radius: 8px;
+      padding: 14px 48px; background: var(--brand-primary);
+      color: #fff; border: none; border-radius: 10px;
       font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
+      font-family: var(--font-family);
     }
     .post-apply-submit:hover:not(:disabled) { opacity: 0.88; }
     .post-apply-submit:disabled { background: var(--bg-tertiary); color: var(--text-tertiary); cursor: not-allowed; }
@@ -2750,8 +2782,8 @@
     .apply-field { flex: 1; display: flex; flex-direction: column; gap: 6px; }
     .apply-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
     .apply-input {
-      padding: 10px 12px; border: 1px solid var(--line-primary); border-radius: 8px;
-      font-size: 14px; color: var(--text-primary); background: var(--bg-primary); outline: none;
+      padding: 13px 14px; border: 1px solid var(--line-primary); border-radius: 8px;
+      font-size: 15px; color: var(--text-primary); background: var(--bg-primary); outline: none;
       width: 100%; box-sizing: border-box;
     }
     .apply-input:focus { border-color: var(--brand-primary); }
@@ -2764,6 +2796,12 @@
     .apply-info-summary-row { display: flex; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--bg-secondary); font-size: 14px; }
     .apply-info-summary-row:last-child { border-bottom: none; }
     .apply-info-summary-lbl { color: var(--text-tertiary); min-width: 44px; flex-shrink: 0; }
+    .apply-info-summary-val {
+      flex: 1; border: none; outline: none; background: transparent;
+      font-size: 14px; color: var(--text-primary); font-family: var(--font);
+      padding: 0; margin: 0; min-width: 0;
+    }
+    .apply-info-summary-val::placeholder { color: var(--text-disabled); }
     .apply-modal-resume-item {
       display: flex;
       align-items: center;
@@ -2772,10 +2810,26 @@
       border-top: 1px solid var(--line-secondary);
     }
     .apply-modal-resume-item input[type="checkbox"] {
-      width: 18px; height: 18px;
-      accent-color: var(--brand-primary);
+      -webkit-appearance: none; appearance: none;
+      width: 20px; height: 20px;
+      border: 2px solid var(--line-primary);
+      border-radius: 4px;
       cursor: pointer;
+      background: #fff;
+      transition: all .15s;
+      position: relative;
       flex-shrink: 0;
+    }
+    .apply-modal-resume-item input[type="checkbox"]:checked {
+      background: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+    .apply-modal-resume-item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/75% no-repeat;
     }
     .apply-modal-resume-selectable {
       flex: 1;
@@ -2855,6 +2909,15 @@
       width: 100%;
     }
     .apply-modal-submit:hover { opacity: 0.9; }
+    .apply-modal-resume-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+    }
+    .apply-modal-new-resume-text-btn {
+      background: none; border: none; color: var(--text-tertiary);
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      display: flex; align-items: center; gap: 2px; padding: 0; margin-top: 24px;
+    }
+    .apply-modal-new-resume-text-btn:hover { opacity: 0.8; }
     .apply-modal-list-actions { display: flex; gap: 8px; margin: 8px 0 0; }
     .apply-modal-file-add-btn, .apply-modal-new-resume-btn {
       flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -2863,7 +2926,12 @@
       background: none; color: var(--brand-primary);
       font-size: 15px; font-weight: 600; cursor: pointer;
     }
-    .apply-modal-file-add-btn:hover, .apply-modal-new-resume-btn:hover { background: var(--brand-primary-light); }
+    .apply-modal-file-add-btn--sm {
+      padding: 12px 14px; font-size: 14px; font-weight: 500; border-radius: 8px;
+      border-color: var(--line-primary); color: var(--text-tertiary);
+    }
+    .apply-modal-file-add-btn--sm:hover { background: var(--bg-secondary); }
+    .apply-modal-file-add-btn:not(.apply-modal-file-add-btn--sm):hover, .apply-modal-new-resume-btn:hover { background: var(--brand-primary-light); }
     .apply-modal-submit:disabled {
       background: var(--line-primary);
       color: var(--text-tertiary);
@@ -3071,6 +3139,49 @@
       background: var(--bg-primary);
       font-weight: 600;
     }
+    .resume-apply-banner {
+      margin-top: 12px;
+      background: #F9F9FB;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .resume-apply-banner-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .resume-apply-banner-emoji { font-size: 24px; flex-shrink: 0; }
+    .resume-apply-banner-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex: 1;
+      line-height: 1.5;
+    }
+    .resume-apply-banner-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .resume-apply-banner-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      background: var(--bg-primary);
+      border: 1px solid var(--line-primary);
+      border-radius: 10px;
+      padding: 11px 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-primary-dark);
+      cursor: pointer;
+      font-family: var(--font-family);
+    }
+    .resume-apply-banner-item:hover { background: var(--line-secondary); }
+    .resume-apply-banner-item svg { color: var(--brand-primary-dark); flex-shrink: 0; }
     .detail-premium-box {
       border: 1px solid var(--line-primary);
       border-radius: var(--radius-xl);
@@ -3230,7 +3341,7 @@
           </div>
         </div>
         <div class="gnb-profile-wrap" id="profileWrap">
-          <div class="gnb-profile-btn" onclick="toggleProfileDD()">
+          <div class="gnb-profile-btn" onclick="go('my')" style="cursor:pointer">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9EA3B0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <div class="gnb-profile-arrow" onclick="toggleProfileDD()">
@@ -14667,7 +14778,7 @@ function closeRatePopup() {
   .bm{cursor:pointer;z-index:2;position:relative;}
 
   /* 저장 토스트 */
-  #saveToast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);z-index:9999;pointer-events:none;display:flex;align-items:center;gap:12px;background:rgba(55,65,81,0.92);backdrop-filter:blur(8px);color:#fff;padding:14px 24px;border-radius:999px;font-size:15px;font-weight:500;white-space:nowrap;opacity:0;transform:translateX(-50%) translateY(20px);transition:opacity .3s,transform .3s;}
+  #saveToast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);z-index:99999;pointer-events:none;display:flex;align-items:center;gap:12px;background:rgba(55,65,81,0.92);backdrop-filter:blur(8px);color:#fff;padding:14px 24px;border-radius:999px;font-size:15px;font-weight:500;white-space:nowrap;opacity:0;transform:translateX(-50%) translateY(20px);transition:opacity .3s,transform .3s;}
   #saveToast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
   #saveToast .st-icon{width:28px;height:28px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   #saveToast .st-icon svg{width:16px;height:16px;color:#fff;}
@@ -16975,10 +17086,10 @@ function closeRatePopup() {
             <dt>연혁</dt><dd>2015년 8월 미소 설립<br>2016년 6월 한국 O2O 최초 Y Combinator 31억 투자 유치</dd>
           </dl>
           <div class="detail-company-links">
-            <button class="detail-company-link-btn" onclick="var n=document.getElementById('jd-company');openCompany({name:n?n.textContent.trim():'',score:3.4,industry:'기타',loc:'서울',year:2010,size:100,jobs:3,pct:65,initial:(n?n.textContent.trim().charAt(0):''),keywords:[]})">기업 소개 <i class="jp-chevron-right"></i></button>
-            <button class="detail-company-link-btn" onclick="goCompanyTab(4)">면접 후기 <span>12건</span> <i class="jp-chevron-right"></i></button>
-            <button class="detail-company-link-btn" onclick="goCompanyTab(2)">기업 리뷰 <span>48건</span> <i class="jp-chevron-right"></i></button>
-            <button class="detail-company-link-btn" onclick="goCompanyTab(6)">전체 공고 <span>48건</span> <i class="jp-chevron-right"></i></button>
+            <button class="detail-company-link-btn" onclick="var n=document.getElementById('jd-company');openCompany({name:n?n.textContent.trim():'',score:3.4,industry:'기타',loc:'서울',year:2010,size:100,jobs:3,pct:65,initial:(n?n.textContent.trim().charAt(0):''),keywords:[]})">기업 소개 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <button class="detail-company-link-btn" onclick="goCompanyTab('interview')">면접 후기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <button class="detail-company-link-btn" onclick="goCompanyTab('review')">기업 리뷰 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <button class="detail-company-link-btn" onclick="goCompanyTab('jobs')">전체 공고 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>
           </div>
         </div>
       </main>
@@ -16988,6 +17099,17 @@ function closeRatePopup() {
         <div class="detail-apply-box">
           <button class="detail-apply-btn">지원하기</button>
           <button class="detail-wish-btn"><i class="jp-bookmark"></i> 공고 저장</button>
+        </div>
+        <!-- 이력서 지원 배너 -->
+        <div class="resume-apply-banner">
+          <div class="resume-apply-banner-header">
+            <span class="resume-apply-banner-emoji"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.10113 17.2582L11.8287 3.2252C12.1866 2.47866 12.967 2 13.8262 2H24.7361C25.624 2 26.1451 2.95448 25.6372 3.65055L19.8734 11.5504C19.556 11.9854 19.8817 12.582 20.4366 12.582H25.8992C26.8639 12.582 27.3602 13.6853 26.6964 14.3544L9.41203 29.6654C8.58479 30.4992 7.15843 29.6396 7.5892 28.5667L11.1747 19.6369C11.3473 19.2071 11.0153 18.7455 10.5337 18.7455H6.09985C5.29944 18.7455 4.76771 17.9537 5.10113 17.2582Z" fill="#FACC15"/></svg></span>
+            <div class="resume-apply-banner-title">가지고 있는 이력서로<br>빠르게 지원해 보세요</div>
+          </div>
+          <div class="resume-apply-banner-actions">
+            <button class="resume-apply-banner-item" id="bannerFileApply">가지고 있는 이력서로 바로 지원</button>
+            <button class="resume-apply-banner-item" id="bannerAiResume">AI 이력서 불러오기</button>
+          </div>
         </div>
       </aside>
 
@@ -17915,15 +18037,14 @@ function closeRatePopup() {
         <!-- 지원 정보 -->
         <div class="apply-section-hd">
           <div class="apply-modal-section-title" style="margin-top:0">지원 정보</div>
-          <button class="apply-info-edit-btn" id="applyInfoEditBtn" style="display:none">수정</button>
         </div>
 
-        <!-- 입력 뷰 -->
+        <!-- 입력 뷰 (항상 표시, 지원 완료 후에도 바로 수정 가능) -->
         <div id="applyInfoInputView">
           <div class="apply-profile-fields">
             <div class="apply-field">
               <label class="apply-label">이름 <span class="re-required">*</span></label>
-              <input class="apply-input" type="text" id="applyName" placeholder="홍길동">
+              <input class="apply-input" type="text" id="applyName" placeholder="이름 입력">
             </div>
             <div class="apply-field">
               <label class="apply-label">휴대폰 <span class="re-required">*</span></label>
@@ -17934,30 +18055,35 @@ function closeRatePopup() {
               <input class="apply-input" type="email" id="applyEmail" placeholder="example@email.com">
             </div>
           </div>
-          <button class="apply-info-done-btn" id="applyInfoDoneBtn">완료</button>
         </div>
 
-        <!-- 요약 뷰 -->
+        <!-- 요약 뷰 (컴팩트, 인라인 수정 가능) -->
         <div id="applyInfoSummaryView" style="display:none">
           <div class="apply-info-summary-box">
             <div class="apply-info-summary-row">
               <span class="apply-info-summary-lbl">이름</span>
-              <span id="summaryName"></span>
+              <input class="apply-info-summary-val" id="summaryNameInput" type="text" placeholder="홍길동">
             </div>
             <div class="apply-info-summary-row">
               <span class="apply-info-summary-lbl">휴대폰</span>
-              <span id="summaryPhone"></span>
+              <input class="apply-info-summary-val" id="summaryPhoneInput" type="tel" placeholder="010-0000-0000">
             </div>
             <div class="apply-info-summary-row">
               <span class="apply-info-summary-lbl">이메일</span>
-              <span id="summaryEmail"></span>
+              <input class="apply-info-summary-val" id="summaryEmailInput" type="email" placeholder="example@email.com">
             </div>
           </div>
         </div>
 
         <!-- 이력서 · 첨부파일 -->
         <input type="file" id="fileAddInput" style="display:none" accept=".pdf,.doc,.docx,.hwp,.jpg,.jpeg,.png" multiple>
-        <div class="apply-modal-section-title" style="margin-top:24px">이력서 · 첨부파일</div>
+        <div class="apply-modal-resume-header">
+          <div class="apply-modal-section-title" style="margin-top:24px;margin-bottom:0">이력서 · 첨부파일</div>
+          <button class="apply-modal-new-resume-text-btn" onclick="cameFromApplyModal=true;document.getElementById('applyModal').classList.remove('show');openResumeEditor()">
+            새 이력서 작성
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
         <div id="resumeList">
           <div class="apply-modal-resume-item" id="resumeItem" style="display:none">
             <input type="checkbox" id="resumeCheck">
@@ -17976,13 +18102,9 @@ function closeRatePopup() {
           </div>
         </div>
         <div class="apply-modal-list-actions">
-          <button class="apply-modal-file-add-btn" onclick="document.getElementById('fileAddInput').click()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            파일 추가
-          </button>
-          <button class="apply-modal-new-resume-btn" onclick="cameFromApplyModal=true;document.getElementById('applyModal').classList.remove('show');openResumeEditor()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            새 이력서 작성
+          <button class="apply-modal-file-add-btn apply-modal-file-add-btn--sm" style="width:100%" onclick="document.getElementById('fileAddInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            파일 업로드
           </button>
         </div>
       </div>
@@ -18001,25 +18123,28 @@ function closeRatePopup() {
 
   <!-- 지원 완료 후 추천 공고 팝업 -->
   <div class="post-apply-overlay" id="postApplyPopup">
-    <div class="post-apply-wrap">
-      <div class="post-apply-header" id="postApplyHeader">
-        <div class="post-apply-header-left">
-          <div class="post-apply-mascot">🎉</div>
-          <div>
-            <div class="post-apply-title">지원이 완료되었습니다!</div>
-            <div class="post-apply-sub">방금 지원한 이력서로 추가 지원해보세요.</div>
-          </div>
+    <div class="post-apply-page-header">
+      <div class="post-apply-mascot">🎉</div>
+      <div>
+        <div class="post-apply-title">지원이 완료되었습니다!</div>
+        <div class="post-apply-sub">방금 지원한 이력서로 다른 포지션에 간단하게 추가 지원해보세요.</div>
+      </div>
+    </div>
+    <div class="post-apply-page-body">
+      <div class="post-apply-left">
+        <div class="post-apply-list" id="postApplyList"></div>
+      </div>
+      <div class="post-apply-right">
+        <div class="post-apply-detail-content" id="postApplyDetail">
+          <div style="display:flex;align-items:center;justify-content:center;height:300px;color:var(--text-tertiary);font-size:14px;">공고를 선택하면 상세 정보가 표시됩니다</div>
         </div>
-        <button class="post-apply-close" id="postApplyClose">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
       </div>
-      <div class="post-apply-list" id="postApplyList"></div>
-      <div class="post-apply-footer">
-        <button class="post-apply-submit" id="postApplySubmit" disabled>
-          <span id="postApplyCount">0</span>건 · 동시 지원하기
-        </button>
-      </div>
+    </div>
+    <div class="post-apply-footer">
+      <button class="post-apply-back-btn" id="postApplyClose">지원한 포지션으로 돌아가기</button>
+      <button class="post-apply-submit" id="postApplySubmit" disabled>
+        <span id="postApplyCount">0</span>건 · 동시 지원하기
+      </button>
     </div>
   </div>
 
@@ -18383,6 +18508,11 @@ function closeRatePopup() {
       document.getElementById('gnb-guest').style.display='none';
       document.getElementById('gnb-user').style.display='flex';
       sessionStorage.setItem('jp_logged_in','true');
+      // 새 로그인 시 지원 정보 초기화 (UT용)
+      sessionStorage.removeItem('applyInfo');
+      if (typeof resetApplyModal === 'function') resetApplyModal(true);
+      if (typeof appliedJobs !== 'undefined') appliedJobs.clear();
+      if (typeof updateApplyBtnState === 'function') updateApplyBtnState();
       // 기업 리뷰 페이지 로그인 상태 적용
       if (typeof completeLogin === 'function') completeLogin();
     });
@@ -18395,6 +18525,7 @@ function closeRatePopup() {
       sessionStorage.removeItem('jp_jobreview_job');
       sessionStorage.removeItem('jp_ob_job');
       sessionStorage.removeItem('jp_ob_conds');
+      sessionStorage.removeItem('applyInfo');
       obSelectedJob='';obSelectedConds=[];
       closeAllPopups();
       // 기본 기업 복원
@@ -18530,6 +18661,13 @@ function closeRatePopup() {
     if(id==='community' && typeof renderComm==='function') renderComm();
     if(id==='job-detail'){
       document.querySelectorAll('.gnb-nav a').forEach(a=>{if(a.dataset.page==='job')a.classList.add('active');});
+      // 사이드바 active 항목의 jobId로 currentJobId 동기화
+      var activeItem = document.querySelector('#page-job-detail .sidebar-job-item.active');
+      if(activeItem && activeItem.getAttribute('onclick')){
+        var m = activeItem.getAttribute('onclick').match(/selectJob\(this,\s*'([^']+)'\)/);
+        if(m) { if(typeof currentJobId!=='undefined') currentJobId = m[1]; }
+      }
+      if(typeof updateApplyBtnState==='function' && typeof appliedJobs!=='undefined') updateApplyBtnState();
     }
     var rlBtn = document.getElementById('resetLogoutBtn');
     if(rlBtn){
@@ -18753,6 +18891,17 @@ function closeRatePopup() {
       welfare: 'cdTabWelfare',
       jobs: 'cdTabJobs'
     };
+    // 채용 상세에서 기업 상세 특정 탭으로 이동
+    window.goCompanyTab = function(tabName) {
+      var companyEl = document.getElementById('jd-company');
+      var name = companyEl ? companyEl.textContent.trim() : '';
+      openCompany({name:name, score:3.4, industry:'기타', loc:'서울', year:2010, size:100, jobs:3, pct:65, initial:(name ? name.charAt(0) : ''), keywords:[]});
+      setTimeout(function(){
+        var tab = document.querySelector('#cdTabsNav .cd-tab[data-tab="' + tabName + '"]');
+        if(tab) tab.click();
+      }, 100);
+    };
+
     document.getElementById('cdTabsNav').addEventListener('click', function(e){
       var tab = e.target.closest('.cd-tab');
       if(!tab) return;
@@ -19236,10 +19385,11 @@ function closeRatePopup() {
             '<dt>연혁</dt><dd>' + c.history + '</dd>' +
           '</dl>' +
           '<div class="detail-company-links">' +
-            '<button class="detail-company-link-btn">기업 소개 &gt;</button>' +
-            '<button class="detail-company-link-btn">면접 후기 &gt;</button>' +
-            '<button class="detail-company-link-btn">기업 리뷰 &gt;</button>' +
-            '<button class="detail-company-link-btn">전체 공고 &gt;</button>' +
+            '<button class="detail-company-link-btn">기업 소개 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+            '<button class="detail-company-link-btn">면접 후기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+            '<button class="detail-company-link-btn">기업 리뷰 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+            '<button class="detail-company-link-btn">전체 공고 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+
           '</div>' +
         '</div>';
     }
@@ -19946,7 +20096,14 @@ function closeRatePopup() {
     // 지원하기 모달
     var applyModal = document.getElementById('applyModal');
     document.getElementById('page-job-detail').addEventListener('click', function(e) {
-      if (e.target.closest('.detail-apply-btn')) {
+      var applyBtn = e.target.closest('.detail-apply-btn');
+      if (applyBtn && !applyBtn.disabled) {
+        // 미로그인 상태면 로그인 모달 띄우기
+        var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
+        if (!isLoggedIn) {
+          showLoginPopup();
+          return;
+        }
         resumeCheck.checked = false;
         updateSubmitState();
         // 이전에 입력 완료한 경우 요약 뷰로, 아니면 입력 뷰로
@@ -19965,43 +20122,69 @@ function closeRatePopup() {
       if (e.target === applyModal) applyModal.classList.remove('show');
     });
 
-    // 지원 정보 입력/요약 전환
+    // 지원 정보 — 저장된 정보 있으면 컴팩트 요약 뷰, 없으면 풀 입력 뷰
     var applyProfileCompleted = false;
+
+    // 요약 뷰 ↔ 메인 입력 필드 동기화
+    function syncSummaryToMain() {
+      document.getElementById('applyName').value = document.getElementById('summaryNameInput').value;
+      document.getElementById('applyPhone').value = document.getElementById('summaryPhoneInput').value;
+      document.getElementById('applyEmail').value = document.getElementById('summaryEmailInput').value;
+    }
+    function syncMainToSummary() {
+      document.getElementById('summaryNameInput').value = document.getElementById('applyName').value;
+      document.getElementById('summaryPhoneInput').value = document.getElementById('applyPhone').value;
+      document.getElementById('summaryEmailInput').value = document.getElementById('applyEmail').value;
+    }
+
+    // 요약 뷰 입력 변경 시 메인 필드 동기화 + sessionStorage 업데이트
+    ['summaryNameInput', 'summaryPhoneInput', 'summaryEmailInput'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', function() {
+        syncSummaryToMain();
+        saveApplyInfo();
+        updateSubmitState();
+      });
+    });
+
+    // 입력 뷰 표시 (저장된 정보 없을 때)
     function applyShowInputView() {
       document.getElementById('applyInfoInputView').style.display = '';
       document.getElementById('applyInfoSummaryView').style.display = 'none';
-      document.getElementById('applyInfoEditBtn').style.display = 'none';
     }
+    // 요약 뷰 표시 (저장된 정보 있을 때)
     function applyShowSummaryView() {
-      document.getElementById('summaryName').textContent = document.getElementById('applyName').value.trim();
-      document.getElementById('summaryPhone').textContent = document.getElementById('applyPhone').value.trim();
-      document.getElementById('summaryEmail').textContent = document.getElementById('applyEmail').value.trim();
+      syncMainToSummary();
       document.getElementById('applyInfoInputView').style.display = 'none';
       document.getElementById('applyInfoSummaryView').style.display = '';
-      document.getElementById('applyInfoEditBtn').style.display = '';
       applyProfileCompleted = true;
     }
-    document.getElementById('applyInfoDoneBtn').addEventListener('click', function() {
-      var name = document.getElementById('applyName').value.trim();
-      var email = document.getElementById('applyEmail').value.trim();
-      var phone = document.getElementById('applyPhone').value.trim();
-      if (!name || !email || !phone) { showToast('이름, 이메일, 전화번호를 입력해주세요.'); return; }
-      applyShowSummaryView();
-    });
-    document.getElementById('applyInfoEditBtn').addEventListener('click', function() {
-      applyShowInputView();
-      applyProfileCompleted = false;
-    });
-    // 요약 뷰 더블클릭 → 입력 초기화
-    document.getElementById('applyInfoSummaryView').addEventListener('dblclick', function() {
-      document.getElementById('applyName').value = '';
-      document.getElementById('applyEmail').value = '';
-      document.getElementById('applyPhone').value = '';
-      applyProfileCompleted = false;
-      applyShowInputView();
-      updateSubmitState();
-      showToast('초기화되었습니다.');
-    });
+
+    // sessionStorage에서 저장된 지원 정보 복원
+    function restoreApplyInfo() {
+      var saved = sessionStorage.getItem('applyInfo');
+      if (saved) {
+        try {
+          var info = JSON.parse(saved);
+          if (info.name) document.getElementById('applyName').value = info.name;
+          if (info.phone) document.getElementById('applyPhone').value = info.phone;
+          if (info.email) document.getElementById('applyEmail').value = info.email;
+          applyProfileCompleted = true;
+          applyShowSummaryView();
+        } catch(e) {}
+      }
+    }
+    // 지원 완료 시 입력값 저장 + 요약 뷰 전환
+    function saveApplyInfo() {
+      var info = {
+        name: document.getElementById('applyName').value.trim(),
+        phone: document.getElementById('applyPhone').value.trim(),
+        email: document.getElementById('applyEmail').value.trim()
+      };
+      sessionStorage.setItem('applyInfo', JSON.stringify(info));
+      applyProfileCompleted = true;
+    }
+    // 초기 복원
+    restoreApplyInfo();
 
     // UT 초기화: 모달 헤더 더블클릭
     // 지원 모달에서 이력서 작성으로 진입했는지 추적
@@ -20031,7 +20214,7 @@ function closeRatePopup() {
       var item = document.createElement('div');
       item.className = 'apply-modal-resume-item';
       item.innerHTML =
-        '<input type="checkbox" id="' + uid + '">' +
+        '<input type="checkbox" id="' + uid + '" checked>' +
         '<div class="apply-modal-resume-selectable" onclick="var cb=this.previousElementSibling;cb.checked=!cb.checked;updateSubmitState()">' +
           '<div class="apply-modal-resume-info">' +
             '<div class="apply-modal-resume-top">' +
@@ -20059,17 +20242,21 @@ function closeRatePopup() {
       addMyHomeResumeRow(title, dateStr + ' | 작성 완료');
     }
 
-    function resetApplyModal() {
+    function resetApplyModal(silent) {
       document.getElementById('applyName').value = '';
       document.getElementById('applyEmail').value = '';
       document.getElementById('applyPhone').value = '';
+      document.getElementById('summaryNameInput').value = '';
+      document.getElementById('summaryPhoneInput').value = '';
+      document.getElementById('summaryEmailInput').value = '';
       resumeCheck.checked = false;
       applyProfileCompleted = false;
+      sessionStorage.removeItem('applyInfo');
       applyShowInputView();
       // 추가된 이력서 항목 모두 제거 (초기 숨김 항목 제외)
       document.querySelectorAll('#resumeList .apply-modal-resume-item:not(#resumeItem)').forEach(function(el) { el.remove(); });
       updateSubmitState();
-      showToast('초기화되었습니다.');
+      if (!silent) showToast('초기화되었습니다.');
     }
     document.querySelector('.apply-modal-header').addEventListener('dblclick', function() {
       resetApplyModal();
@@ -20146,7 +20333,7 @@ function closeRatePopup() {
         var item = document.createElement('div');
         item.className = 'apply-modal-resume-item';
         item.innerHTML =
-          '<input type="checkbox" id="' + uid + '">' +
+          '<input type="checkbox" id="' + uid + '" checked>' +
           '<div class="apply-modal-resume-selectable" onclick="var cb=this.previousElementSibling;cb.checked=!cb.checked;updateSubmitState()">' +
             '<div class="apply-modal-resume-info">' +
               '<div class="apply-modal-resume-top">' +
@@ -20177,12 +20364,45 @@ function closeRatePopup() {
       { title: 'UI/UX 디자이너', company: '클라우드나인', location: '서울 마포구', exp: '신입/경력', ai: 58, bg: '#fef3c7', jobId: 'com2us' }
     ];
 
+    var postApplyDetailData = {
+      babitalk: { title: 'UI/UX 디자이너 (Product Design)', company: '디플래닛', meta: '서울 강남구 · 경력 3-8년', desc: '디플래닛은 글로벌 여행 플랫폼으로, 사용자 중심의 프로덕트 디자인을 이끌 시니어 디자이너를 찾고 있습니다.', tasks: ['사용자 리서치 기반 UI/UX 개선', '디자인 시스템 구축 및 유지보수', '프로토타이핑 및 사용성 테스트', '크로스펑셔널 팀과 협업'], qual: ['UX/UI 디자인 경력 3년 이상', 'Figma 등 디자인 툴 능숙', '포트폴리오 필수 제출'] },
+      nexon: { title: 'Product Designer', company: '유모스원', meta: '서울 강남구 · 경력 5-11년', desc: '유모스원은 모빌리티 서비스를 혁신하는 기업으로, 차량 관제 시스템의 UX를 담당할 프로덕트 디자이너를 모집합니다.', tasks: ['Fleet Management 서비스 UX 설계', '데이터 시각화 대시보드 디자인', '디자인 QA 및 핸드오프'], qual: ['프로덕트 디자인 경력 5년 이상', 'B2B SaaS 경험 우대', '데이터 기반 의사결정 경험'] },
+      smilegate: { title: '글로벌 커머스 앱 디자이너', company: '엠피에이지(MPAG)', meta: '서울 중구 · 경력 3년 이상', desc: '엠피에이지는 글로벌 커머스 앱을 운영하며, 해외 사용자를 위한 쇼핑 경험을 디자인할 디자이너를 찾습니다.', tasks: ['글로벌 커머스 앱 UI/UX 설계', '다국어 인터페이스 디자인', 'A/B 테스트 기반 개선'], qual: ['모바일 앱 디자인 경력 3년 이상', '이커머스 경험 우대'] },
+      ak: { title: 'UX UI 디자이너', company: '아스타라', meta: '서울 강서구 · 경력 3-8년', desc: '아스타라는 헬스케어 플랫폼을 만드는 기업으로, 사용자 친화적인 의료 서비스 UX를 설계할 디자이너를 찾습니다.', tasks: ['헬스케어 앱 UX/UI 디자인', '환자·의료진 양면 서비스 설계', '접근성 높은 인터페이스 구현'], qual: ['UX/UI 디자인 경력 3년 이상', '헬스케어/의료 도메인 경험 우대'] },
+      xyz: { title: 'ux/ui디자이너', company: '이온랩', meta: '충북 청주시 · 경력 3년 이상', desc: '이온랩은 IoT 스마트팜 솔루션을 개발하는 스타트업으로, 대시보드 및 모바일 앱의 UX를 담당할 디자이너를 모집합니다.', tasks: ['스마트팜 대시보드 UX 설계', 'IoT 디바이스 연동 인터페이스', '모바일 앱 UI 디자인'], qual: ['UI/UX 디자인 경력 3년 이상', '대시보드 디자인 경험 우대'] },
+      com2us: { title: 'UI/UX 디자이너', company: '클라우드나인', meta: '서울 마포구 · 신입/경력', desc: '클라우드나인은 클라우드 기반 협업 툴을 만드는 기업으로, 직관적인 SaaS 제품의 UX를 함께 만들어갈 디자이너를 찾습니다.', tasks: ['SaaS 제품 UI/UX 설계', '디자인 시스템 컴포넌트 제작', '사용자 인터뷰 및 리서치'], qual: ['관련 전공 또는 부트캠프 수료', 'Figma 활용 가능자', '포트폴리오 필수'] }
+    };
+
+    function renderPostApplyDetail(jobId) {
+      var detail = document.getElementById('postApplyDetail');
+      var data = postApplyDetailData[jobId];
+      if (!data) return;
+      // active 표시
+      document.querySelectorAll('.post-apply-item').forEach(function(el){ el.classList.remove('active'); });
+      var activeEl = document.querySelector('.post-apply-item[data-job-id="' + jobId + '"]');
+      if (activeEl) activeEl.classList.add('active');
+
+      var thumbIdx = Math.floor(Math.random()*4)+1;
+      detail.innerHTML =
+        '<div class="post-apply-detail-images">' +
+          '<img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_thumb_' + thumbIdx + '.jpg" onerror="this.style.background=\'#f3f4f6\';this.alt=\'\'">' +
+          '<img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_thumb_' + (thumbIdx+1) + '.jpg" onerror="this.style.background=\'#eee\';this.alt=\'\'">' +
+        '</div>' +
+        '<div class="post-apply-detail-title">' + data.title + '</div>' +
+        '<div class="post-apply-detail-company">' + data.company + '</div>' +
+        '<div class="post-apply-detail-meta">' + data.meta + '</div>' +
+        '<div class="post-apply-detail-section"><h4>포지션 상세</h4><p>' + data.desc + '</p></div>' +
+        '<div class="post-apply-detail-section"><h4>주요업무</h4><ul>' + data.tasks.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="post-apply-detail-section"><h4>자격 요건</h4><ul>' + data.qual.map(function(q){ return '<li>' + q + '</li>'; }).join('') + '</ul></div>';
+    }
+
     function renderPostApplyList() {
       var list = document.getElementById('postApplyList');
       list.innerHTML = '';
       recommendedJobs.forEach(function(job, idx) {
         var item = document.createElement('div');
         item.className = 'post-apply-item';
+        item.setAttribute('data-job-id', job.jobId);
         item.innerHTML =
           '<input type="checkbox" class="post-apply-item-check" id="paj' + idx + '">' +
           '<div class="post-apply-item-thumb" style="background:' + job.bg + '"></div>' +
@@ -20192,27 +20412,20 @@ function closeRatePopup() {
             '<div class="post-apply-item-exp">' + job.exp + '</div>' +
             '<span class="post-apply-item-ai">AI 예측 ' + job.ai + '점</span>' +
           '</div>' +
-          '<button class="post-apply-item-arrow" data-job-id="' + job.jobId + '" style="background:none;border:none;cursor:pointer;padding:4px;">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>' +
-          '</button>';
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="flex-shrink:0;color:var(--text-tertiary)"><polyline points="9 18 15 12 9 6"/></svg>';
+        // 체크박스 클릭
         item.querySelector('input').addEventListener('change', updatePostApplyCount);
-        item.querySelector('.post-apply-item-arrow').addEventListener('click', function(e) {
-          e.stopPropagation();
-          var jobId = this.dataset.jobId;
-          postApplyPopup.classList.remove('show');
-          go('job-detail');
-          setTimeout(function() {
-            var sidebarItem = document.querySelector('#page-job-detail .sidebar-job-item[onclick*="' + jobId + '"]');
-            if (sidebarItem) {
-              document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(i) { i.classList.remove('active'); });
-              sidebarItem.classList.add('active');
-              renderJobDetail(jobId);
-              // removed history.replaceState;
-            }
-          }, 100);
+        // 항목 클릭 → 오른쪽 상세 표시
+        item.addEventListener('click', function(e) {
+          if (e.target.type === 'checkbox') return;
+          renderPostApplyDetail(job.jobId);
         });
         list.appendChild(item);
       });
+      // 첫 번째 항목 자동 선택
+      if (recommendedJobs.length > 0) {
+        renderPostApplyDetail(recommendedJobs[0].jobId);
+      }
     }
 
     function updatePostApplyCount() {
@@ -20241,6 +20454,31 @@ function closeRatePopup() {
       showToast(count + '개 공고에 지원이 완료되었습니다.');
     });
 
+    // 이력서 배너: "가지고 있는 이력서로 바로 지원"
+    document.getElementById('bannerFileApply').addEventListener('click', function() {
+      var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
+      if (!isLoggedIn) { showLoginPopup(); return; }
+      // 지원하기 모달 열기
+      resumeCheck.checked = false;
+      updateSubmitState();
+      if (applyProfileCompleted) { applyShowSummaryView(); } else { applyShowInputView(); }
+      applyModal.classList.add('show');
+      // 파일 선택 창 띄우기
+      setTimeout(function(){ document.getElementById('fileAddInput').click(); }, 300);
+    });
+
+    // 이력서 배너: "AI 이력서 불러오기"
+    document.getElementById('bannerAiResume').addEventListener('click', function() {
+      var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
+      if (!isLoggedIn) { showLoginPopup(); return; }
+      cameFromApplyModal = true;
+      openResumeEditor();
+      // AI 이력서 파일 선택 모달 띄우기
+      setTimeout(function(){
+        document.getElementById('aiSelectModal').classList.add('show');
+      }, 300);
+    });
+
     // 지원하기 버튼 더블클릭 → 최초 지원 상태로 초기화
     document.getElementById('page-job-detail').addEventListener('dblclick', function(e) {
       if (e.target.closest('.detail-apply-btn')) {
@@ -20250,6 +20488,14 @@ function closeRatePopup() {
     });
 
     applySubmit.addEventListener('click', function() {
+      // 지원 정보 유효성 검사
+      var name = document.getElementById('applyName').value.trim();
+      var email = document.getElementById('applyEmail').value.trim();
+      var phone = document.getElementById('applyPhone').value.trim();
+      if (!name || !email || !phone) { showToast('이름, 이메일, 전화번호를 입력해주세요.'); return; }
+      // 지원 정보 저장 (세션 유지) + 요약 뷰 전환
+      saveApplyInfo();
+      applyShowSummaryView();
       applyModal.classList.remove('show');
       appliedJobs.add(currentJobId);
       updateApplyBtnState();
@@ -20257,7 +20503,7 @@ function closeRatePopup() {
         hasAppliedToday = true;
         showPostApplyPopup();
       } else {
-        showToast('지원이 완료되었습니다.');
+        showSaveToast('지원이 완료되었습니다.', true);
       }
     });
 
@@ -20724,7 +20970,7 @@ function closeRatePopup() {
         var logoS='width:56px;height:56px;border-radius:12px;flex-shrink:0;background:#fff;border:1.5px solid #E5E7EB;overflow:hidden;';
         var logoI='<img src="'+logoInfo.img+'" style="width:100%;height:100%;object-fit:contain;display:block;" alt="">';
         var mainEl=document.getElementById('detail-main-content'); if(!mainEl) return;
-        mainEl.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start;"><div><div class="jd-company-name" style="margin-bottom:8px;cursor:pointer;" onclick="openCompany({name:\''+co.replace(/'/g,"\\'")+'\',score:3.5,industry:\'기타\',loc:\'서울\',year:2010,size:100,jobs:3,pct:65,initial:\''+co.charAt(0)+'\',keywords:[]})">'+co+'</div><div class="detail-job-header"><h1 class="detail-job-title">'+title+'</h1></div><div class="detail-job-meta">'+loc+' &nbsp;&middot;&nbsp; '+career+' &nbsp;&middot;&nbsp; 정규직</div></div><button class="detail-job-bm" onclick="copyJobLink()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div><div style="display:none;flex-wrap:wrap;gap:6px;margin-top:8px;"></div><div class="detail-section"><h3>기업 소개</h3><p>'+tmpl.intro+'</p></div><div class="detail-section"><h3>주요 업무</h3>'+tmpl.tasks+'</div><div class="detail-section"><h3>자격 요건</h3>'+tmpl.qual+'</div><div class="detail-section"><h3>우대사항</h3>'+tmpl.pref+'</div><div class="detail-section"><h3>복지 및 혜택</h3><ul><li>성과에 따른 인센티브 지급</li><li>유연 근무제 운영</li><li>최신 장비 지원</li><li>도서·교육비 지원</li></ul></div><div class="detail-section"><h3>채용 절차</h3><p>서류 심사 → 1차 실무 면접 → 2차 임원 면접 → 최종합격 및 처우협의</p></div><div class="detail-company-card"><div class="detail-company-top"><div class="detail-company-info"><div class="detail-company-logo" style="'+logoS+'">'+logoI+'</div><div><div class="detail-company-name">'+co+'</div><div class="detail-company-rating">★ '+compInfo.rating+'</div></div></div><button class="detail-follow-btn">♡ 팔로우</button></div><dl class="detail-company-row"><dt>대표</dt><dd>'+compInfo.ceo+'</dd><dt>매출</dt><dd>'+compInfo.revenue+'</dd><dt>임직원 수</dt><dd>'+compInfo.emp+'</dd><dt>주소</dt><dd>'+compInfo.addr+'</dd><dt>연혁</dt><dd>'+compInfo.hist+'</dd></dl><div class="detail-company-links"><button class="detail-company-link-btn" onclick="go(\'company\')">기업 소개 &gt;</button><button class="detail-company-link-btn" onclick="goCompanyTab(4)">면접 후기 &gt;</button><button class="detail-company-link-btn" onclick="goCompanyTab(2)">기업 리뷰 &gt;</button><button class="detail-company-link-btn" onclick="goCompanyTab(6)">전체 공고 &gt;</button></div></div>';
+        mainEl.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start;"><div><div class="jd-company-name" style="margin-bottom:8px;cursor:pointer;" onclick="openCompany({name:\''+co.replace(/'/g,"\\'")+'\',score:3.5,industry:\'기타\',loc:\'서울\',year:2010,size:100,jobs:3,pct:65,initial:\''+co.charAt(0)+'\',keywords:[]})">'+co+'</div><div class="detail-job-header"><h1 class="detail-job-title">'+title+'</h1></div><div class="detail-job-meta">'+loc+' &nbsp;&middot;&nbsp; '+career+' &nbsp;&middot;&nbsp; 정규직</div></div><button class="detail-job-bm" onclick="copyJobLink()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button></div><div style="display:none;flex-wrap:wrap;gap:6px;margin-top:8px;"></div><div class="detail-section"><h3>기업 소개</h3><p>'+tmpl.intro+'</p></div><div class="detail-section"><h3>주요 업무</h3>'+tmpl.tasks+'</div><div class="detail-section"><h3>자격 요건</h3>'+tmpl.qual+'</div><div class="detail-section"><h3>우대사항</h3>'+tmpl.pref+'</div><div class="detail-section"><h3>복지 및 혜택</h3><ul><li>성과에 따른 인센티브 지급</li><li>유연 근무제 운영</li><li>최신 장비 지원</li><li>도서·교육비 지원</li></ul></div><div class="detail-section"><h3>채용 절차</h3><p>서류 심사 → 1차 실무 면접 → 2차 임원 면접 → 최종합격 및 처우협의</p></div><div class="detail-company-card"><div class="detail-company-top"><div class="detail-company-info"><div class="detail-company-logo" style="'+logoS+'">'+logoI+'</div><div><div class="detail-company-name">'+co+'</div><div class="detail-company-rating">★ '+compInfo.rating+'</div></div></div><button class="detail-follow-btn">♡ 팔로우</button></div><dl class="detail-company-row"><dt>대표</dt><dd>'+compInfo.ceo+'</dd><dt>매출</dt><dd>'+compInfo.revenue+'</dd><dt>임직원 수</dt><dd>'+compInfo.emp+'</dd><dt>주소</dt><dd>'+compInfo.addr+'</dd><dt>연혁</dt><dd>'+compInfo.hist+'</dd></dl><div class="detail-company-links"><button class="detail-company-link-btn" onclick="go(\'company\')">기업 소개 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button><button class="detail-company-link-btn" onclick="goCompanyTab(\'interview\')">면접 후기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button><button class="detail-company-link-btn" onclick="goCompanyTab(\'review\')">기업 리뷰 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button><button class="detail-company-link-btn" onclick="goCompanyTab(\'jobs\')">전체 공고 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:middle"><polyline points="9 18 15 12 9 6"/></svg></button></div></div>';
       }
       var RATING_KEYS=['업무와 삶의 균형','복지 및 급여','사내문화','성장 가능성','경영진'];
       function buildJobDetailSidebar(clickedCard) {
@@ -20737,8 +20983,8 @@ function closeRatePopup() {
         var sidebar=document.querySelector('#page-job-detail .detail-sidebar');if(!sidebar) return;
         sidebar.innerHTML='<div class="sidebar-count"><span class="sidebar-count-num">총 533건</span><div style="position:relative;display:inline-block;"><span class="sidebar-count-sort" onclick="var dd=this.nextElementSibling;dd.style.display=dd.style.display===\'block\'?\'none\':\'block\';" style="cursor:pointer;">정확도순 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg></span><div class="sidebar-sort-dd" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--line-primary);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.1);min-width:130px;z-index:50;overflow:hidden;"><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'최신순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">최신순</button><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'인기순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;border:none;cursor:pointer;font-family:var(--font);color:var(--tx2);">인기순</button><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'마감임박순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;border:none;cursor:pointer;font-family:var(--font);color:var(--tx2);">마감임박순</button></div></div></div>'+html;
       }
-      window.selectJobFromCard=function(el){document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(i){i.classList.remove('active');});el.classList.add('active');var co=el.getAttribute('data-jd-co');var title=el.getAttribute('data-jd-title');buildDetailFromCard({title:title,co:co,meta:'서울 · 경력 3년↑'});if(typeof shuffleDetailImages==='function') shuffleDetailImages();window.scrollTo(0,0);};
-      window.goJobDetail=function(title,co,meta,thumbSrc){clickedCardInfo={title:title,co:co,meta:meta,thumb:thumbSrc};go('job-detail');setTimeout(function(){var slides=document.querySelectorAll('.detail-img-slide img');if(slides.length>0&&thumbSrc) slides[0].src=thumbSrc;buildJobDetailSidebar({title:title,co:co,meta:meta});buildDetailFromCard({title:title,co:co,meta:meta});},20);};
+      window.selectJobFromCard=function(el){document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(i){i.classList.remove('active');});el.classList.add('active');var co=el.getAttribute('data-jd-co');var title=el.getAttribute('data-jd-title');currentJobId='card_'+title+'_'+co;updateApplyBtnState();buildDetailFromCard({title:title,co:co,meta:'서울 · 경력 3년↑'});if(typeof shuffleDetailImages==='function') shuffleDetailImages();window.scrollTo(0,0);};
+      window.goJobDetail=function(title,co,meta,thumbSrc){clickedCardInfo={title:title,co:co,meta:meta,thumb:thumbSrc};currentJobId='card_'+title+'_'+co;go('job-detail');setTimeout(function(){var slides=document.querySelectorAll('.detail-img-slide img');if(slides.length>0&&thumbSrc) slides[0].src=thumbSrc;buildJobDetailSidebar({title:title,co:co,meta:meta});buildDetailFromCard({title:title,co:co,meta:meta});updateApplyBtnState();},20);};
       (function initSidebarLogos(){document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(item){var coEl=item.querySelector('.sidebar-job-company');var thumbEl=item.querySelector('.sidebar-job-thumb');if(!coEl||!thumbEl) return;var coName=coEl.textContent.trim();var info=getCompanyLogo(coName);thumbEl.style.cssText='background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;overflow:hidden;width:56px;height:56px;flex-shrink:0;';thumbEl.innerHTML='<img src="'+info.img+'" style="width:100%;height:100%;object-fit:contain;display:block;" alt="">';});})();
       window.buildJobDetailSidebar = buildJobDetailSidebar;
       window.buildDetailFromCard = buildDetailFromCard;
@@ -20799,8 +21045,12 @@ function closeRatePopup() {
       document.body.appendChild(toast);
 
       var saveToastTimer;
+      var saveToastText = toast.querySelector('span:nth-child(2)');
+      var saveToastLink = document.getElementById('saveToastLink');
       window.showSaveToast = showSaveToast;
-      function showSaveToast(){
+      function showSaveToast(msg, hideLink){
+        saveToastText.textContent = msg || '공고가 저장되었습니다';
+        saveToastLink.style.display = hideLink ? 'none' : '';
         toast.classList.add('show');
         clearTimeout(saveToastTimer);
         saveToastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3000);
@@ -21111,8 +21361,7 @@ function closeRatePopup() {
     showLoginPopup();
   }
   function showLoginPopup() {
-    document.getElementById('rv-login-popup').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    openOB();
   }
   function completeLogin() {
     var loginPopup = document.getElementById('rv-login-popup');
