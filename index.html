@@ -9909,7 +9909,7 @@
             <div id="iv-tier-1" onclick="ivTierAction(1)" style="display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid #00c362;border-radius:10px;cursor:pointer;background:#fff;transition:all 0.3s;">
               <div style="width:24px;height:24px;border-radius:50%;background:#00c362;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;color:#fff;font-weight:700;" id="iv-tier-1-icon">1</div>
               <span style="font-size:12px;font-weight:700;color:#242628;flex:1;">면접 질문 TOP 10</span>
-              <span style="font-size:11px;font-weight:600;color:#00c362;">후기 작성 시 열림</span>
+              <span style="font-size:11px;font-weight:600;color:#00c362;">면접 리뷰 2건 작성 시</span>
             </div>
             <div id="iv-tier-2" onclick="ivTierAction(2)" style="display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid transparent;border-radius:10px;cursor:default;background:#f7f8f9;transition:all 0.3s;opacity:0.5;">
               <div style="width:24px;height:24px;border-radius:50%;background:#e5e6e9;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;" id="iv-tier-2-icon">🔒</div>
@@ -9927,7 +9927,7 @@
             <span style="font-size:9px;font-weight:600;color:#949ba8;" id="iv-tier-count">0/3건</span>
           </div>
           <div id="iv-tier-status" style="display:none;"></div>
-          <button id="iv-tier-cta" onclick="showInterviewNudgePopup()" style="width:100%;padding:10px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:'Pretendard',sans-serif;margin-top:4px;">후기 남기고 열기</button>
+          <button id="iv-tier-cta" onclick="showInterviewNudgePopup()" style="width:100%;padding:10px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:'Pretendard',sans-serif;margin-top:4px;">후기 남기고 확인하기</button>
         </div>
 
         <!-- 면접 경험 좋은 기업 (롤링 버전) -->
@@ -12415,6 +12415,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 
+var _ivOriginalOrder = null;
 function ivSortBy(type) {
   // UI 토글
   var dateBtn = document.getElementById('iv-sort-date');
@@ -12426,34 +12427,32 @@ function ivSortBy(type) {
     ivBtn.style.fontWeight = '700'; ivBtn.style.color = '#242628';
     dateBtn.style.fontWeight = '500'; dateBtn.style.color = '#949ba8';
   }
-  // 정렬
   var container = document.querySelector('[data-tab-content="interview"] .rv-card-list');
   if (!container) return;
   var cards = Array.from(container.querySelectorAll('.rv-card'));
-  cards.sort(function(a, b) {
-    var getWriteDate = function(el) {
-      var meta = el.querySelector('.rv-card-meta');
-      if (!meta) return 0;
-      var text = meta.textContent;
-      var m = text.match(/(\d{4})\.\s*(\d{2})\s*작성/);
-      return m ? parseInt(m[1]) * 100 + parseInt(m[2]) : 0;
-    };
-    var getIvDate = function(el) {
-      var score = el.querySelector('.rv-card-score');
-      if (!score) return 0;
-      var text = score.textContent;
-      var m = text.match(/면접일자[\s\S]*?(\d{4})\/(\d{2})/);
-      return m ? parseInt(m[1]) * 100 + parseInt(m[2]) : 0;
-    };
-    if (type === 'date') {
-      return getWriteDate(b) - getWriteDate(a);
-    } else {
+
+  // 최초 순서 저장 (작성순 = 초기 순서)
+  if (!_ivOriginalOrder) {
+    _ivOriginalOrder = cards.slice();
+  }
+
+  if (type === 'date') {
+    // 작성순: 원래 순서 복원
+    _ivOriginalOrder.forEach(function(card) { container.appendChild(card); });
+  } else {
+    // 면접 일자순: 정렬
+    cards.sort(function(a, b) {
+      var getIvDate = function(el) {
+        var score = el.querySelector('.rv-card-score');
+        if (!score) return 0;
+        var text = score.textContent;
+        var m = text.match(/면접일자[\s\S]*?(\d{4})\/(\d{2})/);
+        return m ? parseInt(m[1]) * 100 + parseInt(m[2]) : 0;
+      };
       return getIvDate(b) - getIvDate(a);
-    }
-  });
-  cards.forEach(function(card) { container.appendChild(card); });
-  // 넛지 4번째 유지
-  var nudge = document.getElementById('iv-mid-nudge');
+    });
+    cards.forEach(function(card) { container.appendChild(card); });
+  }
   repositionNudge();
 }
 function filterIvCards() {
@@ -12964,30 +12963,34 @@ function closeIvInsightPopup() {
   document.body.style.overflow = '';
 }
 function ivTierAction(tier) {
-  if (ivReviewCount >= tier) {
+  // 열린 단계: ivReviewCount - 1 (1회=권한만, 2회=1단계, 3회=2단계, 4회=3단계)
+  var unlockedTiers = Math.max(0, ivReviewCount - 1);
+  if (unlockedTiers >= tier) {
     openIvInsightPopup(tier);
   } else {
     showInterviewNudgePopup();
   }
 }
 function updateIvTiers() {
+  // 열린 단계: ivReviewCount - 1 (1회=권한만, 2회=1단계, 3회=2단계, 4회=3단계)
+  var unlockedTiers = Math.max(0, ivReviewCount - 1);
   for (var i = 1; i <= 3; i++) {
     var row = document.getElementById('iv-tier-' + i);
     var icon = document.getElementById('iv-tier-' + i + '-icon');
     var spans = row.querySelectorAll('span');
     var subSpan = spans.length >= 2 ? spans[spans.length - 1] : null;
-    if (ivReviewCount >= i) {
+    if (unlockedTiers >= i) {
       // 완료: 회색 배경, 라인 없음
       icon.style.cssText = 'width:24px;height:24px;border-radius:50%;background:#00c362;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:#fff;font-weight:700;';
       icon.textContent = '✓';
       row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid transparent;border-radius:10px;cursor:pointer;background:#f7f8f9;transition:all 0.3s;opacity:1;';
       if (subSpan) { subSpan.textContent = '확인하기 ›'; subSpan.style.cssText = 'font-size:11px;font-weight:700;color:#00c362;'; }
-    } else if (ivReviewCount === i - 1) {
-      // 현재 단계: 녹색 테두리 + 흰 배경 (면접 경험 좋은 기업 활성 카드와 동일)
+    } else if (unlockedTiers === i - 1) {
+      // 현재 단계: 녹색 테두리 + 흰 배경
       icon.style.cssText = 'width:24px;height:24px;border-radius:50%;background:#00c362;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff;font-weight:700;';
       icon.textContent = i;
       row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid #00c362;border-radius:10px;cursor:pointer;background:#fff;transition:all 0.3s;opacity:1;';
-      if (subSpan) { subSpan.textContent = '후기 작성 시 열림'; subSpan.style.cssText = 'font-size:11px;font-weight:600;color:#00c362;'; }
+      if (subSpan) { subSpan.textContent = '면접 리뷰 ' + (i + 1) + '건 작성 시'; subSpan.style.cssText = 'font-size:11px;font-weight:600;color:#00c362;'; }
     } else {
       // 미래 단계: 잠금
       icon.style.cssText = 'width:24px;height:24px;border-radius:50%;background:#e5e6e9;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;';
@@ -12996,10 +12999,10 @@ function updateIvTiers() {
       if (subSpan) { subSpan.textContent = '잠김'; subSpan.style.cssText = 'font-size:11px;font-weight:600;color:#949ba8;'; }
     }
   }
-  document.getElementById('iv-tier-count').textContent = ivReviewCount + '/3건';
-  document.getElementById('iv-tier-progress').style.width = (ivReviewCount / 3 * 100) + '%';
+  document.getElementById('iv-tier-count').textContent = Math.min(ivReviewCount, 4) + '/4건';
+  document.getElementById('iv-tier-progress').style.width = (Math.min(ivReviewCount, 4) / 4 * 100) + '%';
   var cta = document.getElementById('iv-tier-cta');
-  if (ivReviewCount < 3) {
+  if (ivReviewCount < 4) {
     cta.textContent = '후기 남기기';
   } else {
     cta.style.display = 'none';
@@ -13096,6 +13099,7 @@ function unlockInterviewTab() {
   s.id = 'iv-unlock-style';
   s.textContent = '' +
     '[data-tab-content="interview"] > div:first-of-type { display:flex !important; }' +
+    '#iv-insight-entry { display:flex !important; }' +
     '[data-tab-content="interview"] .rv-card-list .rv-card,' +
     '[data-tab-content="interview"] .rv-card-list .rv-card:nth-child(1),' +
     '[data-tab-content="interview"] .rv-card-list .rv-card:nth-child(2),' +
@@ -13123,17 +13127,25 @@ function unlockInterviewTab() {
     }
   });
 
+  // 면접 인사이트 직접 표시
+  var insightEl = document.getElementById('iv-insight-entry');
+  if (insightEl) insightEl.style.setProperty('display', 'flex', 'important');
+
   // 무한 스크롤 적용
   if (typeof initTabInfiniteScroll === 'function') initTabInfiniteScroll('interview');
 }
 function simulateIvReviewSubmit() {
   closeInterviewNudgePopup();
   hideIvFloatingCta();
+  var wasFirstWrite = ivReviewCount === 0;
   ivReviewCount++;
   // 면접 후기 열람 권한 부여
   localStorage.setItem('jp_iv_reviewed', 'true');
   // 면접 후기 블라인드 해제
   unlockInterviewTab();
+  // 면접 인사이트 직접 표시
+  var insightEntry = document.getElementById('iv-insight-entry');
+  if (insightEntry) insightEntry.style.setProperty('display', 'flex', 'important');
   updateIvTiers();
   // 피드 넛지 카드 변경
   var nudge = document.getElementById('iv-mid-nudge');
@@ -13158,8 +13170,11 @@ function simulateIvReviewSubmit() {
   var entry = document.getElementById('iv-insight-entry');
   if (entry) entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-  // 완료된 최신 단계의 플로팅 확인 버튼 표시
-  showIvInsightFloating(ivReviewCount);
+  // 2회차 이상 작성 시 플로팅 표시 (열린 단계 = ivReviewCount - 1)
+  var unlockedNow = ivReviewCount - 1;
+  if (unlockedNow >= 1) {
+    showIvInsightFloating(unlockedNow);
+  }
 }
 
 function showIvInsightFloating(tier) {
@@ -19343,10 +19358,10 @@ function closeRatePopup() {
             '<dt>연혁</dt><dd>' + c.history + '</dd>' +
           '</dl>' +
           '<div class="detail-company-links">' +
-            '<button class="detail-company-link-btn" onclick="go(\'company\')">기업 소개 &gt;</button>' +
-            '<button class="detail-company-link-btn" onclick="goCompanyTab(4)">면접 후기 &gt;</button>' +
-            '<button class="detail-company-link-btn" onclick="goCompanyTab(2)">기업 리뷰 &gt;</button>' +
-            '<button class="detail-company-link-btn" onclick="goCompanyTab(6)">전체 공고 &gt;</button>' +
+            '<button class="detail-company-link-btn">기업 소개 &gt;</button>' +
+            '<button class="detail-company-link-btn">면접 후기 &gt;</button>' +
+            '<button class="detail-company-link-btn">기업 리뷰 &gt;</button>' +
+            '<button class="detail-company-link-btn">전체 공고 &gt;</button>' +
           '</div>' +
         '</div>';
     }
@@ -20369,8 +20384,6 @@ function closeRatePopup() {
     });
 
 
-    // showToast is defined in base file
-
     document.getElementById('page-job-detail').addEventListener('click', function(e) {
       var btn = e.target.closest('.detail-wish-btn');
       if (!btn) return;
@@ -20861,10 +20874,20 @@ function closeRatePopup() {
 
   // ===== Review page unique functions (from merged 1530-ut) =====
   // ===== 블라인드 모드 (리뷰 권한 없는 사용자) =====
-  // 강제 새로고침(Cmd+Shift+R 등) 시 URL에 ?reset 파라미터로 초기화
+  // 페이지 처음 열릴 때 항상 비로그인 상태로 초기화
+  if (!sessionStorage.getItem('jp_session_started')) {
+    sessionStorage.setItem('jp_session_started', 'true');
+    localStorage.removeItem('jp_reviewed');
+    localStorage.removeItem('jp_iv_reviewed');
+    sessionStorage.removeItem('jp_logged_in');
+    sessionStorage.removeItem('jp_current_page');
+    sessionStorage.removeItem('jp_current_review_tab');
+  }
+  // URL에 ?reset 파라미터로 강제 초기화
   if (location.search.indexOf('reset') > -1) {
     localStorage.removeItem('jp_reviewed');
     localStorage.removeItem('jp_iv_reviewed');
+    sessionStorage.clear();
     location.href = location.pathname;
   }
   var hasReviewAccess = localStorage.getItem('jp_reviewed') === 'true';
@@ -20885,7 +20908,8 @@ function closeRatePopup() {
         '[data-tab-content="interview"] .rv-card-action-btn:nth-child(2) { display:none !important; }' +
         '[data-tab-content="interview"] .rv-card-report { display:none !important; }' +
         '[data-tab-content="interview"] .rv-card-actions { border-top:none !important; padding-top:0 !important; margin-top:4px !important; }' +
-        '[data-tab-content="interview"] .rv-card-action-btn:first-child { border:none !important; background:transparent !important; padding:0 !important; font-size:13px !important; font-weight:600 !important; color:#686a6d !important; cursor:default !important; pointer-events:none !important; }';
+        '[data-tab-content="interview"] .rv-card-action-btn:first-child { border:none !important; background:transparent !important; padding:0 !important; font-size:13px !important; font-weight:600 !important; color:#686a6d !important; cursor:default !important; pointer-events:none !important; }' +
+        '#iv-insight-entry { display:none !important; }';
       document.head.appendChild(ivBlindStyle);
 
       // 면접 후기 카드에 도움이 돼요 텍스트 변경
@@ -20951,7 +20975,8 @@ function closeRatePopup() {
       '[data-tab-content="work"] > div:first-child { display:none !important; }' +
       '[data-tab-content="interest"] > div:first-child { display:none !important; }' +
       '#iv-mid-nudge { display:none !important; }' +
-      '.rv-sidebar > .rv-side-cta:first-child:not(.rv-work-status-loggedout):not(.rv-jobreview-salary):not(.rv-interest-loggedout):not(#theme-rising-sidebar):not(#theme-trending-top5):not(#iv-insight-entry) { display:none !important; }' +
+      '.rv-sidebar > .rv-side-cta:first-child:not(.rv-work-status-loggedout):not(.rv-jobreview-salary):not(.rv-interest-loggedout):not(#theme-rising-sidebar):not(#theme-trending-top5) { display:none !important; }' +
+      '#iv-insight-entry { display:none !important; }' +
       '.rv-side-rate { display:none; }' +
       '.trending-company-name { filter:blur(6px); user-select:none; }' +
       '.rv-card-action-btn:nth-child(2) { display:none !important; }' +
@@ -21118,11 +21143,17 @@ function closeRatePopup() {
   }
 
   function showLoginAndWrite() {
-    window._loginThenWrite = true;
     var activeTab = document.querySelector('.review-tab.active');
-    if (activeTab) sessionStorage.setItem('jp_last_review_tab', activeTab.dataset.tab);
+    var currentTab = activeTab ? activeTab.dataset.tab : 'theme';
+    if (currentTab === 'interview') {
+      // 면접 후기 탭: 로그인 후 면접 리뷰 작성으로 이동
+      window._afterLoginAction = 'ivReview';
+    } else {
+      window._loginThenWrite = true;
+    }
+    if (activeTab) sessionStorage.setItem('jp_last_review_tab', currentTab);
     sessionStorage.setItem('jp_current_page', 'review');
-    sessionStorage.setItem('jp_current_review_tab', activeTab ? activeTab.dataset.tab : 'theme');
+    sessionStorage.setItem('jp_current_review_tab', currentTab);
     showLoginPopup();
   }
   function showLoginPopup() {
@@ -21167,8 +21198,13 @@ function closeRatePopup() {
     // 블라인드 CTA 버튼 텍스트 변경 (로그인 완료, 리뷰 권한 없음 상태)
     document.querySelectorAll('.rv-blind-cta-wrap button').forEach(function(btn) {
       if (btn.textContent.trim() === '로그인하고 작성하기') {
+        var isInInterview = !!btn.closest('[data-tab-content="interview"]');
         btn.textContent = '작성하고 무료 열람하기';
-        btn.onclick = function() { openReviewWithCallback(); };
+        if (isInInterview) {
+          btn.onclick = function() { openInterviewReviewWrite(); };
+        } else {
+          btn.onclick = function() { openReviewWithCallback(); };
+        }
       }
     });
 
