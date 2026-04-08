@@ -12224,7 +12224,7 @@
 
         <!-- 리뷰 조회 급상승 기업 (롤링 버전) -->
         <div class="rv-side-cta" id="theme-rising-rolling" style="display:none;gap:6px;padding:16px 20px;cursor:pointer;" onclick="onRisingRollingClick(event)">
-          <div style="font-size:14px;font-weight:700;color:#242628;">📈 리뷰 조회 급상승 기업</div>
+          <div style="font-size:14px;font-weight:700;color:#242628;">📈 급상승 기업</div>
           <div style="font-size:11px;color:#949ba8;margin-bottom:4px;">이번 주 리뷰 조회수 상승률 기준</div>
           <div id="rolling-rising" style="display:flex;flex-direction:column;gap:4px;">
 
@@ -14751,7 +14751,7 @@ function filterThemeChip(btn) {
   sideIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
 
   if (mode === 'default') {
-    ['theme-rising-sidebar','theme-rising-rolling'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display=''; });
+    ['theme-rising-rolling'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display=''; });
   } else if (mode === 'trending-hot') {
     // 인기 리뷰: 우측 카드 없음
   } else if (mode === 'trending-rising') {
