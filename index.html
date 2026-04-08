@@ -3945,13 +3945,9 @@
         <div id="theme-detail-hero" style="position:relative;width:100%;height:280px;overflow:hidden;">
           <img id="theme-detail-hero-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.65) 100%);"></div>
-          <div style="position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="position:absolute;top:16px;left:16px;">
             <button onclick="closeThemeDetail()" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button onclick="openFilter(0)" style="display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:20px;background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;cursor:pointer;color:#fff;font-size:13px;font-weight:600;font-family:var(--font);">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
-              태그 전체
             </button>
           </div>
           <div style="position:absolute;bottom:24px;left:20px;right:20px;">
@@ -3959,6 +3955,14 @@
             <h2 id="theme-detail-title" style="font-size:22px;font-weight:700;color:#fff;margin:0 0 6px 0;"></h2>
             <p id="theme-detail-desc" style="font-size:14px;color:rgba(255,255,255,0.85);margin:0;"></p>
           </div>
+        </div>
+        <!-- 필터 바 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--ln2);">
+          <span id="theme-detail-count" style="font-size:13px;font-weight:600;color:var(--tx3);">총 100건</span>
+          <button onclick="openFilter(0)" style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--rfull);border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;font-size:13px;font-weight:600;color:var(--tx2);font-family:var(--font);transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            태그 전체
+          </button>
         </div>
         <!-- 공고 이미지 그리드 -->
         <div style="padding:20px 16px;">
@@ -4123,18 +4127,16 @@
           el.scrollBy({left: dir * 240, behavior:'smooth'});
         }
 
-        // 테마 상세 열기
-        function openThemeDetail(idx){
-          var t = themeData[idx];
-          document.getElementById('theme-detail-hero-img').src = BASE+'img/'+t.img;
-          document.getElementById('theme-detail-badge').textContent = t.badge;
-          document.getElementById('theme-detail-title').textContent = t.title;
-          document.getElementById('theme-detail-desc').textContent = t.desc;
-          // 공고 이미지 그리드 생성
+        // 테마 상세
+        var _themeJobsLoaded = 0;
+        var _themeJobsTotal = 100;
+        var _themeLoading = false;
+
+        function renderThemeJobCards(count){
           var jobGrid = document.getElementById('theme-detail-jobs');
-          var shuffledBanners = shuffle(jobBannerPool).slice(0, 12);
-          var jobs = genJobs(12);
-          jobGrid.innerHTML = jobs.map(function(j, i){
+          var shuffledBanners = shuffle(jobBannerPool);
+          var jobs = genJobs(count);
+          var html = jobs.map(function(j, i){
             var thumbSrc = BASE+'img/'+shuffledBanners[i % shuffledBanners.length];
             var safeTitle = j.title.replace(/'/g,"\\'");
             var safeCo = j.co.replace(/'/g,"\\'");
@@ -4150,13 +4152,72 @@
               '</div>' +
             '</div>';
           }).join('');
-          document.getElementById('theme-detail-overlay').style.display = 'block';
-          document.body.style.overflow = 'hidden';
+          return html;
         }
 
-        // 테마 상세 닫기
+        function makeSkeletonCards(n){
+          var html='';
+          for(var i=0;i<n;i++){
+            html+='<div style="background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--sh);">'
+              +'<div style="width:100%;padding-top:56.25%;background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:400% 100%;animation:shimmer 1.5s infinite;"></div>'
+              +'<div style="padding:10px 10px 12px;">'
+              +'<div style="height:14px;width:70%;background:#f0f0f0;border-radius:4px;margin-bottom:6px;"></div>'
+              +'<div style="height:12px;width:50%;background:#f0f0f0;border-radius:4px;margin-bottom:4px;"></div>'
+              +'<div style="height:11px;width:60%;background:#f0f0f0;border-radius:4px;"></div>'
+              +'</div></div>';
+          }
+          return html;
+        }
+
+        function loadMoreThemeJobs(){
+          if(_themeLoading || _themeJobsLoaded >= _themeJobsTotal) return;
+          _themeLoading = true;
+          var jobGrid = document.getElementById('theme-detail-jobs');
+          // 스켈레톤 추가
+          var skeletonDiv = document.createElement('div');
+          skeletonDiv.id = 'theme-skeleton';
+          skeletonDiv.style.cssText = 'display:contents;';
+          skeletonDiv.innerHTML = makeSkeletonCards(8);
+          jobGrid.appendChild(skeletonDiv);
+          setTimeout(function(){
+            var sk = document.getElementById('theme-skeleton');
+            if(sk) sk.remove();
+            var remaining = _themeJobsTotal - _themeJobsLoaded;
+            var toLoad = Math.min(16, remaining);
+            jobGrid.insertAdjacentHTML('beforeend', renderThemeJobCards(toLoad));
+            _themeJobsLoaded += toLoad;
+            document.getElementById('theme-detail-count').textContent = '총 '+_themeJobsTotal+'건 중 '+_themeJobsLoaded+'건';
+            _themeLoading = false;
+          }, 600);
+        }
+
+        function openThemeDetail(idx){
+          var t = themeData[idx];
+          document.getElementById('theme-detail-hero-img').src = BASE+'img/'+t.img;
+          document.getElementById('theme-detail-badge').textContent = t.badge;
+          document.getElementById('theme-detail-title').textContent = t.title;
+          document.getElementById('theme-detail-desc').textContent = t.desc;
+          // 초기 16개 로드
+          _themeJobsLoaded = 0;
+          _themeLoading = false;
+          var jobGrid = document.getElementById('theme-detail-jobs');
+          jobGrid.innerHTML = renderThemeJobCards(16);
+          _themeJobsLoaded = 16;
+          document.getElementById('theme-detail-count').textContent = '총 '+_themeJobsTotal+'건 중 16건';
+          document.getElementById('theme-detail-overlay').style.display = 'block';
+          document.body.style.overflow = 'hidden';
+          // 스크롤 감지
+          var overlay = document.getElementById('theme-detail-overlay');
+          overlay.onscroll = function(){
+            if(overlay.scrollTop + overlay.clientHeight >= overlay.scrollHeight - 300){
+              loadMoreThemeJobs();
+            }
+          };
+        }
+
         function closeThemeDetail(){
           document.getElementById('theme-detail-overlay').style.display = 'none';
+          document.getElementById('theme-detail-overlay').onscroll = null;
           document.body.style.overflow = '';
         }
 
