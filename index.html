@@ -14757,6 +14757,8 @@ function filterThemeChip(btn) {
   } else if (mode === 'trending-rising') {
     ['theme-rising-rolling'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display=''; });
   }
+  // 리뷰 권한 없으면 넛지 숨김
+  if (typeof hideThemeNudgesIfNoAccess === 'function') hideThemeNudgesIfNoAccess();
 }
 // 테마별 리뷰 10개 카드 본 후 하단 플로팅 토스트
 (function() {
