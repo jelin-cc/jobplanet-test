@@ -3957,27 +3957,47 @@
 
 
       <!-- ④ 리뷰로 찾은 채용 공고 -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <div>
-          <p style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:.4px;margin-bottom:6px;">리뷰 기반 추천</p>
-          <h2 id="rjob-title" style="font-size:20px;font-weight:700;">리뷰로 찾은 채용 공고</h2>
+      <div style="background:var(--brand-lt);border-radius:16px;padding:28px 28px 24px;margin-bottom:48px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div>
+            <p style="font-size:12px;font-weight:700;color:var(--brand);letter-spacing:.3px;margin-bottom:6px;">리뷰 기반 추천</p>
+            <h2 id="rjob-title" style="font-size:20px;font-weight:700;">원하는 리뷰 모아보기</h2>
+          </div>
         </div>
-        <div style="display:flex;gap:6px;">
-          <button onclick="scrollThemeCards(-1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button onclick="scrollThemeCards(1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </div>
-      </div>
 
-      <!-- 테마 카드 가로 스크롤 -->
-      <div style="position:relative;">
-        <div id="theme-card-scroll" style="display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;">
-          <style>#theme-card-scroll::-webkit-scrollbar{display:none;}</style>
+        <!-- 직군 필터 칩 -->
+        <div id="theme-filter-chips" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="theme-chip active" data-filter="all" onclick="filterThemeByJob('all',this)">전체</button>
+          <button class="theme-chip" data-filter="dev" onclick="filterThemeByJob('dev',this)">개발</button>
+          <button class="theme-chip" data-filter="design" onclick="filterThemeByJob('design',this)">디자인</button>
+          <button class="theme-chip" data-filter="marketing" onclick="filterThemeByJob('marketing',this)">마케팅</button>
+          <button class="theme-chip" data-filter="pm" onclick="filterThemeByJob('pm',this)">PM/기획</button>
+          <button class="theme-chip" data-filter="data" onclick="filterThemeByJob('data',this)">데이터</button>
         </div>
-        <div style="position:absolute;top:0;right:0;bottom:4px;width:48px;background:linear-gradient(90deg,transparent,rgba(248,249,250,0.95));pointer-events:none;"></div>
+        <style>
+          .theme-chip{padding:8px 16px;border-radius:999px;border:1.5px solid var(--ln);background:#fff;color:var(--tx3);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s;white-space:nowrap;}
+          .theme-chip:hover{border-color:var(--brand);color:var(--brand);}
+          .theme-chip.active{background:var(--brand);border-color:var(--brand);color:#fff;}
+        </style>
+
+        <!-- 테마 카드 가로 스크롤 -->
+        <div style="position:relative;">
+          <div id="theme-card-scroll" style="display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;">
+            <style>#theme-card-scroll::-webkit-scrollbar{display:none;}</style>
+          </div>
+          <!-- 우측 그라데이션 + 화살표 오버레이 -->
+          <div id="theme-scroll-right" onclick="scrollThemeCards(1)" style="position:absolute;top:0;right:0;bottom:4px;width:72px;background:linear-gradient(90deg,transparent,rgba(232,251,244,0.95));cursor:pointer;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;transition:opacity .2s;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tx2)" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+          </div>
+          <!-- 좌측 그라데이션 + 화살표 오버레이 (처음엔 숨김) -->
+          <div id="theme-scroll-left" onclick="scrollThemeCards(-1)" style="position:absolute;top:0;left:0;bottom:4px;width:72px;background:linear-gradient(270deg,transparent,rgba(232,251,244,0.95));cursor:pointer;display:flex;align-items:center;justify-content:flex-start;padding-left:8px;transition:opacity .2s;opacity:0;pointer-events:none;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tx2)" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 공고 리스트 (하위 호환용, 숨김) -->
@@ -4117,14 +4137,21 @@
 
         // --- 테마 데이터 ---
         var themeData = [
-          { title:'"칼퇴 가능" 리뷰 많은 곳', desc:'현직자들이 워라밸을 인정한 기업 모음', badge:'워라밸 우수', img:'Banner_1tW2cFJ25032514173967.jpg' },
-          { title:'"연봉 만족" 리뷰 많은 곳', desc:'연봉 관련 긍정 리뷰가 가장 많은 기업 모음', badge:'연봉 상위', img:'Banner_2loOfzo25052915140814.jpg' },
-          { title:'"성장할 수 있었다" 리뷰 많은 곳', desc:'커리어 성장 키워드가 자주 등장하는 기업 모음', badge:'성장 기회 ↑', img:'Banner_4UvepA225031914015500.jpg' },
-          { title:'"자유로운 분위기" 리뷰 많은 곳', desc:'수평적 문화를 장점으로 꼽은 기업 모음', badge:'수평 문화', img:'Banner_5DoT1nZ24111411320084.jpg' },
-          { title:'"복지 최고" 리뷰 많은 곳', desc:'복지 만족도가 높게 평가된 기업 모음', badge:'복지 우수', img:'Banner_HbrORCN25103117185664.jpg' },
-          { title:'"재택도 OK" 리뷰 많은 곳', desc:'재택·원격 근무 가능 포지션이 있는 기업 모음', badge:'재택근무', img:'Banner_gBJ6Ui725082910083325.jpg' },
-          { title:'지금 대규모로 뽑고 있는 곳', desc:'채용 공고가 활발하게 올라오는 기업 모음', badge:'대규모 채용 중', img:'Banner_kAifOHK25082013255486.jpg' },
-          { title:'"경영진이 믿음직하다" 리뷰 많은 곳', desc:'경영진 신뢰도가 높게 평가된 기업 모음', badge:'경영진 우수', img:'Banner_OP2jQmz25052715204502.jpg' }
+          { title:'"칼퇴 가능" 리뷰 많은 곳', desc:'현직자들이 워라밸을 인정한 기업 모음', badge:'워라밸 우수', img:'Banner_1tW2cFJ25032514173967.jpg', jobs:['all'] },
+          { title:'"연봉 만족" 리뷰 많은 곳', desc:'연봉 관련 긍정 리뷰가 가장 많은 기업 모음', badge:'연봉 상위', img:'Banner_2loOfzo25052915140814.jpg', jobs:['all'] },
+          { title:'"성장할 수 있었다" 리뷰 많은 곳', desc:'커리어 성장 키워드가 자주 등장하는 기업 모음', badge:'성장 기회 ↑', img:'Banner_4UvepA225031914015500.jpg', jobs:['all'] },
+          { title:'"자유로운 분위기" 리뷰 많은 곳', desc:'수평적 문화를 장점으로 꼽은 기업 모음', badge:'수평 문화', img:'Banner_5DoT1nZ24111411320084.jpg', jobs:['all'] },
+          { title:'"복지 최고" 리뷰 많은 곳', desc:'복지 만족도가 높게 평가된 기업 모음', badge:'복지 우수', img:'Banner_HbrORCN25103117185664.jpg', jobs:['all'] },
+          { title:'"재택도 OK" 리뷰 많은 곳', desc:'재택·원격 근무 가능 포지션이 있는 기업 모음', badge:'재택근무', img:'Banner_gBJ6Ui725082910083325.jpg', jobs:['dev','design','data'] },
+          { title:'지금 대규모로 뽑고 있는 곳', desc:'채용 공고가 활발하게 올라오는 기업 모음', badge:'대규모 채용 중', img:'Banner_kAifOHK25082013255486.jpg', jobs:['all'] },
+          { title:'"경영진이 믿음직하다" 리뷰 많은 곳', desc:'경영진 신뢰도가 높게 평가된 기업 모음', badge:'경영진 우수', img:'Banner_OP2jQmz25052715204502.jpg', jobs:['all'] },
+          { title:'"코드리뷰 문화가 좋다" 리뷰 많은 곳', desc:'개발 문화와 기술 성장 환경을 높이 평가한 기업', badge:'개발문화 우수', img:'Banner_C3oJp7q25102817553882.jpg', jobs:['dev'] },
+          { title:'"디자인 시스템이 잘 갖춰진" 리뷰 많은 곳', desc:'체계적인 디자인 프로세스를 갖춘 기업 모음', badge:'디자인 환경 우수', img:'Banner_DiMdvUg24111216474465.jpg', jobs:['design'] },
+          { title:'"마케팅 예산이 넉넉한" 리뷰 많은 곳', desc:'마케터가 자유롭게 실험할 수 있는 환경의 기업', badge:'마케팅 자율', img:'Banner_E0mPEv625102715305380.jpg', jobs:['marketing'] },
+          { title:'"기획자 목소리가 큰" 리뷰 많은 곳', desc:'PM/기획자의 의견이 제품에 반영되는 기업 모음', badge:'기획 영향력', img:'Banner_FA8757M24122415321709.jpg', jobs:['pm'] },
+          { title:'"데이터 기반 의사결정" 리뷰 많은 곳', desc:'데이터 인프라와 분석 환경이 잘 갖춰진 기업', badge:'데이터 드리븐', img:'Banner_GcTm5G225072215243389.jpg', jobs:['data'] },
+          { title:'"성과 보상이 확실한" 리뷰 많은 곳', desc:'성과에 따른 인센티브가 확실한 기업 모음', badge:'성과 보상', img:'Banner_gRZK5oC25072810592603.jpg', jobs:['dev','marketing','pm'] },
+          { title:'"사수가 잘 알려준다" 리뷰 많은 곳', desc:'온보딩과 멘토링이 체계적인 기업 모음', badge:'멘토링 우수', img:'Banner_iVPMD6p25092209323563.jpg', jobs:['dev','design','data'] }
         ];
 
         // 공고 카드용 배너 이미지 풀
@@ -4147,14 +4174,36 @@
           'Banner_xq7MI9Q25100217535222.jpg','Banner_YsW92UA24103114330047.jpg'
         ];
 
+        // 현재 필터 상태
+        var _currentThemeFilter = 'all';
+
+        // 필터된 themeData를 원본 인덱스와 함께 반환
+        function getFilteredThemes(){
+          return themeData.map(function(t,i){ return {data:t, origIdx:i}; }).filter(function(item){
+            if(_currentThemeFilter === 'all') return true;
+            return item.data.jobs.indexOf('all') !== -1 || item.data.jobs.indexOf(_currentThemeFilter) !== -1;
+          });
+        }
+
+        // 필터 칩 클릭
+        function filterThemeByJob(filter, btn){
+          _currentThemeFilter = filter;
+          document.querySelectorAll('.theme-chip').forEach(function(c){ c.classList.remove('active'); });
+          btn.classList.add('active');
+          renderThemeCards();
+        }
+
         // 테마 카드 가로 스크롤 렌더링
         function renderThemeCards(){
           var container = document.getElementById('theme-card-scroll');
-          container.innerHTML = themeData.map(function(t, idx){
-            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;min-width:calc((100% - 36px) / 3);flex-shrink:0;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'var(--sh)\'">' +
-              '<div style="position:relative;width:100%;height:180px;overflow:hidden;">' +
+          var filtered = getFilteredThemes();
+          container.innerHTML = filtered.map(function(item){
+            var t = item.data; var idx = item.origIdx;
+            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;min-width:calc((100% - 48px) / 3.3);flex-shrink:0;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'0 2px 12px rgba(0,0,0,.06)\'">' +
+              '<div style="position:relative;width:100%;height:160px;overflow:hidden;">' +
                 '<img src="'+BASE+'img/'+t.img+'" alt="" style="width:100%;height:100%;object-fit:cover;">' +
                 '<div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.35) 100%);"></div>' +
+                '<span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:20px;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-size:11px;font-weight:600;">'+t.badge+'</span>' +
               '</div>' +
               '<div style="padding:12px 14px;">' +
                 '<div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:3px;">'+t.title+'</div>' +
@@ -4162,11 +4211,34 @@
               '</div>' +
             '</div>';
           }).join('');
+          container.scrollLeft = 0;
+          updateThemeScrollArrows();
         }
+
         function scrollThemeCards(dir){
           var el = document.getElementById('theme-card-scroll');
-          el.scrollBy({left: dir * 240, behavior:'smooth'});
+          var cardW = el.querySelector('div') ? el.querySelector('div').offsetWidth + 12 : 300;
+          el.scrollBy({left: dir * cardW, behavior:'smooth'});
         }
+
+        // 스크롤 위치에 따라 좌/우 화살표 표시
+        function updateThemeScrollArrows(){
+          var el = document.getElementById('theme-card-scroll');
+          var leftBtn = document.getElementById('theme-scroll-left');
+          var rightBtn = document.getElementById('theme-scroll-right');
+          if(!el || !leftBtn || !rightBtn) return;
+          var atStart = el.scrollLeft < 10;
+          var atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 10;
+          leftBtn.style.opacity = atStart ? '0' : '1';
+          leftBtn.style.pointerEvents = atStart ? 'none' : 'auto';
+          rightBtn.style.opacity = atEnd ? '0' : '1';
+          rightBtn.style.pointerEvents = atEnd ? 'none' : 'auto';
+        }
+        // 스크롤 이벤트로 화살표 업데이트
+        (function(){
+          var el = document.getElementById('theme-card-scroll');
+          if(el) el.addEventListener('scroll', updateThemeScrollArrows, {passive:true});
+        })();
 
         // 테마 상세
         var _themeJobsLoaded = 0;
