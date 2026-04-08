@@ -3707,13 +3707,27 @@
         </div>
 
         <!-- 직군 탭 필터 -->
-        <div id="rv-filter-chips" style="display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--ln);">
+        <div id="rv-filter-chips" style="display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--ln);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;">
+          <style>#rv-filter-chips::-webkit-scrollbar{display:none;}</style>
           <button class="rv-tab active" onclick="filterReviewByJob('all',this)">전체</button>
           <button class="rv-tab" onclick="filterReviewByJob('개발',this)">개발</button>
+          <button class="rv-tab" onclick="filterReviewByJob('기획/경영',this)">기획/경영</button>
           <button class="rv-tab" onclick="filterReviewByJob('디자인',this)">디자인</button>
-          <button class="rv-tab" onclick="filterReviewByJob('마케팅',this)">마케팅</button>
-          <button class="rv-tab" onclick="filterReviewByJob('PM/기획',this)">PM/기획</button>
+          <button class="rv-tab" onclick="filterReviewByJob('마케팅/시장조사',this)">마케팅/시장조사</button>
+          <button class="rv-tab" onclick="filterReviewByJob('영업/제휴',this)">영업/제휴</button>
+          <button class="rv-tab" onclick="filterReviewByJob('서비스/고객지원',this)">서비스/고객지원</button>
           <button class="rv-tab" onclick="filterReviewByJob('데이터',this)">데이터</button>
+          <button class="rv-tab" onclick="filterReviewByJob('연구개발',this)">연구개발</button>
+          <button class="rv-tab" onclick="filterReviewByJob('인사/총무',this)">인사/총무</button>
+          <button class="rv-tab" onclick="filterReviewByJob('금융/재무',this)">금융/재무</button>
+          <button class="rv-tab" onclick="filterReviewByJob('미디어/홍보',this)">미디어/홍보</button>
+          <button class="rv-tab" onclick="filterReviewByJob('생산·제조',this)">생산·제조</button>
+          <button class="rv-tab" onclick="filterReviewByJob('엔지니어링',this)">엔지니어링</button>
+          <button class="rv-tab" onclick="filterReviewByJob('교육',this)">교육</button>
+          <button class="rv-tab" onclick="filterReviewByJob('법률/법무',this)">법률/법무</button>
+          <button class="rv-tab" onclick="filterReviewByJob('의약',this)">의약</button>
+          <button class="rv-tab" onclick="filterReviewByJob('유통/무역',this)">유통/무역</button>
+          <button class="rv-tab" onclick="filterReviewByJob('생산관리/품질관리',this)">생산관리/품질관리</button>
         </div>
         <style>
           .rv-tab{padding:10px 16px;font-size:14px;font-weight:500;color:var(--tx4);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:var(--font);transition:all .15s;margin-bottom:-1px;}
@@ -3754,11 +3768,18 @@
               </button>
               <!-- 직무 드롭다운 -->
               <div id="sal-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 8px);left:0;background:var(--surface);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:8px 0;min-width:200px;">
-                <button id="st-0" onclick="setSalaryTab(0)" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);transition:background .12s;">개발자 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
-                <button id="st-1" onclick="setSalaryTab(1)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">디자이너</button>
-                <button id="st-2" onclick="setSalaryTab(2)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">마케터</button>
-                <button id="st-3" onclick="setSalaryTab(3)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">PM/기획</button>
-                <button id="st-4" onclick="setSalaryTab(4)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">데이터</button>
+                <button id="st-0" onclick="setSalaryTab(0)" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);transition:background .12s;">개발 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
+                <button id="st-1" onclick="setSalaryTab(1)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">기획/경영</button>
+                <button id="st-2" onclick="setSalaryTab(2)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">디자인</button>
+                <button id="st-3" onclick="setSalaryTab(3)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">마케팅/시장조사</button>
+                <button id="st-4" onclick="setSalaryTab(4)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">영업/제휴</button>
+                <button id="st-5" onclick="setSalaryTab(5)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">서비스/고객지원</button>
+                <button id="st-6" onclick="setSalaryTab(6)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">데이터</button>
+                <button id="st-7" onclick="setSalaryTab(7)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">연구개발</button>
+                <button id="st-8" onclick="setSalaryTab(8)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">인사/총무</button>
+                <button id="st-9" onclick="setSalaryTab(9)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">금융/재무</button>
+                <button id="st-10" onclick="setSalaryTab(10)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">엔지니어링</button>
+                <button id="st-11" onclick="setSalaryTab(11)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">생산·제조</button>
               </div>
             </div>
             <span style="font-size:20px;font-weight:700;color:var(--tx);letter-spacing:-.3px;">기준 연봉</span>
@@ -4210,7 +4231,7 @@
           var filtered = getFilteredThemes();
           container.innerHTML = filtered.map(function(item){
             var t = item.data; var idx = item.origIdx;
-            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;min-width:calc((100% - 24px) / 2.5);flex-shrink:0;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'0 2px 12px rgba(0,0,0,.06)\'">' +
+            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;min-width:calc((100% - 24px) / 2.7);flex-shrink:0;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'0 2px 12px rgba(0,0,0,.06)\'">' +
               '<div style="position:relative;width:100%;height:140px;overflow:hidden;">' +
                 '<img src="'+BASE+'img/'+t.img+'" alt="" style="width:100%;height:100%;object-fit:cover;">' +
                 '<div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.35) 100%);"></div>' +
@@ -15987,8 +16008,11 @@ function closeRatePopup() {
     <!-- 페이지 타이틀 -->
     <h1 style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:20px;letter-spacing:-.3px;cursor:pointer;" onclick="cycleCardView()">공고 둘러보기</h1>
 
-    <!-- 필터 드롭다운 행 -->
-    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+    <!-- 필터 드롭다운 행 (sticky) -->
+    <div id="job-filter-sticky" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;position:sticky;top:56px;z-index:80;background:#fff;padding:12px 0;margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;transition:box-shadow .2s;">
+    <style>
+      #job-filter-sticky.stuck{box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    </style>
       <button class="jb-fc" id="fc-all" style="border-color:var(--tx3);color:var(--tx);font-weight:600;gap:6px;position:relative;" onclick="openFilter(0)">
         <svg width="16" height="16" viewBox="0 0 22 22" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.42358 11.2542C9.5986 11.2543 10.5899 12.0409 10.8997 13.1162C10.9324 13.1117 10.9659 13.109 10.9999 13.109H17.4927C17.891 13.1091 18.2141 13.4322 18.2142 13.8306C18.2142 14.229 17.8911 14.5521 17.4927 14.5521H10.9999C10.9659 14.5521 10.9324 14.5495 10.8997 14.5449C10.5899 15.6203 9.59858 16.4068 8.42358 16.4069C7.24851 16.4069 6.25728 15.6203 5.94751 14.5449C5.91465 14.5495 5.88047 14.5521 5.84635 14.5521H4.50716C4.10872 14.5521 3.78564 14.229 3.78564 13.8306C3.78577 13.4322 4.1088 13.109 4.50716 13.109H5.84635C5.88046 13.109 5.91467 13.1116 5.94751 13.1162C6.25729 12.0408 7.24853 11.2542 8.42358 11.2542ZM8.42358 12.6973C7.79752 12.6973 7.28948 13.2045 7.28939 13.8306C7.28939 14.4567 7.79747 14.9648 8.42358 14.9648C9.04963 14.9647 9.55688 14.4566 9.55688 13.8306C9.5568 13.2046 9.04957 12.6974 8.42358 12.6973Z" fill="#292C32"/><path fill-rule="evenodd" clip-rule="evenodd" d="M13.5763 5.07031C14.7512 5.07031 15.7425 5.85703 16.0523 6.93229C16.085 6.92776 16.1187 6.92604 16.1526 6.92603H17.4927C17.891 6.92603 18.214 7.24838 18.2142 7.64665C18.2142 8.04509 17.8911 8.36816 17.4927 8.36816H16.1526C16.1187 8.36815 16.085 8.36643 16.0523 8.3619C15.7424 9.43706 14.7512 10.2239 13.5763 10.2239C12.4014 10.2238 11.41 9.43705 11.1002 8.3619C11.0674 8.36645 11.0339 8.36816 10.9999 8.36816H4.50716C4.10872 8.36816 3.78564 8.04509 3.78564 7.64665C3.78585 7.24838 4.10885 6.92603 4.50716 6.92603H10.9999C11.0339 6.92603 11.0674 6.92773 11.1002 6.93229C11.4099 5.85704 12.4013 5.07044 13.5763 5.07031ZM13.5763 6.51335C12.9504 6.5135 12.4431 7.02078 12.443 7.64665C12.443 8.27267 12.9503 8.78069 13.5763 8.78084C14.2024 8.78084 14.7104 8.27276 14.7104 7.64665C14.7103 7.02069 14.2023 6.51335 13.5763 6.51335Z" fill="#292C32"/></svg>
         태그 전체
@@ -16806,8 +16830,8 @@ function closeRatePopup() {
         if (cta) cta.style.display = 'flex';
         if (wrap) wrap.style.display = 'none';
         var checkSvg='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>';
-        var names=['개발자','디자이너','마케터','PM/기획','데이터'];
-        for (var i = 0; i < 5; i++) {
+        var names=['개발','기획/경영','디자인','마케팅/시장조사','영업/제휴','서비스/고객지원','데이터','연구개발','인사/총무','금융/재무','엔지니어링','생산·제조'];
+        for (var i = 0; i < names.length; i++) {
           var b = document.getElementById('st-' + i);
           if (!b) continue;
           if (i === idx) {
