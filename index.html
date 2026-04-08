@@ -9104,7 +9104,7 @@
 
       <!-- 직군 선택 후 필터 행 (기본 숨김) -->
       <div id="jobreview-content" style="display:none;width:100%;">
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;width:100%;font-family:'Pretendard',var(--font),sans-serif;position:relative;">
+        <div style="display:flex;align-items:center;gap:8px;padding:12px 0 16px;width:100%;font-family:'Pretendard',var(--font),sans-serif;position:relative;">
           <button id="jobreview-filter-job" onclick="toggleJobReviewPanel()" style="padding:8px 16px;border:1px solid #242628;border-radius:8px;font-size:13px;font-weight:700;color:#242628;background:#fff;cursor:pointer;font-family:'Pretendard',sans-serif;display:flex;align-items:center;gap:6px;"><span id="jobreview-selected-job"></span> <span style="font-size:10px;">▾</span></button>
           <span style="flex:1;"></span>
           <span style="position:relative;">
@@ -15241,7 +15241,12 @@ function switchReviewTab(tab) {
   document.querySelectorAll('[data-tab-content]').forEach(function(el) {
     el.style.display = (el.dataset.tabContent === tab) ? '' : 'none';
   });
-  if (tab === "jobreview" && sessionStorage.getItem("jp_jobreview_job")) { selectJobReviewTab(sessionStorage.getItem("jp_jobreview_job")); }
+  if (tab === "jobreview") {
+    var savedJobReview = sessionStorage.getItem("jp_jobreview_job");
+    var savedObJob = sessionStorage.getItem("jp_ob_job");
+    var jobToSelect = savedJobReview || savedObJob;
+    if (jobToSelect) { selectJobReviewTab(jobToSelect); }
+  }
   // 탭 전환 시 무한 스크롤 초기화
   initTabInfiniteScroll(tab);
 }
