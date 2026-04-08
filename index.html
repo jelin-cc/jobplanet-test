@@ -3908,14 +3908,26 @@
       </script>
 
 
-      <!-- ④ 테마로 살펴보는 채용 공고 -->
-      <div style="margin-bottom:6px;">
-        <p style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:.4px;margin-bottom:6px;">테마별 채용</p>
-        <h2 id="rjob-title" style="font-size:20px;font-weight:700;">테마로 살펴보는 채용 공고</h2>
+      <!-- ④ 리뷰로 찾은 채용 공고 -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div>
+          <p style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:.4px;margin-bottom:6px;">리뷰 기반 추천</p>
+          <h2 id="rjob-title" style="font-size:20px;font-weight:700;">리뷰로 찾은 채용 공고</h2>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button onclick="scrollThemeCards(-1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button onclick="scrollThemeCards(1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
 
-      <!-- 테마 카드 그리드 -->
-      <div id="theme-card-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;"></div>
+      <!-- 테마 카드 가로 스크롤 -->
+      <div id="theme-card-scroll" style="display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;">
+        <style>#theme-card-scroll::-webkit-scrollbar{display:none;}</style>
+      </div>
 
       <!-- 공고 리스트 (하위 호환용, 숨김) -->
       <div class="job-list" id="rjob-list" style="display:none;"></div>
@@ -4053,10 +4065,14 @@
 
         // --- 테마 데이터 ---
         var themeData = [
-          { title:'대규모 채용 기업', desc:'대규모로 인재를 채용하고 있는 기업을 모았어요', badge:'대규모 채용 중', img:'Banner_1tW2cFJ25032514173967.jpg' },
-          { title:'재택근무 가능 기업', desc:'집에서 일할 수 있는 포지션을 모았어요', badge:'재택근무', img:'Banner_2loOfzo25052915140814.jpg' },
-          { title:'100억 이상 투자 기업', desc:'누적 투자 100억 이상, 성장 중인 기업이에요', badge:'누적투자 100억 이상', img:'Banner_4UvepA225031914015500.jpg' },
-          { title:'인재 채용에 진심인 기업', desc:'적극적으로 인재를 찾고 있는 기업들이에요', badge:'적극 채용 중', img:'Banner_5DoT1nZ24111411320084.jpg' }
+          { title:'워라밸 좋은 기업', desc:'리뷰에서 워라밸이 좋다고 언급된 기업이에요', badge:'워라밸 우수', img:'Banner_1tW2cFJ25032514173967.jpg' },
+          { title:'연봉 만족도 높은 기업', desc:'현직자 리뷰에서 연봉 만족도가 높은 곳', badge:'연봉 상위', img:'Banner_2loOfzo25052915140814.jpg' },
+          { title:'성장하기 좋은 기업', desc:'리뷰에서 커리어 성장을 많이 언급한 기업', badge:'성장 기회 ↑', img:'Banner_4UvepA225031914015500.jpg' },
+          { title:'수평적 문화의 기업', desc:'자유롭고 수평적인 문화가 돋보이는 기업', badge:'수평 문화', img:'Banner_5DoT1nZ24111411320084.jpg' },
+          { title:'복지가 탄탄한 기업', desc:'복지 관련 긍정 리뷰가 많은 기업 모음', badge:'복지 우수', img:'Banner_HbrORCN25103117185664.jpg' },
+          { title:'재택근무 가능 기업', desc:'재택·원격 근무가 가능한 포지션을 모았어요', badge:'재택근무', img:'Banner_gBJ6Ui725082910083325.jpg' },
+          { title:'대규모 채용 중인 기업', desc:'지금 적극적으로 인재를 찾고 있는 기업들', badge:'대규모 채용 중', img:'Banner_kAifOHK25082013255486.jpg' },
+          { title:'경영진 평가 높은 기업', desc:'리뷰에서 경영진 신뢰도가 높게 평가된 곳', badge:'경영진 우수', img:'Banner_OP2jQmz25052715204502.jpg' }
         ];
 
         // 공고 카드용 배너 이미지 풀
@@ -4079,21 +4095,25 @@
           'Banner_xq7MI9Q25100217535222.jpg','Banner_YsW92UA24103114330047.jpg'
         ];
 
-        // 테마 카드 홈 렌더링
+        // 테마 카드 가로 스크롤 렌더링
         function renderThemeCards(){
-          var grid = document.getElementById('theme-card-grid');
-          grid.innerHTML = themeData.map(function(t, idx){
-            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'var(--sh)\'">' +
-              '<div style="position:relative;width:100%;padding-top:56.25%;overflow:hidden;">' +
-                '<img src="'+BASE+'img/'+t.img+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">' +
+          var container = document.getElementById('theme-card-scroll');
+          container.innerHTML = themeData.map(function(t, idx){
+            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;min-width:220px;flex-shrink:0;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'var(--sh)\'">' +
+              '<div style="position:relative;width:220px;height:140px;overflow:hidden;">' +
+                '<img src="'+BASE+'img/'+t.img+'" alt="" style="width:100%;height:100%;object-fit:cover;">' +
                 '<div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.35) 100%);"></div>' +
               '</div>' +
               '<div style="padding:12px 14px;">' +
-                '<div style="font-size:15px;font-weight:700;color:var(--tx);margin-bottom:4px;">'+t.title+'</div>' +
+                '<div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:3px;">'+t.title+'</div>' +
                 '<div style="font-size:12px;color:var(--tx4);line-height:1.4;">'+t.desc+'</div>' +
               '</div>' +
             '</div>';
           }).join('');
+        }
+        function scrollThemeCards(dir){
+          var el = document.getElementById('theme-card-scroll');
+          el.scrollBy({left: dir * 240, behavior:'smooth'});
         }
 
         // 테마 상세 열기
@@ -16889,7 +16909,7 @@ function closeRatePopup() {
     </div>
     <div class="ob-cond-list" id="obCondList"></div>
     <div class="ob-cond-hint">
-      <div class="ob-cond-hint-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="1.5"><polygon points="12 2 22.5 9.5 18.5 22 5.5 22 1.5 9.5"/></svg></div>
+      <div class="ob-cond-hint-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="1.5"><polygon points="12 2 21.66 7 21.66 17 12 22 2.34 17 2.34 7"/></svg></div>
       <div class="ob-cond-hint-text"><strong>조건을 선택하면 그래프에 적용돼요</strong></div>
     </div>
     <div class="ob-btn-row">
