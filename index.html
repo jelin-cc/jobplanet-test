@@ -18829,11 +18829,18 @@ function closeRatePopup() {
           document.getElementById('obResultTags').innerHTML=tagsHtml;
         }
         // 인사이트 타이틀 복원
-        if(obSelectedConds.length>0){
-          var condNames=obSelectedConds.map(function(idx){return obCondData[idx].name;});
-          var titleEl=document.querySelector('.ins-title');
-          if(titleEl) titleEl.innerHTML='<em>'+obSelectedJob+'</em> 직무에서<br>'+condNames.join(', ')+' 중시하는<br>기업을 찾았어요';
+        var titleEl=document.querySelector('.ins-title');
+        if(titleEl){
+          if(obSelectedConds.length>0){
+            var condNames=obSelectedConds.map(function(idx){return obCondData[idx].name;});
+            titleEl.innerHTML='<em>'+obSelectedJob+'</em> 직무에서<br>'+condNames.join(', ')+' 중시하는<br>기업을 찾았어요';
+          } else {
+            titleEl.innerHTML='<em>'+obSelectedJob+'</em> 직무에서<br>나와 <em>적합도 80%</em> 이상인<br>기업을 찾았어요';
+          }
         }
+        // CTA 라벨 복원
+        var lbl=document.getElementById('cta-label');
+        if(lbl) lbl.textContent=obSelectedJob+' 직무 기준으로 분석했어요';
         if(typeof shuffleInsightCos==='function') shuffleInsightCos();
         if(typeof renderReviewCards==='function') renderReviewCards();
       }
