@@ -13791,28 +13791,17 @@ function selectJobReviewTab(jobName) {
   var cards = list.querySelectorAll('.rv-card');
   if (cards.length >= 2 && localStorage.getItem('jp_reviewed') === 'true') {
     var voteNudge = document.createElement('div');
-    voteNudge.style.cssText = 'width:100%;background:#fff;border:1px solid #e5e6e9;border-radius:16px;padding:20px 24px;font-family:Pretendard,sans-serif;';
-    voteNudge.innerHTML = '<div style="font-size:14px;font-weight:700;color:#242628;margin-bottom:14px;">⚡ ' + jobName + ' 직군, 성장하려면 어디가 유리할까?</div>' +
-      '<div style="display:flex;gap:10px;margin-bottom:12px;">' +
-        '<button id="jrvote-big" style="flex:1;padding:12px 10px;border:1px solid #e5e6e9;border-radius:10px;background:#fff;cursor:pointer;font-family:Pretendard,sans-serif;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:8px;">' +
-          '<span style="font-size:16px;pointer-events:none;">🏢</span>' +
-          '<div style="text-align:left;pointer-events:none;"><div style="font-size:13px;font-weight:700;color:#242628;">대기업</div><div style="font-size:10px;color:#949ba8;">체계적 시스템, 안정성</div></div>' +
-        '</button>' +
-        '<span style="display:flex;align-items:center;font-size:12px;font-weight:700;color:#c5c7cc;">vs</span>' +
-        '<button id="jrvote-startup" style="flex:1;padding:12px 10px;border:1px solid #e5e6e9;border-radius:10px;background:#fff;cursor:pointer;font-family:Pretendard,sans-serif;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:8px;">' +
-          '<span style="font-size:16px;pointer-events:none;">🚀</span>' +
-          '<div style="text-align:left;pointer-events:none;"><div style="font-size:13px;font-weight:700;color:#242628;">스타트업</div><div style="font-size:10px;color:#949ba8;">빠른 성장, 다양한 경험</div></div>' +
-        '</button>' +
+    voteNudge.style.cssText = 'width:100%;padding:24px 28px;background:#f7f8f9;border-radius:16px;font-family:Pretendard,sans-serif;box-sizing:border-box;';
+    voteNudge.innerHTML = '<div style="font-size:15px;font-weight:700;color:#242628;margin-bottom:6px;">⚡ ' + jobName + ' 직군, 성장하려면 어디가 유리할까?</div>' +
+      '<div style="font-size:13px;color:#949ba8;margin-bottom:12px;">같은 직군 직장인들의 선택은?</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<button id="jrvote-big" style="padding:8px 18px;border:1px solid #e5e6e9;border-radius:20px;font-size:13px;font-weight:600;color:#686a6d;background:#fff;cursor:pointer;font-family:Pretendard,sans-serif;transition:all .2s;">🏢 대기업</button>' +
+        '<button id="jrvote-startup" style="padding:8px 18px;border:1px solid #e5e6e9;border-radius:20px;font-size:13px;font-weight:600;color:#686a6d;background:#fff;cursor:pointer;font-family:Pretendard,sans-serif;transition:all .2s;">🚀 스타트업</button>' +
       '</div>' +
-      '<div style="display:flex;align-items:center;gap:6px;">' +
-        '<span style="font-size:10px;color:#c5c7cc;filter:blur(3px);user-select:none;">62%</span>' +
-        '<div style="flex:1;height:6px;background:#e5e6e9;border-radius:3px;overflow:hidden;"><div style="width:62%;height:100%;background:#c5c7cc;border-radius:3px;filter:blur(3px);"></div></div>' +
-        '<span style="font-size:10px;color:#c5c7cc;filter:blur(3px);user-select:none;">38%</span>' +
-      '</div>' +
-      '<div style="font-size:10px;color:#949ba8;text-align:center;margin-top:6px;">' + jobName + ' 직군 248명 참여</div>' +
-      '<div id="jobreview-vote-result" style="display:none;margin-top:12px;padding:12px;background:#f0faf4;border:1px solid #c8e6c9;border-radius:8px;text-align:center;">' +
-        '<div style="font-size:12px;color:#242628;font-weight:600;margin-bottom:8px;">리뷰를 남기면 전체 결과를 확인할 수 있어요</div>' +
-        '<button onclick="openCompanySelect()" style="padding:8px 20px;background:#00c362;color:#fff;font-size:12px;font-weight:700;border:none;border-radius:6px;cursor:pointer;font-family:Pretendard,sans-serif;">리뷰 남기고 결과 보기</button>' +
+      '<div id="jobreview-vote-result" style="display:none;margin-top:12px;padding:14px 16px;background:#fff;border-radius:10px;border:1px solid #e5e6e9;">' +
+        '<div style="font-size:13px;color:#242628;line-height:20px;" id="jrvote-msg"></div>' +
+        '<div style="font-size:12px;color:#949ba8;margin-top:4px;">경미님의 경험도 같은 직군 후배들에게 큰 도움이 돼요</div>' +
+        '<button onclick="openCompanySelect()" style="margin-top:10px;padding:8px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;">내 경험 남기기</button>' +
       '</div>';
     cards[1].after(voteNudge);
     document.getElementById('jrvote-big').addEventListener('click', function(){ jobreviewVote(this); });
@@ -13949,8 +13938,13 @@ function selectJobReviewTab(jobName) {
 function jobreviewVote(btn) {
   var big = document.getElementById('jrvote-big');
   var startup = document.getElementById('jrvote-startup');
-  [big, startup].forEach(function(b) { if(b){ b.style.border='1px solid #e5e6e9'; b.style.background='#fff'; b.style.opacity='0.5'; }});
-  btn.style.border = '1.5px solid #242628'; btn.style.background = '#f7f8f9'; btn.style.opacity = '1';
+  [big, startup].forEach(function(b) { if(b){ b.style.border='1px solid #e5e6e9'; b.style.background='#fff'; b.style.color='#686a6d'; }});
+  btn.style.border = '1.5px solid #00c362'; btn.style.background = '#ecf9ef'; btn.style.color = '#00c362';
+  var isBig = btn.id === 'jrvote-big';
+  var pct = Math.floor(Math.random() * 15) + (isBig ? 50 : 38);
+  var label = isBig ? '대기업' : '스타트업';
+  var msg = document.getElementById('jrvote-msg');
+  if (msg) msg.innerHTML = '같은 직군 <span style="font-weight:700;color:#00c362;">' + pct + '%</span>가 "' + label + '"을 선택했어요';
   var result = document.getElementById('jobreview-vote-result');
   if (result) result.style.display = '';
 }
