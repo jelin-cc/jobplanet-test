@@ -16575,9 +16575,10 @@ function closeRatePopup() {
             if(existing.indexOf(extra[xi].title)===-1) filtered.push(extra[xi]);
           }
         }
-        // 결과 건수 업데이트
+        // 결과 건수 업데이트 (필터 없으면 1,481, 있으면 실제 건수 표시)
+        var _hasFilter = currentHotTags.length > 0 || fRegions.length > 0 || fJobs.length > 0 || fCareer > 0 || fEmploy.length > 0 || fEdu.length > 0;
         var countEl = document.querySelector('.jb-total-count');
-        if(countEl) countEl.textContent = '총 1,481건';
+        if(countEl) countEl.textContent = '총 ' + (_hasFilter ? filtered.length.toLocaleString() : '1,481') + '건';
 
         // 코치마크가 아직 안 닫혔으면 잡코리아 공고를 상위에 보장
         if(!localStorage.getItem('jp_jk_coach_seen')){
