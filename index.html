@@ -3771,15 +3771,18 @@
           var isLoggedIn = document.getElementById('gnb-user').style.display !== 'none';
           var followBtn = document.querySelector('.rv-cat-follow');
           if(followBtn) followBtn.style.display = isLoggedIn ? '' : 'none';
-          // 직무 입력 완료 시 내 직무 탭 자동 활성화
+        }
+        setTimeout(function(){
+          updateRvCatVisibility();
+          // 로그인+직무 입력 완료 상태면 내 직무 탭 활성화
+          var isLoggedIn = document.getElementById('gnb-user').style.display !== 'none';
           if(isLoggedIn && obSelectedJob && obSelectedJob.length > 0){
             var btns = document.querySelectorAll('.rv-cat');
             btns.forEach(function(c){c.classList.remove('active');});
             btns[1].classList.add('active');
             renderReviewCards();
           }
-        }
-        setTimeout(updateRvCatVisibility, 300);
+        }, 500);
         </script>
 
         <!-- 카드 스크롤 -->
@@ -20132,6 +20135,8 @@ function closeRatePopup() {
       if (al) al.innerHTML = '';
       // 기업 리뷰 페이지 로그인 상태 적용
       if (typeof completeLogin === 'function') completeLogin();
+      // 리뷰 칩 상태 업데이트
+      if (typeof updateRvCatVisibility === 'function') setTimeout(updateRvCatVisibility, 300);
     });
   }
   function doLogout(){
