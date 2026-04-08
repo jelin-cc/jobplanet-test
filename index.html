@@ -3929,8 +3929,11 @@
       </div>
 
       <!-- 테마 카드 가로 스크롤 -->
-      <div id="theme-card-scroll" style="display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;">
-        <style>#theme-card-scroll::-webkit-scrollbar{display:none;}</style>
+      <div style="position:relative;">
+        <div id="theme-card-scroll" style="display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;">
+          <style>#theme-card-scroll::-webkit-scrollbar{display:none;}</style>
+        </div>
+        <div style="position:absolute;top:0;right:0;bottom:4px;width:48px;background:linear-gradient(90deg,transparent,rgba(248,249,250,0.95));pointer-events:none;"></div>
       </div>
 
       <!-- 공고 리스트 (하위 호환용, 숨김) -->
@@ -4069,14 +4072,14 @@
 
         // --- 테마 데이터 ---
         var themeData = [
-          { title:'워라밸 좋은 기업', desc:'리뷰에서 워라밸이 좋다고 언급된 기업이에요', badge:'워라밸 우수', img:'Banner_1tW2cFJ25032514173967.jpg' },
-          { title:'연봉 만족도 높은 기업', desc:'현직자 리뷰에서 연봉 만족도가 높은 곳', badge:'연봉 상위', img:'Banner_2loOfzo25052915140814.jpg' },
-          { title:'성장하기 좋은 기업', desc:'리뷰에서 커리어 성장을 많이 언급한 기업', badge:'성장 기회 ↑', img:'Banner_4UvepA225031914015500.jpg' },
-          { title:'수평적 문화의 기업', desc:'자유롭고 수평적인 문화가 돋보이는 기업', badge:'수평 문화', img:'Banner_5DoT1nZ24111411320084.jpg' },
-          { title:'복지가 탄탄한 기업', desc:'복지 관련 긍정 리뷰가 많은 기업 모음', badge:'복지 우수', img:'Banner_HbrORCN25103117185664.jpg' },
-          { title:'재택근무 가능 기업', desc:'재택·원격 근무가 가능한 포지션을 모았어요', badge:'재택근무', img:'Banner_gBJ6Ui725082910083325.jpg' },
-          { title:'대규모 채용 중인 기업', desc:'지금 적극적으로 인재를 찾고 있는 기업들', badge:'대규모 채용 중', img:'Banner_kAifOHK25082013255486.jpg' },
-          { title:'경영진 평가 높은 기업', desc:'리뷰에서 경영진 신뢰도가 높게 평가된 곳', badge:'경영진 우수', img:'Banner_OP2jQmz25052715204502.jpg' }
+          { title:'"칼퇴 가능" 리뷰 많은 곳', desc:'현직자들이 워라밸을 인정한 기업 모음', badge:'워라밸 우수', img:'Banner_1tW2cFJ25032514173967.jpg' },
+          { title:'"연봉 만족" 리뷰 많은 곳', desc:'연봉 관련 긍정 리뷰가 가장 많은 기업 모음', badge:'연봉 상위', img:'Banner_2loOfzo25052915140814.jpg' },
+          { title:'"성장할 수 있었다" 리뷰 많은 곳', desc:'커리어 성장 키워드가 자주 등장하는 기업 모음', badge:'성장 기회 ↑', img:'Banner_4UvepA225031914015500.jpg' },
+          { title:'"자유로운 분위기" 리뷰 많은 곳', desc:'수평적 문화를 장점으로 꼽은 기업 모음', badge:'수평 문화', img:'Banner_5DoT1nZ24111411320084.jpg' },
+          { title:'"복지 최고" 리뷰 많은 곳', desc:'복지 만족도가 높게 평가된 기업 모음', badge:'복지 우수', img:'Banner_HbrORCN25103117185664.jpg' },
+          { title:'"재택도 OK" 리뷰 많은 곳', desc:'재택·원격 근무 가능 포지션이 있는 기업 모음', badge:'재택근무', img:'Banner_gBJ6Ui725082910083325.jpg' },
+          { title:'지금 대규모로 뽑고 있는 곳', desc:'채용 공고가 활발하게 올라오는 기업 모음', badge:'대규모 채용 중', img:'Banner_kAifOHK25082013255486.jpg' },
+          { title:'"경영진이 믿음직하다" 리뷰 많은 곳', desc:'경영진 신뢰도가 높게 평가된 기업 모음', badge:'경영진 우수', img:'Banner_OP2jQmz25052715204502.jpg' }
         ];
 
         // 공고 카드용 배너 이미지 풀
