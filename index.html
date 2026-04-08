@@ -14501,14 +14501,18 @@ function unlockThemeNudge(nudge) {
     blurWrap.style.userSelect = 'auto';
     // 연봉 넛지: 실제 기업명+바 교체
     if (nudgeId === 'nudge-hot-2') {
-      var salaryData = [['당근마켓','★ 4.5','#00c362'],['토스','★ 4.2','#ffc107'],['네이버','★ 4.0','#e5e6e9']];
+      var salaryData = [['당근마켓',4.5,'#00c362'],['토스',4.2,'#ffc107'],['네이버',4.0,'#949ba8'],['카카오',3.8,'#e5e6e9']];
       blurWrap.innerHTML = '';
       salaryData.forEach(function(d, i) {
+        var pctWidth = (d[1] / 4.5 * 100).toFixed(0);
         var row = document.createElement('div');
         row.style.cssText = 'display:flex;align-items:center;gap:8px;';
-        row.innerHTML = '<span style="font-size:12px;font-weight:800;color:' + (i===0?'#00c362':'#686a6d') + ';width:16px;">' + (i+1) + '</span><span style="font-size:13px;color:#242628;width:70px;">' + d[0] + '</span><div style="flex:1;height:6px;background:#f3f3f4;border-radius:3px;overflow:hidden;"><div style="width:' + d[1] + ';height:100%;background:' + d[2] + ';border-radius:3px;"></div></div><span style="font-size:12px;font-weight:700;color:#242628;">' + d[1] + '</span>';
+        row.innerHTML = '<span style="font-size:12px;font-weight:800;color:' + (i===0?'#00c362':'#686a6d') + ';width:16px;">' + (i+1) + '</span><span style="font-size:13px;color:#242628;width:70px;">' + d[0] + '</span><div style="flex:1;height:6px;background:#f3f3f4;border-radius:3px;overflow:hidden;"><div style="width:' + pctWidth + '%;height:100%;background:' + d[2] + ';border-radius:3px;"></div></div><span style="font-size:12px;font-weight:700;color:#242628;">★ ' + d[1] + '</span>';
         blurWrap.appendChild(row);
       });
+      // 선택지 버튼 숨기기
+      var btns = nudge.querySelectorAll('button[onclick*="onHotSalary"]');
+      btns.forEach(function(b) { b.style.display = 'none'; });
     }
     // 추천율 넛지: 실제 수치 교체
     if (nudgeId === 'nudge-hot-1') {
@@ -20296,11 +20300,16 @@ function closeRatePopup() {
       if (_rid) {
         // 탭 전환
         if (_rtab && typeof switchReviewTab === 'function') switchReviewTab(_rtab);
-        // 워라밸 칩 전환
+        // 테마 칩 전환
         if (_rid.indexOf('rising') >= 0) {
           var chips = document.querySelectorAll('.rpc-chip');
           for (var ci = 0; ci < chips.length; ci++) {
             if (chips[ci].textContent.indexOf('워라밸') >= 0) { chips[ci].click(); break; }
+          }
+        } else if (_rid.indexOf('hot') >= 0) {
+          var chips = document.querySelectorAll('.rpc-chip');
+          for (var ci = 0; ci < chips.length; ci++) {
+            if (chips[ci].textContent.indexOf('인기') >= 0) { chips[ci].click(); break; }
           }
         }
         setTimeout(function() {
