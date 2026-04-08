@@ -3966,14 +3966,14 @@
         function rvEmoji(name){ return '<img src="'+_emojiBase+'emoji-'+name+'.svg" width="20" height="20" style="vertical-align:middle;">'; }
         // === 인기 리뷰 (비로그인/기본) — 후킹용 ===
         var rvThemesPopular = [
-          {emoji:rvEmoji('cardfire'),label:'"퇴사 각인데..." 솔직 후기'},
-          {emoji:rvEmoji('moneybag'),label:'연봉 1억 넘는 회사 후기'},
-          {emoji:rvEmoji('fire'),label:'이번 주 조회수 폭발 리뷰'},
-          {emoji:rvEmoji('clover'),label:'야근 없다는 회사, 진짜일까?'},
-          {emoji:rvEmoji('star'),label:'"여기 진짜 추천" 현직자 후기'},
-          {emoji:rvEmoji('handshake'),label:'면접 후기 TOP'},
-          {emoji:rvEmoji('thunder'),label:'방금 올라온 따끈한 후기'},
-          {emoji:rvEmoji('rocket'),label:'요즘 뜨는 스타트업 후기'},
+          {emoji:rvEmoji('cardfire'),label:'"퇴사 각인데..." 솔직 후기',bg:'#FFF5F0',accent:'#FF6B35'},
+          {emoji:rvEmoji('moneybag'),label:'연봉 1억 넘는 회사 후기',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('fire'),label:'이번 주 조회수 폭발 리뷰',bg:'#FFF1F0',accent:'#EF4444'},
+          {emoji:rvEmoji('clover'),label:'야근 없다는 회사, 진짜일까?',bg:'#F0FFF4',accent:'#22C55E'},
+          {emoji:rvEmoji('star'),label:'"여기 진짜 추천" 현직자 후기',bg:'#FFFBEB',accent:'#F59E0B'},
+          {emoji:rvEmoji('handshake'),label:'면접 후기 TOP',bg:'#F0F4FF',accent:'#3B82F6'},
+          {emoji:rvEmoji('thunder'),label:'방금 올라온 따끈한 후기',bg:'#FFF8EB',accent:'#D97706'},
+          {emoji:rvEmoji('rocket'),label:'요즘 뜨는 스타트업 후기',bg:'#F5F0FF',accent:'#8B5CF6'},
         ];
         var rvQuotesPopular = [
           '"퇴사를 고민 중이라면 이 회사는 피하세요"',
@@ -3987,12 +3987,12 @@
         ];
         // === 내 직무 (로그인+직무입력) — 개인화 ===
         var rvThemesMyJob = [
-          {emoji:rvEmoji('briefcase'),label:'{job} 3년차가 쓴 후기'},
-          {emoji:rvEmoji('moneybag'),label:'{job} 연봉 TOP 5 회사'},
-          {emoji:rvEmoji('rocket'),label:'{job}로 이직한 사람들의 후기'},
-          {emoji:rvEmoji('star'),label:'{job}으로 입사하면 좋은 회사'},
-          {emoji:rvEmoji('barchart'),label:'{job} 성장하기 좋은 환경'},
-          {emoji:rvEmoji('handshake'),label:'{job} 팀 문화 좋다는 회사'},
+          {emoji:rvEmoji('briefcase'),label:'{job} 3년차가 쓴 후기',bg:'#F0F4FF',accent:'#3B82F6'},
+          {emoji:rvEmoji('moneybag'),label:'{job} 연봉 TOP 5 회사',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('rocket'),label:'{job}로 이직한 사람들의 후기',bg:'#F5F0FF',accent:'#8B5CF6'},
+          {emoji:rvEmoji('star'),label:'{job}으로 입사하면 좋은 회사',bg:'#FFFBEB',accent:'#F59E0B'},
+          {emoji:rvEmoji('barchart'),label:'{job} 성장하기 좋은 환경',bg:'#F0FFF4',accent:'#22C55E'},
+          {emoji:rvEmoji('handshake'),label:'{job} 팀 문화 좋다는 회사',bg:'#FFF5F0',accent:'#FF6B35'},
         ];
         var rvQuotesMyJob = [
           '"{job} 3년차인데 여기서 가장 많이 성장했어요"',
@@ -4004,10 +4004,10 @@
         ];
         // === 팔로우 기업 (로그인) ===
         var rvThemesFollow = [
-          {emoji:rvEmoji('thunder'),label:'팔로우한 기업의 최신 후기'},
-          {emoji:rvEmoji('moneybag'),label:'팔로우 기업 연봉 변동'},
-          {emoji:rvEmoji('briefcase'),label:'팔로우 기업 채용 소식'},
-          {emoji:rvEmoji('star'),label:'팔로우 기업 평점 변화'},
+          {emoji:rvEmoji('thunder'),label:'팔로우한 기업의 최신 후기',bg:'#FFF8EB',accent:'#D97706'},
+          {emoji:rvEmoji('moneybag'),label:'팔로우 기업 연봉 변동',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('briefcase'),label:'팔로우 기업 채용 소식',bg:'#F0F4FF',accent:'#3B82F6'},
+          {emoji:rvEmoji('star'),label:'팔로우 기업 평점 변화',bg:'#FFFBEB',accent:'#F59E0B'},
         ];
         var rvQuotesFollow = [
           '"최근 조직 개편 이후 분위기가 많이 달라졌어요"',
@@ -4057,13 +4057,16 @@
             var comp = companies[i % companies.length];
             var quote = quotes[i % quotes.length];
             var helpN = helps[i % helps.length];
+            var bg = t.bg || '#F8F9FA';
+            var accent = t.accent || 'var(--tx3)';
             return '<div class="rv-card" onclick="goToCompanyReview(\''+comp.co+'\',\''+comp.score+'\')" style="cursor:pointer;padding:0;overflow:hidden;display:flex;flex-direction:column;min-width:300px;max-width:340px;flex-shrink:0;transition:transform .15s,box-shadow .15s;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 24px rgba(0,0,0,.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'\'">'
-              +'<div style="padding:22px 22px 18px;display:flex;flex-direction:column;height:100%;">'
-              /* 테마 라벨: 작은 이모지 + 텍스트 */
-              +'<div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;">'
+              /* 테마 영역: 컬러 배경 */
+              +'<div style="padding:16px 20px;background:'+bg+';border-bottom:1px solid rgba(0,0,0,.04);display:flex;align-items:center;gap:8px;">'
               +'<span style="flex-shrink:0;">'+t.emoji+'</span>'
-              +'<span style="font-size:13px;font-weight:600;color:var(--tx3);">'+t.label+'</span>'
+              +'<span style="font-size:14px;font-weight:700;color:'+accent+';">'+t.label+'</span>'
               +'</div>'
+              /* 리뷰 본문 */
+              +'<div style="padding:18px 20px 16px;display:flex;flex-direction:column;flex:1;">'
               /* 리뷰 인용 — 메인 히어로 */
               +'<p style="font-size:16px;font-weight:600;color:var(--tx);line-height:1.65;margin:0;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-.2px;">'+quote+'</p>'
               /* 하단: 기업 + 도움 수 */
@@ -4126,7 +4129,7 @@
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
         <div>
           <p style="font-size:12px;font-weight:700;color:var(--brand);letter-spacing:.3px;margin-bottom:6px;">리뷰 기반 추천</p>
-          <h2 id="rjob-title" style="font-size:20px;font-weight:700;">리뷰로 찾은 채용 공고</h2>
+          <h2 id="rjob-title" style="font-size:22px;font-weight:700;">리뷰로 찾은 채용 공고</h2>
         </div>
       </div>
 
