@@ -24127,6 +24127,14 @@ function closeRatePopup() {
     if (savedPage && savedPage !== 'home') {
       document.body.style.visibility = 'hidden';
       go(savedPage);
+      if (savedPage === 'company' && localStorage.getItem('jp_reviewed') === 'true') {
+        document.querySelectorAll('#page-company .cd-blind-wrap').forEach(function(wrap) {
+          var content = wrap.querySelector('.cd-blind-content');
+          if (content) { content.style.filter = 'none'; content.style.pointerEvents = 'auto'; content.style.userSelect = 'auto'; }
+          var overlay = wrap.querySelector('.cd-blind-overlay');
+          if (overlay) overlay.style.display = 'none';
+        });
+      }
       if (savedPage === 'review') {
         var savedTab = sessionStorage.getItem('jp_current_review_tab');
         if (savedTab) switchReviewTab(savedTab);
