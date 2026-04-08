@@ -3737,12 +3737,13 @@
           .rv-cat.active{background:var(--tx);border-color:var(--tx);color:#fff;}
         </style>
         <script>
+        var _rvPendingCat = null; // 로그인/직무입력 후 활성화할 탭
         function setRvCat(cat, btn){
           var isLoggedIn = document.getElementById('gnb-user').style.display !== 'none';
-          // 내 직무: 비로그인 → 로그인 팝업, 로그인+직무없음 → 직무 입력
+          // 내 직무: 비로그인 → 로그인(→직무입력), 로그인+직무없음 → 직무 입력
           if(cat === 'myjob'){
-            if(!isLoggedIn){ openOB(); return; }
-            if(!obSelectedJob || obSelectedJob.length===0){ openOB(true); return; }
+            if(!isLoggedIn){ _rvPendingCat = 'myjob'; openOB(true); return; }
+            if(!obSelectedJob || obSelectedJob.length===0){ _rvPendingCat = 'myjob'; openOB(true); return; }
           }
           // 팔로우: 비로그인 → 로그인 팝업
           if(cat === 'follow'){
@@ -3752,11 +3753,31 @@
           btn.classList.add('active');
           renderReviewCards();
         }
+        // 로그인/직무입력 완료 후 대기 중인 탭 활성화
+        function checkRvPendingCat(){
+          if(!_rvPendingCat) return;
+          var cat = _rvPendingCat;
+          _rvPendingCat = null;
+          if(cat === 'myjob' && obSelectedJob && obSelectedJob.length > 0){
+            var btns = document.querySelectorAll('.rv-cat');
+            btns.forEach(function(c){c.classList.remove('active');});
+            btns[1].classList.add('active'); // 내 직무 버튼
+            renderReviewCards();
+          }
+          updateRvCatVisibility();
+        }
         // 로그인 상태에 따라 팔로우 칩 표시
         function updateRvCatVisibility(){
           var isLoggedIn = document.getElementById('gnb-user').style.display !== 'none';
           var followBtn = document.querySelector('.rv-cat-follow');
           if(followBtn) followBtn.style.display = isLoggedIn ? '' : 'none';
+          // 직무 입력 완료 시 내 직무 탭 자동 활성화
+          if(isLoggedIn && obSelectedJob && obSelectedJob.length > 0){
+            var btns = document.querySelectorAll('.rv-cat');
+            btns.forEach(function(c){c.classList.remove('active');});
+            btns[1].classList.add('active');
+            renderReviewCards();
+          }
         }
         setTimeout(updateRvCatVisibility, 300);
         </script>
@@ -19757,6 +19778,9 @@ function closeRatePopup() {
       }
       if(typeof shuffleInsightCos==='function') shuffleInsightCos();
     }
+    // 리뷰 탭 대기 중인 카테고리 활성화
+    if(typeof checkRvPendingCat==='function') setTimeout(checkRvPendingCat, 300);
+    if(typeof updateRvCatVisibility==='function') setTimeout(updateRvCatVisibility, 300);
   }
   function obLoginThenStart(){
     doLogin();
