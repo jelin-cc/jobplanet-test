@@ -24141,6 +24141,11 @@ function closeRatePopup() {
         else initTabInfiniteScroll('theme');
       }
       window.scrollTo(0, 0);
+      setTimeout(function() {
+        var pageEl = document.getElementById('page-' + savedPage);
+        if (pageEl) pageEl.scrollIntoView({ behavior:'auto', block:'start' });
+        else window.scrollTo(0, 0);
+      }, 100);
       document.body.style.visibility = 'visible';
     }
     // 리뷰 페이지가 아닐 때도 기본 탭 무한 스크롤 준비
