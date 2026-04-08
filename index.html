@@ -3575,6 +3575,8 @@
                   if(scoreEl) scoreEl.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" style="vertical-align:middle;margin-right:1px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> '+co.score;
                   var pctEl = el.querySelector('.fit-pct');
                   if(pctEl) pctEl.textContent = '적합 '+(90-idx*3-Math.floor(Math.random()*5))+'%';
+                  var hiringEl = el.querySelector('.fit-hiring');
+                  if(hiringEl) hiringEl.style.display = Math.random()>0.3 ? '' : 'none';
                 });
                 // companies 데이터도 갱신
                 picked.forEach(function(co, idx){
@@ -3651,6 +3653,7 @@
                 <span class="fit-name">네이버</span>
                 <span class="fit-score"><svg width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" style="vertical-align:middle;margin-right:1px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 4.1</span>
                 <span class="fit-pct" style="color:var(--brand);background:var(--brand-lt);border:none;">적합 88%</span>
+                <span class="fit-hiring" style="font-size:11px;font-weight:600;color:#3B82F6;background:#EFF6FF;padding:3px 8px;border-radius:99px;white-space:nowrap;">채용중</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="2" style="flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
               <div id="fi-1" onclick="goToInsightCompany(1)" style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;background:#F9FAFB;cursor:pointer;transition:all .2s;">
@@ -3658,6 +3661,7 @@
                 <span class="fit-name">토스</span>
                 <span class="fit-score"><svg width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" style="vertical-align:middle;margin-right:1px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 3.6</span>
                 <span class="fit-pct" style="color:var(--brand);background:var(--brand-lt);border:none;">적합 85%</span>
+                <span class="fit-hiring" style="font-size:11px;font-weight:600;color:#3B82F6;background:#EFF6FF;padding:3px 8px;border-radius:99px;white-space:nowrap;">채용중</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="2" style="flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
               </div>
               <div id="fi-2" onclick="goToInsightCompany(2)" style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;background:#F9FAFB;cursor:pointer;transition:all .2s;">
@@ -3675,25 +3679,36 @@
               <p style="font-size:13px;color:var(--tx3);line-height:1.5;margin-bottom:16px;">직무와 중요 조건을 입력하면 나에게 맞는 기업을 추천해드려요!</p>
               <button onclick="openOB(true)" style="width:100%;padding:12px 0;border-radius:var(--rsm);font-size:14px;font-weight:700;border:none;background:var(--brand);color:#fff;cursor:pointer;font-family:var(--font);transition:background .15s;">시작하기</button>
             </div>
-            <!-- 내 맞춤 조건 (결과 후) -->
+            <!-- 내 맞춤 조건 (결과 후, 접힘/펼침) -->
             <div id="obResultBox" style="display:none;border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid var(--ln2);">
-              <!-- 직무 헤더 -->
-              <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(135deg,rgba(0,194,116,.06),rgba(0,194,116,.02));">
-                <div style="width:36px;height:36px;border-radius:12px;background:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+              <!-- 직무 헤더 (클릭으로 토글) -->
+              <div id="obResultHeader" onclick="toggleObResult()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;transition:background .12s;" onmouseover="this.style.background='var(--ln2)'" onmouseout="this.style.background='transparent'">
+                <div style="width:28px;height:28px;border-radius:8px;background:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
                 </div>
                 <div style="flex:1;min-width:0;">
-                  <div id="obResultJob" style="font-size:15px;font-weight:700;color:var(--tx);line-height:1.2;"></div>
-                  <div style="font-size:11px;color:var(--tx4);margin-top:2px;">내 직무 기준</div>
+                  <span id="obResultJob" style="font-size:14px;font-weight:700;color:var(--tx);"></span>
+                  <span style="font-size:12px;color:var(--tx4);margin-left:6px;">내 맞춤 조건</span>
                 </div>
-                <button onclick="openOB(true)" style="font-size:12px;font-weight:600;color:var(--brand);background:#fff;border:1.5px solid var(--brand);padding:6px 14px;border-radius:var(--rfull);cursor:pointer;font-family:var(--font);transition:all .15s;" onmouseover="this.style.background='var(--brand)';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='var(--brand)'">변경</button>
+                <svg id="obResultArrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="2.5" style="flex-shrink:0;transition:transform .2s;transform:rotate(0deg);"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <!-- 조건 목록 -->
-              <div style="padding:6px 10px 10px;">
-                <div style="font-size:11px;font-weight:600;color:var(--tx4);padding:6px 8px 4px;letter-spacing:.3px;">중요 조건</div>
+              <!-- 조건 목록 (기본 접힘) -->
+              <div id="obResultBody" style="display:none;padding:0 16px 12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <span style="font-size:11px;font-weight:600;color:var(--tx4);letter-spacing:.3px;">중요 조건</span>
+                  <button onclick="event.stopPropagation();openOB(true)" style="font-size:11px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;font-family:var(--font);">변경</button>
+                </div>
                 <div id="obResultTags" style="display:flex;flex-direction:column;gap:0;"></div>
               </div>
             </div>
+            <script>
+            function toggleObResult(){
+              var body=document.getElementById('obResultBody');
+              var arrow=document.getElementById('obResultArrow');
+              if(body.style.display==='none'){body.style.display='block';arrow.style.transform='rotate(180deg)';}
+              else{body.style.display='none';arrow.style.transform='rotate(0deg)';}
+            }
+            </script>
           </div>
         </div>
       </div>
