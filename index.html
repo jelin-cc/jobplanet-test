@@ -3908,23 +3908,44 @@
       </script>
 
 
-      <!-- ④ 리뷰로 찾은 공고 + 카테고리 탭 -->
+      <!-- ④ 테마로 살펴보는 채용 공고 -->
       <div style="margin-bottom:6px;">
-        <p style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:.4px;margin-bottom:6px;">리뷰로 찾은 공고</p>
-        <h2 id="rjob-title" style="font-size:20px;font-weight:700;">승진 기회와 연봉이 중요한 분들께 추천해요</h2>
+        <p style="font-size:11px;font-weight:700;color:var(--brand);letter-spacing:.4px;margin-bottom:6px;">테마별 채용</p>
+        <h2 id="rjob-title" style="font-size:20px;font-weight:700;">테마로 살펴보는 채용 공고</h2>
       </div>
 
-      <!-- 카테고리 탭 + 초기화 -->
-      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px;margin-top:14px;">
-        <button id="cat-0" onclick="setCat(0)" style="padding:7px 16px;border-radius:var(--rfull);font-size:13px;font-weight:700;border:1.5px solid var(--tx);background:var(--tx);color:#fff;cursor:pointer;font-family:var(--font);transition:all .2s;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-moneybag.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;"> 승진·연봉</button>
-        <button id="cat-1" onclick="setCat(1)" style="padding:7px 16px;border-radius:var(--rfull);font-size:13px;font-weight:500;border:1.5px solid var(--ln);background:var(--surface);color:var(--tx3);cursor:pointer;font-family:var(--font);transition:all .2s;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-clover.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;"> 워라밸</button>
-        <button id="cat-2" onclick="setCat(2)" style="padding:7px 16px;border-radius:var(--rfull);font-size:13px;font-weight:500;border:1.5px solid var(--ln);background:var(--surface);color:var(--tx3);cursor:pointer;font-family:var(--font);transition:all .2s;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-institution.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;"> 수평문화</button>
-        <button id="cat-3" onclick="setCat(3)" style="padding:7px 16px;border-radius:var(--rfull);font-size:13px;font-weight:500;border:1.5px solid var(--ln);background:var(--surface);color:var(--tx3);cursor:pointer;font-family:var(--font);transition:all .2s;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-books.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;"> 성장·학습</button>
-        <button id="cat-4" onclick="setCatCustom()" style="padding:7px 16px;border-radius:var(--rfull);font-size:13px;font-weight:500;border:1.5px solid var(--ln);background:var(--surface);color:var(--tx3);cursor:pointer;font-family:var(--font);transition:all .2s;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-briefcase.svg" width="14" height="14" style="vertical-align:middle;margin-right:2px;"> 직군 맞춤</button>
-      </div>
+      <!-- 테마 카드 그리드 -->
+      <div id="theme-card-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;"></div>
 
-      <!-- 공고 리스트 (JS로 렌더링) -->
-      <div class="job-list" id="rjob-list"></div>
+      <!-- 공고 리스트 (하위 호환용, 숨김) -->
+      <div class="job-list" id="rjob-list" style="display:none;"></div>
+
+      <!-- 테마 상세 오버레이 -->
+      <div id="theme-detail-overlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:600;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+        <!-- 히어로 배너 -->
+        <div id="theme-detail-hero" style="position:relative;width:100%;height:280px;overflow:hidden;">
+          <img id="theme-detail-hero-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.65) 100%);"></div>
+          <div style="position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;">
+            <button onclick="closeThemeDetail()" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button onclick="openFilter(0)" style="display:flex;align-items:center;gap:4px;padding:8px 14px;border-radius:20px;background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;cursor:pointer;color:#fff;font-size:13px;font-weight:600;font-family:var(--font);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+              태그 전체
+            </button>
+          </div>
+          <div style="position:absolute;bottom:24px;left:20px;right:20px;">
+            <span id="theme-detail-badge" style="display:inline-block;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;margin-bottom:10px;"></span>
+            <h2 id="theme-detail-title" style="font-size:22px;font-weight:700;color:#fff;margin:0 0 6px 0;"></h2>
+            <p id="theme-detail-desc" style="font-size:14px;color:rgba(255,255,255,0.85);margin:0;"></p>
+          </div>
+        </div>
+        <!-- 공고 이미지 그리드 -->
+        <div style="padding:20px 16px;">
+          <div id="theme-detail-jobs" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;"></div>
+        </div>
+      </div>
 
       <script>
         var BASE='https://jelin-cc.github.io/jobplanet-ut/';
@@ -4013,53 +4034,6 @@
           '</div>';
         }
 
-        var catData = [
-          { title:'승진 기회와 연봉이 중요한 분들께 추천해요',
-            jobs:[
-              {logo:'T',co:'토스 · 서울 · 경력 3년↑',title:'Frontend Engineer (React)',kw:'승진 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>12건',dday:'D-3',urgent:true},
-              {logo:'K',co:'카카오 · 판교 · 경력 무관',title:'프로덕트 디자이너',kw:'연봉 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>8건',dday:'D-14',urgent:false},
-              {logo:'N',co:'네이버 · 판교 · 신입/경력',title:'팀 프론트엔드 개발자',kw:'승진 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>6건',dday:'D-21',urgent:false}
-            ]},
-          { title:'워라밸을 중요하게 생각하는 분들께 추천해요',
-            jobs:[
-              {logo:'T',co:'토스 · 서울 · 경력 3년↑',title:'Frontend Engineer (React)',kw:'워라밸 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>18건',dday:'D-3',urgent:true},
-              {logo:'L',co:'라인플러스 · 서울 · 경력 2년↑',title:'UX 디자이너',kw:'워라밸 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>11건',dday:'D-7',urgent:true},
-              {logo:'K',co:'카카오 · 판교 · 경력 무관',title:'백엔드 개발자',kw:'워라밸 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>9건',dday:'D-18',urgent:false}
-            ]},
-          { title:'수평적 조직문화를 찾는 분들께 추천해요',
-            jobs:[
-              {logo:'T',co:'토스 · 서울 · 경력 무관',title:'Product Designer',kw:'수평문화 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>14건',dday:'D-5',urgent:true},
-              {logo:'C',co:'쿠팡 · 서울 · 경력 3년↑',title:'Data Engineer',kw:'수평문화 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>8건',dday:'D-12',urgent:false},
-              {logo:'N',co:'네이버 · 판교 · 경력 무관',title:'iOS 개발자',kw:'수평문화 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>6건',dday:'D-20',urgent:false}
-            ]},
-          { title:'빠른 성장을 원하는 분들께 추천해요',
-            jobs:[
-              {logo:'T',co:'토스 · 서울 · 신입/경력',title:'Junior Frontend Engineer',kw:'성장 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>22건',dday:'D-3',urgent:true},
-              {logo:'K',co:'카카오 · 판교 · 경력 1년↑',title:'서비스 기획자',kw:'성장 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>13건',dday:'D-9',urgent:false},
-              {logo:'C',co:'쿠팡 · 서울 · 경력 무관',title:'ML Engineer',kw:'학습 언급 <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--brand)" style="vertical-align:middle;"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>10건',dday:'D-17',urgent:false}
-            ]}
-        ];
-        var currentCat = 0;
-        function setCat(idx) {
-          currentCat = idx;
-          var d = catData[idx];
-          document.getElementById('rjob-title').textContent = d.title;
-          var list = document.getElementById('rjob-list');
-          var jobs = genJobs(3);
-          list.innerHTML = jobs.map(renderJobCard).join('');
-          [0,1,2,3,4].forEach(function(i){
-            var b = document.getElementById('cat-'+i);
-            if(!b) return;
-            if(i===idx){
-              b.style.background='var(--brand)'; b.style.borderColor='var(--brand)';
-              b.style.color='#fff'; b.style.fontWeight='700';
-            } else {
-              b.style.background='var(--surface)'; b.style.borderColor='var(--ln)';
-              b.style.color='var(--tx3)'; b.style.fontWeight='500';
-            }
-          });
-        }
-
         function setCatCustom(){
           // 비로그인 → 로그인 팝업
           var isLoggedIn = document.getElementById('gnb-user').style.display !== 'none';
@@ -4070,25 +4044,102 @@
             return;
           }
           // 직군 입력된 경우 → 맞춤 공고 표시
-          document.getElementById('rjob-title').textContent = obSelectedJob+' 분들께 추천해요';
           var list = document.getElementById('rjob-list');
           var jobs = genJobs(3);
-          // 직무명 반영
           jobs.forEach(function(j){ j.title = obSelectedJob + ' (' + (Math.floor(Math.random()*8)+1) + '년 이상)'; });
+          list.style.display = '';
           list.innerHTML = jobs.map(renderJobCard).join('');
-          [0,1,2,3,4].forEach(function(i){
-            var b = document.getElementById('cat-'+i);
-            if(!b) return;
-            if(i===4){
-              b.style.background='var(--brand)'; b.style.borderColor='var(--brand)';
-              b.style.color='#fff'; b.style.fontWeight='700';
-            } else {
-              b.style.background='var(--surface)'; b.style.borderColor='var(--ln)';
-              b.style.color='var(--tx3)'; b.style.fontWeight='500';
-            }
-          });
         }
-        // 초기 공고 렌더링
+
+        // --- 테마 데이터 ---
+        var themeData = [
+          { title:'대규모 채용 기업', desc:'대규모로 인재를 채용하고 있는 기업을 모았어요', badge:'대규모 채용 중', img:'Banner_1tW2cFJ25032514173967.jpg' },
+          { title:'재택근무 가능 기업', desc:'집에서 일할 수 있는 포지션을 모았어요', badge:'재택근무', img:'Banner_2loOfzo25052915140814.jpg' },
+          { title:'100억 이상 투자 기업', desc:'누적 투자 100억 이상, 성장 중인 기업이에요', badge:'누적투자 100억 이상', img:'Banner_4UvepA225031914015500.jpg' },
+          { title:'인재 채용에 진심인 기업', desc:'적극적으로 인재를 찾고 있는 기업들이에요', badge:'적극 채용 중', img:'Banner_5DoT1nZ24111411320084.jpg' }
+        ];
+
+        // 공고 카드용 배너 이미지 풀
+        var jobBannerPool = [
+          'Banner_abbb51t25102816595906.jpg','Banner_ABi9lTY25101711202489.jpg',
+          'Banner_C3oJp7q25102817553882.jpg','Banner_DiMdvUg24111216474465.jpg',
+          'Banner_E0mPEv625102715305380.jpg','Banner_FA8757M24122415321709.jpg',
+          'Banner_gBJ6Ui725082910083325.jpg','Banner_GcTm5G225072215243389.jpg',
+          'Banner_gRZK5oC25072810592603.jpg','Banner_HbrORCN25103117185664.jpg',
+          'Banner_HNPO3bT24072313252617.jpg','Banner_iVPMD6p25092209323563.jpg',
+          'Banner_jkoaT8i25101510050474.jpg','Banner_Jp5fx7g25012110512020.jpg',
+          'Banner_kAifOHK25082013255486.jpg','Banner_kMaNyYZ25110310042647.jpg',
+          'Banner_mcoXCR225103017092404.jpg','Banner_OP2jQmz25052715204502.jpg',
+          'Banner_PuQjGUE25011715315914.jpg','Banner_Q48VLkS24121310465549.jpg',
+          'Banner_RVLkZ2025102911373557.jpg','Banner_skH5zUn24111917362523.jpg',
+          'Banner_sPBc4me25102718060629.jpg','Banner_sSXmGtH25081909563386.jpg',
+          'Banner_T8556bz25102811291014.jpg','Banner_TN3Dxv625021014354271.jpg',
+          'Banner_U8pB0dI25082714383635.jpg','Banner_upPwf1v24101713584007.jpg',
+          'Banner_w9S9qXw25072517145286.jpg','Banner_WMSIPbK25061014032956.jpg',
+          'Banner_xq7MI9Q25100217535222.jpg','Banner_YsW92UA24103114330047.jpg'
+        ];
+
+        // 테마 카드 홈 렌더링
+        function renderThemeCards(){
+          var grid = document.getElementById('theme-card-grid');
+          grid.innerHTML = themeData.map(function(t, idx){
+            return '<div onclick="openThemeDetail('+idx+')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(0,0,0,0.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'var(--sh)\'">' +
+              '<div style="position:relative;width:100%;padding-top:56.25%;overflow:hidden;">' +
+                '<img src="'+BASE+'img/'+t.img+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">' +
+                '<div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.35) 100%);"></div>' +
+              '</div>' +
+              '<div style="padding:12px 14px;">' +
+                '<div style="font-size:15px;font-weight:700;color:var(--tx);margin-bottom:4px;">'+t.title+'</div>' +
+                '<div style="font-size:12px;color:var(--tx4);line-height:1.4;">'+t.desc+'</div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        // 테마 상세 열기
+        function openThemeDetail(idx){
+          var t = themeData[idx];
+          document.getElementById('theme-detail-hero-img').src = BASE+'img/'+t.img;
+          document.getElementById('theme-detail-badge').textContent = t.badge;
+          document.getElementById('theme-detail-title').textContent = t.title;
+          document.getElementById('theme-detail-desc').textContent = t.desc;
+          // 공고 이미지 그리드 생성
+          var jobGrid = document.getElementById('theme-detail-jobs');
+          var shuffledBanners = shuffle(jobBannerPool).slice(0, 12);
+          var jobs = genJobs(12);
+          jobGrid.innerHTML = jobs.map(function(j, i){
+            var thumbSrc = BASE+'img/'+shuffledBanners[i % shuffledBanners.length];
+            var safeTitle = j.title.replace(/'/g,"\\'");
+            var safeCo = j.co.replace(/'/g,"\\'");
+            var safeMeta = j.meta.replace(/'/g,"\\'");
+            return '<div onclick="goJobDetail(\''+safeTitle+'\',\''+safeCo.split(' · ')[0]+'\',\''+safeMeta+'\',\''+thumbSrc+'\')" style="cursor:pointer;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--sh);transition:transform .15s;" onmouseenter="this.style.transform=\'translateY(-2px)\'" onmouseleave="this.style.transform=\'none\'">' +
+              '<div style="position:relative;width:100%;padding-top:56.25%;overflow:hidden;">' +
+                '<img src="'+thumbSrc+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" loading="lazy">' +
+              '</div>' +
+              '<div style="padding:10px 10px 12px;">' +
+                '<div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+j.title+'</div>' +
+                '<div style="font-size:12px;color:var(--tx3);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+j.co+'</div>' +
+                '<div style="font-size:11px;color:var(--tx4);">'+j.meta+'</div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+          document.getElementById('theme-detail-overlay').style.display = 'block';
+          document.body.style.overflow = 'hidden';
+        }
+
+        // 테마 상세 닫기
+        function closeThemeDetail(){
+          document.getElementById('theme-detail-overlay').style.display = 'none';
+          document.body.style.overflow = '';
+        }
+
+        // setCat 호환 stub (resetAll 등에서 호출됨)
+        function setCat(idx){
+          // no-op: 테마 카드로 전환되어 더 이상 카테고리 탭 없음
+        }
+
+        // 초기 렌더링
+        renderThemeCards();
         document.getElementById('rjob-list').innerHTML = genJobs(3).map(renderJobCard).join('');
       </script>
 
