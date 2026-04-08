@@ -23921,6 +23921,15 @@ function closeRatePopup() {
       setTimeout(function() { toast.style.display = 'none'; }, 3000);
     };
   }
+  window.onReviewWriteComplete = function() {
+    localStorage.setItem('jp_reviewed', 'true');
+    sessionStorage.setItem('jp_logged_in', 'true');
+    sessionStorage.setItem('jp_current_page', 'review');
+    var activeTab = document.querySelector('.review-tab.active');
+    if (activeTab) sessionStorage.setItem('jp_current_review_tab', activeTab.dataset.tab);
+    location.reload();
+  };
+
   function openReviewWithCallback() {
     // 리뷰 작성 출발 페이지 저장 (기업 상세에서 왔는지 여부)
     var activePage = document.querySelector('.page.active');
