@@ -18017,7 +18017,7 @@ function closeRatePopup() {
               <div class="cd-blind-overlay-title">솔직한 리뷰가 더 있습니다</div>
               <div class="cd-blind-overlay-desc">리뷰를 작성하면 모든 리뷰를 무제한으로 볼 수 있어요</div>
               <div class="cd-blind-btns">
-                <button class="cd-blind-btn green" onclick="openCompanySelect()">리뷰 작성하고 전체보기</button>
+                <button class="cd-blind-btn green" onclick="cdBlindReviewClick()">리뷰 작성하고 전체보기</button>
                 <button class="cd-blind-btn purple">멤버십 가입하고 전체보기</button>
               </div>
             </div>
@@ -20946,6 +20946,19 @@ function closeRatePopup() {
       });
     });
   })();
+
+  // 기업 상세 블라인드 CTA: 비로그인 시 로그인 팝업 → 로그인 후 리뷰 작성
+  window.cdBlindReviewClick = function() {
+    sessionStorage.setItem('jp_return_page', 'company');
+    var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
+    if (!isLoggedIn) {
+      window._loginThenWrite = true;
+      sessionStorage.setItem('jp_current_page', 'company');
+      openOB();
+    } else {
+      openReviewWithCallback();
+    }
+  };
 
   function openCompany(data){
     const idx = Math.floor(Math.random()*100);
@@ -23973,9 +23986,15 @@ function closeRatePopup() {
   window.onReviewWriteComplete = function() {
     localStorage.setItem('jp_reviewed', 'true');
     sessionStorage.setItem('jp_logged_in', 'true');
-    sessionStorage.setItem('jp_current_page', 'review');
-    var activeTab = document.querySelector('.review-tab.active');
-    if (activeTab) sessionStorage.setItem('jp_current_review_tab', activeTab.dataset.tab);
+    var returnPage = sessionStorage.getItem('jp_return_page');
+    sessionStorage.removeItem('jp_return_page');
+    if (returnPage === 'company') {
+      sessionStorage.setItem('jp_current_page', 'company');
+    } else {
+      sessionStorage.setItem('jp_current_page', 'review');
+      var activeTab = document.querySelector('.review-tab.active');
+      if (activeTab) sessionStorage.setItem('jp_current_review_tab', activeTab.dataset.tab);
+    }
     location.reload();
   };
 
