@@ -3699,9 +3699,24 @@
       <!-- ② 원하는 리뷰 모아보기 (위치 이동) -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
         <h2 style="font-size:20px;font-weight:700;">원하는 리뷰 모아보기</h2>
-        <button onclick="go('review')" style="font-size:13px;font-weight:600;color:var(--tx3);background:none;border:none;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:3px;">리뷰 피드 보러가기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="display:flex;gap:6px;">
+            <button onclick="scrollReviewCards(-1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button onclick="scrollReviewCards(1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;" onmouseover="this.style.borderColor='var(--tx3)'" onmouseout="this.style.borderColor='var(--ln)'">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+          <button onclick="go('review')" style="font-size:13px;font-weight:600;color:var(--tx3);background:none;border:none;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:3px;">리뷰 피드 보러가기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
       </div>
-      <div id="rv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:48px;"></div>
+      <div style="position:relative;">
+        <div id="rv-grid" style="display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;margin-bottom:48px;">
+          <style>#rv-grid::-webkit-scrollbar{display:none;}</style>
+        </div>
+        <div style="position:absolute;top:0;right:0;bottom:4px;width:48px;background:linear-gradient(90deg,transparent,rgba(248,249,250,0.95));pointer-events:none;"></div>
+      </div>
 
       <!-- ③ 연봉 데이터 섹션 -->
       <div style="margin-bottom:48px;">
@@ -3871,7 +3886,7 @@
           }
 
           document.getElementById('rv-grid').innerHTML=cards.map(function(c){
-            return '<div class="rv-card" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">'
+            return '<div class="rv-card" style="padding:0;overflow:hidden;display:flex;flex-direction:column;min-width:320px;max-width:360px;flex-shrink:0;">'
               /* 테마 뚜껑 */
               +'<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;'+c.themeBg+'border-bottom:1px solid var(--ln2);border-radius:var(--r) var(--r) 0 0;flex-shrink:0;">'
               +'<span style="font-size:13px;color:var(--tx2);">'+c.theme+'</span>'
@@ -3897,6 +3912,10 @@
               +'<button onclick="goToCompanyReview(this.dataset.co,this.dataset.score)" data-co="'+c.co+'" data-score="'+c.score+'" style="width:100%;padding:11px 0;border-radius:var(--rsm);font-size:13px;font-weight:600;color:var(--tx3);background:var(--bg);border:none;cursor:pointer;font-family:var(--font);transition:background .15s;display:flex;align-items:center;justify-content:center;gap:4px;flex-shrink:0;" onmouseover="this.style.background=\'var(--ln2)\'" onmouseout="this.style.background=\'var(--bg)\'">리뷰 자세히 보기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>'
               +'</div></div></div>';
           }).join('');
+        }
+        function scrollReviewCards(dir){
+          var el = document.getElementById('rv-grid');
+          el.scrollBy({left: dir * 340, behavior:'smooth'});
         }
         // 헬퍼: 회사명 클릭 → 기업 상세
         window.goToCompany = function(name, score){
