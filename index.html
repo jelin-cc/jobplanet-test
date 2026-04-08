@@ -3666,7 +3666,7 @@
             <div id="obStartBox" style="border:1.5px solid var(--ln);border-radius:var(--r);padding:18px 16px;">
               <h3 style="font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px;">내 직군에 맞는 기업 찾기</h3>
               <p style="font-size:13px;color:var(--tx3);line-height:1.5;margin-bottom:16px;">직무와 중요 조건을 입력하면 나에게 맞는 기업을 추천해드려요!</p>
-              <button onclick="openOB()" style="width:100%;padding:12px 0;border-radius:var(--rsm);font-size:14px;font-weight:700;border:none;background:var(--brand);color:#fff;cursor:pointer;font-family:var(--font);transition:background .15s;">시작하기</button>
+              <button onclick="openOB(true)" style="width:100%;padding:12px 0;border-radius:var(--rsm);font-size:14px;font-weight:700;border:none;background:var(--brand);color:#fff;cursor:pointer;font-family:var(--font);transition:background .15s;">시작하기</button>
             </div>
             <!-- 내 맞춤 조건 (결과 후) -->
             <div id="obResultBox" style="display:none;border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.05);border:1px solid var(--ln2);">
@@ -3678,7 +3678,7 @@
                   <div id="obResultJob" style="font-size:14px;font-weight:700;color:var(--tx);line-height:1.2;"></div>
                   <div style="font-size:11px;color:var(--tx4);margin-top:1px;">내 직무 기준</div>
                 </div>
-                <button onclick="openOB()" style="font-size:11px;font-weight:600;color:var(--tx4);background:var(--bg);border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:var(--font);transition:all .12s;flex-shrink:0;" onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color='var(--tx4)'">변경</button>
+                <button onclick="openOB(true)" style="font-size:11px;font-weight:600;color:var(--tx4);background:var(--bg);border:none;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:var(--font);transition:all .12s;flex-shrink:0;" onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color='var(--tx4)'">변경</button>
               </div>
               <div id="obResultTags" style="padding:6px 16px 8px;display:flex;flex-direction:column;gap:0;"></div>
             </div>
@@ -3687,7 +3687,14 @@
       </div>
 
 
-      <!-- ② 연봉 데이터 섹션 -->
+      <!-- ② 원하는 리뷰 모아보기 (위치 이동) -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h2 style="font-size:20px;font-weight:700;">원하는 리뷰 모아보기</h2>
+        <button onclick="go('review')" style="font-size:13px;font-weight:600;color:var(--tx3);background:none;border:none;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:3px;">리뷰 피드 보러가기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+      <div id="rv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px;"></div>
+
+      <!-- ③ 연봉 데이터 섹션 -->
       <div style="margin-bottom:48px;">
         <!-- 헤더 -->
         <div style="margin-bottom:16px;position:relative;">
@@ -3813,12 +3820,6 @@
       </div>
 
 
-      <!-- ③ 원하는 리뷰 모아보기 -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <h2 style="font-size:20px;font-weight:700;">원하는 리뷰 모아보기</h2>
-        <button onclick="go('review')" style="font-size:13px;font-weight:600;color:var(--tx3);background:none;border:none;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:3px;">리뷰 피드 보러가기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-      </div>
-      <div id="rv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px;"></div>
       <script>
         function renderReviewCards(){
           var isLoggedIn=document.getElementById('gnb-user').style.display!=='none';
@@ -18419,7 +18420,9 @@ function closeRatePopup() {
   var obSelectedJob='';
   var obSelectedConds=[];
 
-  function openOB(){
+  var _obFromInsight = false;
+  function openOB(fromInsight){
+    _obFromInsight = !!fromInsight;
     var gnbUser=document.getElementById('gnb-user');
     if(gnbUser && window.getComputedStyle(gnbUser).display==='none'){
       // 비로그인 → 로그인 유도
@@ -18456,17 +18459,20 @@ function closeRatePopup() {
   function obLoginThenStart(){
     doLogin();
     closeOB();
-    setTimeout(function(){
-      obSelectedCat='';obSelectedJob='';obSelectedConds=[];
-      document.getElementById('obStep1').style.display='';
-      document.getElementById('obStep2').style.display='none';
-      document.getElementById('obStep3').style.display='none';
-      document.getElementById('obLoginPopup').style.display='none';
-      document.getElementById('obStep1Btn').disabled=true;
-      renderObCats();
-      document.getElementById('obOverlay').classList.add('open');
-      document.body.style.overflow='hidden';
-    }, 800);
+    if(_obFromInsight){
+      setTimeout(function(){
+        obSelectedCat='';obSelectedJob='';obSelectedConds=[];
+        document.getElementById('obStep1').style.display='';
+        document.getElementById('obStep2').style.display='none';
+        document.getElementById('obStep3').style.display='none';
+        document.getElementById('obLoginPopup').style.display='none';
+        document.getElementById('obStep1Btn').disabled=true;
+        renderObCats();
+        document.getElementById('obOverlay').classList.add('open');
+        document.body.style.overflow='hidden';
+      }, 800);
+    }
+    _obFromInsight = false;
   }
 
   function renderObCats(){
