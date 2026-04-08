@@ -14745,10 +14745,14 @@ function closeRatePopup() {
   .filter-check-item:hover{color:var(--tx);}
   .filter-check-list{display:flex;flex-direction:column;gap:0;}
   .filter-check-list .filter-check-item{padding:12px 4px;}
-  .filter-job-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-  .filter-job-cat{padding:8px 16px;border-radius:var(--rfull);border:1.5px solid var(--ln);font-size:13px;font-weight:500;color:var(--tx3);cursor:pointer;background:var(--surface);transition:all .15s;}
-  .filter-job-cat.active{border-color:var(--brand);color:var(--brand);background:var(--brand-lt);}
-  .filter-job-list{display:flex;flex-wrap:wrap;gap:8px;}
+  .filter-job-cats{display:flex;flex-direction:column;gap:0;}
+  .filter-job-cat{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;border-bottom:1px solid var(--ln2);font-size:14px;font-weight:500;color:var(--tx2);cursor:pointer;background:transparent;border-left:none;border-right:none;border-top:none;width:100;transition:all .15s;font-family:var(--font);}
+  .filter-job-cat:last-child{border-bottom:none;}
+  .filter-job-cat .cat-arrow{width:18px;height:18px;transition:transform .2s;color:var(--tx4);}
+  .filter-job-cat.active{color:var(--brand);font-weight:700;}
+  .filter-job-cat.active .cat-arrow{transform:rotate(180deg);color:var(--brand);}
+  .filter-job-sub{display:none;flex-wrap:wrap;gap:8px;padding:8px 4px 16px;}
+  .filter-job-sub.open{display:flex;}
   .filter-job-item{padding:7px 14px;border-radius:var(--rfull);border:1.5px solid var(--ln);font-size:13px;color:var(--tx3);cursor:pointer;background:var(--surface);transition:all .15s;}
   .filter-job-item.active{border-color:var(--brand);color:var(--brand);background:var(--brand-lt);}
   .filter-range-wrap{padding:12px 0 8px;}
@@ -21056,7 +21060,6 @@ function closeRatePopup() {
         + '<div class="filter-section" id="filterSecJob">'
         + '<div class="filter-section-title">직무</div>'
         + '<div class="filter-job-cats" id="filterJobCats"></div>'
-        + '<div class="filter-job-list" id="filterJobList"></div>'
         + '</div>'
 
         // 경력
@@ -21092,14 +21095,22 @@ function closeRatePopup() {
 
       document.body.insertAdjacentHTML('beforeend', filterHtml);
 
-      // 직무 카테고리 렌더
-      var filterJobCat = '';
+      // 직무 카테고리 아코디언 렌더
+      var filterJobHtml = '';
       var catKeys = Object.keys(obJobData);
-      catKeys.forEach(function(cat, i){
-        filterJobCat += '<div class="filter-job-cat'+(i===0?' active':'')+'" onclick="selectFilterJobCat(this,\''+cat+'\')">'+cat+'</div>';
+      catKeys.forEach(function(cat){
+        var jobs = obJobData[cat] || [];
+        filterJobHtml += '<div class="filter-job-cat" onclick="toggleFilterJobCat(this)">'
+          + '<span>'+cat+'</span>'
+          + '<svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'
+          + '</div>';
+        filterJobHtml += '<div class="filter-job-sub" data-cat="'+cat+'">';
+        jobs.forEach(function(j){
+          filterJobHtml += '<div class="filter-job-item" onclick="this.classList.toggle(\'active\')">'+j+'</div>';
+        });
+        filterJobHtml += '</div>';
       });
-      document.getElementById('filterJobCats').innerHTML = filterJobCat;
-      renderFilterJobs(catKeys[0]);
+      document.getElementById('filterJobCats').innerHTML = filterJobHtml;
 
       // 탭 클릭 → 스크롤
       document.querySelectorAll('.filter-tab').forEach(function(tab){
@@ -21138,18 +21149,18 @@ function closeRatePopup() {
       updateRangeTrack(rangeEl);
     })();
 
-    window.selectFilterJobCat = function(el, cat){
+    window.toggleFilterJobCat = function(el){
+      var wasActive = el.classList.contains('active');
+      // 다른 카테고리 닫기
       document.querySelectorAll('.filter-job-cat').forEach(function(c){c.classList.remove('active');});
-      el.classList.add('active');
-      renderFilterJobs(cat);
+      document.querySelectorAll('.filter-job-sub').forEach(function(s){s.classList.remove('open');});
+      // 토글
+      if(!wasActive){
+        el.classList.add('active');
+        var sub = el.nextElementSibling;
+        if(sub) sub.classList.add('open');
+      }
     };
-
-    function renderFilterJobs(cat){
-      var jobs = obJobData[cat] || [];
-      document.getElementById('filterJobList').innerHTML = jobs.map(function(j){
-        return '<div class="filter-job-item" onclick="this.classList.toggle(\'active\')">'+j+'</div>';
-      }).join('');
-    }
 
     function openFilter(tabIdx){
       var body = document.getElementById('filterBody');
@@ -21192,6 +21203,8 @@ function closeRatePopup() {
       document.querySelectorAll('#filterOverlay input[type="checkbox"]').forEach(function(cb){cb.checked=false;});
       document.querySelectorAll('#filterOverlay .filter-employ-item').forEach(function(e){e.classList.remove('active');});
       document.querySelectorAll('#filterOverlay .filter-job-item').forEach(function(e){e.classList.remove('active');});
+      document.querySelectorAll('#filterOverlay .filter-job-cat').forEach(function(e){e.classList.remove('active');});
+      document.querySelectorAll('#filterOverlay .filter-job-sub').forEach(function(e){e.classList.remove('open');});
       var rng = document.getElementById('filterCareerRange');
       rng.value=0;
       document.getElementById('filterCareerValue').textContent='전체';
