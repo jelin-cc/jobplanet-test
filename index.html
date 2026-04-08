@@ -14751,7 +14751,7 @@ function filterThemeChip(btn) {
   sideIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
 
   if (mode === 'default') {
-    ['theme-rising-sidebar'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display=''; });
+    ['theme-rising-sidebar','theme-rising-rolling'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display=''; });
   } else if (mode === 'trending-hot') {
     // 인기 리뷰: 우측 카드 없음
   } else if (mode === 'trending-rising') {
