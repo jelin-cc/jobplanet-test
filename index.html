@@ -7384,7 +7384,27 @@
           </div>
           <div class="rv-banner-actions">
             <button class="rv-banner-btn rv-banner-btn--fill" onclick="showBannerDifferWork()">다른거 같아요</button>
-            <button class="rv-banner-btn rv-banner-btn--outline">공감해요</button>
+            <button class="rv-banner-btn rv-banner-btn--outline" onclick="showBannerAgreeWork()">공감해요</button>
+          </div>
+        </div>
+        <div id="rv-banner-agree-work" style="display:none;width:100%;padding:24px 34px;min-height:140px;">
+          <div style="display:flex;align-items:flex-start;gap:0;">
+            <div style="flex-shrink:0;width:310px;padding-top:8px;">
+              <div class="rv-banner-top">
+                <span class="rv-banner-company">(주)여기어때컴퍼니</span>
+                <span class="rv-card-tag">전직장</span>
+              </div>
+              <div class="rv-banner-title">어떤 점이 공감되셨나요?</div>
+            </div>
+            <div style="flex:1;max-width:339px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;" id="rv-banner-agree-options">
+                <button class="rv-banner-btn rv-banner-btn--grey" onclick="selectBannerAgreeWork(this)">워라밸이 진짜 아쉬움</button>
+                <button class="rv-banner-btn rv-banner-btn--grey" onclick="selectBannerAgreeWork(this)">복지는 확실히 좋았음</button>
+                <button class="rv-banner-btn rv-banner-btn--grey" onclick="selectBannerAgreeWork(this)">연봉은 만족스러웠음</button>
+                <button class="rv-banner-btn rv-banner-btn--grey" onclick="selectBannerAgreeWork(this)">기타 의견이 있어요</button>
+              </div>
+              <button class="rv-banner-btn rv-banner-btn--disabled" id="rv-banner-agree-submit" style="width:100%;">의견 남기러 가기</button>
+            </div>
           </div>
         </div>
         <div id="rv-banner-differ-work" style="display:none;width:100%;padding:24px 34px;min-height:140px;">
@@ -15870,6 +15890,17 @@ function closeUnwrittenPopup() {
 function showBannerDifferWork() {
   document.getElementById('rv-banner-default-work').style.display = 'none';
   document.getElementById('rv-banner-differ-work').style.display = 'flex';
+}
+function showBannerAgreeWork() {
+  document.getElementById('rv-banner-default-work').style.display = 'none';
+  document.getElementById('rv-banner-agree-work').style.display = 'flex';
+}
+function selectBannerAgreeWork(btn) {
+  document.querySelectorAll('#rv-banner-agree-options .rv-banner-btn--grey').forEach(function(b) { b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  var submit = document.getElementById('rv-banner-agree-submit');
+  submit.className = 'rv-banner-btn rv-banner-btn--submit-active';
+  submit.onclick = function() { goDirectReviewWrite('(주)여기어때컴퍼니'); };
 }
 function selectBannerOptionWork(btn) {
   document.querySelectorAll('#rv-banner-options-work .rv-banner-btn--grey').forEach(function(b) { b.classList.remove('selected'); });
