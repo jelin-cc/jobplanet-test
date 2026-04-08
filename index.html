@@ -22962,10 +22962,41 @@ function closeRatePopup() {
         refreshDetailSidebar();
       }
     }
-    function refreshDetailSidebar(){
+    function getFilteredPool(){
       var pool = (typeof caseConfig !== 'undefined') ? caseConfig.a.cards : [];
-      if(!pool.length) return;
-      var shuffled = pool.slice();
+      if(!pool.length) return pool;
+      var filtered = pool;
+      // hotTag 필터
+      if(typeof currentHotTags !== 'undefined' && currentHotTags.length > 0){
+        filtered = filtered.filter(function(c){ return c.hotTags && currentHotTags.every(function(t){ return c.hotTags.indexOf(t) !== -1; }); });
+      }
+      // 지역
+      var fR=[];document.querySelectorAll('#filterSecRegion input[type="checkbox"]:checked').forEach(function(cb){fR.push(cb.parentElement.textContent.trim());});
+      if(fR.length) filtered=filtered.filter(function(c){return fR.some(function(r){return c.meta.indexOf(r)!==-1;});});
+      // 직무
+      var fJ=[];document.querySelectorAll('#filterSecJob .filter-job-item.active').forEach(function(el){fJ.push(el.textContent.trim());});
+      if(fJ.length) filtered=filtered.filter(function(c){return fJ.some(function(j){return c.title.indexOf(j)!==-1||c.title.toLowerCase().indexOf(j.toLowerCase())!==-1;});});
+      // 경력
+      var fC=parseInt(document.getElementById('filterCareerRange')?document.getElementById('filterCareerRange').value:0);
+      if(fC>0){var yrs=[0,0,1,2,3,4,5,6,7,8,9,10];var minY=yrs[fC]||0;filtered=filtered.filter(function(c){var m=c.meta.match(/경력\s*(\d+)/);if(m)return parseInt(m[1])>=minY;if(c.meta.indexOf('신입')!==-1)return minY===0;return true;});}
+      // 고용형태
+      var fE=[];document.querySelectorAll('#filterSecEmploy .filter-employ-item.active').forEach(function(el){fE.push(el.textContent.trim());});
+      if(fE.length) filtered=filtered.filter(function(c){return c.employ&&fE.indexOf(c.employ)!==-1;});
+      // 학력
+      var fD=[];document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){fD.push(cb.parentElement.textContent.trim());});
+      if(fD.length) filtered=filtered.filter(function(c){return c.edu&&fD.some(function(e){return e==='학력무관'||c.edu===e;});});
+      // 최소 20건 보장
+      if(filtered.length<20){
+        var extra=pool.slice();for(var ei=extra.length-1;ei>0;ei--){var ej=Math.floor(Math.random()*(ei+1));var et=extra[ei];extra[ei]=extra[ej];extra[ej]=et;}
+        var existing=filtered.map(function(c){return c.title;});
+        for(var xi=0;xi<extra.length&&filtered.length<20;xi++){if(existing.indexOf(extra[xi].title)===-1)filtered.push(extra[xi]);}
+      }
+      return filtered;
+    }
+    function refreshDetailSidebar(){
+      var filtered = getFilteredPool();
+      if(!filtered.length) return;
+      var shuffled = filtered.slice();
       for(var i=shuffled.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=shuffled[i];shuffled[i]=shuffled[j];shuffled[j]=t;}
       var items = shuffled.slice(0,20);
       if(typeof buildJobDetailSidebar === 'function'){
@@ -23204,7 +23235,7 @@ function closeRatePopup() {
       }
       var RATING_KEYS=['업무와 삶의 균형','복지 및 급여','사내문화','성장 가능성','경영진'];
       function buildJobDetailSidebar(clickedCard) {
-        var pool=(typeof caseConfig!=='undefined')?caseConfig.a.cards:[];
+        var pool=(typeof getFilteredPool==='function')?getFilteredPool():((typeof caseConfig!=='undefined')?caseConfig.a.cards:[]);
         var candidates=pool.filter(function(c){return !(c.co===clickedCard.co&&c.title===clickedCard.title);});
         var shuffled=candidates.slice();for(var i=shuffled.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=shuffled[i];shuffled[i]=shuffled[j];shuffled[j]=t;}
         var others=shuffled.slice(0,19);
