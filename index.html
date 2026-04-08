@@ -15253,7 +15253,10 @@ document.addEventListener('click', function(e) {
   var visible = false;
   window.addEventListener('scroll', function() {
     var reviewPage = document.getElementById('page-review');
-    if (!reviewPage || !reviewPage.classList.contains('active')) return;
+    var jobPage = document.getElementById('page-job');
+    var reviewActive = reviewPage && reviewPage.classList.contains('active');
+    var jobActive = jobPage && jobPage.classList.contains('active');
+    if (!reviewActive && !jobActive) return;
     if (window.scrollY > 300 && !visible) {
       visible = true;
       btn.style.display = 'flex';
