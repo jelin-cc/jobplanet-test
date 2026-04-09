@@ -23839,6 +23839,9 @@ function closeRatePopup() {
     // 우측 첫 번째 CTA 카드 복원
     document.querySelectorAll('.rv-sidebar > .rv-side-cta:first-child:not(.rv-work-status-loggedout):not(#theme-trending-top5)').forEach(function(el) { el.style.display = ''; });
 
+    // 리뷰 작성하기 카드 복원
+    document.querySelectorAll('.rv-side-write-cta').forEach(function(el) { el.style.display = ''; });
+
     // 관심 기업 사이드바: 비로그인 empty state 숨기고 기존 카드 복원
     document.querySelectorAll('.rv-interest-loggedout').forEach(function(el) { el.style.display = 'none'; });
     document.querySelectorAll('.rv-interest-loggedin-card').forEach(function(el) { el.style.display = ''; });
