@@ -20335,6 +20335,11 @@ function closeRatePopup() {
     // 기업 리뷰 페이지도 로그인 상태 적용
     window._skipLoginLoader = true; if (typeof completeLogin === "function") completeLogin();
   }
+  // 리뷰 권한 있으면 넛지 + 작성 CTA 노출
+  setTimeout(function() {
+    if (typeof showNudgesIfReviewed === 'function') showNudgesIfReviewed();
+    if (typeof hideThemeNudgesIfNoAccess === 'function') hideThemeNudgesIfNoAccess();
+  }, 300);
   // 넛지 복귀 로직: 리뷰 작성 후 해당 넛지로 돌아오기
   setTimeout(function() {
     if (sessionStorage.getItem('jp_return_nudge_pending') === 'true' && localStorage.getItem('jp_reviewed') === 'true') {
