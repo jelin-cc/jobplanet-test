@@ -13810,10 +13810,8 @@ function selectJobReviewTab(jobName) {
     if (jrLayout) jrLayout.style.marginTop = '0';
     var jrCards = list.querySelectorAll('.rv-card');
     if (jrCards.length >= 2) {
-      // 1번째 카드: 기업명+로고 블러 + 축소 UI
+      // 1번째 카드: 축소 UI (기업명 블러 제거)
       var card1 = jrCards[0];
-      var co1 = card1.querySelector('.rv-card-company'); if (co1) { co1.style.filter = 'blur(6px)'; co1.style.userSelect = 'none'; }
-      var lo1 = card1.querySelector('.rv-card-logo'); if (lo1) { lo1.style.filter = 'blur(6px)'; lo1.style.userSelect = 'none'; }
       var cardScore1 = card1.querySelector('.rv-card-score');
       var scoreNum1 = cardScore1 ? cardScore1.querySelector('.rv-card-score-num') : null;
       var starsEl1 = cardScore1 ? cardScore1.querySelector('.rv-card-stars') : null;
