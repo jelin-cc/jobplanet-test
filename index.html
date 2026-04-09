@@ -21411,7 +21411,7 @@ function closeRatePopup() {
           var helpN=Math.floor(Math.random()*180)+10;
           var starsHtml='';for(var si=1;si<=5;si++)starsHtml+='<span class="'+(si<=Math.round(scoreNum)?'on':'off')+'">★</span>';
           var barsHtml='';rvBarLabels.forEach(function(l){barsHtml+='<div class="rv-card-bar-item"><span class="rv-card-bar-label">'+l+'</span><div class="rv-card-bar-track"><div class="rv-card-bar-fill" style="width:'+(30+Math.floor(Math.random()*60))+'%"></div></div></div>';});
-          html+='<div class="rv-card"><div class="rv-card-meta"><span>'+dept+'</span><div class="rv-card-meta-sep"></div><span>'+st+'</span><div class="rv-card-meta-sep"></div><span>'+loc+'</span><div class="rv-card-meta-sep"></div><span>'+yr+' 작성</span></div>'+
+          html+='<div class="rv-card" style="margin-bottom:20px;"><div class="rv-card-meta"><span>'+dept+'</span><div class="rv-card-meta-sep"></div><span>'+st+'</span><div class="rv-card-meta-sep"></div><span>'+loc+'</span><div class="rv-card-meta-sep"></div><span>'+yr+' 작성</span></div>'+
           '<div class="rv-card-body"><div class="rv-card-score"><div class="rv-card-score-num">'+scoreNum+'</div><div class="rv-card-stars">'+starsHtml+'</div><div class="rv-card-bars">'+barsHtml+'</div></div>'+
           '<div class="rv-card-content"><div class="rv-card-title">'+title[0]+'<br>'+title[1]+'</div>'+
           '<div class="rv-card-section"><p><span class="rv-card-badge rv-card-badge--pro">장점</span> '+pro+'</p></div>'+
@@ -21422,7 +21422,7 @@ function closeRatePopup() {
           '</div></div></div>';
           // 여기어때글로벌: 4번째 카드 뒤에 투표 배너 삽입
           if (ri === 3 && data.name && data.name.indexOf('여기어때') >= 0) {
-            html += '<div class="rv-banner" style="width:100%;background:linear-gradient(135deg,#e4f5ea 0%,#d4edda 100%);border:1.5px solid #00c362;border-radius:20px;padding:28px 32px;margin:0 0 0;display:flex;align-items:center;min-height:auto;opacity:1;transform:none;">' +
+            html += '<div class="rv-banner" style="width:100%;background:linear-gradient(135deg,#e4f5ea 0%,#d4edda 100%);border:1.5px solid #00c362;border-radius:20px;padding:28px 32px;margin-bottom:20px;display:flex;align-items:center;min-height:auto;opacity:1;transform:none;">' +
               '<div style="flex:1;">' +
                 '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">' +
                   '<span style="font-size:13px;font-weight:600;color:#57595b;">(주)여기어때컴퍼니</span>' +
