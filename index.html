@@ -18204,9 +18204,9 @@ function closeRatePopup() {
           </div>
 
           <!-- visible interview (리뷰 피드 면접 후기 카드 UI) -->
-          <div class="rv-card" style="margin-bottom:16px;">
+          <div class="rv-card" style="margin-bottom:16px;" data-iv-dept="개발" data-iv-result="😊 합격">
             <div class="rv-card-meta" style="padding:20px 24px 0;">
-              <span>프론트엔드</span><div class="rv-card-meta-sep"></div>
+              <span>개발</span><div class="rv-card-meta-sep"></div>
               <span>경력</span><div class="rv-card-meta-sep"></div>
               <span>2025. 10 작성</span>
             </div>
@@ -21307,7 +21307,7 @@ function closeRatePopup() {
           var ivContent = wrap.querySelector('.cd-blind-content');
           if (ivContent) {
             ivContent.style.filter = 'none'; ivContent.style.pointerEvents = 'auto'; ivContent.style.userSelect = 'auto';
-            var ivDepts = ['프론트엔드','백엔드','디자인','마케팅','기획','데이터','영업','HR','엔지니어링','PM'];
+            var ivDepts = ['개발','디자인','기획/경영','마케팅','데이터','영업','인사/총무','엔지니어링','교육','금융/재무'];
             var ivGrades = ['신입','경력'];
             var ivDates = ['2026. 04','2026. 03','2026. 02','2026. 01','2025. 12','2025. 11','2025. 10','2025. 09','2025. 08'];
             var ivDiffs = [['쉬움','#00c362,#00c362,#e5e6e9,#e5e6e9,#e5e6e9'],['보통','#00c362,#00c362,#ffc107,#ffc107,#e5e6e9'],['어려움','#00c362,#00c362,#ffc107,#ffc107,#f44336']];
