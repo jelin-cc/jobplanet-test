@@ -18184,10 +18184,23 @@ function closeRatePopup() {
           </div>
 
           <!-- 면접 후기 필터 -->
-          <div class="cd-rv-filters">
-            <div class="cd-rv-filter active">직종전체</div>
-            <div class="cd-rv-filter">직급전체</div>
-            <div class="cd-rv-filter">합격여부</div>
+          <div class="cd-rv-filters" style="display:flex;gap:8px;margin-bottom:16px;">
+            <select onchange="filterCdInterview()" id="cd-iv-filter-job" style="padding:8px 28px 8px 12px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27%3E%3Cpath d=%27M6 8L1 3h10z%27 fill=%27%23949ba8%27/%3E%3C/svg%3E') no-repeat right 10px center;appearance:none;cursor:pointer;font-family:'Pretendard',sans-serif;">
+              <option value="">직종전체</option>
+              <option>개발</option><option>디자인</option><option>기획/경영</option><option>마케팅</option>
+              <option>데이터</option><option>영업</option><option>인사/총무</option><option>엔지니어링</option>
+              <option>교육</option><option>금융/재무</option><option>미디어</option><option>물류</option><option>기타</option>
+            </select>
+            <select onchange="filterCdInterview()" id="cd-iv-filter-grade" style="padding:8px 28px 8px 12px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27%3E%3Cpath d=%27M6 8L1 3h10z%27 fill=%27%23949ba8%27/%3E%3C/svg%3E') no-repeat right 10px center;appearance:none;cursor:pointer;font-family:'Pretendard',sans-serif;">
+              <option value="">직급전체</option>
+              <option>사원-대졸</option><option>사원-전문대졸</option><option>사원-고졸</option>
+              <option>주임/계장</option><option>대리</option><option>과장</option><option>차장</option>
+              <option>부장</option><option>이사</option><option>기타</option>
+            </select>
+            <select onchange="filterCdInterview()" id="cd-iv-filter-result" style="padding:8px 28px 8px 12px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27%3E%3Cpath d=%27M6 8L1 3h10z%27 fill=%27%23949ba8%27/%3E%3C/svg%3E') no-repeat right 10px center;appearance:none;cursor:pointer;font-family:'Pretendard',sans-serif;">
+              <option value="">합격여부</option>
+              <option>불합격</option><option>합격</option><option>대기중</option>
+            </select>
           </div>
 
           <!-- visible interview (리뷰 피드 면접 후기 카드 UI) -->
@@ -21084,6 +21097,28 @@ function closeRatePopup() {
   })();
 
   // 기업 상세 블라인드 CTA: 비로그인 시 로그인 팝업 → 로그인 후 리뷰 작성
+  // 기업 상세 면접 탭 필터
+  window.filterCdInterview = function() {
+    var job = document.getElementById('cd-iv-filter-job').value;
+    var grade = document.getElementById('cd-iv-filter-grade').value;
+    var result = document.getElementById('cd-iv-filter-result').value;
+    var cards = document.querySelectorAll('#cdTabInterview .rv-card');
+    cards.forEach(function(card) {
+      var meta = card.querySelector('.rv-card-meta');
+      var metaText = meta ? meta.textContent : '';
+      var resultBox = card.querySelector('[style*="면접결과"]');
+      var resultText = card.textContent || '';
+      var show = true;
+      if (job && metaText.indexOf(job) < 0) show = false;
+      if (result) {
+        if (result === '합격' && resultText.indexOf('😊 합격') < 0) show = false;
+        if (result === '불합격' && resultText.indexOf('😞 불합격') < 0) show = false;
+        if (result === '대기중' && resultText.indexOf('⏳ 대기중') < 0) show = false;
+      }
+      card.style.display = show ? '' : 'none';
+    });
+  };
+
   window.cdBlindReviewClick = function() {
     sessionStorage.setItem('jp_return_page', 'company');
     var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
