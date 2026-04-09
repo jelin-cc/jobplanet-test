@@ -21436,6 +21436,8 @@ function closeRatePopup() {
           '</div></div></div>';
           // 3번째 카드 뒤에 점수 투표 넛지 삽입
           if (ri === 2) {
+            var cdNudgeUnlocked = sessionStorage.getItem('jp_cd_nudge_pending') === 'true';
+            if (cdNudgeUnlocked) sessionStorage.removeItem('jp_cd_nudge_pending');
             html += '<div style="width:100%;padding:24px 28px;background:#f7f8f9;border-radius:16px;font-family:Pretendard,sans-serif;box-sizing:border-box;margin-bottom:20px;">' +
               '<div style="font-size:15px;font-weight:700;color:#242628;margin-bottom:14px;">🤔 솔직히, 지금 다니는 회사 점수를 준다면?</div>' +
               '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
@@ -21444,6 +21446,15 @@ function closeRatePopup() {
                 '<button onclick="onCdNudgeVote(this,\'4점\')" style="padding:8px 18px;border:1px solid #e5e6e9;border-radius:20px;font-size:13px;font-weight:600;color:#686a6d;background:#fff;cursor:pointer;font-family:Pretendard,sans-serif;transition:all .2s;">😊 4점</button>' +
                 '<button onclick="onCdNudgeVote(this,\'5점\')" style="padding:8px 18px;border:1px solid #e5e6e9;border-radius:20px;font-size:13px;font-weight:600;color:#686a6d;background:#fff;cursor:pointer;font-family:Pretendard,sans-serif;transition:all .2s;">🤩 5점</button>' +
               '</div>' +
+              (cdNudgeUnlocked ?
+              '<div style="margin-top:14px;padding:16px 18px;background:#fff;border-radius:12px;border:1px solid #e5e6e9;">' +
+                '<div style="font-size:13px;font-weight:700;color:#242628;margin-bottom:10px;">🎉 순위가 공개되었어요!</div>' +
+                '<div style="display:flex;flex-direction:column;gap:6px;">' +
+                  '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f0faf4;border-radius:8px;"><span style="font-size:13px;font-weight:800;color:#00c362;min-width:18px;">1</span><span style="font-size:13px;font-weight:600;color:#242628;flex:1;">당근마켓</span><span style="font-size:12px;font-weight:700;color:#00c362;">32%</span></div>' +
+                  '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f7f8f9;border-radius:8px;"><span style="font-size:13px;font-weight:800;color:#686a6d;min-width:18px;">2</span><span style="font-size:13px;font-weight:600;color:#242628;flex:1;">토스</span><span style="font-size:12px;font-weight:700;color:#686a6d;">24%</span></div>' +
+                  '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f7f8f9;border-radius:8px;"><span style="font-size:13px;font-weight:800;color:#686a6d;min-width:18px;">3</span><span style="font-size:13px;font-weight:600;color:#242628;flex:1;">네이버</span><span style="font-size:12px;font-weight:700;color:#686a6d;">18%</span></div>' +
+                '</div>' +
+              '</div>' :
               '<div class="cd-nudge-vote-result" style="display:none;margin-top:14px;padding:16px 18px;background:#fff;border-radius:12px;border:1px solid #e5e6e9;">' +
                 '<div style="font-size:13px;font-weight:700;color:#242628;margin-bottom:10px;" class="cd-nudge-vote-msg"></div>' +
                 '<div style="display:flex;flex-direction:column;gap:6px;position:relative;">' +
@@ -21454,8 +21465,8 @@ function closeRatePopup() {
                   '</div>' +
                   '<div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;"><div style="font-size:20px;margin-bottom:6px;">🔒</div><div style="font-size:12px;font-weight:600;color:#686a6d;">리뷰 작성하면 순위 공개!</div></div></div>' +
                 '</div>' +
-                '<button onclick="cdBlindReviewClick()" style="margin-top:12px;width:100%;padding:10px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;">리뷰 쓰고 순위 확인하기</button>' +
-              '</div>' +
+                '<button onclick="sessionStorage.setItem(\'jp_cd_nudge_pending\',\'true\');cdBlindReviewClick();" style="margin-top:12px;width:100%;padding:10px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;">리뷰 쓰고 순위 확인하기</button>' +
+              '</div>') +
             '</div>';
           }
           // 여기어때글로벌: 4번째 카드 뒤에 투표 배너 삽입
