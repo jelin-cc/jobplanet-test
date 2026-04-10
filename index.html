@@ -16783,23 +16783,15 @@ function closeRatePopup() {
         var countEl = document.querySelector('.jb-total-count');
         if(countEl) countEl.textContent = '총 ' + (_hasFilter ? filtered.length.toLocaleString() : '1,481') + '건';
 
-        // 코치마크가 아직 안 닫혔으면 잡코리아 공고를 상위에 보장
-        if(!localStorage.getItem('jp_jk_coach_seen')){
-          var jkCards = filtered.filter(function(c){return c.external==='jobkorea';});
-          var nonJk = filtered.filter(function(c){return c.external!=='jobkorea';});
-          if(jkCards.length > 0){
-            // 잡코리아 1건을 맨 앞에, 나머지 셔플
-            for(var _si=nonJk.length-1;_si>0;_si--){var _sj=Math.floor(Math.random()*(_si+1));var _st=nonJk[_si];nonJk[_si]=nonJk[_sj];nonJk[_sj]=_st;}
-            for(var _ji=jkCards.length-1;_ji>0;_ji--){var _jj=Math.floor(Math.random()*(_ji+1));var _jt=jkCards[_ji];jkCards[_ji]=jkCards[_jj];jkCards[_jj]=_jt;}
-            // 잡코리아 1건을 2번째 위치에 삽입 (너무 맨 앞이면 부자연스러움)
-            filtered = nonJk.slice(0,1).concat(jkCards.slice(0,1)).concat(nonJk.slice(1));
-          }
-        }
-        // 필터 변경 시 셔플 (같은 필터여도 다른 순서) — 잡코리아 보장 시에는 이미 셔플됨
-        var shuffled = localStorage.getItem('jp_jk_coach_seen') ? filtered.slice() : filtered;
-        if(localStorage.getItem('jp_jk_coach_seen')){
-          for(var si=shuffled.length-1;si>0;si--){var sj=Math.floor(Math.random()*(si+1));var st=shuffled[si];shuffled[si]=shuffled[sj];shuffled[sj]=st;}
-        }
+        // 잡코리아 공고 2건 이상 상위 노출
+        var jkCards = filtered.filter(function(c){return c.external==='jobkorea';});
+        var nonJk = filtered.filter(function(c){return c.external!=='jobkorea';});
+        for(var _si=nonJk.length-1;_si>0;_si--){var _sj=Math.floor(Math.random()*(_si+1));var _st=nonJk[_si];nonJk[_si]=nonJk[_sj];nonJk[_sj]=_st;}
+        for(var _ji=jkCards.length-1;_ji>0;_ji--){var _jj=Math.floor(Math.random()*(_ji+1));var _jt=jkCards[_ji];jkCards[_ji]=jkCards[_jj];jkCards[_jj]=_jt;}
+        var jkTop = jkCards.slice(0, Math.min(2, jkCards.length));
+        // 2,4번째 위치에 잡코리아 삽입
+        filtered = nonJk.slice(0,1).concat(jkTop.slice(0,1)).concat(nonJk.slice(1,3)).concat(jkTop.slice(1,2)).concat(nonJk.slice(3));
+        var shuffled = filtered;
         // 정렬 적용
         var cards = sortCards(shuffled);
         var showImg = true;
@@ -16857,7 +16849,10 @@ function closeRatePopup() {
             + '<div class="ic-co">' + c.co + ' <span class="' + ddayCls + '">' + c.dday + '</span></div>'
             + '</div>'
             + '<div class="ic-meta">' + c.meta + '</div>'
-            + (tagsHtml ? '<div class="ic-tags">' + tagsHtml + '</div>' : '')
+            + '<div class="ic-tags" style="display:flex;align-items:center;justify-content:space-between;">'
+            + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' + tagsHtml + '</div>'
+            + (isExt ? '<button onclick="event.stopPropagation();openJK()" style="display:inline-flex;align-items:center;gap:2px;height:32px;padding:0 10px;background:#083CCC;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;"><img src="https://jelin-cc.github.io/jobplanet-ut/jk.png" width="14" height="14" style="filter:brightness(10);"><span style="color:#fff;font-size:12px;font-weight:600;font-family:var(--font);">잡코리아에서 지원</span></button>' : '')
+            + '</div>'
             + '</div></div>';
         }).join('');
 
