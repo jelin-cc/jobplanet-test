@@ -3952,12 +3952,13 @@
             </div>
             <!-- 년차 선택 드롭다운 -->
             <div style="position:relative;display:inline-flex;align-items:center;">
-              <button id="sal-year-btn" onclick="toggleSalaryYears()" style="display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:6px;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;font-family:var(--font);font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.3px;transition:all .15s;" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='var(--ln)'">
-                <span id="sal-year-label">전체</span>
+              <h2 id="sal-year-text" style="font-size:22px;font-weight:700;letter-spacing:-.3px;cursor:pointer;" onclick="toggleSalaryYears()">경력 전체</h2>
+              <button onclick="toggleSalaryYears()" style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--ln);border-radius:6px;background:var(--surface);cursor:pointer;padding:0;margin-left:6px;">
                 <svg id="sal-year-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
-              <div id="sal-year-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 6px);left:0;background:var(--surface);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:6px 0;min-width:120px;">
-                <button onclick="setSalaryYear(-1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">전체</button>
+              <span id="sal-year-label" style="display:none;">경력 전체</span>
+              <div id="sal-year-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 6px);left:0;background:var(--surface);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:6px 0;min-width:140px;">
+                <button onclick="setSalaryYear(-1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">경력 전체</button>
                 <button onclick="setSalaryYear(1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">1년차</button>
                 <button onclick="setSalaryYear(2)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">2년차</button>
                 <button onclick="setSalaryYear(3)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">3년차</button>
@@ -17632,14 +17633,17 @@ function closeRatePopup() {
       function setSalaryYear(yr){
         salSelectedYear=yr;
         var label=document.getElementById('sal-year-label');
+        var yearText=document.getElementById('sal-year-text');
         var suffix=document.getElementById('sal-year-suffix');
-        if(label) label.textContent=yr===-1?'전체':yr+'년'+(yr>=10?'+':'');
+        var displayText=yr===-1?'경력 전체':yr+'년'+(yr>=10?'+':'');
+        if(label) label.textContent=displayText;
+        if(yearText) yearText.textContent=displayText;
         if(suffix) suffix.textContent=yr===-1?' 기준 연봉':'차 기준 연봉';
         // 스타일 업데이트
         var opts=document.querySelectorAll('.sal-yr-opt');
+        var optYrs=[-1,1,2,3,5,7,10];
         opts.forEach(function(o,i){
-          var optYr=[-1,1,2,3,5,7,10][i];
-          if(optYr===yr){
+          if(optYrs[i]===yr){
             o.style.fontWeight='700';o.style.color='var(--brand)';o.style.background='var(--brand-lt)';
           } else {
             o.style.fontWeight='500';o.style.color='var(--tx2)';o.style.background='none';
