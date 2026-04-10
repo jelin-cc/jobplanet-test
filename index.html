@@ -23614,7 +23614,17 @@ function closeRatePopup() {
 
     function showPostApplyPopup() {
       // 지원한 공고 직무에 맞는 추천 공고 생성
-      var appliedTitle = (clickedCardInfo && clickedCardInfo.title) ? clickedCardInfo.title : '';
+      // clickedCardInfo, currentJobId, 또는 페이지에 표시된 타이틀에서 직무 추출
+      var appliedTitle = '';
+      if(clickedCardInfo && clickedCardInfo.title) appliedTitle = clickedCardInfo.title;
+      if(!appliedTitle && typeof currentJobId==='string' && currentJobId.indexOf('card_')===0){
+        appliedTitle = currentJobId.replace('card_','').split('_')[0];
+      }
+      if(!appliedTitle){
+        var dtEl = document.querySelector('#page-job-detail .detail-job-title');
+        if(dtEl) appliedTitle = dtEl.textContent.trim();
+      }
+      if(!appliedTitle && typeof obSelectedJob!=='undefined' && obSelectedJob) appliedTitle = obSelectedJob;
       var _matchTitles = {
         dev:['프론트엔드 개발자','백엔드 개발자','풀스택 개발자','iOS 개발자','안드로이드 개발자','DevOps 엔지니어','QA 엔지니어','보안 엔지니어','웹 개발자','서버 개발자','클라우드 엔지니어','SRE 엔지니어','시스템 엔지니어','임베디드 개발자','블록체인 개발자'],
         design:['UI/UX 디자이너','프로덕트 디자이너','BX 디자이너','그래픽 디자이너','인터랙션 디자이너','UX 리서처','비주얼 디자이너','모바일 앱 디자이너','콘텐츠 디자이너','영상 디자이너','3D 디자이너','웹 퍼블리셔'],
@@ -23623,13 +23633,16 @@ function closeRatePopup() {
         data:['데이터 분석가','데이터 엔지니어','ML 엔지니어','데이터 사이언티스트','BI 분석가','AI 엔지니어','추천 시스템 엔지니어'],
         general:['경영지원 매니저','HR 매니저','재무/회계 담당자','총무 담당자','CS 매니저','운영 매니저','MD','물류 담당자','법무 담당자','영업 매니저']
       };
-      // 인라인 직무 분류
+      // 인라인 직무 분류 (appliedTitle + 현재 보이는 공고 타이틀 모두 검사)
+      var _allCheck = appliedTitle;
+      var _visTitle = document.querySelector('#page-job-detail .detail-job-title');
+      if(_visTitle) _allCheck += ' ' + _visTitle.textContent;
       var cat = 'general';
-      if(/개발|엔지니어|DevOps|SRE|QA|iOS|Android|풀스택|백엔드|프론트/.test(appliedTitle)) cat='dev';
-      else if(/디자이너|디자인|UX|UI|BX|모션|3D|그래픽/.test(appliedTitle)) cat='design';
-      else if(/마케터|마케팅|CRM|퍼포먼스|브랜드|콘텐츠/.test(appliedTitle)) cat='marketing';
-      else if(/기획|PM|PO|전략|사업/.test(appliedTitle)) cat='planner';
-      else if(/분석|데이터|ML|AI/.test(appliedTitle)) cat='data';
+      if(/개발|엔지니어|DevOps|SRE|QA|iOS|Android|풀스택|백엔드|프론트|Engineer/.test(_allCheck)) cat='dev';
+      else if(/디자이너|디자인|UX|UI|BX|모션|3D|그래픽|Designer/.test(_allCheck)) cat='design';
+      else if(/마케터|마케팅|CRM|퍼포먼스|브랜드|콘텐츠/.test(_allCheck)) cat='marketing';
+      else if(/기획|PM|PO|전략|사업/.test(_allCheck)) cat='planner';
+      else if(/분석|데이터|ML|AI/.test(_allCheck)) cat='data';
       var matchedTitles = _matchTitles[cat] || _matchTitles.general;
       // 추천 공고 재생성
       recommendedJobs = [];
