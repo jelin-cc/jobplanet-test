@@ -3950,12 +3950,11 @@
                 <button id="st-11" onclick="setSalaryTab(11)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">생산·제조</button>
               </div>
             </div>
-            <span style="font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.3px;">기준 연봉</span>
             <!-- 년차 선택 드롭다운 -->
-            <div style="position:relative;display:inline-flex;align-items:center;margin-left:8px;">
-              <button id="sal-year-btn" onclick="toggleSalaryYears()" style="display:flex;align-items:center;gap:4px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;color:var(--tx2);transition:all .15s;" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='var(--ln)'">
+            <div style="position:relative;display:inline-flex;align-items:center;">
+              <button id="sal-year-btn" onclick="toggleSalaryYears()" style="display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:6px;border:1.5px solid var(--ln);background:var(--surface);cursor:pointer;font-family:var(--font);font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.3px;transition:all .15s;" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='var(--ln)'">
                 <span id="sal-year-label">전체</span>
-                <svg id="sal-year-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg id="sal-year-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
               <div id="sal-year-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 6px);left:0;background:var(--surface);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:6px 0;min-width:120px;">
                 <button onclick="setSalaryYear(-1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">전체</button>
@@ -3967,6 +3966,7 @@
                 <button onclick="setSalaryYear(10)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">10년차+</button>
               </div>
             </div>
+            <span id="sal-year-suffix" style="font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.3px;"> 기준 연봉</span>
           </div>
         </div>
 
@@ -17622,7 +17622,9 @@ function closeRatePopup() {
       function setSalaryYear(yr){
         salSelectedYear=yr;
         var label=document.getElementById('sal-year-label');
-        if(label) label.textContent=yr===-1?'전체':yr+'년차'+(yr>=10?'+':'');
+        var suffix=document.getElementById('sal-year-suffix');
+        if(label) label.textContent=yr===-1?'전체':yr+'년'+(yr>=10?'+':'');
+        if(suffix) suffix.textContent=yr===-1?' 기준 연봉':'차 기준 연봉';
         // 스타일 업데이트
         var opts=document.querySelectorAll('.sal-yr-opt');
         opts.forEach(function(o,i){
