@@ -14466,9 +14466,11 @@ function simulateIvReviewSubmit() {
   if (sessionStorage.getItem('jp_return_page') === 'company') {
     sessionStorage.removeItem('jp_return_page');
     localStorage.setItem('jp_reviewed', 'true');
+    // 기업 페이지 면접 리뷰 카운트 증가 (최초 1회는 0 유지)
+    var _cdCnt = parseInt(localStorage.getItem('jp_cd_iv_count') || '-1') + 1;
+    if (_cdCnt >= 0) localStorage.setItem('jp_cd_iv_count', String(_cdCnt));
     sessionStorage.setItem('jp_current_page', 'company');
     sessionStorage.setItem('jp_return_company_tab', 'interview');
-    sessionStorage.setItem('jp_cd_iv_show_nudge', 'true');
     location.reload();
     return;
   }
@@ -21931,7 +21933,7 @@ function closeRatePopup() {
                   '<div style="display:flex;align-items:center;gap:12px;padding:16px;background:#e8f5e9;border-radius:12px;">' +
                     '<div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#242628;">🔒 다음: 면접 질문 TOP 10</div>' +
                       '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;"><div style="flex:1;height:4px;background:#fff;border-radius:2px;overflow:hidden;"><div style="height:100%;width:0%;background:#00c362;border-radius:2px;"></div></div><span style="font-size:10px;font-weight:600;color:#949ba8;">0건 / 3건</span></div></div>' +
-                    '<button onclick="showInterviewNudgePopup()" style="padding:10px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;white-space:nowrap;flex-shrink:0;">후기 남기기</button>' +
+                    '<button onclick="cdBlindIvReviewClick()" style="padding:10px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;white-space:nowrap;flex-shrink:0;">후기 남기기</button>' +
                   '</div>';
                 ivCards[2].before(nudgeBanner);
               }
@@ -22032,6 +22034,28 @@ function closeRatePopup() {
     }
 
     go('company');
+
+    // 면접 리뷰 권한 있으면 면접 탭에 작성 유도 배너 삽입
+    if (localStorage.getItem('jp_iv_reviewed') === 'true') {
+      setTimeout(function() {
+        var ivWrap = document.querySelector('#cdTabInterview .cd-blind-content');
+        if (ivWrap && !ivWrap.querySelector('#cd-iv-write-nudge')) {
+          var ivCards = ivWrap.querySelectorAll('.rv-card');
+          if (ivCards.length >= 3) {
+            var nb = document.createElement('div');
+            nb.id = 'cd-iv-write-nudge';
+            nb.style.cssText = 'width:100%;background:linear-gradient(135deg,#f0faf4 0%,#f7fdf9 100%);border:1.5px solid #c8e6c9;border-radius:16px;padding:24px 28px;font-family:Pretendard,sans-serif;margin-bottom:16px;';
+            nb.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="font-size:20px;">✍️</span><div><div style="font-size:15px;font-weight:700;color:#242628;">리뷰 1건 더 작성하고 면접 질문 TOP 10 확인하세요!</div><div style="font-size:12px;color:#949ba8;margin-top:2px;">면접 리뷰를 남기면 다른 지원자들의 실제 면접 질문을 모아볼 수 있어요</div></div></div>' +
+              '<div style="display:flex;align-items:center;gap:12px;padding:16px;background:#e8f5e9;border-radius:12px;">' +
+                '<div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#242628;">🔒 다음: 면접 질문 TOP 10</div>' +
+                  '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;"><div style="flex:1;height:4px;background:#fff;border-radius:2px;overflow:hidden;"><div style="height:100%;width:0%;background:#00c362;border-radius:2px;"></div></div><span style="font-size:10px;font-weight:600;color:#949ba8;">0건 / 3건</span></div></div>' +
+                '<button onclick="cdBlindIvReviewClick()" style="padding:10px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;white-space:nowrap;flex-shrink:0;">후기 남기기</button>' +
+              '</div>';
+            ivCards[2].before(nb);
+          }
+        }
+      }, 200);
+    }
   }
 
   // 리뷰 작성 완료 후 현재 페이지에서 블라인드 해제 (리로드 없이)
@@ -25137,27 +25161,50 @@ function closeRatePopup() {
           setTimeout(function() {
             var tab = document.querySelector('#cdTabsNav .cd-tab[data-tab="' + returnCompanyTab + '"]');
             if (tab) tab.click();
-            // 면접 탭 복귀 시 작성 유도 배너 삽입
+            // 면접 탭 복귀 시: 블라인드 해제 + 48개 카드 재생성 + 유도 배너 삽입
             if (returnCompanyTab === 'interview' && localStorage.getItem('jp_iv_reviewed') === 'true') {
               setTimeout(function() {
-                var ivWrap = document.querySelector('#cdTabInterview .cd-blind-content');
-                if (ivWrap && !ivWrap.querySelector('#cd-iv-write-nudge')) {
-                  var ivCards = ivWrap.querySelectorAll('.rv-card');
-                  if (ivCards.length >= 3) {
-                    var nudgeBanner = document.createElement('div');
-                    nudgeBanner.id = 'cd-iv-write-nudge';
-                    nudgeBanner.style.cssText = 'width:100%;background:linear-gradient(135deg,#f0faf4 0%,#f7fdf9 100%);border:1.5px solid #c8e6c9;border-radius:16px;padding:24px 28px;font-family:Pretendard,sans-serif;margin-bottom:16px;';
-                    nudgeBanner.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="font-size:20px;">✍️</span><div><div style="font-size:15px;font-weight:700;color:#242628;">리뷰 1건 더 작성하고 면접 질문 TOP 10 확인하세요!</div><div style="font-size:12px;color:#949ba8;margin-top:2px;">면접 리뷰를 남기면 다른 지원자들의 실제 면접 질문을 모아볼 수 있어요</div></div></div>' +
-                      '<div style="display:flex;align-items:center;gap:12px;padding:16px;background:#e8f5e9;border-radius:12px;">' +
-                        '<div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#242628;">🔒 다음: 면접 질문 TOP 10</div>' +
-                          '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;"><div style="flex:1;height:4px;background:#fff;border-radius:2px;overflow:hidden;"><div style="height:100%;width:0%;background:#00c362;border-radius:2px;"></div></div><span style="font-size:10px;font-weight:600;color:#949ba8;">0건 / 3건</span></div></div>' +
-                        '<button onclick="showInterviewNudgePopup()" style="padding:10px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;white-space:nowrap;flex-shrink:0;">후기 남기기</button>' +
-                      '</div>';
-                    ivCards[2].before(nudgeBanner);
-                    nudgeBanner.scrollIntoView({ behavior:'smooth', block:'center' });
-                  }
+                var ivBlindWrap = document.querySelector('#cdTabInterview .cd-blind-wrap');
+                if (ivBlindWrap) {
+                  var ov = ivBlindWrap.querySelector('.cd-blind-overlay');
+                  if (ov) ov.style.display = 'none';
+                  ivBlindWrap.style.minHeight = 'auto';
+                  ivBlindWrap.style.overflow = 'visible';
+                  var ct = ivBlindWrap.querySelector('.cd-blind-content');
+                  if (ct) { ct.style.filter='none'; ct.style.pointerEvents='auto'; ct.style.userSelect='auto'; }
                 }
-              }, 300);
+                var ivWrap = document.querySelector('#cdTabInterview .cd-blind-content');
+                if (!ivWrap) return;
+                // 카드가 10개 미만이면 48개 재생성
+                if (ivWrap.querySelectorAll('.rv-card').length < 10) {
+                  var _D=['개발','디자인','기획/경영','마케팅','데이터','영업','인사/총무','엔지니어링','교육','금융/재무'],_G=['신입','경력'],_DT=['2026. 04','2026. 03','2026. 02','2026. 01','2025. 12','2025. 11','2025. 10','2025. 09','2025. 08'];
+                  var _DF=[['쉬움','#00c362,#00c362,#e5e6e9,#e5e6e9,#e5e6e9'],['보통','#00c362,#00c362,#ffc107,#ffc107,#e5e6e9'],['어려움','#00c362,#00c362,#ffc107,#ffc107,#f44336']];
+                  var _RT=['잡플래닛','채용사이트','헤드헌팅','지인추천','온라인 지원'];
+                  var _TT=[['1차 기술면접 + 2차 임원면접','실무 경험 위주의 깊은 질문'],['포트폴리오 리뷰 후 과제 전형','실무와 비슷한 과제를 3일 내 제출'],['코딩테스트 + 기술면접 2회','자료구조/알고리즘 기본기 위주'],['1차 실무진 면접, 2차 컬처핏 면접','팀 문화 적합성을 중점적으로 평가'],['서류 → 과제 → 면접 순서로 진행','문제 해결 능력과 커뮤니케이션 중시']];
+                  var _Q=['프로젝트 경험 위주로 질문.','대규모 트래픽 처리 경험에 대해 질문.','포트폴리오에서 가장 임팩트 있었던 프로젝트 설명 요구.','팀 내 갈등 상황 해결 경험에 대해 질문.','비즈니스 지표 개선 방안에 대한 질문.'];
+                  var _F=['면접관이 기술적 깊이를 중시.','편안한 분위기지만 실무 이해도를 깊이 검증함.','동료와 대화하는 느낌.','압박 면접은 아니지만 논리적 사고를 확인함.','모르는 부분은 힌트를 줌.'];
+                  var _M=['코딩테스트, 기술면접, 임원면접','포트폴리오, 실무과제','스킬테스트, 개인면접','화상면접, 대면면접','서류, 과제, 면접'];
+                  var _R=[['😊 합격','#2196f3'],['😞 불합격','#f44336'],['⏳ 대기중','#d97706']],_E=[['😊 긍정적','#00c362'],['😐 보통','#ffc107'],['😤 부정적','#f44336']];
+                  var h='';
+                  for(var i=0;i<48;i++){var d=_D[i%10],g=_G[i%2],dt=_DT[i%9],df=_DF[i%3],rt=_RT[i%5],tt=_TT[i%5],r=_R[i%3],e=_E[i%3],hn=Math.floor(Math.random()*80)+5;var dv=_DT[(i+3)%9].replace('. ','/').replace(' ','');var bars=df[1].split(',').map(function(c){return'<div style="width:16px;height:6px;border-radius:2px;background:'+c.trim()+';"></div>';}).join('');h+='<div class="rv-card" style="margin-bottom:16px;" data-iv-dept="'+d+'"><div class="rv-card-meta" style="padding:20px 24px 0;"><span>'+d+'</span><div class="rv-card-meta-sep"></div><span>'+g+'</span><div class="rv-card-meta-sep"></div><span>'+dt+' 작성</span></div><div class="rv-card-body" style="padding:16px 24px 20px;"><div class="rv-card-score" style="width:120px;"><div style="font-size:13px;font-weight:600;color:#242628;margin-bottom:6px;">면접 난이도</div><div style="font-size:12px;color:#686a6d;margin-bottom:4px;">'+df[0]+'</div><div style="display:flex;gap:2px;margin-bottom:16px;">'+bars+'</div><div style="font-size:13px;font-weight:600;color:#242628;margin-bottom:4px;margin-top:16px;">면접일자</div><div style="font-size:12px;color:#686a6d;">'+dv+'</div><div style="font-size:13px;font-weight:600;color:#242628;margin-bottom:4px;margin-top:16px;">면접 경로</div><div style="font-size:12px;color:#686a6d;">'+rt+'</div></div><div class="rv-card-content"><div class="rv-card-title">'+tt[0]+'<br>'+tt[1]+'</div><div class="rv-card-section"><p><span class="rv-card-badge rv-card-badge--pro" style="background:#e3f2fd;color:#2196f3;">면접질문</span> '+_Q[i%5]+'</p></div><div class="rv-card-section"><p><span class="rv-card-badge rv-card-badge--wish" style="background:#f3f3f4;color:#686a6d;">면접느낌</span> '+_F[i%5]+'</p></div><div style="display:flex;gap:12px;margin-top:12px;margin-bottom:12px;"><div style="font-size:12px;color:#686a6d;"><strong>채용방식</strong> '+_M[i%5]+'</div><div style="font-size:12px;color:#686a6d;"><strong>발표시기</strong> '+(Math.floor(Math.random()*20)+3)+'일 후</div></div><div style="display:flex;align-items:center;padding:8px 14px;gap:0;background:#f7f8f9;border-radius:8px;margin-bottom:12px;"><div style="flex:1;display:flex;align-items:center;gap:8px;"><div style="font-size:11px;color:#686a6d;">면접결과</div><div style="font-size:13px;font-weight:700;color:'+r[1]+';">'+r[0]+'</div></div><div style="width:1px;background:#e5e6e9;height:20px;"></div><div style="flex:1;display:flex;align-items:center;gap:8px;justify-content:center;"><div style="font-size:11px;color:#686a6d;">면접경험</div><div style="font-size:13px;font-weight:700;color:'+e[1]+';">'+e[0]+'</div></div></div><div class="rv-card-actions"><button class="rv-card-action-btn">도움이 돼요 👍 <span class="count">'+hn+'</span></button><button class="rv-card-report">신고하기</button></div></div></div></div>';}
+                  ivWrap.innerHTML = h;
+                }
+                // 유도 배너 삽입
+                var cards = ivWrap.querySelectorAll('.rv-card');
+                if (!ivWrap.querySelector('#cd-iv-write-nudge') && cards.length >= 3) {
+                  var nb = document.createElement('div');
+                  nb.id = 'cd-iv-write-nudge';
+                  nb.style.cssText = 'width:100%;background:linear-gradient(135deg,#f0faf4 0%,#f7fdf9 100%);border:1.5px solid #c8e6c9;border-radius:16px;padding:24px 28px;font-family:Pretendard,sans-serif;margin-bottom:16px;';
+                  nb.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="font-size:20px;">✍️</span><div><div style="font-size:15px;font-weight:700;color:#242628;">리뷰 1건 더 작성하고 면접 질문 TOP 10 확인하세요!</div><div style="font-size:12px;color:#949ba8;margin-top:2px;">면접 리뷰를 남기면 다른 지원자들의 실제 면접 질문을 모아볼 수 있어요</div></div></div>' +
+                    '<div style="display:flex;align-items:center;gap:12px;padding:16px;background:#e8f5e9;border-radius:12px;">' +
+                      '<div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#242628;">🔒 다음: 면접 질문 TOP 10</div>' +
+                        '<div style="display:flex;align-items:center;gap:8px;margin-top:8px;"><div style="flex:1;height:4px;background:#fff;border-radius:2px;overflow:hidden;"><div style="height:100%;width:0%;background:#00c362;border-radius:2px;"></div></div><span style="font-size:10px;font-weight:600;color:#949ba8;">0건 / 3건</span></div></div>' +
+                      '<button onclick="cdBlindIvReviewClick()" style="padding:10px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;white-space:nowrap;flex-shrink:0;">후기 남기기</button>' +
+                    '</div>';
+                  cards[2].before(nb);
+                  nb.scrollIntoView({ behavior:'smooth', block:'center' });
+                }
+              }, 500);
             }
             // 리뷰 탭 넛지: 작성 후 돌아왔으면 결과 공개된 넛지 삽입
             if (returnCompanyTab === 'review' && sessionStorage.getItem('jp_cd_nudge_pending') === 'true') {
