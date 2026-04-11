@@ -13999,6 +13999,16 @@ function selectJobReviewTab(jobName) {
           '</div>' +
         '</div>' +
       '</div></div>';
+      // 이미 로그인 상태이면 버튼 텍스트/핸들러 업데이트
+      var gnbUserEl = document.getElementById('gnb-user');
+      if (gnbUserEl && window.getComputedStyle(gnbUserEl).display !== 'none') {
+        jrCtaWrap.querySelectorAll('button').forEach(function(btn) {
+          if (btn.textContent.trim() === '로그인하고 작성하기') {
+            btn.textContent = '작성하고 무료 열람하기';
+            btn.onclick = function() { openReviewWithCallback(); };
+          }
+        });
+      }
       if (jrCards.length >= 3) { jrCards[2].before(jrCtaWrap); } else { jrCards[1].after(jrCtaWrap); }
       // 5번째 카드 이후 숨김
       for (var jh = 4; jh < jrCards.length; jh++) jrCards[jh].style.display = 'none';
