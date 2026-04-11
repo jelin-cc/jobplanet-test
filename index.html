@@ -25161,6 +25161,11 @@ function closeRatePopup() {
           setTimeout(function() {
             var tab = document.querySelector('#cdTabsNav .cd-tab[data-tab="' + returnCompanyTab + '"]');
             if (tab) tab.click();
+            // 면접 탭 최상단으로 스크롤
+            if (returnCompanyTab === 'interview') {
+              var ivTabTop = document.getElementById('cdTabInterview');
+              if (ivTabTop) ivTabTop.scrollIntoView({ behavior:'auto', block:'start' });
+            }
             // 면접 탭 복귀 시: 블라인드 해제 + 48개 카드 재생성 + 유도 배너 삽입
             if (returnCompanyTab === 'interview' && localStorage.getItem('jp_iv_reviewed') === 'true') {
               setTimeout(function() {
@@ -25202,7 +25207,9 @@ function closeRatePopup() {
                       '<button onclick="cdBlindIvReviewClick()" style="padding:10px 20px;background:#00c362;color:#fff;font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:Pretendard,sans-serif;white-space:nowrap;flex-shrink:0;">후기 남기기</button>' +
                     '</div>';
                   cards[2].before(nb);
-                  nb.scrollIntoView({ behavior:'smooth', block:'center' });
+                  // 면접 탭 최상단으로 스크롤 (배너가 아닌 탭 시작점)
+                  var _ivTop = document.getElementById('cdTabInterview');
+                  if (_ivTop) _ivTop.scrollIntoView({ behavior:'auto', block:'start' });
                 }
               }, 500);
             }
