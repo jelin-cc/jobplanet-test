@@ -23231,7 +23231,13 @@ function closeRatePopup() {
       renderJobDetail(jobId);
       if(typeof shuffleDetailImages==='function') shuffleDetailImages();
       updateApplyBtnState();
-      // removed history.replaceState;
+      // 저장 상태 복원
+      setTimeout(function(){
+        var key = _getJobKey();
+        var saved = (typeof _savedJobs!=='undefined') && _savedJobs[key];
+        var wbtn = document.querySelector('.detail-wish-btn');
+        if(wbtn){ wbtn.classList.toggle('saved',!!saved); wbtn.innerHTML=saved?'<i class="jp-bookmark"></i> 저장 완료':'<i class="jp-bookmark"></i> 공고 저장'; }
+      }, 50);
       window.scrollTo(0, 0);
     }
 
@@ -23860,12 +23866,20 @@ function closeRatePopup() {
     // 공고별 저장 상태 관리
     var _savedJobs = JSON.parse(sessionStorage.getItem('jp_saved_jobs') || '{}');
     function _getJobKey(){
+      var titleEl = document.querySelector('#page-job-detail .detail-job-title, #page-job-detail h1');
+      var coEl = document.getElementById('jd-company') || document.querySelector('#page-job-detail .jd-company-name');
+      var t = titleEl ? titleEl.textContent.trim() : '';
+      var c = coEl ? coEl.textContent.trim() : '';
+      if(t && c) return t+'|'+c;
       if(clickedCardInfo && clickedCardInfo.title) return clickedCardInfo.title+'|'+clickedCardInfo.co;
-      return 'default';
+      return currentJobId || 'default';
     }
     document.getElementById('page-job-detail').addEventListener('click', function(e) {
       var btn = e.target.closest('.detail-wish-btn');
       if (!btn) return;
+      // 비로그인 시 로그인 창 띄우기
+      var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
+      if (!isLoggedIn) { if(typeof showLoginPopup==='function') showLoginPopup(); return; }
       var key = _getJobKey();
       var saved = !_savedJobs[key];
       _savedJobs[key] = saved || undefined;
@@ -23875,7 +23889,11 @@ function closeRatePopup() {
       btn.innerHTML = saved
         ? '<i class="jp-bookmark"></i> 저장 완료'
         : '<i class="jp-bookmark"></i> 공고 저장';
-      if (saved && typeof showSaveToast==='function') showSaveToast();
+      if (saved) {
+        if (typeof showSaveToast==='function') showSaveToast();
+      } else {
+        if (typeof showSaveToast==='function') showSaveToast('공고 저장이 취소되었습니다.', true);
+      }
     });
 
     // 이미지 캐러셀
@@ -24503,9 +24521,14 @@ function closeRatePopup() {
         if(!btn) return;
         e.stopPropagation();
         e.preventDefault();
+        // 비로그인 시 로그인 창
+        var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
+        if (!isLoggedIn) { if(typeof showLoginPopup==='function') showLoginPopup(); return; }
         var isActive = btn.classList.toggle('active');
         if(isActive){
           showSaveToast();
+        } else {
+          showSaveToast('공고 저장이 취소되었습니다.', true);
         }
       }, true);
     })();
