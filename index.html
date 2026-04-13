@@ -3234,6 +3234,51 @@
       background: var(--bg-primary);
       font-weight: 600;
     }
+    /* 지원하기 버튼 툴팁 */
+    .apply-tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2196F3;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 0 36px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+    }
+    .apply-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 7px solid #2196F3;
+    }
+    .apply-tooltip-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+    .apply-tooltip-close:hover { opacity: 1; }
     .resume-apply-banner {
       margin-top: 12px;
       background: #F9F9FB;
@@ -16634,6 +16679,8 @@ function closeRatePopup() {
           btn.style.color = 'var(--tx2)';
           btn.style.background = '#fff';
         });
+        // 필터 상태 초기화 저장
+        try { sessionStorage.removeItem('jp_filter_state'); } catch(e) {}
         // 카드 다시 렌더링
         renderCards(currentCase);
       }
@@ -16762,15 +16809,37 @@ function closeRatePopup() {
 
       // 공고 100개로 확장
       (function(){
-        // 모든 직무 골고루 분포
+        // 7개 카테고리별 직무명 풀 (각 카테고리당 20~25개 이상)
         var titles = [
+          // dev (개발) - 25개
           '프론트엔드 개발자','백엔드 개발자','풀스택 엔지니어','안드로이드 개발자','iOS 개발자','데이터 엔지니어','DevOps 엔지니어','QA 엔지니어','보안 엔지니어',
+          '웹 개발자','웹 퍼블리셔','소프트웨어 개발자','소프트웨어 아키텍트','게임 클라이언트 개발자','게임 서버 개발자','VR 엔지니어','하드웨어 엔지니어',
+          '클라우드 엔지니어','네트워크 엔지니어','시스템 엔지니어','DBA','ERP 개발자','기술지원 엔지니어','임베디드 개발자','블록체인 개발자',
+          // design (디자인) - 25개
           'UI/UX 디자이너','그래픽 디자이너','BX 디자이너','영상/모션 디자이너','3D 디자이너','제품(산업) 디자이너',
+          'GUI 디자이너','광고/시각 디자이너','웹 디자이너','브랜드 디자이너','애니메이션 디자이너','일러스트레이터','캐릭터 디자이너',
+          '패션/섬유 디자이너','폰트 디자이너','출판/편집 디자이너','전시/무대 디자이너','환경/조경 디자이너','금속/공예 디자이너',
+          '건축 인테리어 디자이너','인터랙션 디자이너','비주얼 디자이너','UX 리서처','콘텐츠 디자이너','프로덕트 디자이너',
+          // planner (기획/PM) - 22개
           '서비스 기획자','PM/PO','사업 기획자','전략 기획자','데이터 분석가',
+          'Product Manager','프로덕트 오너','CEO(대표이사)','COO(운영이사)','게임 기획자','경영기획 담당자','문화 기획자','행사 기획자',
+          'IT 컨설턴트','경영 컨설턴트','프로젝트 매니저','비즈니스 애널리스트','그로스 기획자','UX 기획자','BI 분석가','데이터 사이언티스트','머신러닝 엔지니어',
+          // marketing (마케팅) - 22개
           '디지털 마케터','콘텐츠 마케터','퍼포먼스 마케터','브랜드 마케터','CRM 매니저',
+          '그로스 마케터','마케팅 커뮤니케이션 담당','상품 기획 MD','시장조사 분석가','온라인 마케터','전략 마케터','제품 마케터','글로벌 마케터',
+          '소셜미디어 마케터','SEO 마케터','앱 마케터','이커머스 마케터','마케팅 전략가','PR 매니저','광고 기획자','마케팅 데이터 분석가','인플루언서 마케터',
+          // sales (영업) - 20개
           'IT/솔루션 영업','광고 영업 담당자','해외 영업 담당자','유통 영업 담당자',
+          '국내 영업 담당자','기술 영업(Pre-Sales)','금융/보험 영업','의약 영업','텔레마케터','판매/매장 관리자','B2B 영업 매니저','Account Executive',
+          '파트너십 매니저','영업 기획 담당','SaaS 세일즈','Key Account Manager','채널 영업 매니저','인사이드 세일즈','전략 제휴 담당','세일즈 엔지니어',
+          // hr+biz (경영/인사) - 28개
           'HR 매니저','재무/회계 담당자','법무 담당자','총무 담당자','경영지원 매니저',
-          'CS 매니저','운영 매니저','물류 담당자','MD'
+          '채용 담당자','노무 담당자','보상 담당자','HRBP','조직문화 담당자','인재개발 교육 담당자','헤드헌터','인사 기획','People Partner','Employee Experience 매니저',
+          '경리 담당자','세무 담당자','재무 분석가','재무 기획 담당자','회계사','내부감사 담당자','IR 담당자','비서','사무보조','변호사','변리사','컴플라이언스 매니저','리스크 관리 담당자',
+          // cs+ops (고객/운영) - 22개
+          'CS 매니저','운영 매니저','물류 담당자','MD',
+          '고객지원 담당자','CX 매니저','VOC 분석 담당자','고객 성공 매니저','Desk 지원 담당자','Technical Support Engineer','고객센터 팀장','챗봇 운영자',
+          '서비스 운영 매니저','플랫폼 운영 매니저','커뮤니티 매니저','정산 운영 담당자','셀러 관리 담당자','카테고리 매니저','머천다이저','관세사','구매/자재 담당자','수출입 관리자'
         ];
         var cos = ['(주)토스','네이버(주)','카카오(주)','(주)쿠팡','(주)배달의민족','라인플러스(주)','(주)당근마켓','(주)야놀자','(주)무신사','(주)마켓컬리','(주)비바리퍼블리카','(주)하이브','크래프톤(주)','(주)넥슨코리아','(주)스마일게이트','(주)두나무','(주)리디','(주)버킷플레이스','(주)센드버드','(주)채널톡','삼성전자(주)','LG전자(주)','현대자동차(주)','SK텔레콤(주)','(주)카카오뱅크','(주)토스증권','(주)올리브영','(주)컬리','(주)위메프','(주)소카'];
         // 경력 다양하게 분포 (신입~10년+)
@@ -16961,14 +17030,63 @@ function closeRatePopup() {
         if(fEmploy.length) filtered = filtered.filter(function(c){ return c.employ && fEmploy.indexOf(c.employ) !== -1; });
         if(fEdu.length) filtered = filtered.filter(function(c){ return c.edu && fEdu.some(function(e){ return e === '학력무관' || c.edu === e; }); });
 
-        // 필터 결과가 20건 미만이고 필터가 없을 때만 전체에서 랜덤으로 채움
-        var _hasActiveFilter = fRegions.length > 0 || fJobs.length > 0 || fCareer > 0 || fEmploy.length > 0 || fEdu.length > 0;
-        if(filtered.length < 20 && !_hasActiveFilter){
-          var extra = allCards.slice();
-          for(var ei=extra.length-1;ei>0;ei--){var ej=Math.floor(Math.random()*(ei+1));var et=extra[ei];extra[ei]=extra[ej];extra[ej]=et;}
-          var existing = filtered.map(function(c){return c.title;});
-          for(var xi=0;xi<extra.length && filtered.length<20;xi++){
-            if(existing.indexOf(extra[xi].title)===-1) filtered.push(extra[xi]);
+        // 필터 결과가 50건 미만이면 같은 카테고리에서 채움 (다른 필터는 유지)
+        var _hasActiveFilter = fRegions.length > 0 || fJobs.length > 0 || (fJobMode==='category') || fCareer > 0 || fEmploy.length > 0 || fEdu.length > 0;
+        if(filtered.length < 50){
+          var _matchCats = [];
+          if(fJobMode === 'category' && fJobCat){
+            _matchCats = [fJobCat];
+            if(fJobCat==='biz') _matchCats.push('hr');
+            if(fJobCat==='ops') _matchCats.push('cs');
+          } else if(fJobMode === 'specific' && fJobs.length){
+            // 선택된 세부 직무의 카테고리 집합
+            var _catSet = {};
+            // 세부 직무명 → 관련 대분류 추측 (_jobKeyMap 키워드 기준)
+            var _jkMap = typeof _jobKeyMap !== 'undefined' ? _jobKeyMap : null;
+            fJobs.forEach(function(j){
+              var kws = (_jkMap && _jkMap[j]) ? _jkMap[j] : [j];
+              kws.forEach(function(kw){ _catSet[_getJobCat(kw)] = true; });
+              _catSet[_getJobCat(j)] = true;
+            });
+            _matchCats = Object.keys(_catSet).filter(function(c){return c !== 'general';});
+          }
+          if(_matchCats.length){
+            // 1단계: 같은 카테고리 + 모든 필터(지역/경력/고용/학력) 유지
+            var existingSet = filtered.reduce(function(s,c){s[c.title+'|'+c.co]=true;return s;},{});
+            var sameCatAll = allCards.filter(function(c){
+              return _matchCats.indexOf(_getJobCat(c.title)) !== -1
+                && !existingSet[c.title+'|'+c.co];
+            });
+            var extraWithFilters = sameCatAll.slice();
+            if(fRegions.length) extraWithFilters = extraWithFilters.filter(function(c){ return fRegions.some(function(r){ return c.meta.indexOf(r) !== -1; }); });
+            if(fCareer > 0){
+              var _yrs = [0,0,1,2,3,4,5,6,7,8,9,10]; var _minYr = _yrs[fCareer] || 0;
+              extraWithFilters = extraWithFilters.filter(function(c){
+                var m = c.meta.match(/경력\s*(\d+)/);
+                if(m) return parseInt(m[1]) >= _minYr;
+                if(c.meta.indexOf('신입') !== -1) return _minYr === 0;
+                return true;
+              });
+            }
+            if(fEmploy.length) extraWithFilters = extraWithFilters.filter(function(c){ return c.employ && fEmploy.indexOf(c.employ) !== -1; });
+            if(fEdu.length) extraWithFilters = extraWithFilters.filter(function(c){ return c.edu && fEdu.some(function(e){ return e === '학력무관' || c.edu === e; }); });
+            for(var ei=extraWithFilters.length-1;ei>0;ei--){var ej=Math.floor(Math.random()*(ei+1));var et=extraWithFilters[ei];extraWithFilters[ei]=extraWithFilters[ej];extraWithFilters[ej]=et;}
+            for(var xi=0;xi<extraWithFilters.length && filtered.length<50;xi++) filtered.push(extraWithFilters[xi]);
+            // 2단계: 여전히 50개 미만이면 같은 카테고리에서 다른 필터 완화하여 보충 (카테고리 순수성만 유지)
+            if(filtered.length < 50){
+              var filledSet = filtered.reduce(function(s,c){s[c.title+'|'+c.co]=true;return s;},{});
+              var relaxed = sameCatAll.filter(function(c){ return !filledSet[c.title+'|'+c.co]; });
+              for(var ri=relaxed.length-1;ri>0;ri--){var rj=Math.floor(Math.random()*(ri+1));var rt=relaxed[ri];relaxed[ri]=relaxed[rj];relaxed[rj]=rt;}
+              for(var rxi=0;rxi<relaxed.length && filtered.length<50;rxi++) filtered.push(relaxed[rxi]);
+            }
+          } else if(!_hasActiveFilter){
+            // 필터 없을 때만 전체 pool에서 채움
+            var extraAll = allCards.slice();
+            for(var ei2=extraAll.length-1;ei2>0;ei2--){var ej2=Math.floor(Math.random()*(ei2+1));var et2=extraAll[ei2];extraAll[ei2]=extraAll[ej2];extraAll[ej2]=et2;}
+            var existing = filtered.map(function(c){return c.title+'|'+c.co;});
+            for(var xi2=0;xi2<extraAll.length && filtered.length<50;xi2++){
+              if(existing.indexOf(extraAll[xi2].title+'|'+extraAll[xi2].co)===-1) filtered.push(extraAll[xi2]);
+            }
           }
         }
         // 결과 건수 업데이트 (필터 없으면 1,481, 있으면 실제 건수 표시)
@@ -21271,6 +21389,8 @@ function closeRatePopup() {
       sessionStorage.removeItem('jp_ob_job');
       sessionStorage.removeItem('jp_ob_conds');
       sessionStorage.removeItem('applyInfo');
+      sessionStorage.removeItem('jp_current_job');
+      sessionStorage.removeItem('jp_filter_state');
       obSelectedJob='';obSelectedConds=[];
       closeAllPopups();
       // 기본 기업 복원
@@ -22267,6 +22387,34 @@ function closeRatePopup() {
     if (_savedPage === 'review') {
       var _savedTab = sessionStorage.getItem('jp_current_review_tab');
       if (_savedTab && typeof switchReviewTab === 'function') switchReviewTab(_savedTab);
+    }
+    if (_savedPage === 'job' || _savedPage === 'job-detail') {
+      // 필터 상태 복원 (DOM이 준비된 후)
+      setTimeout(function(){
+        if (typeof restoreFilterState === 'function') restoreFilterState();
+        if (_savedPage === 'job' && typeof renderCards === 'function' && typeof currentCase !== 'undefined') {
+          setTimeout(function(){ renderCards(currentCase); }, 30);
+        }
+      }, 20);
+    }
+    if (_savedPage === 'job-detail') {
+      // 현재 공고 복원 (새로고침 버그 수정)
+      setTimeout(function(){
+        try {
+          var _savedJob = sessionStorage.getItem('jp_current_job');
+          if (_savedJob) {
+            var jobInfo = JSON.parse(_savedJob);
+            if (jobInfo && jobInfo.title && jobInfo.co) {
+              if (typeof clickedCardInfo !== 'undefined') clickedCardInfo = jobInfo;
+              if (typeof currentJobId !== 'undefined') currentJobId = 'card_'+jobInfo.title+'_'+jobInfo.co;
+              if (typeof buildDetailFromCard === 'function') buildDetailFromCard(jobInfo);
+              if (typeof buildJobDetailSidebar === 'function') buildJobDetailSidebar(jobInfo);
+              if (typeof shuffleDetailImages === 'function') shuffleDetailImages(jobInfo.co);
+              if (typeof updateApplyBtnState === 'function') updateApplyBtnState();
+            }
+          }
+        } catch(e){}
+      }, 60);
     }
   } else {
     go('home');
@@ -23974,7 +24122,8 @@ function closeRatePopup() {
     });
 
     // 이력서 배너: "가지고 있는 이력서로 바로 지원"
-    document.getElementById('bannerFileApply').addEventListener('click', function() {
+    var _bannerFileApplyEl = document.getElementById('bannerFileApply');
+    if(_bannerFileApplyEl) _bannerFileApplyEl.addEventListener('click', function() {
       var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
       if (!isLoggedIn) { showLoginPopup(); return; }
       // 지원하기 모달 열기
@@ -23987,7 +24136,8 @@ function closeRatePopup() {
     });
 
     // 이력서 배너: "AI 이력서 불러오기"
-    document.getElementById('bannerAiResume').addEventListener('click', function() {
+    var _bannerAiResumeEl = document.getElementById('bannerAiResume');
+    if(_bannerAiResumeEl) _bannerAiResumeEl.addEventListener('click', function() {
       var isLoggedIn = sessionStorage.getItem('jp_logged_in') === 'true';
       if (!isLoggedIn) { showLoginPopup(); return; }
       cameFromApplyModal = true;
@@ -24283,6 +24433,81 @@ function closeRatePopup() {
       }
     };
 
+    function saveFilterState(){
+      try{
+        var state = {
+          regions: Array.from(document.querySelectorAll('#filterSecRegion input[type="checkbox"]:checked')).map(function(cb){return cb.parentElement.textContent.trim();}),
+          catActive: (function(){var e=document.querySelector('#filterJobCats .filter-job-cat.active');return e?e.getAttribute('data-cat'):null;})(),
+          allBtnActive: !!document.querySelector('#filterSecJob .filter-job-item[data-all].active'),
+          jobs: Array.from(document.querySelectorAll('#filterSecJob .filter-job-item.active:not([data-all])')).map(function(el){return el.textContent.trim();}),
+          career: parseInt(document.getElementById('filterCareerRange')?document.getElementById('filterCareerRange').value:0) || 0,
+          employ: Array.from(document.querySelectorAll('#filterSecEmploy .filter-employ-item.active')).map(function(el){return el.textContent.trim();}),
+          edu: Array.from(document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked')).map(function(cb){return cb.parentElement.textContent.trim();}),
+          hotTags: (typeof currentHotTags!=='undefined') ? currentHotTags.slice() : []
+        };
+        sessionStorage.setItem('jp_filter_state', JSON.stringify(state));
+      }catch(e){}
+    }
+    function restoreFilterState(){
+      try{
+        var raw = sessionStorage.getItem('jp_filter_state');
+        if(!raw) return;
+        var state = JSON.parse(raw);
+        // 지역
+        if(state.regions && state.regions.length){
+          state.regions.forEach(function(r){
+            var cb = Array.from(document.querySelectorAll('#filterSecRegion input[type="checkbox"]')).find(function(c){return c.parentElement.textContent.trim()===r;});
+            if(cb) cb.checked = true;
+          });
+        }
+        // 카테고리 (세부 직무 렌더 트리거)
+        if(state.catActive){
+          var catEl = document.querySelector('#filterJobCats .filter-job-cat[data-cat="'+state.catActive+'"]');
+          if(catEl && typeof toggleFilterJobCat === 'function') toggleFilterJobCat(catEl);
+        }
+        // 세부 직무 active — 카테고리 렌더 후 처리
+        setTimeout(function(){
+          if(state.allBtnActive){
+            var allBtn = document.querySelector('#filterSecJob .filter-job-item[data-all]');
+            if(allBtn) allBtn.classList.add('active');
+          } else {
+            var allBtn2 = document.querySelector('#filterSecJob .filter-job-item[data-all]');
+            if(allBtn2) allBtn2.classList.remove('active');
+          }
+          if(state.jobs && state.jobs.length){
+            state.jobs.forEach(function(j){
+              var it = Array.from(document.querySelectorAll('#filterSecJob .filter-job-item:not([data-all])')).find(function(e){return e.textContent.trim()===j;});
+              if(it) it.classList.add('active');
+            });
+          }
+        }, 0);
+        // 경력
+        if(state.career > 0){
+          var rg = document.getElementById('filterCareerRange');
+          if(rg){ rg.value = state.career; if(typeof rg.oninput==='function') rg.oninput(); }
+        }
+        // 고용형태
+        if(state.employ && state.employ.length){
+          state.employ.forEach(function(e){
+            var it = Array.from(document.querySelectorAll('#filterSecEmploy .filter-employ-item')).find(function(el){return el.textContent.trim()===e;});
+            if(it) it.classList.add('active');
+          });
+        }
+        // 학력
+        if(state.edu && state.edu.length){
+          state.edu.forEach(function(e){
+            var cb = Array.from(document.querySelectorAll('#filterSecEdu input[type="checkbox"]')).find(function(c){return c.parentElement.textContent.trim()===e;});
+            if(cb) cb.checked = true;
+          });
+        }
+        // hotTags
+        if(state.hotTags && typeof currentHotTags !== 'undefined'){ currentHotTags = state.hotTags.slice(); }
+        if(typeof updateFilterChips === 'function') updateFilterChips();
+      }catch(e){}
+    }
+    window.saveFilterState = saveFilterState;
+    window.restoreFilterState = restoreFilterState;
+
     function openFilter(tabIdx){
       var body = document.getElementById('filterBody');
       body.scrollTop = 0;
@@ -24302,6 +24527,8 @@ function closeRatePopup() {
     function closeFilter(){
       document.getElementById('filterOverlay').classList.remove('open');
       updateFilterChips();
+      // 필터 상태 저장 (공고 상세 진입/새로고침 시 유지)
+      if(typeof saveFilterState === 'function') saveFilterState();
       // 채용 공고 목록 갱신
       if(typeof renderCards === 'function' && typeof currentCase !== 'undefined'){
         renderCards(currentCase);
@@ -24354,13 +24581,54 @@ function closeRatePopup() {
       // 학력
       var fD=[];document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){fD.push(cb.parentElement.textContent.trim());});
       if(fD.length) filtered=filtered.filter(function(c){return c.edu&&fD.some(function(e){return e==='학력무관'||c.edu===e;});});
-      // 필터가 적용되지 않은 경우에만 최소 20건 보장
+      // 최소 50건 보장 — 필터 있으면 같은 카테고리에서, 없으면 전체에서 채움
       var _hasJobFilter = !!(_gpAllBtn && _gpCatEl) || (typeof fJ!=='undefined' && fJ.length>0);
       var _hasActiveFilter = _hasJobFilter || (fR.length>0) || (fC>0) || (fE.length>0) || (fD.length>0) || (typeof currentHotTags!=='undefined' && currentHotTags.length>0);
-      if(!_hasActiveFilter && filtered.length<20){
-        var extra=pool.slice();for(var ei=extra.length-1;ei>0;ei--){var ej=Math.floor(Math.random()*(ei+1));var et=extra[ei];extra[ei]=extra[ej];extra[ej]=et;}
-        var existing=filtered.map(function(c){return c.title;});
-        for(var xi=0;xi<extra.length&&filtered.length<20;xi++){if(existing.indexOf(extra[xi].title)===-1)filtered.push(extra[xi]);}
+      if(filtered.length < 50){
+        var _gpMatchCats = [];
+        if(_gpAllBtn && _gpCatEl){
+          var _gpCat2 = _gpCatToCode[_gpCatEl.textContent.trim()] || '';
+          if(_gpCat2){
+            _gpMatchCats = [_gpCat2];
+            if(_gpCat2==='biz') _gpMatchCats.push('hr');
+            if(_gpCat2==='ops') _gpMatchCats.push('cs');
+          }
+        } else if(typeof fJ !== 'undefined' && fJ.length){
+          var _gpSet = {};
+          var _gpJkm = typeof _jobKeyMap!=='undefined' ? _jobKeyMap : null;
+          fJ.forEach(function(j){
+            var kws = (_gpJkm && _gpJkm[j]) ? _gpJkm[j] : [j];
+            kws.forEach(function(kw){ _gpSet[getJobCat(kw)] = true; });
+            _gpSet[getJobCat(j)] = true;
+          });
+          _gpMatchCats = Object.keys(_gpSet).filter(function(c){return c !== 'general';});
+        }
+        if(_gpMatchCats.length){
+          // 1단계: 같은 카테고리 + 다른 필터 유지
+          var existingSet2 = filtered.reduce(function(s,c){s[c.title+'|'+c.co]=true;return s;},{});
+          var sameCatAll2 = pool.filter(function(c){
+            return _gpMatchCats.indexOf(getJobCat(c.title)) !== -1
+              && !existingSet2[c.title+'|'+c.co];
+          });
+          var extra2 = sameCatAll2.slice();
+          if(fR.length) extra2 = extra2.filter(function(c){ return fR.some(function(r){ return c.meta.indexOf(r) !== -1; }); });
+          if(fC>0){ var _gpYrs=[0,0,1,2,3,4,5,6,7,8,9,10]; var _gpMin=_gpYrs[fC]||0; extra2 = extra2.filter(function(c){ var m=c.meta.match(/경력\s*(\d+)/); if(m)return parseInt(m[1])>=_gpMin; if(c.meta.indexOf('신입')!==-1)return _gpMin===0; return true; }); }
+          if(fE.length) extra2 = extra2.filter(function(c){ return c.employ && fE.indexOf(c.employ)!==-1; });
+          if(fD.length) extra2 = extra2.filter(function(c){ return c.edu && fD.some(function(e){ return e==='학력무관' || c.edu===e; }); });
+          for(var ei3=extra2.length-1;ei3>0;ei3--){var ej3=Math.floor(Math.random()*(ei3+1));var et3=extra2[ei3];extra2[ei3]=extra2[ej3];extra2[ej3]=et3;}
+          for(var xi3=0;xi3<extra2.length && filtered.length<50;xi3++) filtered.push(extra2[xi3]);
+          // 2단계: 여전히 부족하면 같은 카테고리에서 다른 필터 완화 (카테고리 순수성만 유지)
+          if(filtered.length < 50){
+            var filledSet2 = filtered.reduce(function(s,c){s[c.title+'|'+c.co]=true;return s;},{});
+            var relaxed2 = sameCatAll2.filter(function(c){ return !filledSet2[c.title+'|'+c.co]; });
+            for(var ri2=relaxed2.length-1;ri2>0;ri2--){var rj2=Math.floor(Math.random()*(ri2+1));var rt2=relaxed2[ri2];relaxed2[ri2]=relaxed2[rj2];relaxed2[rj2]=rt2;}
+            for(var rxi2=0;rxi2<relaxed2.length && filtered.length<50;rxi2++) filtered.push(relaxed2[rxi2]);
+          }
+        } else if(!_hasActiveFilter){
+          var extra=pool.slice();for(var ei=extra.length-1;ei>0;ei--){var ej=Math.floor(Math.random()*(ei+1));var et=extra[ei];extra[ei]=extra[ej];extra[ej]=et;}
+          var existing=filtered.map(function(c){return c.title+'|'+c.co;});
+          for(var xi=0;xi<extra.length&&filtered.length<50;xi++){if(existing.indexOf(extra[xi].title+'|'+extra[xi].co)===-1)filtered.push(extra[xi]);}
+        }
       }
       return filtered;
     }
@@ -24755,22 +25023,35 @@ function closeRatePopup() {
       function buildJobDetailSidebar(clickedCard) {
         var pool=(typeof getFilteredPool==='function')?getFilteredPool():((typeof caseConfig!=='undefined')?caseConfig.a.cards:[]);
         var candidates=pool.filter(function(c){return !(c.co===clickedCard.co&&c.title===clickedCard.title);});
-        // 진입한 공고와 같은 직무 카테고리만 필터
+        // 진입한 공고와 같은 직무 카테고리만 사용 (순수성 유지)
         var _clickCat = getJobCat(clickedCard.title || '');
         var sameJob = candidates.filter(function(c){ return c.title && getJobCat(c.title) === _clickCat; });
-        if(sameJob.length >= 3) candidates = sameJob;
+        candidates = sameJob;
+        // 50개 미만이면 같은 카테고리 전체 pool에서 보충 (필터 외 같은 카테고리)
+        if(candidates.length < 50){
+          var fullPool = (typeof caseConfig!=='undefined')?caseConfig.a.cards:[];
+          var extra = fullPool.filter(function(c){
+            if(c.co===clickedCard.co && c.title===clickedCard.title) return false;
+            if(!c.title || getJobCat(c.title) !== _clickCat) return false;
+            // 중복 제거
+            for(var k=0;k<candidates.length;k++){ if(candidates[k].co===c.co && candidates[k].title===c.title) return false; }
+            return true;
+          });
+          for(var ei=extra.length-1;ei>0;ei--){var ej=Math.floor(Math.random()*(ei+1));var et=extra[ei];extra[ei]=extra[ej];extra[ej]=et;}
+          for(var xi=0;xi<extra.length && candidates.length<50;xi++) candidates.push(extra[xi]);
+        }
         var shuffled=candidates.slice();for(var i=shuffled.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=shuffled[i];shuffled[i]=shuffled[j];shuffled[j]=t;}
-        var others=shuffled.slice(0,19);
+        var others=shuffled.slice(0,49);
         var items=[{co:clickedCard.co,title:clickedCard.title,active:true}].concat(others.map(function(c){return{co:c.co,title:c.title,active:false};}));
         var html=items.map(function(item,idx){var info=getCompanyLogo(item.co);var ts='width:56px;height:56px;border-radius:12px;flex-shrink:0;border:1.5px solid #E5E7EB;background:#FAFBFC;overflow:hidden;display:flex;align-items:center;justify-content:center;';var ti='<img src="'+info.img+'" style="width:28px;height:28px;object-fit:contain;opacity:0.5;" alt="">';var rk=RATING_KEYS[idx%RATING_KEYS.length];var rv=(3.0+((idx*17+7)%15)/10).toFixed(1);var safeCo=item.co.replace(/"/g,'&quot;');var safeTitle=item.title.replace(/"/g,'&quot;');return'<div class="sidebar-job-item'+(item.active?' active':'')+'" data-jd-co="'+safeCo+'" data-jd-title="'+safeTitle+'" onclick="selectJobFromCard(this)"><div style="'+ts+'">'+ti+'</div><div class="sidebar-job-info"><div class="sidebar-job-title">'+item.title+'</div><div class="sidebar-job-company">'+item.co+'</div><div class="sidebar-job-rating">'+rk+' : '+rv+'</div></div></div>';}).join('');
         var sidebar=document.querySelector('#page-job-detail .detail-sidebar');if(!sidebar) return;
-        sidebar.innerHTML='<div class="sidebar-count"><span class="sidebar-count-num">총 533건</span><div style="position:relative;display:inline-block;"><span class="sidebar-count-sort" onclick="var dd=this.nextElementSibling;dd.style.display=dd.style.display===\'block\'?\'none\':\'block\';" style="cursor:pointer;">정확도순 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg></span><div class="sidebar-sort-dd" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--line-primary);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.1);min-width:130px;z-index:50;overflow:hidden;"><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'최신순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">최신순</button><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'인기순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;border:none;cursor:pointer;font-family:var(--font);color:var(--tx2);">인기순</button><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'마감임박순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;border:none;cursor:pointer;font-family:var(--font);color:var(--tx2);">마감임박순</button></div></div></div>'+html;
+        sidebar.innerHTML='<div class="sidebar-count"><span class="sidebar-count-num">총 '+items.length+'건</span><div style="position:relative;display:inline-block;"><span class="sidebar-count-sort" onclick="var dd=this.nextElementSibling;dd.style.display=dd.style.display===\'block\'?\'none\':\'block\';" style="cursor:pointer;">정확도순 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:middle;"><polyline points="6 9 12 15 18 9"/></svg></span><div class="sidebar-sort-dd" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--line-primary);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.1);min-width:130px;z-index:50;overflow:hidden;"><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'최신순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">최신순</button><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'인기순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;border:none;cursor:pointer;font-family:var(--font);color:var(--tx2);">인기순</button><button onclick="this.closest(\'.sidebar-sort-dd\').previousElementSibling.childNodes[0].textContent=\'마감임박순 \';this.closest(\'.sidebar-sort-dd\').style.display=\'none\';refreshDetailSidebar();" style="display:block;width:100%;padding:11px 16px;text-align:left;font-size:13px;border:none;cursor:pointer;font-family:var(--font);color:var(--tx2);">마감임박순</button></div></div></div>'+html;
       }
-      window.selectJobFromCard=function(el){document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(i){i.classList.remove('active');});el.classList.add('active');var co=el.getAttribute('data-jd-co');var title=el.getAttribute('data-jd-title');clickedCardInfo={title:title,co:co,meta:'서울 · 경력 3년↑',thumb:''};currentJobId='card_'+title+'_'+co;updateApplyBtnState();buildDetailFromCard({title:title,co:co,meta:'서울 · 경력 3년↑'});if(typeof shuffleDetailImages==='function') shuffleDetailImages(co);
+      window.selectJobFromCard=function(el){document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(i){i.classList.remove('active');});el.classList.add('active');var co=el.getAttribute('data-jd-co');var title=el.getAttribute('data-jd-title');clickedCardInfo={title:title,co:co,meta:'서울 · 경력 3년↑',thumb:''};currentJobId='card_'+title+'_'+co;try{sessionStorage.setItem('jp_current_job', JSON.stringify({title:title,co:co,meta:'서울 · 경력 3년↑'}));}catch(e){}updateApplyBtnState();buildDetailFromCard({title:title,co:co,meta:'서울 · 경력 3년↑'});if(typeof shuffleDetailImages==='function') shuffleDetailImages(co);
         // 저장 버튼 상태 복원
         var key=title+'|'+co;var saved=(typeof _savedJobs!=='undefined')&&_savedJobs[key];var btn=document.querySelector('.detail-wish-btn');if(btn){btn.classList.toggle('saved',!!saved);btn.innerHTML=saved?'<i class="jp-bookmark"></i> 저장 완료':'<i class="jp-bookmark"></i> 공고 저장';}
         window.scrollTo(0,0);};
-      window.goJobDetail=function(title,co,meta,thumbSrc){clickedCardInfo={title:title,co:co,meta:meta,thumb:thumbSrc};currentJobId='card_'+title+'_'+co;window._skipJobDetailSync=true;go('job-detail');setTimeout(function(){if(typeof shuffleDetailImages==='function') shuffleDetailImages(co);buildJobDetailSidebar({title:title,co:co,meta:meta});buildDetailFromCard({title:title,co:co,meta:meta});updateApplyBtnState();},20);};
+      window.goJobDetail=function(title,co,meta,thumbSrc){clickedCardInfo={title:title,co:co,meta:meta,thumb:thumbSrc};currentJobId='card_'+title+'_'+co;try{sessionStorage.setItem('jp_current_job', JSON.stringify({title:title,co:co,meta:meta}));}catch(e){}window._skipJobDetailSync=true;go('job-detail');setTimeout(function(){if(typeof shuffleDetailImages==='function') shuffleDetailImages(co);buildJobDetailSidebar({title:title,co:co,meta:meta});buildDetailFromCard({title:title,co:co,meta:meta});updateApplyBtnState();},20);};
       (function initSidebarLogos(){document.querySelectorAll('#page-job-detail .sidebar-job-item').forEach(function(item){var coEl=item.querySelector('.sidebar-job-company');var thumbEl=item.querySelector('.sidebar-job-thumb');if(!coEl||!thumbEl) return;var coName=coEl.textContent.trim();var info=getCompanyLogo(coName);thumbEl.style.cssText='background:#FAFBFC;border:1.5px solid #E5E7EB;border-radius:12px;overflow:hidden;width:56px;height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:center;';thumbEl.innerHTML='<img src="'+info.img+'" style="width:28px;height:28px;object-fit:contain;opacity:0.5;" alt="">';});})();
       window.buildJobDetailSidebar = buildJobDetailSidebar;
       window.buildDetailFromCard = buildDetailFromCard;
