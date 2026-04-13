@@ -3837,6 +3837,7 @@
         <!-- 카테고리 칩 + 전체보기 -->
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
           <button class="rv-cat active" onclick="setRvCat('popular',this)"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-fire.svg" width="16" height="16" style="vertical-align:-2px;"> 인기 리뷰</button>
+          <button class="rv-cat" onclick="setRvCat('mycompany',this)"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-officebuilding.svg" width="16" height="16" style="vertical-align:-2px;"> 전/현직장</button>
           <button class="rv-cat" onclick="setRvCat('myjob',this)"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-briefcase.svg" width="16" height="16" style="vertical-align:-2px;"> 내 직무</button>
           <button class="rv-cat rv-cat-follow" onclick="setRvCat('follow',this)" style="display:none;"><img src="https://jelin-cc.github.io/jobplanet-ut/emoji-star.svg" width="16" height="16" style="vertical-align:-2px;"> 팔로우 기업</button>
           <span style="flex:1;"></span>
@@ -3851,6 +3852,10 @@
         var _rvPendingCat = null; // 로그인/직무입력 후 활성화할 탭
         function setRvCat(cat, btn){
           var isLoggedIn = document.getElementById('gnb-user').style.display !== 'none';
+          // 전/현직장: 비로그인 → 로그인 팝업 (로그인 후 바로 리뷰 노출)
+          if(cat === 'mycompany'){
+            if(!isLoggedIn){ _rvPendingCat = 'mycompany'; openOB(); return; }
+          }
           // 내 직무: 비로그인 → 로그인(→직무입력), 로그인+직무없음 → 직무 입력
           if(cat === 'myjob'){
             if(!isLoggedIn){ _rvPendingCat = 'myjob'; openOB(true); return; }
@@ -3869,10 +3874,16 @@
           if(!_rvPendingCat) return;
           var cat = _rvPendingCat;
           _rvPendingCat = null;
+          if(cat === 'mycompany'){
+            var btns = document.querySelectorAll('.rv-cat');
+            btns.forEach(function(c){c.classList.remove('active');});
+            btns[1].classList.add('active'); // 전/현직장 버튼
+            renderReviewCards();
+          }
           if(cat === 'myjob' && obSelectedJob && obSelectedJob.length > 0){
             var btns = document.querySelectorAll('.rv-cat');
             btns.forEach(function(c){c.classList.remove('active');});
-            btns[1].classList.add('active'); // 내 직무 버튼
+            btns[2].classList.add('active'); // 내 직무 버튼
             renderReviewCards();
           }
           updateRvCatVisibility();
@@ -3890,7 +3901,7 @@
           if(isLoggedIn && obSelectedJob && obSelectedJob.length > 0){
             var btns = document.querySelectorAll('.rv-cat');
             btns.forEach(function(c){c.classList.remove('active');});
-            btns[1].classList.add('active');
+            btns[2].classList.add('active');
             renderReviewCards();
           }
         }, 500);
@@ -4086,6 +4097,25 @@
         // 리뷰 카드 데이터 풀 (탭 클릭 시 랜덤 조합)
         var _emojiBase = 'https://jelin-cc.github.io/jobplanet-ut/';
         function rvEmoji(name){ return '<img src="'+_emojiBase+'emoji-'+name+'.svg" width="20" height="20" style="vertical-align:middle;">'; }
+        // === 전/현직장 (로그인) — 자극적 후킹 ===
+        var rvThemesMyCompany = [
+          {emoji:rvEmoji('institution'),label:'내 회사 뒤에서 이런 말을?!',bg:'#FFF1F0',accent:'#EF4444'},
+          {emoji:rvEmoji('cardfire'),label:'퇴사율 1위, 내 회사 맞아?',bg:'#FFF5F0',accent:'#FF6B35'},
+          {emoji:rvEmoji('moneybag'),label:'내 연봉, 동료보다 적을 수도',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('thunder'),label:'전 직장 동료의 폭로 후기',bg:'#FFF8EB',accent:'#D97706'},
+          {emoji:rvEmoji('fire'),label:'지금 난리 난 우리 회사 리뷰',bg:'#FFF1F0',accent:'#EF4444'},
+          {emoji:rvEmoji('rocket'),label:'전 직장, 내가 떠나고 달라졌다?',bg:'#F5F0FF',accent:'#8B5CF6'},
+        ];
+        var rvQuotesMyCompany = [
+          '"같은 팀인데 연봉이 2천만원 차이 나는 거 실화?"',
+          '"퇴사하고 나서야 알았던 우리 회사의 진짜 모습"',
+          '"면접 때 들은 복지, 입사 후 하나도 없었습니다"',
+          '"3년 다녔는데 승진은 커녕 연봉 동결이라니"',
+          '"전 직장 상사가 바뀌고 나서 완전 딴 회사래요"',
+          '"우리 회사 리뷰 보고 소름 돋았어요, 다 사실임"',
+          '"동료 몰래 이직 준비 중... 여기 리뷰 보면 이해됨"',
+          '"입사 6개월 만에 팀원 절반이 퇴사한 이유"',
+        ];
         // === 인기 리뷰 (비로그인/기본) — 후킹용 ===
         var rvThemesPopular = [
           {emoji:rvEmoji('cardfire'),label:'"퇴사 각인데..." 솔직 후기',bg:'#FFF5F0',accent:'#FF6B35'},
@@ -4155,12 +4185,16 @@
           var activeCat = 'popular';
           if(activeBtn){
             var txt = activeBtn.textContent.trim();
-            if(txt.indexOf('내 직무')!==-1) activeCat='myjob';
+            if(txt.indexOf('전/현직장')!==-1) activeCat='mycompany';
+            else if(txt.indexOf('내 직무')!==-1) activeCat='myjob';
             else if(txt.indexOf('팔로우')!==-1) activeCat='follow';
           }
           var themes, quotes;
           var job = (typeof obSelectedJob!=='undefined' && obSelectedJob) ? obSelectedJob : '개발';
-          if(activeCat==='myjob'){
+          if(activeCat==='mycompany'){
+            themes = shuffleArr(rvThemesMyCompany).slice(0,4);
+            quotes = shuffleArr(rvQuotesMyCompany);
+          } else if(activeCat==='myjob'){
             themes = shuffleArr(rvThemesMyJob).slice(0,4).map(function(t){
               return {emoji:t.emoji, label:t.label.replace(/\{job\}/g, job)};
             });
@@ -20681,7 +20715,7 @@ function closeRatePopup() {
     {key:'wlb',name:'워라밸',desc:'야근 빈도, 휴가, 업무 강도',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-balance.svg" width="28" height="28">'},
     {key:'salary',name:'연봉',desc:'연봉 수준, 인상률, 성과급',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-moneybag.svg" width="28" height="28">'},
     {key:'promotion',name:'승진 기회',desc:'성장 속도, 커리어 경로',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-barchart.svg" width="28" height="28">'},
-    {key:'mgmt',name:'경영진',desc:'리더십, 의사결정 방식',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-institution.svg" width="28" height="28">'},
+    {key:'mgmt',name:'경영진',desc:'리더십, 의사결정 방식',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-officebuilding.svg" width="28" height="28">'},
     {key:'culture',name:'사내문화',desc:'팀워크, 조직 분위기',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-handshake.svg" width="28" height="28">'},
     {key:'benefit',name:'복지',desc:'급여, 보상, 복리후생',icon:'<img src="https://jelin-cc.github.io/jobplanet-ut/emoji-wrappedgift.svg" width="28" height="28">'}
   ];
