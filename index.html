@@ -16597,7 +16597,7 @@ function closeRatePopup() {
       <button class="jb-fc" id="fc-career" onclick="openFilter(2)">경력 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
       <button class="jb-fc" id="fc-employ" onclick="openFilter(3)">고용 형태 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
       <button class="jb-fc" id="fc-edu" onclick="openFilter(4)">학력 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <span onclick="setHotTag(null);resetFilter();" style="font-size:12px;font-weight:500;color:var(--tx4);cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:3px;margin-left:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="2" style="vertical-align:middle;"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>초기화</span>
+      <span onclick="resetAllFilters()" style="font-size:12px;font-weight:500;color:var(--tx4);cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:3px;margin-left:4px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="2" style="vertical-align:middle;"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>초기화</span>
     </div>
 
     <!-- 핫한 조건 + 정렬 + 건수 -->
@@ -16655,7 +16655,7 @@ function closeRatePopup() {
       function resetAllFilters() {
         // 체크박스 초기화
         document.querySelectorAll('#filterSecRegion input[type="checkbox"]:checked').forEach(function(cb){ cb.checked = false; });
-        document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){ cb.checked = false; });
+        document.querySelectorAll('#filterSecEdu input[type="checkbox"]').forEach(function(cb){ cb.checked = true; });
         // 직무 칩 초기화
         document.querySelectorAll('#filterSecJob .filter-job-item.active').forEach(function(el){ el.classList.remove('active'); });
         // 고용형태 칩 초기화
@@ -16989,7 +16989,8 @@ function closeRatePopup() {
         var fEmploy = [];
         document.querySelectorAll('#filterSecEmploy .filter-employ-item.active').forEach(function(el){ fEmploy.push(el.textContent.trim()); });
         var fEdu = [];
-        document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){ fEdu.push(cb.parentElement.textContent.trim()); });
+        var fEduAll = document.getElementById('eduCheckAll') && document.getElementById('eduCheckAll').checked;
+        if(!fEduAll){ document.querySelectorAll('#filterSecEdu .edu-item-cb:checked').forEach(function(cb){ fEdu.push(cb.parentElement.textContent.trim()); }); }
 
         if(fRegions.length) filtered = filtered.filter(function(c){ return fRegions.some(function(r){ return c.meta.indexOf(r) !== -1; }); });
 
@@ -19602,7 +19603,7 @@ function closeRatePopup() {
           <style>
             .apply-tooltip{position:absolute;top:-44px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:8px 16px;border-radius:8px;background:var(--tx);color:#fff;font-size:13px;font-weight:600;font-family:var(--font);z-index:5;animation:tooltipBounce 2s ease-in-out infinite;}
             .apply-tooltip strong{font-weight:800;}
-            .apply-tooltip-arrow{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:var(--tx);clip-path:polygon(0 0,100% 0,50% 100%);}
+            .apply-tooltip-arrow{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--tx);}
             @keyframes tooltipBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-4px);}}
           </style>
           <button class="detail-apply-btn">지원하기</button>
@@ -24329,7 +24330,8 @@ function closeRatePopup() {
         + '<div class="filter-section" id="filterSecEdu">'
         + '<div class="filter-section-title">학력</div>'
         + '<div class="filter-check-list">'
-        + ['고등학교 졸업','대학졸업 (2,3년)','대학교졸업 (4년)','대학원졸업','석사','박사','학력무관'].map(function(e){return '<label class="filter-check-item"><input type="checkbox"> '+e+'</label>';}).join('')
+        + '<label class="filter-check-item"><input type="checkbox" id="eduCheckAll" checked onchange="toggleEduAll(this)"> 전체</label>'
+        + ['고등학교 졸업','대학졸업 (2,3년)','대학교졸업 (4년)','대학원졸업','석사','박사','학력무관'].map(function(e){return '<label class="filter-check-item"><input type="checkbox" class="edu-item-cb" checked onchange="updateEduAll()"> '+e+'</label>';}).join('')
         + '</div></div>'
 
         + '</div>' // filter-body
@@ -24340,6 +24342,18 @@ function closeRatePopup() {
         + '</div></div>';
 
       document.body.insertAdjacentHTML('beforeend', filterHtml);
+
+      // 학력 전체 체크박스 토글 함수
+      window.toggleEduAll = function(allCb){
+        var items = document.querySelectorAll('#filterSecEdu .edu-item-cb');
+        items.forEach(function(cb){ cb.checked = allCb.checked; });
+      };
+      window.updateEduAll = function(){
+        var items = document.querySelectorAll('#filterSecEdu .edu-item-cb');
+        var allChecked = true;
+        items.forEach(function(cb){ if(!cb.checked) allChecked = false; });
+        document.getElementById('eduCheckAll').checked = allChecked;
+      };
 
       // 직무 카테고리 칩 + 아코디언 렌더
       var filterJobHtml = '<div class="filter-job-cat-row" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0;">';
@@ -24579,7 +24593,8 @@ function closeRatePopup() {
       var fE=[];document.querySelectorAll('#filterSecEmploy .filter-employ-item.active').forEach(function(el){fE.push(el.textContent.trim());});
       if(fE.length) filtered=filtered.filter(function(c){return c.employ&&fE.indexOf(c.employ)!==-1;});
       // 학력
-      var fD=[];document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){fD.push(cb.parentElement.textContent.trim());});
+      var fD=[];var fDAll=document.getElementById('eduCheckAll')&&document.getElementById('eduCheckAll').checked;
+      if(!fDAll){document.querySelectorAll('#filterSecEdu .edu-item-cb:checked').forEach(function(cb){fD.push(cb.parentElement.textContent.trim());});}
       if(fD.length) filtered=filtered.filter(function(c){return c.edu&&fD.some(function(e){return e==='학력무관'||c.edu===e;});});
       // 최소 50건 보장 — 필터 있으면 같은 카테고리에서, 없으면 전체에서 채움
       var _hasJobFilter = !!(_gpAllBtn && _gpCatEl) || (typeof fJ!=='undefined' && fJ.length>0);
@@ -24647,6 +24662,7 @@ function closeRatePopup() {
 
     function resetFilter(){
       document.querySelectorAll('#filterOverlay input[type="checkbox"]').forEach(function(cb){cb.checked=false;});
+      document.querySelectorAll('#filterSecEdu input[type="checkbox"]').forEach(function(cb){cb.checked=true;});
       document.querySelectorAll('#filterOverlay .filter-employ-item').forEach(function(e){e.classList.remove('active');});
       document.querySelectorAll('#filterOverlay .filter-job-item').forEach(function(e){e.classList.remove('active');});
       document.querySelectorAll('#filterOverlay .filter-job-cat').forEach(function(e){e.classList.remove('active');});
@@ -24723,9 +24739,12 @@ function closeRatePopup() {
 
       // 학력
       var edus = [];
-      document.querySelectorAll('#filterSecEdu input[type="checkbox"]:checked').forEach(function(cb){
-        edus.push(cb.parentElement.textContent.trim());
-      });
+      var eduAllChecked = document.getElementById('eduCheckAll') && document.getElementById('eduCheckAll').checked;
+      if(!eduAllChecked){
+        document.querySelectorAll('#filterSecEdu .edu-item-cb:checked').forEach(function(cb){
+          edus.push(cb.parentElement.textContent.trim());
+        });
+      }
       var eduBtn = document.getElementById('fc-edu');
       eduBtn.innerHTML = chipLabel(edus, '학력') + chevronSvg;
       eduBtn.classList.toggle('filtered', edus.length > 0);
