@@ -3847,11 +3847,22 @@
               <div class="fit-reason" id="fi-reason-2" style="display:none;padding:4px 13px 10px 63px;font-size:12px;color:#6B7280;line-height:1.5;"></div>
             </div>
 
-            <!-- 내 직군에 맞는 기업 찾기 -->
-            <div id="obStartBox" style="border:1.5px solid var(--ln);border-radius:var(--r);padding:18px 16px;">
-              <h3 style="font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px;">내 직군에 맞는 기업 찾기</h3>
-              <p style="font-size:13px;color:var(--tx3);line-height:1.5;margin-bottom:16px;">직무와 중요 조건을 입력하면 나에게 맞는 기업을 추천해드려요!</p>
-              <button onclick="openOB(true)" style="width:100%;padding:12px 0;border-radius:var(--rsm);font-size:14px;font-weight:700;border:none;background:var(--brand);color:#fff;cursor:pointer;font-family:var(--font);transition:background .15s;">시작하기</button>
+            <!-- 내 직군 기업 비교 (C안: 소셜 프루프 강조) -->
+            <div id="obStartBox" style="border:1.5px solid var(--ln);border-radius:var(--r);padding:20px 18px;">
+              <div style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;background:#F0FAF5;font-size:11px;font-weight:600;color:var(--brand);margin-bottom:12px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                이번 달 2,847명이 비교했어요
+              </div>
+              <h3 style="font-size:16px;font-weight:800;color:var(--tx);margin-bottom:14px;letter-spacing:-.3px;">내 직군 기업 비교</h3>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                <div style="display:flex;align-items:center;">
+                  <img src="https://jelin-cc.github.io/jobplanet-ut/naver.png" width="28" height="28" style="border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--ln);object-fit:cover;position:relative;z-index:3;">
+                  <img src="https://jelin-cc.github.io/jobplanet-ut/toss.png" width="28" height="28" style="border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--ln);object-fit:cover;margin-left:-8px;position:relative;z-index:2;">
+                  <img src="https://jelin-cc.github.io/jobplanet-ut/kakao.png" width="28" height="28" style="border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--ln);object-fit:cover;margin-left:-8px;position:relative;z-index:1;">
+                </div>
+                <span style="font-size:12px;color:var(--tx4);font-weight:500;">외 127개 기업</span>
+              </div>
+              <button onclick="openOB(true)" style="width:100%;padding:12px 0;border-radius:10px;font-size:14px;font-weight:700;border:none;background:var(--brand);color:#fff;cursor:pointer;font-family:var(--font);transition:background .15s;" onmouseover="this.style.background='#00B068'" onmouseout="this.style.background='var(--brand)'">비교 시작</button>
             </div>
             <script>
             function toggleObResult(){
