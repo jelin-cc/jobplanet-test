@@ -3797,7 +3797,7 @@
             <!-- 내 맞춤 조건 (결과 후, 기업 목록 상단) -->
             <div id="obResultBox" style="display:none;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#F0FAF5 0%,#FAFFFE 100%);border:1.5px solid rgba(0,194,116,.18);margin-bottom:10px;">
               <!-- 헤더: 항상 보임 -->
-              <div id="obResultHeader" onclick="toggleObResult()" style="display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;transition:background .12s;" onmouseover="this.style.background='#FAFBFC'" onmouseout="this.style.background='transparent'">
+              <div id="obResultHeader" style="display:flex;align-items:center;gap:10px;padding:14px 16px;">
                 <div style="width:28px;height:28px;border-radius:8px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
                 </div>
@@ -3806,7 +3806,10 @@
                   <span id="obResultTagsSummary" style="font-size:12px;color:var(--tx4);margin-left:8px;display:none;"></span>
                 </div>
                 <button onclick="event.stopPropagation();openOB(true)" style="font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);flex-shrink:0;padding:5px 12px;border-radius:99px;transition:background .12s;" onmouseover="this.style.background='#D1F5E4'" onmouseout="this.style.background='var(--brand-lt)'">변경</button>
-                <svg id="obResultArrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="2.5" style="flex-shrink:0;transition:transform .2s;transform:rotate(0deg);margin-left:2px;"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <!-- 토글 버튼 -->
+              <div style="padding:0 16px 12px;">
+                <button id="obResultToggleBtn" onclick="toggleObResult()" style="width:100%;padding:9px 0;border-radius:8px;border:none;background:var(--brand);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:4px;transition:background .12s;" onmouseover="this.style.background='var(--brand-dk)'" onmouseout="this.style.background='var(--brand)'">선택한 조건 보기 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
               </div>
               <!-- 펼친 상태: 조건 상세 -->
               <div id="obResultBody" style="display:none;padding:0 16px 14px;">
@@ -3876,9 +3879,14 @@
             <script>
             function toggleObResult(){
               var body=document.getElementById('obResultBody');
-              var arrow=document.getElementById('obResultArrow');
-              if(body.style.display==='none'){body.style.display='block';arrow.style.transform='rotate(180deg)';}
-              else{body.style.display='none';arrow.style.transform='rotate(0deg)';}
+              var btn=document.getElementById('obResultToggleBtn');
+              if(body.style.display==='none'){
+                body.style.display='block';
+                btn.innerHTML='선택한 조건 접기 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>';
+              } else {
+                body.style.display='none';
+                btn.innerHTML='선택한 조건 보기 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+              }
             }
             function updateObResultSummary(){
               var el=document.getElementById('obResultTagsSummary');
