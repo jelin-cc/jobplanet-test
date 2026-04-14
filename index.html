@@ -3855,13 +3855,23 @@
               </div>
               <h3 style="font-size:16px;font-weight:800;color:var(--tx);margin-bottom:14px;letter-spacing:-.3px;">내 직군 기업 비교</h3>
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-                <div style="display:flex;align-items:center;">
-                  <img src="https://jelin-cc.github.io/jobplanet-ut/naver.png" width="36" height="36" style="border-radius:50%;border:2.5px solid #fff;object-fit:cover;position:relative;z-index:3;">
-                  <img src="https://jelin-cc.github.io/jobplanet-ut/toss.png" width="36" height="36" style="border-radius:50%;border:2.5px solid #fff;object-fit:cover;margin-left:-10px;position:relative;z-index:2;">
-                  <img src="https://jelin-cc.github.io/jobplanet-ut/kakao.png" width="36" height="36" style="border-radius:50%;border:2.5px solid #fff;object-fit:cover;margin-left:-10px;position:relative;z-index:1;">
-                </div>
+                <div id="obLogoStack" style="display:flex;align-items:center;"></div>
                 <span style="font-size:12px;color:var(--tx4);font-weight:500;">외 127개 기업</span>
               </div>
+              <script>
+              (function(){
+                var nums=[],pool=[];for(var i=1;i<=36;i++)pool.push(i);
+                while(nums.length<3){var r=Math.floor(Math.random()*pool.length);nums.push(pool.splice(r,1)[0]);}
+                var base='https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_';
+                var c=document.getElementById('obLogoStack');
+                nums.forEach(function(n,i){
+                  var img=document.createElement('img');
+                  img.src=base+n+'.svg';img.width=36;img.height=36;
+                  img.style.cssText='border-radius:50%;border:2.5px solid #fff;object-fit:cover;position:relative;z-index:'+(3-i)+(i>0?';margin-left:-10px':'');
+                  c.appendChild(img);
+                });
+              })();
+              </script>
               <button onclick="openOB(true)" style="width:100%;padding:12px 0;border-radius:10px;font-size:14px;font-weight:700;border:none;background:var(--brand);color:#fff;cursor:pointer;font-family:var(--font);transition:background .15s;" onmouseover="this.style.background='#00B068'" onmouseout="this.style.background='var(--brand)'">비교 시작</button>
             </div>
             <script>
