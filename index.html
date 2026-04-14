@@ -10191,7 +10191,7 @@
       <div id="iv-questions-view" style="display:none;width:100%;font-family:'Pretendard',var(--font),sans-serif;"><div style="display:flex;gap:20px;"><div style="flex:1;min-width:0;">
         <!-- 면접 질문 필터 -->
         <div style="display:flex;gap:8px;padding:6px 0 12px;flex-wrap:wrap;align-items:center;position:relative;">
-          <button id="ivq-filter-dept" onclick="toggleIvqFilterPanel('dept')" style="padding:8px 16px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff;cursor:pointer;font-family:'Pretendard',sans-serif;display:flex;align-items:center;gap:6px;">직군 <span style="font-size:10px;">▾</span></button>
+          <button id="ivq-filter-dept" onclick="toggleIvqFilterPanel('dept')" style="padding:8px 16px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff;cursor:pointer;font-family:'Pretendard',sans-serif;display:flex;align-items:center;gap:6px;">직군 전체 <span style="font-size:10px;">▾</span></button>
           <div style="position:relative;">
             <button id="ivq-filter-type" onclick="toggleIvqFilterPanel('type')" style="padding:8px 16px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff;cursor:pointer;font-family:'Pretendard',sans-serif;display:flex;align-items:center;gap:6px;">질문 유형 <span style="font-size:10px;">▾</span></button>
             <!-- 질문 유형 드롭다운 (체크박스) -->
@@ -26530,7 +26530,7 @@ function closeRatePopup() {
   window.selectIvqDept = function(dept) {
     window._ivqDeptFilter = dept;
     var btn = document.getElementById('ivq-filter-dept');
-    btn.innerHTML = (dept === '전체' ? '직군' : dept) + ' <span style="font-size:10px;">▾</span>';
+    btn.innerHTML = (dept === '전체' ? '직군 전체' : dept) + ' <span style="font-size:10px;">▾</span>';
     document.getElementById('ivq-dept-panel').style.display = 'none';
     renderIvQuestions();
   };
@@ -26578,22 +26578,25 @@ function closeRatePopup() {
       html += '</div>';
       // Divider
       html += '<div style="width:100%;height:1px;background:#E5E6E9;margin:12px 0;"></div>';
-      // Content row
-      html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">';
-      // Left side
-      html += '<div style="flex:1;min-width:0;">';
+      // Content row - redesigned hierarchy
       var rvCount = (Math.floor(Math.random()*5000)+2000).toLocaleString();
-      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">';
-      html += '<div style="font-size:14px;font-weight:700;color:#242628;">' + item.dept + '</div>';
-      html += '<span style="display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:#EBF4FF;border-radius:20px;font-size:11px;font-weight:600;color:#3182F6;white-space:nowrap;letter-spacing:-.2px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>면접후기 '+rvCount+'건 기반</span>';
+      // Row 1: Dept + AI button
+      html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">';
+      html += '<div style="flex:1;min-width:0;">';
+      html += '<div style="font-size:14px;font-weight:700;color:#242628;margin-bottom:10px;">' + item.dept + '</div>';
+      // Row 2: Q. + question (main content)
+      html += '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;">';
+      html += '<span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:#242628;color:#fff;font-size:11px;font-weight:800;flex-shrink:0;letter-spacing:-.3px;">Q</span>';
+      html += '<span style="font-size:14px;font-weight:500;color:#242628;line-height:24px;">' + item.question + '</span>';
       html += '</div>';
-      html += '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">';
-      html += '<span style="display:inline-block;padding:4px 6px;border-radius:6px;font-size:11px;font-weight:600;background:' + bc.bg + ';color:' + bc.color + ';white-space:nowrap;flex-shrink:0;">' + item.type + '</span>';
-      html += '<span style="font-size:13px;font-weight:500;color:#242628;line-height:22px;">Q. ' + item.question + '</span>';
+      // Row 3: type badge + data label (meta info)
+      html += '<div style="display:flex;align-items:center;gap:6px;">';
+      html += '<span style="display:inline-block;padding:3px 6px;border-radius:6px;font-size:11px;font-weight:600;background:' + bc.bg + ';color:' + bc.color + ';white-space:nowrap;">' + item.type + '</span>';
+      html += '<span style="display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:#EBF4FF;border-radius:20px;font-size:10px;font-weight:600;color:#3182F6;white-space:nowrap;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>면접후기 '+rvCount+'건 기반</span>';
       html += '</div>';
       html += '</div>';
       // Right side - AI button
-      html += '<div style="flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px;">';
+      html += '<div style="flex-shrink:0;padding-top:2px;">';
       html += '<button style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:#242628;border-radius:8px;border:none;font-size:12px;font-weight:600;color:#fff;cursor:pointer;font-family:\'Pretendard\',sans-serif;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.1);">';
       html += '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg> AI 답변 확인하기';
       html += '</button>';
