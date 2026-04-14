@@ -3866,7 +3866,7 @@
                 var c=document.getElementById('obLogoStack');
                 nums.forEach(function(n,i){
                   var el=document.createElement('div');
-                  el.style.cssText='width:36px;height:36px;border-radius:50%;border:2.5px solid #fff;background:#fff url('+base+n+'.svg) center/60% no-repeat;flex-shrink:0;position:relative;z-index:'+(3-i)+(i>0?';margin-left:-10px':'');
+                  el.style.cssText='width:36px;height:36px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08);background:#fff url('+base+n+'.svg) center/60% no-repeat;flex-shrink:0;position:relative;z-index:'+(3-i)+(i>0?';margin-left:-10px':'');
                   c.appendChild(el);
                 });
               })();
