@@ -3999,352 +3999,6 @@
         </div>
       </div>
 
-      <!-- ③ 연봉 데이터 섹션 -->
-      <div id="salary-section" style="margin-bottom:48px;">
-        <!-- 헤더 -->
-        <div style="margin-bottom:16px;position:relative;">
-          <p style="font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.2px;margin-bottom:6px;">직무별 연봉 정보</p>
-          <div id="sal-hd-with" style="display:flex;align-items:center;gap:8px;">
-            <div style="position:relative;display:inline-flex;align-items:center;">
-              <h2 id="sal-title" style="font-size:22px;font-weight:700;letter-spacing:-.3px;cursor:pointer;" onclick="toggleSalaryTabs()">직무 전체</h2>
-              <button onclick="toggleSalaryTabs()" style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--ln);border-radius:6px;background:var(--surface);cursor:pointer;padding:0;margin-left:6px;">
-                <svg id="sal-arrow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <!-- 직무 드롭다운 -->
-              <div id="sal-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 8px);left:0;background:var(--surface);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:8px 0;min-width:200px;">
-                <button id="st-0" onclick="setSalaryTab(0)" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);transition:background .12s;">개발 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
-                <button id="st-1" onclick="setSalaryTab(1)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">기획/경영</button>
-                <button id="st-2" onclick="setSalaryTab(2)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">디자인</button>
-                <button id="st-3" onclick="setSalaryTab(3)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">마케팅/시장조사</button>
-                <button id="st-4" onclick="setSalaryTab(4)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">영업/제휴</button>
-                <button id="st-5" onclick="setSalaryTab(5)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">서비스/고객지원</button>
-                <button id="st-6" onclick="setSalaryTab(6)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">데이터</button>
-                <button id="st-7" onclick="setSalaryTab(7)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">연구개발</button>
-                <button id="st-8" onclick="setSalaryTab(8)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">인사/총무</button>
-                <button id="st-9" onclick="setSalaryTab(9)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">금융/재무</button>
-                <button id="st-10" onclick="setSalaryTab(10)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">엔지니어링</button>
-                <button id="st-11" onclick="setSalaryTab(11)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">생산·제조</button>
-              </div>
-            </div>
-            <!-- 년차 선택 드롭다운 -->
-            <div style="position:relative;display:inline-flex;align-items:center;">
-              <h2 id="sal-year-text" style="font-size:22px;font-weight:700;letter-spacing:-.3px;cursor:pointer;" onclick="toggleSalaryYears()">경력 전체</h2>
-              <button onclick="toggleSalaryYears()" style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--ln);border-radius:6px;background:var(--surface);cursor:pointer;padding:0;margin-left:6px;">
-                <svg id="sal-year-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <span id="sal-year-label" style="display:none;">경력 전체</span>
-              <div id="sal-year-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 6px);left:0;background:var(--surface);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:6px 0;min-width:140px;">
-                <button onclick="setSalaryYear(-1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">경력 전체</button>
-                <button onclick="setSalaryYear(1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">1년차</button>
-                <button onclick="setSalaryYear(2)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">2년차</button>
-                <button onclick="setSalaryYear(3)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">3년차</button>
-                <button onclick="setSalaryYear(5)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">5년차</button>
-                <button onclick="setSalaryYear(7)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">7년차</button>
-                <button onclick="setSalaryYear(10)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">10년차+</button>
-              </div>
-            </div>
-            <span id="sal-year-suffix" style="font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.3px;"> 기준 연봉</span>
-          </div>
-        </div>
-
-        <!-- 통합 카드: 기본 뷰 -->
-        <div id="sal-default-view" style="display:none;background:var(--surface);border-radius:16px;box-shadow:var(--sh);overflow:hidden;">
-
-          <!-- 평균 연봉 + 바 + CTA -->
-          <div style="padding:28px 28px 24px;">
-            <p id="sal-anchor-label" style="font-size:13px;color:var(--tx3);margin-bottom:4px;">직무 평균 연봉</p>
-            <p id="sal-anchor-val" style="font-size:28px;font-weight:700;color:var(--tx);letter-spacing:-.5px;margin-bottom:8px;">7,540만원</p>
-            <span id="sal-anchor-sub" onclick="toggleSalView()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);padding:4px 14px;border-radius:var(--rfull);margin-bottom:20px;cursor:pointer;transition:opacity .15s;border:1px solid rgba(0,194,116,.12);" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"><img src="images/nhis.svg" width="14" height="14" style="flex-shrink:0;">건강보험 연봉 데이터 2,015,619건 기준</span>
-
-            <!-- 분포 바 -->
-            <div style="margin-bottom:8px;">
-              <div style="height:16px;border-radius:3px;background:var(--ln2);overflow:hidden;">
-                <div id="dist-fill" style="width:55%;height:100%;border-radius:3px;background:linear-gradient(90deg, #A8E8C8 0%, #5CD89A 50%, var(--brand) 100%);transition:width .4s;"></div>
-              </div>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:24px;">
-              <span id="d-lo" style="font-size:12px;color:var(--tx4);">하위 · ~5,800만</span>
-              <span id="d-avg" style="font-size:12px;font-weight:600;color:var(--tx3);">평균 7,540만</span>
-              <span id="d-hi" style="font-size:12px;color:var(--tx4);">상위·8,000만 ↑</span>
-            </div>
-
-            <!-- CTA 배너 -->
-            <div id="sal-cta-btn" onclick="showSalInput()" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(0,194,116,.06);border-radius:10px;border:1.5px solid rgba(0,194,116,.15);cursor:pointer;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='rgba(0,194,116,.15)'">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div style="width:16px;height:16px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <span style="font-size:8px;font-weight:700;color:#fff;">W</span>
-                </div>
-                <span style="font-size:14px;font-weight:600;color:var(--tx2);">내 연봉을 입력하면 평균과 비교해볼 수 있어요!</span>
-              </div>
-              <span style="font-size:14px;font-weight:700;color:var(--brand);white-space:nowrap;display:flex;align-items:center;gap:3px;">입력하기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
-            </div>
-            <!-- 인풋 (CTA 클릭 후 노출) -->
-            <div id="sal-inp-wrap" style="display:none;align-items:center;gap:8px;padding:12px 16px;background:rgba(0,194,116,.06);border-radius:var(--rsm);border:1.5px solid var(--brand);margin-top:8px;">
-              <div style="width:7px;height:7px;border-radius:50%;background:var(--brand);flex-shrink:0;"></div>
-              <input id="sal-inp" type="number" placeholder="연봉 입력 (만원)" step="100"
-                style="flex:1;border:none;background:transparent;font-size:14px;font-weight:600;font-family:var(--font);color:var(--tx);outline:none;"
-                oninput="onSalInput()" />
-              <span id="sal-inp-result" style="font-size:12px;font-weight:700;color:var(--brand);white-space:nowrap;"></span>
-            </div>
-          </div>
-
-          <!-- 구분선 + TOP3 라벨 -->
-          <div style="display:flex;align-items:center;gap:10px;padding:0 28px;">
-            <div style="flex:1;height:1px;background:var(--ln);"></div>
-            <span id="top3-label" style="font-size:12px;font-weight:600;color:var(--tx4);white-space:nowrap;">연봉 높은 기업 TOP 3</span>
-            <div style="flex:1;height:1px;background:var(--ln);"></div>
-          </div>
-
-          <!-- TOP3 리스트 -->
-          <div id="sal-top3-list" style="padding:4px 0;"></div>
-
-          <!-- 더보기 -->
-          <div id="sal-more-wrap" style="display:none;">
-            <div id="sal-extra-list"></div>
-          </div>
-          <div style="border-top:1px solid var(--ln2);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;">
-            <span id="sal-caption" style="font-size:12px;color:var(--tx4);">개발자 리뷰 기준 · 현직자 데이터</span>
-            <button id="sal-more-btn" onclick="toggleSalaryMore()" style="font-size:13px;font-weight:700;color:var(--brand);background:none;border:none;cursor:pointer;font-family:var(--font);padding:0;display:flex;align-items:center;gap:4px;">더보기 <svg id="sal-more-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg></button>
-          </div>
-        </div>
-
-        <!-- 통합 카드: 컴팩트 뷰 (2열) -->
-        <div id="sal-compact-view" style="background:var(--surface);border-radius:16px;box-shadow:var(--sh);overflow:hidden;">
-          <div style="display:flex;">
-            <!-- 좌측: 연봉 + 바 -->
-            <div style="flex:1;padding:28px 28px 24px;position:relative;">
-              <div style="position:absolute;right:0;top:28px;bottom:24px;width:1px;background:var(--ln2);"></div>
-              <p style="font-size:13px;color:var(--tx3);margin-bottom:4px;">직무 평균 연봉</p>
-              <p id="sal-compact-val" style="font-size:28px;font-weight:700;color:var(--tx);letter-spacing:-.5px;margin-bottom:8px;">7,540만원</p>
-              <span onclick="toggleSalView()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);padding:4px 14px;border-radius:var(--rfull);margin-bottom:20px;cursor:pointer;transition:opacity .15s;border:1px solid rgba(0,194,116,.12);" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"><img src="images/nhis.svg" width="14" height="14" style="flex-shrink:0;">건강보험 연봉 데이터 2,015,619건 기준</span>
-              <div style="margin-bottom:8px;">
-                <div style="height:16px;border-radius:3px;background:var(--ln2);overflow:hidden;">
-                  <div id="dist-fill-compact" style="width:55%;height:100%;border-radius:3px;background:linear-gradient(90deg, #A8E8C8 0%, #5CD89A 50%, var(--brand) 100%);transition:width .4s;"></div>
-                </div>
-              </div>
-              <div style="display:flex;justify-content:space-between;">
-                <span id="d-lo-c" style="font-size:12px;color:var(--tx4);">하위 · ~5,800만</span>
-                <span id="d-avg-c" style="font-size:12px;font-weight:600;color:var(--tx3);">평균 7,540만</span>
-                <span id="d-hi-c" style="font-size:12px;color:var(--tx4);">상위·8,000만 ↑</span>
-              </div>
-            </div>
-            <!-- 우측: TOP3 -->
-            <div style="flex:1;padding:24px 0 0;">
-              <div style="padding:0 24px 12px;font-size:14px;font-weight:700;color:var(--tx3);">연봉 높은 기업 TOP 3</div>
-              <div id="sal-compact-top3"></div>
-            </div>
-          </div>
-          <!-- 하단: 내 연봉 비교 입력 -->
-          <div style="padding:22px 28px 24px;background:#F8F9FA;border-top:1px solid var(--ln2);">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-              <div style="width:20px;height:20px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <span style="font-size:9px;font-weight:800;color:#fff;">W</span>
-              </div>
-              <span style="font-size:15px;font-weight:700;color:var(--tx);">내 연봉 비교</span>
-            </div>
-            <div style="font-size:13px;color:var(--tx3);margin-bottom:16px;padding-left:28px;">연봉을 입력하면 직무·경력 평균 대비 위치를 알려드려요</div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div style="flex:1;display:flex;align-items:center;border:1.5px solid var(--ln);border-radius:10px;padding:0 14px;height:46px;background:#fff;transition:border-color .15s;" id="sal-compact-input-wrap">
-                <input id="sal-compact-inp" type="number" placeholder="예: 5000" step="100"
-                  style="flex:1;border:none;background:transparent;font-size:14px;font-weight:500;font-family:var(--font);color:var(--tx);outline:none;"
-                  oninput="onSalCompactInput()" onfocus="this.parentElement.style.borderColor='var(--brand)'" onblur="this.parentElement.style.borderColor='var(--ln)'" />
-                <span style="font-size:13px;color:var(--tx4);font-weight:500;flex-shrink:0;">만원</span>
-              </div>
-              <button onclick="compareSalCompact()" style="height:46px;padding:0 22px;border-radius:10px;border:none;background:var(--brand);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .15s;" onmouseover="this.style.background='#00A862'" onmouseout="this.style.background='var(--brand)'">비교하기</button>
-            </div>
-            <div id="sal-compact-result" style="display:none;margin-top:14px;border-radius:12px;overflow:hidden;"></div>
-          </div>
-        </div>
-      </div>
-
-
-      <script>
-        // 리뷰 카드 데이터 풀 (탭 클릭 시 랜덤 조합)
-        var _emojiBase = 'https://jelin-cc.github.io/jobplanet-ut/';
-        function rvEmoji(name){ return '<img src="'+_emojiBase+'emoji-'+name+'.svg" width="20" height="20" style="vertical-align:middle;">'; }
-        // === 전/현직장 (로그인) — 자극적 후킹 ===
-        var rvThemesMyCompany = [
-          {emoji:rvEmoji('institution'),label:'내 회사 뒤에서 이런 말을?!',bg:'#FFF1F0',accent:'#EF4444'},
-          {emoji:rvEmoji('cardfire'),label:'퇴사율 1위, 내 회사 맞아?',bg:'#FFF5F0',accent:'#FF6B35'},
-          {emoji:rvEmoji('moneybag'),label:'내 연봉, 동료보다 적을 수도',bg:'#FFFBEB',accent:'#D97706'},
-          {emoji:rvEmoji('thunder'),label:'전 직장 동료의 폭로 후기',bg:'#FFF8EB',accent:'#D97706'},
-          {emoji:rvEmoji('fire'),label:'지금 난리 난 우리 회사 리뷰',bg:'#FFF1F0',accent:'#EF4444'},
-          {emoji:rvEmoji('rocket'),label:'전 직장, 내가 떠나고 달라졌다?',bg:'#F5F0FF',accent:'#8B5CF6'},
-        ];
-        var rvQuotesMyCompany = [
-          '"같은 팀인데 연봉이 2천만원 차이 나는 거 실화?"',
-          '"퇴사하고 나서야 알았던 우리 회사의 진짜 모습"',
-          '"면접 때 들은 복지, 입사 후 하나도 없었습니다"',
-          '"3년 다녔는데 승진은 커녕 연봉 동결이라니"',
-          '"전 직장 상사가 바뀌고 나서 완전 딴 회사래요"',
-          '"우리 회사 리뷰 보고 소름 돋았어요, 다 사실임"',
-          '"동료 몰래 이직 준비 중... 여기 리뷰 보면 이해됨"',
-          '"입사 6개월 만에 팀원 절반이 퇴사한 이유"',
-        ];
-        // === 인기 리뷰 (비로그인/기본) — 후킹용 ===
-        var rvThemesPopular = [
-          {emoji:rvEmoji('cardfire'),label:'"퇴사 각인데..." 솔직 후기',bg:'#FFF5F0',accent:'#FF6B35'},
-          {emoji:rvEmoji('moneybag'),label:'연봉 1억 넘는 회사 후기',bg:'#FFFBEB',accent:'#D97706'},
-          {emoji:rvEmoji('fire'),label:'이번 주 조회수 폭발 리뷰',bg:'#FFF1F0',accent:'#EF4444'},
-          {emoji:rvEmoji('clover'),label:'야근 없다는 회사, 진짜일까?',bg:'#F0FFF4',accent:'#22C55E'},
-          {emoji:rvEmoji('star'),label:'"여기 진짜 추천" 현직자 후기',bg:'#FFFBEB',accent:'#F59E0B'},
-          {emoji:rvEmoji('handshake'),label:'면접 후기 TOP',bg:'#F0F4FF',accent:'#3B82F6'},
-          {emoji:rvEmoji('thunder'),label:'방금 올라온 따끈한 후기',bg:'#FFF8EB',accent:'#D97706'},
-          {emoji:rvEmoji('rocket'),label:'요즘 뜨는 스타트업 후기',bg:'#F5F0FF',accent:'#8B5CF6'},
-        ];
-        var rvQuotesPopular = [
-          '"퇴사를 고민 중이라면 이 회사는 피하세요"',
-          '"연봉 1.2억인데 워라밸까지 챙길 수 있어요"',
-          '"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"',
-          '"야근 없다더니 진짜 6시에 다 퇴근해요"',
-          '"여기 다니면서 처음으로 일이 재밌었어요"',
-          '"면접에서 이런 질문을 받았는데 당황했어요"',
-          '"신입으로 들어갔는데 사수가 너무 잘 알려줘요"',
-          '"자유로운 분위기라더니 야근 압박이 장난 아닙니다"',
-        ];
-        // === 내 직무 (로그인+직무입력) — 개인화 ===
-        var rvThemesMyJob = [
-          {emoji:rvEmoji('briefcase'),label:'{job} 3년차가 쓴 후기',bg:'#F0F4FF',accent:'#3B82F6'},
-          {emoji:rvEmoji('moneybag'),label:'{job} 연봉 TOP 5 회사',bg:'#FFFBEB',accent:'#D97706'},
-          {emoji:rvEmoji('rocket'),label:'{job}로 이직한 사람들의 후기',bg:'#F5F0FF',accent:'#8B5CF6'},
-          {emoji:rvEmoji('star'),label:'{job}으로 입사하면 좋은 회사',bg:'#FFFBEB',accent:'#F59E0B'},
-          {emoji:rvEmoji('barchart'),label:'{job} 성장하기 좋은 환경',bg:'#F0FFF4',accent:'#22C55E'},
-          {emoji:rvEmoji('handshake'),label:'{job} 팀 문화 좋다는 회사',bg:'#FFF5F0',accent:'#FF6B35'},
-        ];
-        var rvQuotesMyJob = [
-          '"{job} 3년차인데 여기서 가장 많이 성장했어요"',
-          '"{job} 연봉이 업계 최고 수준이에요"',
-          '"{job}로 이직했는데 전 회사와 비교 불가에요"',
-          '"{job} 신입도 바로 실무에 투입되는 환경"',
-          '"{job}한테 자율권을 많이 주는 회사에요"',
-          '"{job} 팀 분위기가 정말 좋아서 출근이 즐거워요"',
-        ];
-        // === 팔로우 기업 (로그인) ===
-        var rvThemesFollow = [
-          {emoji:rvEmoji('thunder'),label:'팔로우한 기업의 최신 후기',bg:'#FFF8EB',accent:'#D97706'},
-          {emoji:rvEmoji('moneybag'),label:'팔로우 기업 연봉 변동',bg:'#FFFBEB',accent:'#D97706'},
-          {emoji:rvEmoji('briefcase'),label:'팔로우 기업 채용 소식',bg:'#F0F4FF',accent:'#3B82F6'},
-          {emoji:rvEmoji('star'),label:'팔로우 기업 평점 변화',bg:'#FFFBEB',accent:'#F59E0B'},
-        ];
-        var rvQuotesFollow = [
-          '"최근 조직 개편 이후 분위기가 많이 달라졌어요"',
-          '"올해 연봉 인상률이 업계 평균보다 높았어요"',
-          '"대규모 채용 중인데 면접 분위기가 좋았어요"',
-          '"경영진이 바뀌고 나서 복지가 확 좋아졌어요"',
-        ];
-        var rvCompanies = [
-          {co:'비바리퍼블리카',logo:'https://jelin-cc.github.io/jobplanet-ut/toss.png',score:'4.1'},
-          {co:'(주)당근마켓',logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',score:'4.0'},
-          {co:'네이버',logo:'https://jelin-cc.github.io/jobplanet-ut/naver.png',score:'3.8'},
-          {co:'카카오',logo:'https://jelin-cc.github.io/jobplanet-ut/kakao.png',score:'3.5'},
-          {co:'쿠팡',logo:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_4.svg',score:'3.2'},
-          {co:'배달의민족',logo:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_5.svg',score:'3.9'},
-        ];
-        var rvHelps = [47,32,28,19,63,41,55,22];
-
-        function shuffleArr(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
-
-        function renderReviewCards(){
-          // 활성 탭 확인
-          var activeBtn = document.querySelector('.rv-cat.active');
-          var activeCat = 'popular';
-          if(activeBtn){
-            var txt = activeBtn.textContent.trim();
-            if(txt.indexOf('전/현직장')!==-1) activeCat='mycompany';
-            else if(txt.indexOf('내 직무')!==-1) activeCat='myjob';
-            else if(txt.indexOf('팔로우')!==-1) activeCat='follow';
-          }
-          var themes, quotes;
-          var job = (typeof obSelectedJob!=='undefined' && obSelectedJob) ? obSelectedJob : '개발';
-          if(activeCat==='mycompany'){
-            themes = shuffleArr(rvThemesMyCompany).slice(0,4);
-            quotes = shuffleArr(rvQuotesMyCompany);
-          } else if(activeCat==='myjob'){
-            themes = shuffleArr(rvThemesMyJob).slice(0,4).map(function(t){
-              return {emoji:t.emoji, label:t.label.replace(/\{job\}/g, job)};
-            });
-            quotes = shuffleArr(rvQuotesMyJob).map(function(q){ return q.replace(/\{job\}/g, job); });
-          } else if(activeCat==='follow'){
-            themes = shuffleArr(rvThemesFollow).slice(0,4);
-            quotes = shuffleArr(rvQuotesFollow);
-          } else {
-            themes = shuffleArr(rvThemesPopular).slice(0,4);
-            quotes = shuffleArr(rvQuotesPopular);
-          }
-          var companies = shuffleArr(rvCompanies);
-          var helps = shuffleArr(rvHelps);
-
-          var html = themes.map(function(t,i){
-            var comp = companies[i % companies.length];
-            var quote = quotes[i % quotes.length];
-            var helpN = helps[i % helps.length];
-            var bg = t.bg || '#F8F9FA';
-            var accent = t.accent || 'var(--tx3)';
-            return '<div class="rv-card" onclick="goToCompanyReview(\''+comp.co+'\',\''+comp.score+'\')" style="cursor:pointer;padding:0;overflow:hidden;display:flex;flex-direction:column;min-width:300px;max-width:340px;flex-shrink:0;transition:transform .15s,box-shadow .15s;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 24px rgba(0,0,0,.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'\'">'
-              +'<div style="padding:22px 22px 18px;display:flex;flex-direction:column;height:100%;background:linear-gradient(180deg,'+bg+' 0%,'+bg+' 40%,#fff 70%,#fff 100%);">'
-              /* 테마 라벨 */
-              +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">'
-              +'<span style="flex-shrink:0;">'+t.emoji+'</span>'
-              +'<span style="font-size:14px;font-weight:700;color:'+accent+';">'+t.label+'</span>'
-              +'</div>'
-              /* 리뷰 인용 — 메인 히어로 */
-              +'<p style="font-size:16px;font-weight:600;color:var(--tx);line-height:1.65;margin:0;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-.2px;">'+quote+'</p>'
-              /* 하단: 기업 + 도움 수 */
-              +'<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--ln2);display:flex;align-items:center;justify-content:space-between;">'
-              +'<div style="display:flex;align-items:center;gap:6px;">'
-              +'<img src="'+comp.logo+'" alt="" style="width:20px;height:20px;object-fit:contain;border-radius:3px;">'
-              +'<span style="font-size:12px;font-weight:500;color:var(--tx4);">'+comp.co+'</span>'
-              +'</div>'
-              +'<span style="font-size:11px;color:var(--tx4);">'+helpN+'명에게 도움됨</span>'
-              +'</div>'
-              +'</div>'
-              +'</div>';
-          }).join('');
-
-          document.getElementById('rv-grid').innerHTML = html;
-        }
-        function scrollReviewCards(dir){
-          var el = document.getElementById('rv-grid');
-          if(dir < 0){ el.scrollTo({left: 0, behavior:'smooth'}); }
-          else { el.scrollBy({left: 340, behavior:'smooth'}); }
-          setTimeout(updateRvScrollBtns, 350);
-        }
-        function updateRvScrollBtns(){
-          var el = document.getElementById('rv-grid');
-          var left = document.getElementById('rv-scroll-left');
-          var right = document.getElementById('rv-scroll-right');
-          if(!el||!left||!right) return;
-          var atStart = el.scrollLeft <= 10;
-          var atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 10;
-          var fade = document.getElementById('rv-scroll-fade');
-          left.style.display = atStart ? 'none' : 'flex';
-          right.style.display = atEnd ? 'none' : 'flex';
-          if(fade) fade.style.display = atEnd ? 'none' : '';
-        }
-        // 스크롤 이벤트로도 업데이트
-        document.addEventListener('DOMContentLoaded', function(){
-          var el = document.getElementById('rv-grid');
-          if(el) el.addEventListener('scroll', updateRvScrollBtns);
-        });
-        // 헬퍼: 회사명 클릭 → 기업 상세
-        window.goToCompany = function(name, score){
-          openCompany({name:name, score:parseFloat(score)||3.5, industry:'기타', loc:'서울', year:2010, size:100, jobs:3, pct:65, initial:name.charAt(0), keywords:[]});
-        };
-        // 헬퍼: 리뷰 자세히 보기 → 기업 상세 리뷰 탭
-        window.goToCompanyReview = function(name, score){
-          openCompany({name:name, score:parseFloat(score)||3.5, industry:'기타', loc:'서울', year:2010, size:100, jobs:3, pct:65, initial:name.charAt(0), keywords:[]});
-          setTimeout(function(){
-            var t = document.querySelector('#page-company [data-tab="review"]');
-            if(t) t.click();
-          }, 200);
-        };
-        // 페이지 로드 완료 후 렌더링
-        document.addEventListener('DOMContentLoaded', function(){ renderReviewCards(); });
-        // 즉시 실행도 시도 (DOMContentLoaded 이미 지난 경우)
-        if(typeof obSelectedJob!=='undefined') renderReviewCards();
-      </script>
-
-
       <!-- ④ 리뷰로 찾은 채용 공고 -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
         <div>
@@ -4871,6 +4525,352 @@
         // 초기 렌더링
         renderThemeCards();
         document.getElementById('rjob-list').innerHTML = genJobs(3).map(renderJobCard).join('');
+      </script>
+
+
+      <!-- ③ 연봉 데이터 섹션 -->
+      <div id="salary-section" style="margin-bottom:48px;">
+        <!-- 헤더 -->
+        <div style="margin-bottom:16px;position:relative;">
+          <p style="font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.2px;margin-bottom:6px;">직무별 연봉 정보</p>
+          <div id="sal-hd-with" style="display:flex;align-items:center;gap:8px;">
+            <div style="position:relative;display:inline-flex;align-items:center;">
+              <h2 id="sal-title" style="font-size:22px;font-weight:700;letter-spacing:-.3px;cursor:pointer;" onclick="toggleSalaryTabs()">직무 전체</h2>
+              <button onclick="toggleSalaryTabs()" style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--ln);border-radius:6px;background:var(--surface);cursor:pointer;padding:0;margin-left:6px;">
+                <svg id="sal-arrow-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <!-- 직무 드롭다운 -->
+              <div id="sal-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 8px);left:0;background:var(--surface);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:8px 0;min-width:200px;">
+                <button id="st-0" onclick="setSalaryTab(0)" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);transition:background .12s;">개발 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
+                <button id="st-1" onclick="setSalaryTab(1)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">기획/경영</button>
+                <button id="st-2" onclick="setSalaryTab(2)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">디자인</button>
+                <button id="st-3" onclick="setSalaryTab(3)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">마케팅/시장조사</button>
+                <button id="st-4" onclick="setSalaryTab(4)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">영업/제휴</button>
+                <button id="st-5" onclick="setSalaryTab(5)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">서비스/고객지원</button>
+                <button id="st-6" onclick="setSalaryTab(6)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">데이터</button>
+                <button id="st-7" onclick="setSalaryTab(7)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">연구개발</button>
+                <button id="st-8" onclick="setSalaryTab(8)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">인사/총무</button>
+                <button id="st-9" onclick="setSalaryTab(9)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">금융/재무</button>
+                <button id="st-10" onclick="setSalaryTab(10)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">엔지니어링</button>
+                <button id="st-11" onclick="setSalaryTab(11)" style="display:block;width:100%;padding:12px 18px;text-align:left;font-size:14px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);transition:background .12s;" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">생산·제조</button>
+              </div>
+            </div>
+            <!-- 년차 선택 드롭다운 -->
+            <div style="position:relative;display:inline-flex;align-items:center;">
+              <h2 id="sal-year-text" style="font-size:22px;font-weight:700;letter-spacing:-.3px;cursor:pointer;" onclick="toggleSalaryYears()">경력 전체</h2>
+              <button onclick="toggleSalaryYears()" style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--ln);border-radius:6px;background:var(--surface);cursor:pointer;padding:0;margin-left:6px;">
+                <svg id="sal-year-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2.5" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <span id="sal-year-label" style="display:none;">경력 전체</span>
+              <div id="sal-year-tabs" style="display:none;position:absolute;z-index:50;top:calc(100% + 6px);left:0;background:var(--surface);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);border:1px solid var(--ln);padding:6px 0;min-width:140px;">
+                <button onclick="setSalaryYear(-1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-lt);border:none;cursor:pointer;font-family:var(--font);">경력 전체</button>
+                <button onclick="setSalaryYear(1)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">1년차</button>
+                <button onclick="setSalaryYear(2)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">2년차</button>
+                <button onclick="setSalaryYear(3)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">3년차</button>
+                <button onclick="setSalaryYear(5)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">5년차</button>
+                <button onclick="setSalaryYear(7)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">7년차</button>
+                <button onclick="setSalaryYear(10)" class="sal-yr-opt" style="display:block;width:100%;padding:10px 16px;text-align:left;font-size:13px;font-weight:500;color:var(--tx2);background:none;border:none;cursor:pointer;font-family:var(--font);" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='none'">10년차+</button>
+              </div>
+            </div>
+            <span id="sal-year-suffix" style="font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.3px;"> 기준 연봉</span>
+          </div>
+        </div>
+
+        <!-- 통합 카드: 기본 뷰 -->
+        <div id="sal-default-view" style="display:none;background:var(--surface);border-radius:16px;box-shadow:var(--sh);overflow:hidden;">
+
+          <!-- 평균 연봉 + 바 + CTA -->
+          <div style="padding:28px 28px 24px;">
+            <p id="sal-anchor-label" style="font-size:13px;color:var(--tx3);margin-bottom:4px;">직무 평균 연봉</p>
+            <p id="sal-anchor-val" style="font-size:28px;font-weight:700;color:var(--tx);letter-spacing:-.5px;margin-bottom:8px;">7,540만원</p>
+            <span id="sal-anchor-sub" onclick="toggleSalView()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);padding:4px 14px;border-radius:var(--rfull);margin-bottom:20px;cursor:pointer;transition:opacity .15s;border:1px solid rgba(0,194,116,.12);" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"><img src="images/nhis.svg" width="14" height="14" style="flex-shrink:0;">건강보험 연봉 데이터 2,015,619건 기준</span>
+
+            <!-- 분포 바 -->
+            <div style="margin-bottom:8px;">
+              <div style="height:16px;border-radius:3px;background:var(--ln2);overflow:hidden;">
+                <div id="dist-fill" style="width:55%;height:100%;border-radius:3px;background:linear-gradient(90deg, #A8E8C8 0%, #5CD89A 50%, var(--brand) 100%);transition:width .4s;"></div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:24px;">
+              <span id="d-lo" style="font-size:12px;color:var(--tx4);">하위 · ~5,800만</span>
+              <span id="d-avg" style="font-size:12px;font-weight:600;color:var(--tx3);">평균 7,540만</span>
+              <span id="d-hi" style="font-size:12px;color:var(--tx4);">상위·8,000만 ↑</span>
+            </div>
+
+            <!-- CTA 배너 -->
+            <div id="sal-cta-btn" onclick="showSalInput()" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(0,194,116,.06);border-radius:10px;border:1.5px solid rgba(0,194,116,.15);cursor:pointer;transition:border-color .15s;" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='rgba(0,194,116,.15)'">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:16px;height:16px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <span style="font-size:8px;font-weight:700;color:#fff;">W</span>
+                </div>
+                <span style="font-size:14px;font-weight:600;color:var(--tx2);">내 연봉을 입력하면 평균과 비교해볼 수 있어요!</span>
+              </div>
+              <span style="font-size:14px;font-weight:700;color:var(--brand);white-space:nowrap;display:flex;align-items:center;gap:3px;">입력하기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+            </div>
+            <!-- 인풋 (CTA 클릭 후 노출) -->
+            <div id="sal-inp-wrap" style="display:none;align-items:center;gap:8px;padding:12px 16px;background:rgba(0,194,116,.06);border-radius:var(--rsm);border:1.5px solid var(--brand);margin-top:8px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:var(--brand);flex-shrink:0;"></div>
+              <input id="sal-inp" type="number" placeholder="연봉 입력 (만원)" step="100"
+                style="flex:1;border:none;background:transparent;font-size:14px;font-weight:600;font-family:var(--font);color:var(--tx);outline:none;"
+                oninput="onSalInput()" />
+              <span id="sal-inp-result" style="font-size:12px;font-weight:700;color:var(--brand);white-space:nowrap;"></span>
+            </div>
+          </div>
+
+          <!-- 구분선 + TOP3 라벨 -->
+          <div style="display:flex;align-items:center;gap:10px;padding:0 28px;">
+            <div style="flex:1;height:1px;background:var(--ln);"></div>
+            <span id="top3-label" style="font-size:12px;font-weight:600;color:var(--tx4);white-space:nowrap;">연봉 높은 기업 TOP 3</span>
+            <div style="flex:1;height:1px;background:var(--ln);"></div>
+          </div>
+
+          <!-- TOP3 리스트 -->
+          <div id="sal-top3-list" style="padding:4px 0;"></div>
+
+          <!-- 더보기 -->
+          <div id="sal-more-wrap" style="display:none;">
+            <div id="sal-extra-list"></div>
+          </div>
+          <div style="border-top:1px solid var(--ln2);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;">
+            <span id="sal-caption" style="font-size:12px;color:var(--tx4);">개발자 리뷰 기준 · 현직자 데이터</span>
+            <button id="sal-more-btn" onclick="toggleSalaryMore()" style="font-size:13px;font-weight:700;color:var(--brand);background:none;border:none;cursor:pointer;font-family:var(--font);padding:0;display:flex;align-items:center;gap:4px;">더보기 <svg id="sal-more-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg></button>
+          </div>
+        </div>
+
+        <!-- 통합 카드: 컴팩트 뷰 (2열) -->
+        <div id="sal-compact-view" style="background:var(--surface);border-radius:16px;box-shadow:var(--sh);overflow:hidden;">
+          <div style="display:flex;">
+            <!-- 좌측: 연봉 + 바 -->
+            <div style="flex:1;padding:28px 28px 24px;position:relative;">
+              <div style="position:absolute;right:0;top:28px;bottom:24px;width:1px;background:var(--ln2);"></div>
+              <p style="font-size:13px;color:var(--tx3);margin-bottom:4px;">직무 평균 연봉</p>
+              <p id="sal-compact-val" style="font-size:28px;font-weight:700;color:var(--tx);letter-spacing:-.5px;margin-bottom:8px;">7,540만원</p>
+              <span onclick="toggleSalView()" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-lt);padding:4px 14px;border-radius:var(--rfull);margin-bottom:20px;cursor:pointer;transition:opacity .15s;border:1px solid rgba(0,194,116,.12);" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'"><img src="images/nhis.svg" width="14" height="14" style="flex-shrink:0;">건강보험 연봉 데이터 2,015,619건 기준</span>
+              <div style="margin-bottom:8px;">
+                <div style="height:16px;border-radius:3px;background:var(--ln2);overflow:hidden;">
+                  <div id="dist-fill-compact" style="width:55%;height:100%;border-radius:3px;background:linear-gradient(90deg, #A8E8C8 0%, #5CD89A 50%, var(--brand) 100%);transition:width .4s;"></div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span id="d-lo-c" style="font-size:12px;color:var(--tx4);">하위 · ~5,800만</span>
+                <span id="d-avg-c" style="font-size:12px;font-weight:600;color:var(--tx3);">평균 7,540만</span>
+                <span id="d-hi-c" style="font-size:12px;color:var(--tx4);">상위·8,000만 ↑</span>
+              </div>
+            </div>
+            <!-- 우측: TOP3 -->
+            <div style="flex:1;padding:24px 0 0;">
+              <div style="padding:0 24px 12px;font-size:14px;font-weight:700;color:var(--tx3);">연봉 높은 기업 TOP 3</div>
+              <div id="sal-compact-top3"></div>
+            </div>
+          </div>
+          <!-- 하단: 내 연봉 비교 입력 -->
+          <div style="padding:22px 28px 24px;background:#F8F9FA;border-top:1px solid var(--ln2);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <div style="width:20px;height:20px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:9px;font-weight:800;color:#fff;">W</span>
+              </div>
+              <span style="font-size:15px;font-weight:700;color:var(--tx);">내 연봉 비교</span>
+            </div>
+            <div style="font-size:13px;color:var(--tx3);margin-bottom:16px;padding-left:28px;">연봉을 입력하면 직무·경력 평균 대비 위치를 알려드려요</div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="flex:1;display:flex;align-items:center;border:1.5px solid var(--ln);border-radius:10px;padding:0 14px;height:46px;background:#fff;transition:border-color .15s;" id="sal-compact-input-wrap">
+                <input id="sal-compact-inp" type="number" placeholder="예: 5000" step="100"
+                  style="flex:1;border:none;background:transparent;font-size:14px;font-weight:500;font-family:var(--font);color:var(--tx);outline:none;"
+                  oninput="onSalCompactInput()" onfocus="this.parentElement.style.borderColor='var(--brand)'" onblur="this.parentElement.style.borderColor='var(--ln)'" />
+                <span style="font-size:13px;color:var(--tx4);font-weight:500;flex-shrink:0;">만원</span>
+              </div>
+              <button onclick="compareSalCompact()" style="height:46px;padding:0 22px;border-radius:10px;border:none;background:var(--brand);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .15s;" onmouseover="this.style.background='#00A862'" onmouseout="this.style.background='var(--brand)'">비교하기</button>
+            </div>
+            <div id="sal-compact-result" style="display:none;margin-top:14px;border-radius:12px;overflow:hidden;"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <script>
+        // 리뷰 카드 데이터 풀 (탭 클릭 시 랜덤 조합)
+        var _emojiBase = 'https://jelin-cc.github.io/jobplanet-ut/';
+        function rvEmoji(name){ return '<img src="'+_emojiBase+'emoji-'+name+'.svg" width="20" height="20" style="vertical-align:middle;">'; }
+        // === 전/현직장 (로그인) — 자극적 후킹 ===
+        var rvThemesMyCompany = [
+          {emoji:rvEmoji('institution'),label:'내 회사 뒤에서 이런 말을?!',bg:'#FFF1F0',accent:'#EF4444'},
+          {emoji:rvEmoji('cardfire'),label:'퇴사율 1위, 내 회사 맞아?',bg:'#FFF5F0',accent:'#FF6B35'},
+          {emoji:rvEmoji('moneybag'),label:'내 연봉, 동료보다 적을 수도',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('thunder'),label:'전 직장 동료의 폭로 후기',bg:'#FFF8EB',accent:'#D97706'},
+          {emoji:rvEmoji('fire'),label:'지금 난리 난 우리 회사 리뷰',bg:'#FFF1F0',accent:'#EF4444'},
+          {emoji:rvEmoji('rocket'),label:'전 직장, 내가 떠나고 달라졌다?',bg:'#F5F0FF',accent:'#8B5CF6'},
+        ];
+        var rvQuotesMyCompany = [
+          '"같은 팀인데 연봉이 2천만원 차이 나는 거 실화?"',
+          '"퇴사하고 나서야 알았던 우리 회사의 진짜 모습"',
+          '"면접 때 들은 복지, 입사 후 하나도 없었습니다"',
+          '"3년 다녔는데 승진은 커녕 연봉 동결이라니"',
+          '"전 직장 상사가 바뀌고 나서 완전 딴 회사래요"',
+          '"우리 회사 리뷰 보고 소름 돋았어요, 다 사실임"',
+          '"동료 몰래 이직 준비 중... 여기 리뷰 보면 이해됨"',
+          '"입사 6개월 만에 팀원 절반이 퇴사한 이유"',
+        ];
+        // === 인기 리뷰 (비로그인/기본) — 후킹용 ===
+        var rvThemesPopular = [
+          {emoji:rvEmoji('cardfire'),label:'"퇴사 각인데..." 솔직 후기',bg:'#FFF5F0',accent:'#FF6B35'},
+          {emoji:rvEmoji('moneybag'),label:'연봉 1억 넘는 회사 후기',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('fire'),label:'이번 주 조회수 폭발 리뷰',bg:'#FFF1F0',accent:'#EF4444'},
+          {emoji:rvEmoji('clover'),label:'야근 없다는 회사, 진짜일까?',bg:'#F0FFF4',accent:'#22C55E'},
+          {emoji:rvEmoji('star'),label:'"여기 진짜 추천" 현직자 후기',bg:'#FFFBEB',accent:'#F59E0B'},
+          {emoji:rvEmoji('handshake'),label:'면접 후기 TOP',bg:'#F0F4FF',accent:'#3B82F6'},
+          {emoji:rvEmoji('thunder'),label:'방금 올라온 따끈한 후기',bg:'#FFF8EB',accent:'#D97706'},
+          {emoji:rvEmoji('rocket'),label:'요즘 뜨는 스타트업 후기',bg:'#F5F0FF',accent:'#8B5CF6'},
+        ];
+        var rvQuotesPopular = [
+          '"퇴사를 고민 중이라면 이 회사는 피하세요"',
+          '"연봉 1.2억인데 워라밸까지 챙길 수 있어요"',
+          '"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"',
+          '"야근 없다더니 진짜 6시에 다 퇴근해요"',
+          '"여기 다니면서 처음으로 일이 재밌었어요"',
+          '"면접에서 이런 질문을 받았는데 당황했어요"',
+          '"신입으로 들어갔는데 사수가 너무 잘 알려줘요"',
+          '"자유로운 분위기라더니 야근 압박이 장난 아닙니다"',
+        ];
+        // === 내 직무 (로그인+직무입력) — 개인화 ===
+        var rvThemesMyJob = [
+          {emoji:rvEmoji('briefcase'),label:'{job} 3년차가 쓴 후기',bg:'#F0F4FF',accent:'#3B82F6'},
+          {emoji:rvEmoji('moneybag'),label:'{job} 연봉 TOP 5 회사',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('rocket'),label:'{job}로 이직한 사람들의 후기',bg:'#F5F0FF',accent:'#8B5CF6'},
+          {emoji:rvEmoji('star'),label:'{job}으로 입사하면 좋은 회사',bg:'#FFFBEB',accent:'#F59E0B'},
+          {emoji:rvEmoji('barchart'),label:'{job} 성장하기 좋은 환경',bg:'#F0FFF4',accent:'#22C55E'},
+          {emoji:rvEmoji('handshake'),label:'{job} 팀 문화 좋다는 회사',bg:'#FFF5F0',accent:'#FF6B35'},
+        ];
+        var rvQuotesMyJob = [
+          '"{job} 3년차인데 여기서 가장 많이 성장했어요"',
+          '"{job} 연봉이 업계 최고 수준이에요"',
+          '"{job}로 이직했는데 전 회사와 비교 불가에요"',
+          '"{job} 신입도 바로 실무에 투입되는 환경"',
+          '"{job}한테 자율권을 많이 주는 회사에요"',
+          '"{job} 팀 분위기가 정말 좋아서 출근이 즐거워요"',
+        ];
+        // === 팔로우 기업 (로그인) ===
+        var rvThemesFollow = [
+          {emoji:rvEmoji('thunder'),label:'팔로우한 기업의 최신 후기',bg:'#FFF8EB',accent:'#D97706'},
+          {emoji:rvEmoji('moneybag'),label:'팔로우 기업 연봉 변동',bg:'#FFFBEB',accent:'#D97706'},
+          {emoji:rvEmoji('briefcase'),label:'팔로우 기업 채용 소식',bg:'#F0F4FF',accent:'#3B82F6'},
+          {emoji:rvEmoji('star'),label:'팔로우 기업 평점 변화',bg:'#FFFBEB',accent:'#F59E0B'},
+        ];
+        var rvQuotesFollow = [
+          '"최근 조직 개편 이후 분위기가 많이 달라졌어요"',
+          '"올해 연봉 인상률이 업계 평균보다 높았어요"',
+          '"대규모 채용 중인데 면접 분위기가 좋았어요"',
+          '"경영진이 바뀌고 나서 복지가 확 좋아졌어요"',
+        ];
+        var rvCompanies = [
+          {co:'비바리퍼블리카',logo:'https://jelin-cc.github.io/jobplanet-ut/toss.png',score:'4.1'},
+          {co:'(주)당근마켓',logo:'https://jelin-cc.github.io/jobplanet-ut/당근.png',score:'4.0'},
+          {co:'네이버',logo:'https://jelin-cc.github.io/jobplanet-ut/naver.png',score:'3.8'},
+          {co:'카카오',logo:'https://jelin-cc.github.io/jobplanet-ut/kakao.png',score:'3.5'},
+          {co:'쿠팡',logo:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_4.svg',score:'3.2'},
+          {co:'배달의민족',logo:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_5.svg',score:'3.9'},
+        ];
+        var rvHelps = [47,32,28,19,63,41,55,22];
+
+        function shuffleArr(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+
+        function renderReviewCards(){
+          // 활성 탭 확인
+          var activeBtn = document.querySelector('.rv-cat.active');
+          var activeCat = 'popular';
+          if(activeBtn){
+            var txt = activeBtn.textContent.trim();
+            if(txt.indexOf('전/현직장')!==-1) activeCat='mycompany';
+            else if(txt.indexOf('내 직무')!==-1) activeCat='myjob';
+            else if(txt.indexOf('팔로우')!==-1) activeCat='follow';
+          }
+          var themes, quotes;
+          var job = (typeof obSelectedJob!=='undefined' && obSelectedJob) ? obSelectedJob : '개발';
+          if(activeCat==='mycompany'){
+            themes = shuffleArr(rvThemesMyCompany).slice(0,4);
+            quotes = shuffleArr(rvQuotesMyCompany);
+          } else if(activeCat==='myjob'){
+            themes = shuffleArr(rvThemesMyJob).slice(0,4).map(function(t){
+              return {emoji:t.emoji, label:t.label.replace(/\{job\}/g, job)};
+            });
+            quotes = shuffleArr(rvQuotesMyJob).map(function(q){ return q.replace(/\{job\}/g, job); });
+          } else if(activeCat==='follow'){
+            themes = shuffleArr(rvThemesFollow).slice(0,4);
+            quotes = shuffleArr(rvQuotesFollow);
+          } else {
+            themes = shuffleArr(rvThemesPopular).slice(0,4);
+            quotes = shuffleArr(rvQuotesPopular);
+          }
+          var companies = shuffleArr(rvCompanies);
+          var helps = shuffleArr(rvHelps);
+
+          var html = themes.map(function(t,i){
+            var comp = companies[i % companies.length];
+            var quote = quotes[i % quotes.length];
+            var helpN = helps[i % helps.length];
+            var bg = t.bg || '#F8F9FA';
+            var accent = t.accent || 'var(--tx3)';
+            return '<div class="rv-card" onclick="goToCompanyReview(\''+comp.co+'\',\''+comp.score+'\')" style="cursor:pointer;padding:0;overflow:hidden;display:flex;flex-direction:column;min-width:300px;max-width:340px;flex-shrink:0;transition:transform .15s,box-shadow .15s;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 24px rgba(0,0,0,.1)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'\'">'
+              +'<div style="padding:22px 22px 18px;display:flex;flex-direction:column;height:100%;background:linear-gradient(180deg,'+bg+' 0%,'+bg+' 40%,#fff 70%,#fff 100%);">'
+              /* 테마 라벨 */
+              +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">'
+              +'<span style="flex-shrink:0;">'+t.emoji+'</span>'
+              +'<span style="font-size:14px;font-weight:700;color:'+accent+';">'+t.label+'</span>'
+              +'</div>'
+              /* 리뷰 인용 — 메인 히어로 */
+              +'<p style="font-size:16px;font-weight:600;color:var(--tx);line-height:1.65;margin:0;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-.2px;">'+quote+'</p>'
+              /* 하단: 기업 + 도움 수 */
+              +'<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--ln2);display:flex;align-items:center;justify-content:space-between;">'
+              +'<div style="display:flex;align-items:center;gap:6px;">'
+              +'<img src="'+comp.logo+'" alt="" style="width:20px;height:20px;object-fit:contain;border-radius:3px;">'
+              +'<span style="font-size:12px;font-weight:500;color:var(--tx4);">'+comp.co+'</span>'
+              +'</div>'
+              +'<span style="font-size:11px;color:var(--tx4);">'+helpN+'명에게 도움됨</span>'
+              +'</div>'
+              +'</div>'
+              +'</div>';
+          }).join('');
+
+          document.getElementById('rv-grid').innerHTML = html;
+        }
+        function scrollReviewCards(dir){
+          var el = document.getElementById('rv-grid');
+          if(dir < 0){ el.scrollTo({left: 0, behavior:'smooth'}); }
+          else { el.scrollBy({left: 340, behavior:'smooth'}); }
+          setTimeout(updateRvScrollBtns, 350);
+        }
+        function updateRvScrollBtns(){
+          var el = document.getElementById('rv-grid');
+          var left = document.getElementById('rv-scroll-left');
+          var right = document.getElementById('rv-scroll-right');
+          if(!el||!left||!right) return;
+          var atStart = el.scrollLeft <= 10;
+          var atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 10;
+          var fade = document.getElementById('rv-scroll-fade');
+          left.style.display = atStart ? 'none' : 'flex';
+          right.style.display = atEnd ? 'none' : 'flex';
+          if(fade) fade.style.display = atEnd ? 'none' : '';
+        }
+        // 스크롤 이벤트로도 업데이트
+        document.addEventListener('DOMContentLoaded', function(){
+          var el = document.getElementById('rv-grid');
+          if(el) el.addEventListener('scroll', updateRvScrollBtns);
+        });
+        // 헬퍼: 회사명 클릭 → 기업 상세
+        window.goToCompany = function(name, score){
+          openCompany({name:name, score:parseFloat(score)||3.5, industry:'기타', loc:'서울', year:2010, size:100, jobs:3, pct:65, initial:name.charAt(0), keywords:[]});
+        };
+        // 헬퍼: 리뷰 자세히 보기 → 기업 상세 리뷰 탭
+        window.goToCompanyReview = function(name, score){
+          openCompany({name:name, score:parseFloat(score)||3.5, industry:'기타', loc:'서울', year:2010, size:100, jobs:3, pct:65, initial:name.charAt(0), keywords:[]});
+          setTimeout(function(){
+            var t = document.querySelector('#page-company [data-tab="review"]');
+            if(t) t.click();
+          }, 200);
+        };
+        // 페이지 로드 완료 후 렌더링
+        document.addEventListener('DOMContentLoaded', function(){ renderReviewCards(); });
+        // 즉시 실행도 시도 (DOMContentLoaded 이미 지난 경우)
+        if(typeof obSelectedJob!=='undefined') renderReviewCards();
       </script>
 
     </div><!-- /left -->
@@ -20997,7 +20997,7 @@ function closeRatePopup() {
     </div>
   </div>
 
-<footer class="footer"><div class="fi"><div class="flinks"><a href="#">회사소개</a><a href="#" class="bold">이용약관</a><a href="#">개인정보처리방침</a><a href="#">고객 문의</a></div><div class="finfo">(주)브레인커머스 | 서울특별시 강남구 테헤란로 142 | &copy; 2026 Jobplanet.</div></div></footer>
+<footer class="footer"><div class="fi"><div class="flinks"><a href="#">회사소개</a><a href="#" class="bold">이용약관</a><a href="#">개인정보처리방침</a><a href="#">고객 문의</a></div><div class="finfo">잡플래닛(유) | 서울특별시 강남구 테헤란로 142 | &copy; 2026 Jobplanet.</div></div></footer>
 
 <script>
   /* 온보딩 팝업 */
