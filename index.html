@@ -10188,7 +10188,7 @@
 
       <!-- 면접 질문 뷰 (토글) -->
       <style>.ivq-cb{width:15px;height:15px;accent-color:#00c362;cursor:pointer;-webkit-appearance:none;appearance:none;border:1.5px solid #d1d5db;border-radius:4px;position:relative;flex-shrink:0;}.ivq-cb:checked{background:#00c362;border-color:#00c362;}.ivq-cb:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}</style>
-      <div id="iv-questions-view" style="display:none;width:100%;font-family:'Pretendard',var(--font),sans-serif;">
+      <div id="iv-questions-view" style="display:none;width:100%;font-family:'Pretendard',var(--font),sans-serif;"><div style="display:flex;gap:20px;"><div style="flex:1;min-width:0;">
         <!-- 면접 질문 필터 -->
         <div style="display:flex;gap:8px;padding:6px 0 12px;flex-wrap:wrap;align-items:center;position:relative;">
           <button id="ivq-filter-dept" onclick="toggleIvqFilterPanel('dept')" style="padding:8px 16px;border:1px solid #e5e6e9;border-radius:8px;font-size:13px;font-weight:600;color:#242628;background:#fff;cursor:pointer;font-family:'Pretendard',sans-serif;display:flex;align-items:center;gap:6px;">직군 <span style="font-size:10px;">▾</span></button>
@@ -10230,6 +10230,35 @@
         </div>
         <!-- 면접 질문 카드 목록 -->
         <div id="ivq-card-list" style="display:flex;flex-direction:column;gap:12px;width:100%;"></div>
+      </div><!-- /left column -->
+      <!-- 우측 사이드바: 면접 경험 좋은 기업 -->
+      <div style="width:280px;flex-shrink:0;">
+        <div style="position:sticky;top:120px;">
+          <div style="border-radius:14px;outline:1px solid #E5E6E9;padding:16px 20px;background:#fff;">
+            <div style="font-size:14px;font-weight:700;color:#242628;margin-bottom:4px;">😊 면접 경험이 좋은 기업</div>
+            <div style="font-size:11px;color:#949ba8;margin-bottom:10px;">면접 경험 "긍정적" 비율 기준</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid #00c362;border-radius:10px;background:#fff;">
+                <div style="width:24px;height:24px;border-radius:6px;background:#FFF5F0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#ff6813;flex-shrink:0;">당근</div>
+                <span style="font-size:12px;font-weight:700;color:#242628;flex:1;">당근마켓</span>
+                <span style="font-size:11px;font-weight:700;color:#00c362;">긍정 87%</span>
+              </div>
+              <div style="padding:6px 12px 10px;font-size:12px;color:#686a6d;line-height:18px;">"면접관이 편안한 분위기를 만들어줌. 지원자를 존중하는 느낌이 확실히 들었음."</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:#f7f8f9;">
+                <div style="width:24px;height:24px;border-radius:6px;background:#ECFBEF;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;color:#1EC800;flex-shrink:0;">LINE</div>
+                <span style="font-size:12px;font-weight:700;color:#242628;flex:1;">라인플러스</span>
+                <span style="font-size:11px;font-weight:700;color:#00c362;">긍정 82%</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:#f7f8f9;">
+                <div style="width:24px;height:24px;border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><img src="naver.png" alt="" style="max-width:20px;max-height:10px;"></div>
+                <span style="font-size:12px;font-weight:700;color:#242628;flex:1;">네이버</span>
+                <span style="font-size:11px;font-weight:700;color:#00c362;">긍정 78%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div><!-- /flex row -->
       </div>
 
       <div class="rv-card-list">
@@ -26553,15 +26582,18 @@ function closeRatePopup() {
       html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">';
       // Left side
       html += '<div style="flex:1;min-width:0;">';
-      html += '<div style="font-size:14px;font-weight:700;color:#242628;margin-bottom:6px;">' + item.dept + '</div>';
+      var rvCount = (Math.floor(Math.random()*5000)+2000).toLocaleString();
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">';
+      html += '<div style="font-size:14px;font-weight:700;color:#242628;">' + item.dept + '</div>';
+      html += '<span style="display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:#EBF4FF;border-radius:20px;font-size:11px;font-weight:600;color:#3182F6;white-space:nowrap;letter-spacing:-.2px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>면접후기 '+rvCount+'건 기반</span>';
+      html += '</div>';
       html += '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">';
       html += '<span style="display:inline-block;padding:4px 6px;border-radius:6px;font-size:11px;font-weight:600;background:' + bc.bg + ';color:' + bc.color + ';white-space:nowrap;flex-shrink:0;">' + item.type + '</span>';
-      html += '<span style="font-size:13px;font-weight:500;color:#242628;line-height:22px;">' + item.question + '</span>';
+      html += '<span style="font-size:13px;font-weight:500;color:#242628;line-height:22px;">Q. ' + item.question + '</span>';
       html += '</div>';
       html += '</div>';
-      // Right side - AI button with data badge (Toss style)
+      // Right side - AI button
       html += '<div style="flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px;">';
-      html += '<span style="display:inline-flex;align-items:center;gap:3px;padding:3px 8px;background:#EBF4FF;border-radius:20px;font-size:11px;font-weight:600;color:#3182F6;white-space:nowrap;letter-spacing:-.2px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3182F6" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>면접후기 4,728건 기반 AI 답변</span>';
       html += '<button style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:#242628;border-radius:8px;border:none;font-size:12px;font-weight:600;color:#fff;cursor:pointer;font-family:\'Pretendard\',sans-serif;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.1);">';
       html += '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg> AI 답변 확인하기';
       html += '</button>';
