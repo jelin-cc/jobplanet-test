@@ -3761,16 +3761,27 @@
   .th3-empty{text-align:center;padding:64px 20px;color:var(--tx4);font-size:14px;background:#fff;border:1px dashed var(--ln);border-radius:16px;}
   .th3-empty strong{color:var(--tx2);font-weight:700;display:block;margin-bottom:4px;font-size:15px;}
 
-  /* ====== Modular View (다방 스타일 기능 허브) ====== */
-  .th3-modular{display:none;margin-top:48px;animation:tmFade .35s ease;}
+  /* ====== Modular View (검색 중심 기능 허브) ====== */
+  .th3-modular{display:none;margin-top:56px;animation:tmFade .35s ease;}
   @keyframes tmFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
   #page-home.modular-view .th3-modular{display:block;}
   #page-home.modular-view .th3-blocks{display:none;}
-  #page-home.modular-view .th3-wrap{padding:40px 24px 140px;}
-  #page-home.modular-view .th3-head{font-size:20px;font-weight:700;color:var(--tx2);margin:0 0 4px;letter-spacing:-.3px;}
+  #page-home.modular-view .th3-wrap{padding:56px 24px 140px;}
+  #page-home.modular-view .th3-head{font-size:28px;font-weight:700;color:var(--tx);margin:0 0 2px;letter-spacing:-.6px;line-height:1.3;}
   #page-home.modular-view .th3-head em{color:var(--brand);}
   #page-home.modular-view .th3-sub{display:none;}
-  #page-home.modular-view .th3-search-wrap{margin-top:18px;}
+  #page-home.modular-view .th3-search-wrap{margin-top:22px;max-width:600px;}
+  #page-home.modular-view .th3-search{height:52px;padding:0 6px 0 22px;border:1.5px solid transparent;background:#F2F4F6;}
+  #page-home.modular-view .th3-search:focus-within{border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px rgba(0,194,116,.10);}
+  #page-home.modular-view .th3-search input{font-size:14.5px;font-weight:500;}
+  #page-home.modular-view .th3-search-btn{width:40px;height:40px;}
+
+  /* 빠른 진입 칩 (검색 허브 강화) */
+  .th3-quick-chips{display:none;align-items:center;justify-content:center;gap:6px;margin-top:14px;flex-wrap:wrap;max-width:600px;margin-left:auto;margin-right:auto;}
+  #page-home.modular-view .th3-quick-chips{display:flex;}
+  .th3-qc-label{font-size:12px;color:var(--tx3);font-weight:700;letter-spacing:-.1px;margin-right:4px;display:inline-flex;align-items:center;gap:4px;}
+  .th3-qc{padding:6px 12px;background:#fff;border:1px solid var(--ln);border-radius:var(--rfull);font-size:12.5px;font-weight:600;color:var(--tx2);cursor:pointer;font-family:var(--font);transition:all .15s;letter-spacing:-.1px;}
+  .th3-qc:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-lt);}
 
   .th3-modular-top{display:block;}
   .th3-modular-main{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:14px;}
@@ -3832,6 +3843,14 @@
         </button>
       </form>
       <div class="th3-search-dd" id="th3SearchDD"></div>
+    </div>
+    <div class="th3-quick-chips" aria-label="인기 기업 빠른 검색">
+      <span class="th3-qc-label">지금 많이 찾아요</span>
+      <button type="button" class="th3-qc" onclick="th3SearchDDPick('토스')">토스</button>
+      <button type="button" class="th3-qc" onclick="th3SearchDDPick('당근')">당근</button>
+      <button type="button" class="th3-qc" onclick="th3SearchDDPick('카카오')">카카오</button>
+      <button type="button" class="th3-qc" onclick="th3SearchDDPick('네이버')">네이버</button>
+      <button type="button" class="th3-qc" onclick="th3SearchDDPick('배달의민족')">배달의민족</button>
     </div>
   </section>
 
