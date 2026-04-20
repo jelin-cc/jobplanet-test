@@ -3575,12 +3575,12 @@
   .th3-search-btn{border:none;background:none;cursor:pointer;color:var(--brand);width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .15s;flex-shrink:0;}
   .th3-search-btn:hover{color:var(--brand-dk);}
 
-  .th3-blocks{margin-top:88px;display:flex;flex-direction:column;gap:72px;}
-  .th3-block-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;gap:16px;}
-  .th3-block-hd-left{display:flex;flex-direction:column;gap:4px;min-width:0;}
-  .th3-block-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:4px 10px;border-radius:var(--rfull);width:fit-content;letter-spacing:-.1px;}
-  .th3-block-title{font-size:20px;font-weight:700;color:var(--tx);margin:0;letter-spacing:-.3px;}
-  .th3-block-sub{font-size:13px;color:var(--tx3);letter-spacing:-.1px;}
+  .th3-blocks{margin-top:88px;display:flex;flex-direction:column;gap:80px;}
+  .th3-block-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;gap:16px;}
+  .th3-block-hd-left{display:flex;flex-direction:column;min-width:0;}
+  .th3-block-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:5px 11px;border-radius:var(--rfull);width:fit-content;letter-spacing:-.1px;margin-bottom:14px;}
+  .th3-block-title{font-size:22px;font-weight:700;color:var(--tx);margin:0 0 8px;letter-spacing:-.5px;line-height:1.25;}
+  .th3-block-sub{font-size:14px;color:var(--tx3);letter-spacing:-.1px;line-height:1.5;}
   .th3-block-more{font-size:13px;color:var(--tx3);cursor:pointer;border:none;background:none;font-family:var(--font);font-weight:600;flex-shrink:0;padding:6px 2px;transition:color .15s;}
   .th3-block-more:hover{color:var(--brand);}
 
@@ -3590,8 +3590,8 @@
   .th3-pick-tab:hover{background:#E5E8EB;}
   .th3-pick-tab.active{background:var(--tx);color:#fff;}
   .th3-pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .th3-pick-card{position:relative;background:#fff;border-radius:20px;padding:22px 22px 20px;cursor:pointer;transition:all .18s;box-shadow:0 1px 3px rgba(17,24,39,0.04);overflow:hidden;}
-  .th3-pick-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(17,24,39,0.08);}
+  .th3-pick-card{position:relative;background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:22px 22px 20px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);overflow:hidden;}
+  .th3-pick-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 16px 32px rgba(17,24,39,0.08);border-color:#E5E8EB;}
   .th3-pick-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 75%);}
   .th3-pick-card.red{background:linear-gradient(180deg,#FEF2F2 0%,#fff 75%);}
   .th3-pick-card.purple{background:linear-gradient(180deg,#F5F3FF 0%,#fff 75%);}
@@ -3610,7 +3610,7 @@
   .th3-pick-helpful::before{content:'';width:4px;height:4px;background:var(--tx4);border-radius:50%;}
 
   /* Urgent jobs */
-  .th3-urgent{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 1px 3px rgba(17,24,39,0.04);}
+  .th3-urgent{background:#fff;border:1px solid #F2F4F6;border-radius:20px;overflow:hidden;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
   .th3-urgent-item{display:flex;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid var(--ln2);cursor:pointer;transition:background .15s;}
   .th3-urgent-item:last-child{border-bottom:none;}
   .th3-urgent-item:hover{background:#F9FAFB;}
@@ -3624,8 +3624,8 @@
 
   /* Follow updates */
   .th3-follow-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-  .th3-follow-card{display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;padding:20px 22px;cursor:pointer;transition:all .15s;box-shadow:0 1px 3px rgba(17,24,39,0.04);}
-  .th3-follow-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(17,24,39,0.08);}
+  .th3-follow-card{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #F2F4F6;border-radius:16px;padding:20px 22px;cursor:pointer;transition:all .15s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
+  .th3-follow-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 12px 28px rgba(17,24,39,0.08);border-color:#E5E8EB;}
   .th3-follow-logo{width:44px;height:44px;border-radius:12px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--brand);flex-shrink:0;font-size:15px;position:relative;}
   .th3-follow-logo::after{content:'';position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:#EF4444;border:2px solid #fff;}
   .th3-follow-body{flex:1;min-width:0;}
@@ -3636,7 +3636,7 @@
   .th3-follow-chev{color:var(--tx4);flex-shrink:0;}
 
   /* Interview TOP 10 */
-  .th3-iq{background:#fff;border-radius:20px;padding:12px 0;box-shadow:0 1px 3px rgba(17,24,39,0.04);}
+  .th3-iq{background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:12px 0;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
   .th3-iq-item{display:flex;align-items:center;gap:16px;padding:14px 24px;cursor:pointer;transition:background .15s;}
   .th3-iq-item:hover{background:#F9FAFB;}
   .th3-iq-rank{font-size:16px;font-weight:800;color:var(--brand);width:28px;flex-shrink:0;letter-spacing:-.3px;}
@@ -3657,7 +3657,7 @@
   .th3-theme-desc{font-size:13px;color:var(--tx2);opacity:.85;}
 
   /* Salary block — Toss-style 디벨롭 */
-  .th3-salary{background:#fff;border-radius:24px;padding:36px 40px 28px;box-shadow:0 1px 3px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
+  .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:36px 40px 28px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
   .th3-salary-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:16px;flex-wrap:wrap;}
   .th3-salary-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:4px 10px;border-radius:var(--rfull);letter-spacing:-.1px;}
   .th3-salary-trust{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--tx3);font-weight:600;}
@@ -3962,7 +3962,7 @@
     if(!container) return;
     var active = TH3_STATE.order.filter(function(id){return TH3_STATE.enabled[id];});
     if(active.length === 0){
-      container.innerHTML = '<div class="th3-empty"><strong>노출할 블록이 없어요</strong>우하단 "훅 블록 관리"에서 블록을 켜보세요</div>';
+      container.innerHTML = '<div class="th3-empty"><strong>노출할 블록이 없어요</strong>우하단 "홈 관리"에서 블록을 켜보세요</div>';
       return;
     }
     container.innerHTML = active.map(function(id){
@@ -25605,7 +25605,7 @@ function closeRatePopup() {
   window._ivQuestionsMode = false;
 })();
 </script>
-<!-- ====== Toss-style 훅 블록 관리자 v3 ====== -->
+<!-- ====== Toss-style 홈 관리자 v3 ====== -->
 <style>
   /* 어드민 트리거 */
   .th3-admin-trigger{position:fixed;bottom:24px;right:24px;z-index:201;background:#fff;border:1px solid var(--ln);color:var(--tx2);border-radius:var(--rfull);padding:10px 16px 10px 14px;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.08);transition:all .15s;}
@@ -25665,14 +25665,14 @@ function closeRatePopup() {
 
 <button type="button" class="th3-admin-trigger" onclick="th3AdminOpen()">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-  훅 블록 관리
+  홈 관리
 </button>
 
 <div class="th3-admin-overlay" id="th3AdminOverlay" onclick="if(event.target===this)th3AdminClose()">
-  <div class="th3-admin" role="dialog" aria-label="훅 블록 관리">
+  <div class="th3-admin" role="dialog" aria-label="홈 관리">
     <div class="th3-admin-hd">
       <div class="th3-admin-ti">
-        <h2 class="th3-admin-title">훅 블록 관리</h2>
+        <h2 class="th3-admin-title">홈 관리</h2>
         <p class="th3-admin-subtitle">홈에 노출될 블록을 켜고, 드래그로 순서를 바꿔보세요.</p>
       </div>
       <button type="button" class="th3-admin-close" onclick="th3AdminClose()" aria-label="닫기">
