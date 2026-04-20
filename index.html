@@ -3584,20 +3584,21 @@
   .th3-search-dd-section-title-right{font-size:11px;color:var(--tx4);font-weight:500;}
   .th3-search-dd-clear{background:none;border:none;color:var(--tx4);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);padding:2px 4px;}
   .th3-search-dd-clear:hover{color:var(--tx2);}
-  .th3-search-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;cursor:pointer;transition:background .15s;font-size:14px;color:var(--tx);}
+  .th3-search-dd-item{display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:10px 14px;border-radius:10px;cursor:pointer;transition:background .15s;font-size:14px;color:var(--tx);text-align:left;}
   .th3-search-dd-item:hover{background:#F9FAFB;}
   .th3-search-dd-item-icon{width:16px;height:16px;color:var(--tx4);flex-shrink:0;}
-  .th3-search-dd-item-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .th3-search-dd-item-text{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left!important;}
   .th3-search-dd-item-text strong{color:var(--brand);font-weight:700;}
   .th3-search-dd-item-remove{background:none;border:none;cursor:pointer;color:var(--tx4);padding:4px;display:flex;align-items:center;justify-content:center;border-radius:4px;opacity:0;transition:opacity .15s;flex-shrink:0;}
   .th3-search-dd-item-remove:hover{background:var(--ln2);color:var(--tx2);}
   .th3-search-dd-item:hover .th3-search-dd-item-remove{opacity:1;}
   .th3-search-dd-rank{display:inline-flex;align-items:center;justify-content:center;width:18px;font-size:13px;font-weight:700;color:var(--tx2);flex-shrink:0;letter-spacing:-.2px;}
   .th3-search-dd-rank.hot{color:#EF4444;}
-  .th3-search-dd-trend{font-size:10px;font-weight:700;flex-shrink:0;letter-spacing:-.1px;padding:2px 6px;border-radius:var(--rfull);}
+  .th3-search-dd-trend{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;flex-shrink:0;letter-spacing:-.1px;padding:3px 8px;border-radius:var(--rfull);}
   .th3-search-dd-trend.up{color:#EF4444;background:#FEF2F2;}
+  .th3-search-dd-trend.down{color:#2563EB;background:#EFF6FF;}
   .th3-search-dd-trend.new{color:var(--brand);background:var(--brand-lt);}
-  .th3-search-dd-trend.down{color:#6B7280;background:#F3F4F6;}
+  .th3-search-dd-trend.same{color:var(--tx4);background:#F3F4F6;}
   .th3-search-dd-div{height:1px;background:var(--ln2);margin:10px 14px;}
   .th3-search-dd-empty{padding:24px 14px;text-align:center;font-size:13px;color:var(--tx4);}
 
@@ -4049,16 +4050,16 @@
   window.th3Go = function(page){ if(window.go) go(page); };
 
   var TH3_POPULAR = [
-    {rank:1, text:'카카오', trend:'up'},
-    {rank:2, text:'토스', trend:'up'},
-    {rank:3, text:'네이버', trend:null},
-    {rank:4, text:'당근', trend:'new'},
-    {rank:5, text:'배달의민족', trend:'up'},
-    {rank:6, text:'쿠팡', trend:null},
-    {rank:7, text:'라인플러스', trend:'down'},
-    {rank:8, text:'크래프톤', trend:null},
-    {rank:9, text:'29CM', trend:'new'},
-    {rank:10, text:'삼성전자', trend:'down'}
+    {rank:1, text:'카카오',       trend:'up',   delta:2},
+    {rank:2, text:'토스',         trend:'up',   delta:1},
+    {rank:3, text:'네이버',       trend:'same', delta:0},
+    {rank:4, text:'당근',         trend:'new'},
+    {rank:5, text:'배달의민족',   trend:'up',   delta:3},
+    {rank:6, text:'쿠팡',         trend:'same', delta:0},
+    {rank:7, text:'라인플러스',   trend:'down', delta:2},
+    {rank:8, text:'크래프톤',     trend:'same', delta:0},
+    {rank:9, text:'29CM',         trend:'new'},
+    {rank:10,text:'삼성전자',     trend:'down', delta:4}
   ];
   var TH3_ALL_KW = [
     '토스','토스뱅크','토스페이먼츠','토스증권',
@@ -4115,10 +4116,11 @@
         var h12 = ((h+11)%12)+1;
         return ampm+' '+h12+'시 기준';
       })();
-      var trendHTMLFn = function(t){
-        if(t==='up') return '<span class="th3-search-dd-trend up">▲</span>';
-        if(t==='down') return '<span class="th3-search-dd-trend down">▼</span>';
+      var trendHTMLFn = function(t, d){
+        if(t==='up') return '<span class="th3-search-dd-trend up">▲ '+(d||1)+'</span>';
+        if(t==='down') return '<span class="th3-search-dd-trend down">▼ '+(d||1)+'</span>';
         if(t==='new') return '<span class="th3-search-dd-trend new">NEW</span>';
+        if(t==='same') return '<span class="th3-search-dd-trend same">−</span>';
         return '';
       };
       var popularHTML = '<div class="th3-search-dd-section">'+
@@ -4128,7 +4130,7 @@
           return '<div class="th3-search-dd-item" onclick="th3SearchDDPick(\''+attr+'\')">'+
             '<span class="th3-search-dd-rank'+(p.rank<=3?' hot':'')+'">'+p.rank+'</span>'+
             '<span class="th3-search-dd-item-text">'+th3EscHtml(p.text)+'</span>'+
-            trendHTMLFn(p.trend)+
+            trendHTMLFn(p.trend, p.delta)+
           '</div>';
         }).join('')+
       '</div>';
