@@ -3576,19 +3576,22 @@
   .th3-search-btn:hover{color:var(--brand-dk);}
 
   .th3-blocks{margin-top:88px;display:flex;flex-direction:column;gap:80px;}
-  .th3-block-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;gap:16px;}
-  .th3-block-hd-left{display:flex;flex-direction:column;min-width:0;}
-  .th3-block-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:5px 11px;border-radius:var(--rfull);width:fit-content;letter-spacing:-.1px;margin-bottom:14px;}
-  .th3-block-title{font-size:22px;font-weight:700;color:var(--tx);margin:0 0 8px;letter-spacing:-.5px;line-height:1.25;}
-  .th3-block-sub{font-size:14px;color:var(--tx3);letter-spacing:-.1px;line-height:1.5;}
+  .th3-block-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;gap:16px;}
+  .th3-block-hd-left{display:flex;flex-direction:column;min-width:0;gap:8px;}
+  .th3-block-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:5px 11px;border-radius:var(--rfull);width:fit-content;letter-spacing:-.1px;margin:0 0 4px;}
+  .th3-block-title{font-size:22px;font-weight:700;color:var(--tx);margin:0;letter-spacing:-.5px;line-height:1.25;}
+  .th3-block-sub{font-size:14px;color:var(--tx3);letter-spacing:-.1px;line-height:1.5;margin:0;}
   .th3-block-more{font-size:13px;color:var(--tx3);cursor:pointer;border:none;background:none;font-family:var(--font);font-weight:600;flex-shrink:0;padding:6px 2px;transition:color .15s;}
   .th3-block-more:hover{color:var(--brand);}
 
   /* Pick reviews — 지금 뜨는 기업 리뷰 */
-  .th3-pick-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+  .th3-pick-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
   .th3-pick-tab{padding:8px 16px;border:none;background:#F2F4F6;color:var(--tx2);font-size:13px;font-weight:700;border-radius:var(--rfull);cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
   .th3-pick-tab:hover{background:#E5E8EB;}
   .th3-pick-tab.active{background:var(--tx);color:#fff;}
+  .th3-pick-all{margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:var(--rfull);border:1.5px solid var(--ln);background:#fff;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx3);transition:all .15s;}
+  .th3-pick-all:hover{border-color:var(--brand);color:var(--brand);}
+  .th3-pick-all svg{width:12px;height:12px;}
   .th3-pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
   .th3-pick-card{position:relative;background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:22px 22px 20px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);overflow:hidden;}
   .th3-pick-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 16px 32px rgba(17,24,39,0.08);border-color:#E5E8EB;}
@@ -3828,8 +3831,9 @@
       var tabsHTML = tabs.map(function(t,i){
         return '<button type="button" class="th3-pick-tab'+(i===0?' active':'')+'" data-tab="'+t.key+'" onclick="th3PickTab(this,\''+t.key+'\')"><span>'+t.emoji+'</span>'+t.label+'</button>';
       }).join('');
+      var allBtn = '<button type="button" class="th3-pick-all" onclick="th3Go(\'review\')">전체보기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>';
 
-      return '<div class="th3-pick-tabs">'+tabsHTML+'</div>'+
+      return '<div class="th3-pick-tabs">'+tabsHTML+allBtn+'</div>'+
              '<div class="th3-pick-grid" id="th3PickGrid">'+th3PickCards('hot')+'</div>';
     },
     urgent: function(){
@@ -3998,6 +4002,7 @@
       var h = headers[id] || {label:'',title:(TH3_BLOCKS.find(function(x){return x.id===id;})||{}).name||'',sub:'',more:'review'};
       var body = renderers[id] ? renderers[id]() : '';
       if(id === 'salary') return '<section class="th3-block" data-id="'+id+'">'+body+'</section>';
+      var hideMore = (id === 'pick');
       return '<section class="th3-block" data-id="'+id+'">'+
         '<div class="th3-block-hd">'+
           '<div class="th3-block-hd-left">'+
@@ -4005,7 +4010,7 @@
             '<h2 class="th3-block-title">'+h.title+'</h2>'+
             (h.sub  ? '<span class="th3-block-sub">'+h.sub+'</span>' : '')+
           '</div>'+
-          '<button type="button" class="th3-block-more" onclick="th3Go(\''+(h.more||'review')+'\')">전체 보기 ›</button>'+
+          (hideMore ? '' : '<button type="button" class="th3-block-more" onclick="th3Go(\''+(h.more||'review')+'\')">전체 보기 ›</button>')+
         '</div>'+
         body+
       '</section>';
