@@ -3584,19 +3584,30 @@
   .th3-block-more{font-size:13px;color:var(--tx3);cursor:pointer;border:none;background:none;font-family:var(--font);font-weight:600;flex-shrink:0;padding:6px 2px;transition:color .15s;}
   .th3-block-more:hover{color:var(--brand);}
 
-  /* Pick reviews */
+  /* Pick reviews — 지금 뜨는 기업 리뷰 */
+  .th3-pick-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+  .th3-pick-tab{padding:8px 16px;border:none;background:#F2F4F6;color:var(--tx2);font-size:13px;font-weight:700;border-radius:var(--rfull);cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
+  .th3-pick-tab:hover{background:#E5E8EB;}
+  .th3-pick-tab.active{background:var(--tx);color:#fff;}
   .th3-pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .th3-pick-card{position:relative;background:#fff;border-radius:20px;padding:28px 24px 24px;cursor:pointer;transition:all .18s;box-shadow:0 1px 3px rgba(17,24,39,0.04);}
+  .th3-pick-card{position:relative;background:#fff;border-radius:20px;padding:22px 22px 20px;cursor:pointer;transition:all .18s;box-shadow:0 1px 3px rgba(17,24,39,0.04);overflow:hidden;}
   .th3-pick-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(17,24,39,0.08);}
-  .th3-pick-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#EF4444;background:#FEF2F2;padding:4px 10px;border-radius:var(--rfull);margin-bottom:14px;letter-spacing:-.1px;}
-  .th3-pick-tag::before{content:'';width:5px;height:5px;background:#EF4444;border-radius:50%;}
-  .th3-pick-title{font-size:16px;font-weight:700;color:var(--tx);margin:0 0 18px;line-height:1.5;letter-spacing:-.3px;min-height:72px;}
-  .th3-pick-title strong{color:#EF4444;font-weight:700;}
-  .th3-pick-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);padding-top:16px;border-top:1px solid var(--ln2);}
-  .th3-pick-meta-logo{width:24px;height:24px;border-radius:6px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--brand);}
+  .th3-pick-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 75%);}
+  .th3-pick-card.red{background:linear-gradient(180deg,#FEF2F2 0%,#fff 75%);}
+  .th3-pick-card.purple{background:linear-gradient(180deg,#F5F3FF 0%,#fff 75%);}
+  .th3-pick-hd{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+  .th3-pick-emoji{font-size:18px;line-height:1;}
+  .th3-pick-badge{font-size:12px;font-weight:800;letter-spacing:-.2px;}
+  .th3-pick-card.peach .th3-pick-badge{color:#EA580C;}
+  .th3-pick-card.red .th3-pick-badge{color:#EF4444;}
+  .th3-pick-card.purple .th3-pick-badge{color:#8B5CF6;}
+  .th3-pick-title{font-size:15px;font-weight:700;color:var(--tx);margin:0 0 18px;line-height:1.55;letter-spacing:-.3px;min-height:72px;}
+  .th3-pick-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);padding-top:14px;border-top:1px solid rgba(17,24,39,0.06);}
+  .th3-pick-meta-logo{width:22px;height:22px;border-radius:6px;background:#fff;border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tx2);flex-shrink:0;}
   .th3-pick-meta-co{font-weight:700;color:var(--tx2);}
   .th3-pick-meta-dot{color:var(--tx4);}
-  .th3-pick-cta{margin-left:auto;font-size:12px;font-weight:700;color:var(--brand);}
+  .th3-pick-helpful{margin-left:auto;font-size:12px;font-weight:600;color:var(--tx3);display:inline-flex;align-items:center;gap:4px;}
+  .th3-pick-helpful::before{content:'';width:4px;height:4px;background:var(--tx4);border-radius:50%;}
 
   /* Urgent jobs */
   .th3-urgent{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 1px 3px rgba(17,24,39,0.04);}
@@ -3739,7 +3750,7 @@
   window.TH3_BLOCKS = [
     {id:'follow', name:'팔로우 기업 업데이트', desc:'내가 팔로우한 기업의 새 리뷰/공고 알림', period:'항상', defaultOn:true},
     {id:'urgent', name:'마감 임박 공고', desc:'오늘~3일 내 마감 공고 4건', period:'항상', defaultOn:true},
-    {id:'pick', name:'이번주 PICK 리뷰', desc:'단점 중심 자극적 타이틀 리뷰 카드', period:'주간', defaultOn:true},
+    {id:'pick', name:'지금 뜨는 기업 리뷰', desc:'실시간 인기·전현직장·내 직무별 리뷰 피드', period:'주간', defaultOn:true},
     {id:'salary', name:'연봉 비교 입력', desc:'내 연봉을 입력하면 동종업계/직무 평균과 비교', period:'항상', defaultOn:true},
     {id:'interview', name:'면접 질문 TOP 10', desc:'최근 1개월간 가장 많이 등장한 면접 질문', period:'월간', defaultOn:false},
     {id:'theme', name:'테마별 리뷰', desc:'계절/시기별 테마 리뷰 (예: "올해의 연봉왕", "여름휴가 복지 BEST")', period:'계절', defaultOn:false}
@@ -3752,24 +3763,45 @@
 
   var renderers = {
     pick: function(){
-      var picks = [
-        {tag:'단점 4건',title:'연봉 1.2억인데 <strong>번아웃 주의</strong> — 3년차 개발자가 이직한 이유',co:'라인플러스',indl:'IT·개발'},
-        {tag:'단점 3건',title:'복지 BEST지만 <strong>정치 심각</strong> — 대기업 10년차 솔직 리뷰',co:'카카오',indl:'IT·개발'},
-        {tag:'단점 5건',title:'성장은 빠른데 <strong>주 60시간</strong> — 유니콘 스타트업의 민낯',co:'토스',indl:'IT·개발'}
+      var tabs = [
+        {key:'hot', emoji:'🔥', label:'인기 리뷰'},
+        {key:'my', emoji:'🏢', label:'전·현직장'},
+        {key:'job', emoji:'💼', label:'내 직무'}
       ];
-      return '<div class="th3-pick-grid">'+picks.map(function(p){
-        return '<div class="th3-pick-card" onclick="th3Go(\'review\')">'+
-          '<span class="th3-pick-tag">'+p.tag+'</span>'+
+      var tabsHTML = tabs.map(function(t,i){
+        return '<button type="button" class="th3-pick-tab'+(i===0?' active':'')+'" onclick="th3PickTab(this)"><span>'+t.emoji+'</span>'+t.label+'</button>';
+      }).join('');
+
+      var picks = [
+        {variant:'peach', emoji:'💬', badge:'솔직 후기',
+         title:'"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"',
+         co:'쿠팡', indl:'물류·IT', helpful:'32명에게 도움됨'},
+        {variant:'red', emoji:'🔥', badge:'이번주 조회수 폭발',
+         title:'"퇴사를 고민 중이라면 이 회사는 피하세요"',
+         co:'비바리퍼블리카', indl:'IT·핀테크', helpful:'63명에게 도움됨'},
+        {variant:'purple', emoji:'🚀', badge:'요즘 뜨는 기업',
+         title:'"자유로운 분위기가 최고, 다만 연봉은 협상 필요"',
+         co:'네이버', indl:'IT·플랫폼', helpful:'47명에게 도움됨'}
+      ];
+      var cards = picks.map(function(p){
+        return '<div class="th3-pick-card '+p.variant+'" onclick="th3Go(\'review\')">'+
+          '<div class="th3-pick-hd">'+
+            '<span class="th3-pick-emoji">'+p.emoji+'</span>'+
+            '<span class="th3-pick-badge">'+p.badge+'</span>'+
+          '</div>'+
           '<h3 class="th3-pick-title">'+p.title+'</h3>'+
           '<div class="th3-pick-meta">'+
             '<span class="th3-pick-meta-logo">'+p.co.charAt(0)+'</span>'+
             '<span class="th3-pick-meta-co">'+p.co+'</span>'+
             '<span class="th3-pick-meta-dot">·</span>'+
             '<span>'+p.indl+'</span>'+
-            '<span class="th3-pick-cta">기업 상세 ›</span>'+
+            '<span class="th3-pick-helpful">'+p.helpful+'</span>'+
           '</div>'+
         '</div>';
-      }).join('')+'</div>';
+      }).join('');
+
+      return '<div class="th3-pick-tabs">'+tabsHTML+'</div>'+
+             '<div class="th3-pick-grid">'+cards+'</div>';
     },
     urgent: function(){
       var items = [
@@ -3919,7 +3951,7 @@
   var headers = {
     follow:    {label:'내가 팔로우 중', title:'새 소식이 도착했어요',       sub:'팔로우한 기업에 새 리뷰·공고가 올라왔어요', more:'review'},
     urgent:    {label:'놓치면 끝',      title:'마감 임박한 공고',          sub:'오늘 지원하지 않으면 놓칠 수 있어요',      more:'job'},
-    pick:      {label:'이번주 PICK',    title:'이 회사, 단점이 뭐였을까',  sub:'솔직한 단점이 담긴 리뷰만 골랐어요',      more:'review'},
+    pick:      {label:'실시간 HOT',     title:'지금 뜨는 기업 리뷰',       sub:'많은 분들이 보고 있는 이번주 인기 리뷰',  more:'review'},
     salary:    {label:'데이터 기반',    title:'내 연봉, 또래보다 얼마나?', sub:'직무·경력·기업 규모로 30초 만에 비교',  more:'review'},
     interview: {label:'이번 달 인기',   title:'면접 질문 TOP 10',          sub:'최근 1개월 간 가장 많이 등장한 질문',    more:'review'},
     theme:     {label:'시즌 기획',      title:'테마별 리뷰',               sub:'계절·시기별로 모아본 특별 기획',         more:'review'}
@@ -3957,6 +3989,12 @@
     var parent = el.parentElement;
     if(!parent) return;
     parent.querySelectorAll('.th3-salary-chip').forEach(function(c){c.classList.remove('active');});
+    el.classList.add('active');
+  };
+  window.th3PickTab = function(el){
+    var parent = el.parentElement;
+    if(!parent) return;
+    parent.querySelectorAll('.th3-pick-tab').forEach(function(c){c.classList.remove('active');});
     el.classList.add('active');
   };
   window.th3SalaryCompare = function(e){ e.preventDefault(); if(window.showToast) showToast('연봉 비교 기능은 준비 중이에요'); return false; };
