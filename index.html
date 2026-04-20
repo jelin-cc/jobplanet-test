@@ -3608,8 +3608,9 @@
   .th3-block-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:5px 11px;border-radius:var(--rfull);width:fit-content;letter-spacing:-.1px;margin:0 0 4px;}
   .th3-block-title{font-size:22px;font-weight:700;color:var(--tx);margin:0;letter-spacing:-.5px;line-height:1.25;}
   .th3-block-sub{font-size:14px;color:var(--tx3);letter-spacing:-.1px;line-height:1.5;margin:0;}
-  .th3-block-more{font-size:13px;color:var(--tx3);cursor:pointer;border:none;background:none;font-family:var(--font);font-weight:600;flex-shrink:0;padding:6px 2px;transition:color .15s;}
-  .th3-block-more:hover{color:var(--brand);}
+  .th3-block-more{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:var(--rfull);border:1.5px solid var(--ln);background:#fff;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx3);transition:all .15s;flex-shrink:0;}
+  .th3-block-more:hover{border-color:var(--brand);color:var(--brand);}
+  .th3-block-more svg{width:12px;height:12px;}
 
   /* Pick reviews — 지금 뜨는 기업 리뷰 */
   .th3-pick-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
@@ -3682,6 +3683,7 @@
   .th3-theme-card{position:relative;background:linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%);border-radius:20px;padding:32px 32px 36px;cursor:pointer;transition:all .18s;overflow:hidden;}
   .th3-theme-card:nth-child(2){background:linear-gradient(135deg,#FEF3C7 0%,#FDE68A 100%);}
   .th3-theme-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.08);}
+  .th3-theme-emoji{position:absolute;top:24px;right:24px;font-size:44px;line-height:1;opacity:0.95;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.08));}
   .th3-theme-tag{font-size:11px;font-weight:700;color:var(--tx);opacity:.6;margin-bottom:10px;display:block;letter-spacing:-.1px;}
   .th3-theme-title{font-size:18px;font-weight:700;color:var(--tx);margin:0 0 8px;letter-spacing:-.3px;line-height:1.4;}
   .th3-theme-desc{font-size:13px;color:var(--tx2);opacity:.85;}
@@ -3930,11 +3932,16 @@
     },
     theme: function(){
       var items = [
-        {tag:'봄 · 2026',title:'올해의 연봉왕 TOP 10',desc:'업계별 평균 연봉 1위 기업을 한눈에'},
-        {tag:'여름 · 계절',title:'여름휴가 복지 BEST 20',desc:'리프레시 연차·휴가비 지원 기업 모음'}
+        {emoji:'💰', tag:'봄 · 2026', title:'올해의 연봉왕 TOP 10', desc:'업계별 평균 연봉 1위 기업을 한눈에'},
+        {emoji:'🏖️', tag:'여름 · 계절', title:'여름휴가 복지 BEST 20', desc:'리프레시 연차·휴가비 지원 기업 모음'}
       ];
       return '<div class="th3-theme-grid">'+items.map(function(it){
-        return '<div class="th3-theme-card" onclick="th3Go(\'review\')"><span class="th3-theme-tag">'+it.tag+'</span><h3 class="th3-theme-title">'+it.title+'</h3><div class="th3-theme-desc">'+it.desc+'</div></div>';
+        return '<div class="th3-theme-card" onclick="th3Go(\'review\')">'+
+          '<span class="th3-theme-emoji">'+it.emoji+'</span>'+
+          '<span class="th3-theme-tag">'+it.tag+'</span>'+
+          '<h3 class="th3-theme-title">'+it.title+'</h3>'+
+          '<div class="th3-theme-desc">'+it.desc+'</div>'+
+        '</div>';
       }).join('')+'</div>';
     },
     salary: function(){
@@ -4040,7 +4047,7 @@
             '<h2 class="th3-block-title">'+h.title+'</h2>'+
             (h.sub  ? '<span class="th3-block-sub">'+h.sub+'</span>' : '')+
           '</div>'+
-          (hideMore ? '' : '<button type="button" class="th3-block-more" onclick="th3Go(\''+(h.more||'review')+'\')">전체 보기 ›</button>')+
+          (hideMore ? '' : '<button type="button" class="th3-block-more" onclick="th3Go(\''+(h.more||'review')+'\')">전체보기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>')+
         '</div>'+
         body+
       '</section>';
