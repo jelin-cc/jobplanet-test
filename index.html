@@ -25589,19 +25589,8 @@ function closeRatePopup() {
   .th3-admin-btn-apply:hover{background:var(--brand-dk);}
 
   /* 플로팅 훅 (토스 다크 pill) */
-  .th3-hook-floating{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:200;background:#111827;color:#fff;border:none;border-radius:var(--rfull);padding:12px 16px 12px 18px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(17,24,39,0.25);cursor:pointer;transition:all .2s;font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:-.2px;}
-  .th3-hook-floating:hover{background:#1F2937;transform:translateX(-50%) translateY(-2px);box-shadow:0 12px 28px rgba(17,24,39,0.32);}
-  .th3-hook-floating em{color:#6EE7B7;font-style:normal;}
-  .th3-hook-floating-arrow{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .th3-hook-floating.hidden{display:none;}
 </style>
 
-<div class="th3-hook-floating" id="th3HookFloating" onclick="th3HookGo()">
-  <span id="th3HookFloatingText">내 연봉, 평균 대비 <em>몇 %</em>일까?</span>
-  <span class="th3-hook-floating-arrow" aria-hidden="true">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-  </span>
-</div>
 
 <button type="button" class="th3-admin-trigger" onclick="th3AdminOpen()">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -25720,7 +25709,6 @@ function closeRatePopup() {
     renderList();
   };
 
-  window.th3HookGo = function(){ if(window.go) go('review'); };
 })();
 </script>
 
