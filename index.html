@@ -82,6 +82,7 @@
     .gnb-search{display:flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid var(--ln);border-radius:var(--rfull);background:var(--bg);cursor:pointer;transition:all .15s;width:188px;}
     .gnb-search:hover{border-color:var(--tx3);background:var(--surface);}
     .gnb-search span{font-size:13px;color:var(--tx4);}
+    body.is-home .gnb-search{display:none;}
     .btn-ghost{padding:7px 16px;font-size:13px;font-weight:500;color:var(--tx2);border-radius:var(--rfull);transition:all .15s;}
     .btn-ghost:hover{background:var(--bg);}
     .btn-primary{padding:8px 20px;font-size:13px;font-weight:700;color:#fff;background:var(--brand);border-radius:8px;transition:all .15s;letter-spacing:-.2px;}
@@ -20753,6 +20754,7 @@ function closeRatePopup() {
     var pageEl = document.getElementById('page-'+id);
     if(!pageEl){ console.warn('page not found: page-'+id); return; }
     pageEl.classList.add('active');
+    document.body.classList.toggle('is-home', id==='home');
     document.querySelectorAll('.gnb-nav a').forEach(a=>{a.classList.remove('active');if(a.dataset.page===id)a.classList.add('active');});
     window.scrollTo(0,0);
     document.body.style.background = (id==='community' || id==='resume-editor') ? '#fff' : 'var(--bg)';
@@ -25015,6 +25017,7 @@ function closeRatePopup() {
   /* 페이지 로드 완료 후 현재 페이지/탭 복원 */
   window.addEventListener('DOMContentLoaded', function() {
     var savedPage = sessionStorage.getItem('jp_current_page');
+    document.body.classList.toggle('is-home', !savedPage || savedPage === 'home');
     if (savedPage && savedPage !== 'home') {
       document.body.style.visibility = 'hidden';
       go(savedPage);
