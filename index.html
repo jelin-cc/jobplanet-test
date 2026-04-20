@@ -3601,7 +3601,7 @@
   .th3-pick-card.peach .th3-pick-badge{color:#EA580C;}
   .th3-pick-card.red .th3-pick-badge{color:#EF4444;}
   .th3-pick-card.purple .th3-pick-badge{color:#8B5CF6;}
-  .th3-pick-title{font-size:15px;font-weight:700;color:var(--tx);margin:0 0 18px;line-height:1.55;letter-spacing:-.3px;min-height:72px;}
+  .th3-pick-title{font-size:16px;font-weight:700;color:var(--tx);margin:0 0 20px;line-height:1.5;letter-spacing:-.3px;min-height:48px;}
   .th3-pick-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);padding-top:14px;border-top:1px solid rgba(17,24,39,0.06);}
   .th3-pick-meta-logo{width:22px;height:22px;border-radius:6px;background:#fff;border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tx2);flex-shrink:0;}
   .th3-pick-meta-co{font-weight:700;color:var(--tx2);}
@@ -3748,10 +3748,10 @@
 <script>
 (function(){
   window.TH3_BLOCKS = [
-    {id:'follow', name:'팔로우 기업 업데이트', desc:'내가 팔로우한 기업의 새 리뷰/공고 알림', period:'항상', defaultOn:true},
-    {id:'urgent', name:'마감 임박 공고', desc:'오늘~3일 내 마감 공고 4건', period:'항상', defaultOn:true},
     {id:'pick', name:'지금 뜨는 기업 리뷰', desc:'실시간 인기·전현직장·내 직무별 리뷰 피드', period:'주간', defaultOn:true},
-    {id:'salary', name:'연봉 비교 입력', desc:'내 연봉을 입력하면 동종업계/직무 평균과 비교', period:'항상', defaultOn:true},
+    {id:'follow', name:'팔로우 기업 업데이트', desc:'내가 팔로우한 기업의 새 리뷰/공고 알림', period:'항상', defaultOn:false},
+    {id:'urgent', name:'마감 임박 공고', desc:'오늘~3일 내 마감 공고 4건', period:'항상', defaultOn:false},
+    {id:'salary', name:'연봉 비교 입력', desc:'내 연봉을 입력하면 동종업계/직무 평균과 비교', period:'항상', defaultOn:false},
     {id:'interview', name:'면접 질문 TOP 10', desc:'최근 1개월간 가장 많이 등장한 면접 질문', period:'월간', defaultOn:false},
     {id:'theme', name:'테마별 리뷰', desc:'계절/시기별 테마 리뷰 (예: "올해의 연봉왕", "여름휴가 복지 BEST")', period:'계절', defaultOn:false}
   ];
@@ -3774,13 +3774,13 @@
 
       var picks = [
         {variant:'peach', emoji:'💬', badge:'솔직 후기',
-         title:'"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"',
+         title:'"3개월 만에 퇴사한 이유"',
          co:'쿠팡', indl:'물류·IT', helpful:'32명에게 도움됨'},
         {variant:'red', emoji:'🔥', badge:'이번주 조회수 폭발',
-         title:'"퇴사를 고민 중이라면 이 회사는 피하세요"',
+         title:'"이 회사, 꼭 피하세요"',
          co:'비바리퍼블리카', indl:'IT·핀테크', helpful:'63명에게 도움됨'},
         {variant:'purple', emoji:'🚀', badge:'요즘 뜨는 기업',
-         title:'"자유로운 분위기가 최고, 다만 연봉은 협상 필요"',
+         title:'"분위기 최고, 연봉은 협상 필수"',
          co:'네이버', indl:'IT·플랫폼', helpful:'47명에게 도움됨'}
       ];
       var cards = picks.map(function(p){
