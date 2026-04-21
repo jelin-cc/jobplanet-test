@@ -3614,10 +3614,6 @@
   .th3-block-more svg{width:12px;height:12px;}
 
   /* Pick reviews — 지금 뜨는 기업 리뷰 */
-  .th3-pick-trend{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(90deg,#FEF3EC 0%,#FEF9F5 100%);border-radius:var(--rfull);margin-bottom:16px;font-size:12px;color:#9A3412;font-weight:600;letter-spacing:-.1px;width:fit-content;}
-  .th3-pick-trend::before{content:'';width:6px;height:6px;background:#EA580C;border-radius:50%;box-shadow:0 0 0 3px rgba(234,88,12,0.2);animation:pickPulse 1.8s ease-in-out infinite;}
-  @keyframes pickPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-  .th3-pick-trend strong{color:#EA580C;font-weight:700;}
   .th3-pick-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
   .th3-pick-tab{padding:8px 16px;border:none;background:#F2F4F6;color:var(--tx2);font-size:13px;font-weight:700;border-radius:var(--rfull);cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
   .th3-pick-tab-ic{width:16px;height:16px;vertical-align:middle;}
@@ -4025,10 +4021,8 @@
         return '<button type="button" class="th3-pick-tab'+(i===0?' active':'')+'" data-tab="'+t.key+'" onclick="th3PickTab(this,\''+t.key+'\')"><img class="th3-pick-tab-ic" src="'+t.ic+'" alt="" aria-hidden="true">'+t.label+'</button>';
       }).join('');
       var allBtn = '<button type="button" class="th3-pick-all" onclick="th3Go(\'review\')">전체보기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>';
-      var trend = '<div class="th3-pick-trend">이번 주 전·현직자가 <strong>3,247명</strong>이 읽은 리뷰</div>';
 
-      return trend+
-             '<div class="th3-pick-tabs">'+tabsHTML+allBtn+'</div>'+
+      return '<div class="th3-pick-tabs">'+tabsHTML+allBtn+'</div>'+
              '<div class="th3-pick-grid" id="th3PickGrid">'+th3PickCards('hot')+'</div>';
     },
     urgent: function(){
@@ -4154,7 +4148,7 @@
   var headers = {
     follow:    {label:'내가 팔로우 중', title:'새 소식이 도착했어요',       sub:'팔로우한 기업에 새 리뷰·공고가 올라왔어요', more:'review'},
     urgent:    {label:'놓치면 끝',      title:'마감 임박한 공고',          sub:'오늘 지원하지 않으면 놓칠 수 있어요',      more:'job'},
-    pick:      {label:'',               title:'지금 뜨는 기업 리뷰',       sub:'',                                        more:'review'},
+    pick:      {label:'',               title:'지금 뜨는 기업 리뷰',       sub:'전·현직자 3,247명이 이번 주 가장 많이 읽은 리뷰', more:'review'},
     salary:    {label:'데이터 기반',    title:'내 연봉, 또래보다 얼마나?', sub:'직무·경력·기업 규모로 30초 만에 비교',  more:'review'}
   };
 
