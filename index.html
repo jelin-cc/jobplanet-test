@@ -3622,14 +3622,12 @@
   .th3-pick-all{margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:var(--rfull);border:1.5px solid var(--ln);background:#fff;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx3);transition:all .15s;}
   .th3-pick-all:hover{border-color:var(--brand);color:var(--brand);}
   .th3-pick-all svg{width:12px;height:12px;}
-  .th3-pick-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px;align-items:stretch;}
+  .th3-pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch;}
   .th3-pick-card{position:relative;background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:22px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);overflow:hidden;display:flex;flex-direction:column;}
   .th3-pick-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 16px 32px rgba(17,24,39,0.08);border-color:#E5E8EB;}
   .th3-pick-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 70%);}
   .th3-pick-card.red{background:linear-gradient(180deg,#FEF2F2 0%,#fff 70%);}
   .th3-pick-card.purple{background:linear-gradient(180deg,#F5F3FF 0%,#fff 70%);}
-  .th3-pick-card.feature{padding:26px;}
-  .th3-pick-card.feature .th3-pick-title{font-size:17px;}
   .th3-pick-hd{display:flex;align-items:center;gap:6px;margin:0 0 12px;}
   .th3-pick-emoji{width:18px;height:18px;line-height:1;}
   .th3-pick-badge{font-size:12px;font-weight:700;letter-spacing:-.2px;}
@@ -3995,9 +3993,8 @@
 
   function th3PickCards(tab){
     var picks = pickDataByTab[tab] || pickDataByTab.hot;
-    return picks.map(function(p,i){
-      var isFeature = i === 0;
-      return '<div class="th3-pick-card '+p.variant+(isFeature?' feature':'')+'" onclick="th3Go(\'review\')">'+
+    return picks.map(function(p){
+      return '<div class="th3-pick-card '+p.variant+'" onclick="th3Go(\'review\')">'+
         '<div class="th3-pick-hd">'+
           '<img class="th3-pick-emoji" src="'+p.ic+'" alt="" aria-hidden="true">'+
           '<span class="th3-pick-badge">'+p.badge+'</span>'+
