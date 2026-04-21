@@ -3906,7 +3906,266 @@
 
   <div class="th3-blocks" id="th3BlocksContainer"></div>
 
+  <div class="view-toggle-wrap">
+    <button type="button" class="view-toggle-btn" onclick="enterMobileView()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      모바일 버전으로 보기
+    </button>
+  </div>
+
 </div>
+
+<!-- ===== Mobile Web View ===== -->
+<style>
+  body.mobile-mode{min-width:600px;background:#F2F4F6;}
+  body.mobile-mode > .header,
+  body.mobile-mode #page-home,
+  body.mobile-mode #page-job,
+  body.mobile-mode .footer,
+  body.mobile-mode .th3-admin-trigger{display:none !important;}
+  #mobile-home{display:none;}
+  body.mobile-mode #mobile-home{display:block;}
+
+  .mw-container{max-width:600px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:80px;position:relative;font-family:var(--font);}
+  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px;}
+  .mw-icon-btn{width:40px;height:40px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx);border-radius:10px;transition:background .15s;}
+  .mw-icon-btn:hover{background:var(--bg-secondary,#F9FAFB);}
+  .mw-icon-btn svg{width:22px;height:22px;}
+  .mw-logo{font-size:21px;font-weight:800;color:var(--tx);cursor:pointer;letter-spacing:-.6px;transition:color .15s;user-select:none;}
+  .mw-logo:hover{color:var(--brand);}
+  .mw-logo em{color:var(--brand);font-style:normal;}
+
+  .mw-hero{padding:8px 20px 28px;}
+  .mw-illust{width:100%;height:140px;background:linear-gradient(135deg,#D3F4E5 0%,#F0FDF7 55%,#FEF3EC 100%);border-radius:20px;margin-bottom:18px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+  .mw-illust-emo{font-size:54px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.08));}
+  .mw-illust-tag{position:absolute;right:16px;bottom:14px;font-size:11px;color:var(--brand-dk);font-weight:700;background:rgba(255,255,255,0.8);padding:4px 10px;border-radius:12px;letter-spacing:-.1px;backdrop-filter:blur(4px);}
+
+  .mw-searchbar{display:flex;align-items:center;gap:10px;padding:6px 8px 6px 22px;background:#fff;border:2.5px solid var(--brand);border-radius:40px;box-shadow:0 2px 14px rgba(0,194,116,0.12);}
+  .mw-logo-mark{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;letter-spacing:-.5px;}
+  .mw-searchbar input{flex:1;border:none;outline:none;font-size:15.5px;color:var(--tx);background:none;font-family:var(--font);height:44px;font-weight:500;padding:0;min-width:0;}
+  .mw-searchbar input::placeholder{color:var(--tx4);}
+  .mw-mic-btn{width:40px;height:40px;border-radius:50%;background:var(--brand-lt);border:none;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+  .mw-mic-btn:hover{background:#BDF0D6;}
+  .mw-mic-btn svg{width:18px;height:18px;}
+
+  .mw-qc-chips{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;padding-left:4px;}
+  .mw-qc-chip{padding:6px 12px;background:#F2F4F6;border:none;border-radius:20px;font-size:12px;font-weight:600;color:var(--tx2);cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:all .15s;}
+  .mw-qc-chip:hover{background:#E5E8EB;}
+
+  /* Floating search (on scroll) */
+  .mw-float{position:fixed;top:0;left:0;right:0;padding:10px 20px;z-index:100;transform:translateY(-120%);transition:transform .28s ease;pointer-events:none;}
+  .mw-float.show{transform:translateY(0);pointer-events:auto;}
+  .mw-float-inner{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 16px;background:#fff;border-radius:40px;box-shadow:0 4px 20px rgba(15,25,40,0.12),0 1px 3px rgba(15,25,40,0.06);border:1px solid rgba(0,0,0,0.04);}
+  .mw-float-logo{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0;}
+  .mw-float-input{flex:1;min-width:0;}
+  .mw-float-input input{width:100%;border:none;outline:none;font-size:13.5px;color:var(--tx);background:none;font-family:var(--font);height:34px;font-weight:500;padding:0;}
+  .mw-float-mic{width:34px;height:34px;border-radius:50%;background:var(--brand-lt);border:none;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mw-float-mic svg{width:15px;height:15px;}
+
+  /* Content section */
+  .mw-section{padding:4px 20px 18px;}
+  .mw-section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;gap:12px;}
+  .mw-section-ti{display:flex;flex-direction:column;gap:2px;}
+  .mw-section-ti h2{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;}
+  .mw-section-ti .mw-section-sub{font-size:12px;color:var(--tx3);}
+  .mw-section-more{border:none;background:none;font-size:12px;color:var(--tx3);cursor:pointer;font-family:var(--font);font-weight:600;display:inline-flex;align-items:center;gap:2px;padding:4px 6px;}
+
+  .mw-mini-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .mw-mini-tabs::-webkit-scrollbar{display:none;}
+  .mw-mini-tab{flex-shrink:0;padding:7px 14px;border:none;background:#F2F4F6;color:var(--tx2);font-size:12.5px;font-weight:700;border-radius:20px;cursor:pointer;font-family:var(--font);letter-spacing:-.1px;display:inline-flex;align-items:center;gap:4px;}
+  .mw-mini-tab img{width:13px;height:13px;}
+  .mw-mini-tab.active{background:var(--tx);color:#fff;}
+
+  .mw-cards{display:flex;flex-direction:column;gap:10px;}
+  .mw-card{padding:16px 18px;background:#fff;border:1px solid #F2F4F6;border-radius:16px;cursor:pointer;box-shadow:0 1px 3px rgba(15,25,40,0.04);transition:all .15s;}
+  .mw-card:active{transform:scale(0.99);}
+  .mw-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 70%);}
+  .mw-card.red{background:linear-gradient(180deg,#FEF2F2 0%,#fff 70%);}
+  .mw-card.purple{background:linear-gradient(180deg,#F5F3FF 0%,#fff 70%);}
+  .mw-card-hd{display:flex;align-items:center;gap:5px;margin-bottom:8px;}
+  .mw-card-hd img{width:15px;height:15px;}
+  .mw-card-badge{font-size:11px;font-weight:700;letter-spacing:-.1px;}
+  .mw-card.peach .mw-card-badge{color:#EA580C;}
+  .mw-card.red .mw-card-badge{color:#EF4444;}
+  .mw-card.purple .mw-card-badge{color:#8B5CF6;}
+  .mw-card-title{font-size:14.5px;font-weight:700;color:var(--tx);line-height:1.5;margin:0 0 6px;letter-spacing:-.2px;}
+  .mw-card-excerpt{font-size:12.5px;color:var(--tx3);line-height:1.55;margin:0 0 12px;letter-spacing:-.1px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+  .mw-card-meta{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--tx3);padding-top:10px;border-top:1px solid rgba(15,25,40,0.06);}
+  .mw-card-meta-logo{width:18px;height:18px;border-radius:5px;background:#fff;border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tx2);flex-shrink:0;}
+  .mw-card-meta strong{color:var(--tx2);font-weight:700;}
+
+  /* Tab bar */
+  .mw-tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:#fff;border-top:1px solid #F2F4F6;display:flex;padding:6px 0 10px;z-index:50;box-shadow:0 -2px 12px rgba(15,25,40,0.04);}
+  .mw-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border:none;background:none;color:var(--tx4);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:color .15s;}
+  .mw-tab.active{color:var(--brand);}
+  .mw-tab svg{width:22px;height:22px;}
+
+  /* View toggle */
+  .view-toggle-wrap{text-align:center;padding:60px 0 24px;}
+  .view-toggle-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:#fff;border:1px solid var(--ln);border-radius:var(--rfull);font-size:13px;font-weight:700;color:var(--tx2);font-family:var(--font);cursor:pointer;transition:all .15s;}
+  .view-toggle-btn:hover{border-color:var(--brand);color:var(--brand);}
+  .view-toggle-btn svg{width:16px;height:16px;}
+</style>
+
+<div id="mobile-home">
+  <div class="mw-container">
+    <header class="mw-header">
+      <button type="button" class="mw-icon-btn" aria-label="메뉴">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="mw-logo" onclick="exitMobileView()" role="button" tabindex="0" title="PC 버전으로 복구">Job<em>planet</em></div>
+      <button type="button" class="mw-icon-btn" aria-label="알림">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </button>
+    </header>
+
+    <section class="mw-hero">
+      <div class="mw-illust">
+        <span class="mw-illust-emo">🌱</span>
+        <span class="mw-illust-tag">이직의 계절 · 2026 봄</span>
+      </div>
+      <form class="mw-searchbar" onsubmit="event.preventDefault();">
+        <div class="mw-logo-mark">J</div>
+        <input type="text" placeholder="기업·직무·연봉 검색" autocomplete="off">
+        <button type="button" class="mw-mic-btn" aria-label="음성 검색">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+      </form>
+      <div class="mw-qc-chips">
+        <button type="button" class="mw-qc-chip">토스</button>
+        <button type="button" class="mw-qc-chip">당근</button>
+        <button type="button" class="mw-qc-chip">카카오</button>
+        <button type="button" class="mw-qc-chip">네이버</button>
+        <button type="button" class="mw-qc-chip">워라밸 좋은 곳</button>
+      </div>
+    </section>
+
+    <div class="mw-float" id="mwFloat">
+      <div class="mw-float-inner">
+        <div class="mw-float-logo">J</div>
+        <div class="mw-float-input">
+          <input type="text" placeholder="기업·직무·연봉 검색">
+        </div>
+        <button type="button" class="mw-float-mic" aria-label="음성 검색">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <section class="mw-section">
+      <div class="mw-section-hd">
+        <div class="mw-section-ti">
+          <h2>지금 뜨는 기업 리뷰</h2>
+        </div>
+        <button type="button" class="mw-section-more">전체 ›</button>
+      </div>
+      <div class="mw-mini-tabs">
+        <button type="button" class="mw-mini-tab active"><img src="emoji-fire.svg" alt="" aria-hidden="true">인기 리뷰</button>
+        <button type="button" class="mw-mini-tab"><img src="emoji-officebuilding.svg" alt="" aria-hidden="true">전·현직장</button>
+        <button type="button" class="mw-mini-tab"><img src="emoji-briefcase.svg" alt="" aria-hidden="true">내 직무</button>
+      </div>
+      <div class="mw-cards" id="mwPickCards">
+        <div class="mw-card peach">
+          <div class="mw-card-hd">
+            <img src="emoji-thumbsup.svg" alt="" aria-hidden="true">
+            <span class="mw-card-badge">솔직 후기</span>
+          </div>
+          <h3 class="mw-card-title">"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"</h3>
+          <p class="mw-card-excerpt">보상과 실제 업무 환경이 입사 전 듣던 것과 많이 달랐습니다.</p>
+          <div class="mw-card-meta">
+            <span class="mw-card-meta-logo">쿠</span>
+            <strong>쿠팡</strong>
+            <span>·</span>
+            <span>물류·IT</span>
+          </div>
+        </div>
+        <div class="mw-card red">
+          <div class="mw-card-hd">
+            <img src="emoji-fire.svg" alt="" aria-hidden="true">
+            <span class="mw-card-badge">이번주 조회수 폭발</span>
+          </div>
+          <h3 class="mw-card-title">"퇴사를 고민 중이라면 이 회사는 피하세요"</h3>
+          <p class="mw-card-excerpt">최근 조직개편 이후 분위기가 완전히 바뀌었어요.</p>
+          <div class="mw-card-meta">
+            <span class="mw-card-meta-logo">비</span>
+            <strong>비바리퍼블리카</strong>
+            <span>·</span>
+            <span>IT·핀테크</span>
+          </div>
+        </div>
+        <div class="mw-card purple">
+          <div class="mw-card-hd">
+            <img src="emoji-rocket.svg" alt="" aria-hidden="true">
+            <span class="mw-card-badge">요즘 뜨는 기업</span>
+          </div>
+          <h3 class="mw-card-title">"자유로운 분위기가 최고, 다만 연봉은 협상 필요"</h3>
+          <p class="mw-card-excerpt">수평 문화와 재택은 만족스럽지만 초봉 협상은 강하게 들어가야 해요.</p>
+          <div class="mw-card-meta">
+            <span class="mw-card-meta-logo">네</span>
+            <strong>네이버</strong>
+            <span>·</span>
+            <span>IT·플랫폼</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="mw-tabbar" aria-label="주요 메뉴">
+      <button type="button" class="mw-tab active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        홈
+      </button>
+      <button type="button" class="mw-tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        채용
+      </button>
+      <button type="button" class="mw-tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        리뷰
+      </button>
+      <button type="button" class="mw-tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        스토리
+      </button>
+      <button type="button" class="mw-tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        MY
+      </button>
+    </nav>
+  </div>
+</div>
+
+<script>
+  window.enterMobileView = function(){
+    document.body.classList.add('mobile-mode');
+    window.scrollTo(0,0);
+  };
+  window.exitMobileView = function(){
+    document.body.classList.remove('mobile-mode');
+    var float = document.getElementById('mwFloat');
+    if(float) float.classList.remove('show');
+    window.scrollTo(0,0);
+  };
+  window.addEventListener('scroll', function(){
+    if(!document.body.classList.contains('mobile-mode')) return;
+    var float = document.getElementById('mwFloat');
+    if(!float) return;
+    if(window.scrollY > 140) float.classList.add('show');
+    else float.classList.remove('show');
+  }, {passive:true});
+  document.querySelectorAll('.mw-mini-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.mw-mini-tab').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.mw-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.mw-tab').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+    });
+  });
+</script>
 
 <script>
   window.th3ToggleMode = function(){
@@ -26024,7 +26283,7 @@ function closeRatePopup() {
 
     <div class="th3-admin-body">
       <div id="th3AdminList"></div>
-      <div class="th3-admin-tip">💡 <strong>운영 팁.</strong> "항상"은 상시 노출, "주간/월간/계절"은 시기별로 자동 회전되는 슬롯이에요. 실제 서비스에서는 기간·타겟 세그먼트·A/B 실험을 함께 설정합니다.</div>
+      <div class="th3-admin-tip">💡 <strong>운영 팁.</strong> "항상"은 상시 노출, "주간"은 한 주 단위로 자동 회전되는 슬롯이에요. 실제 서비스에서는 기간·타겟 세그먼트·A/B 실험을 함께 설정합니다.</div>
     </div>
 
     <div class="th3-admin-ft">
