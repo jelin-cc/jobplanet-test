@@ -3687,10 +3687,14 @@
   @keyframes badgePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,194,116,0.4);}50%{opacity:.5;box-shadow:0 0 0 4px rgba(0,194,116,0);}}
   .th3-follow-badge.info{color:var(--tx3);background:#F2F4F6;}
 
-  .th3-follow-update{font-size:13px;color:var(--tx);font-weight:700;line-height:1.45;letter-spacing:-.2px;margin-top:auto;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
-  .th3-follow-update strong{color:var(--brand-dk);font-weight:800;}
+  .th3-follow-update{font-size:14px;color:var(--tx);font-weight:800;line-height:1.4;letter-spacing:-.3px;margin-top:auto;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding-top:10px;border-top:1px dashed #EAEFF2;}
+  .th3-follow-update strong{color:var(--brand-dk);font-weight:800;font-size:15px;}
+  .th3-follow-card.info .th3-follow-update{border-top-color:#F0F2F5;}
   .th3-follow-card.info .th3-follow-update strong{color:var(--tx);}
-  .th3-follow-dday{color:#fff;background:#EF4444;font-weight:800;padding:3px 8px;border-radius:6px;font-size:11px;line-height:1.25;letter-spacing:.1px;}
+  .th3-follow-dday{color:#fff;background:#EF4444;font-weight:800;padding:3px 8px;border-radius:6px;font-size:11px;line-height:1.25;letter-spacing:.1px;box-shadow:0 2px 6px rgba(239,68,68,0.25);}
+  .th3-follow-card.action::after{content:'지원 바로가기 →';position:absolute;right:16px;bottom:16px;font-size:10.5px;font-weight:800;color:var(--brand-dk);opacity:0;transform:translateY(4px);transition:all .22s cubic-bezier(.2,.8,.2,1);pointer-events:none;letter-spacing:-.1px;}
+  .th3-follow-card.action:hover::after{opacity:1;transform:translateY(0);}
+  .th3-follow-card.action:hover .th3-follow-update{opacity:0.4;}
 
   /* Salary block — Toss-style 디벨롭 */
   .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:28px 32px 22px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
@@ -3702,15 +3706,14 @@
   .th3-salary-title em{color:var(--brand);font-style:normal;}
   .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 20px;letter-spacing:-.1px;}
 
-  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:stretch;}
+  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:start;}
   .th3-salary-form-wrap{display:flex;flex-direction:column;gap:12px;}
-  .th3-salary-form-wrap > .th3-salary-field.primary{margin-top:auto;}
   .th3-salary-field{display:flex;flex-direction:column;gap:8px;}
   .th3-salary-field label{font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:-.1px;}
   .th3-salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .th3-salary-select{height:44px;padding:0 36px 0 14px;border:1.5px solid var(--ln);border-radius:10px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 12px center;appearance:none;-webkit-appearance:none;font-size:14px;font-family:var(--font);color:var(--tx);cursor:pointer;transition:border-color .15s;font-weight:600;}
   .th3-salary-select:focus{border-color:var(--brand);outline:none;}
-  .th3-salary-field.primary{background:transparent;border:none;border-top:1px solid var(--ln2);border-radius:0;padding:18px 0 0;gap:10px;margin-top:auto;}
+  .th3-salary-field.primary{background:transparent;border:none;border-top:1px solid var(--ln2);border-radius:0;padding:16px 0 0;gap:10px;margin-top:4px;}
   .th3-salary-field.primary label{color:var(--tx);font-size:13px;font-weight:800;letter-spacing:-.1px;}
   .th3-salary-input-wrap{display:flex;gap:8px;}
   .th3-salary-input{flex:1;min-width:0;height:52px;padding:0 18px;border:1.5px solid var(--ln);border-radius:12px;font-size:18px;font-family:var(--font);outline:none;background:#fff;color:var(--tx);transition:all .15s;font-weight:800;letter-spacing:-.4px;}
@@ -3930,18 +3933,9 @@
 
 <!-- ===== Mobile Web View ===== -->
 <style>
-  body.mobile-mode{min-width:600px;background:#fff;padding:0 !important;margin:0 !important;}
-  body.mobile-mode > header,
-  body.mobile-mode > .gnb,
-  body.mobile-mode > .page,
-  body.mobile-mode > footer,
-  body.mobile-mode > .footer,
-  body.mobile-mode > .s-ov,
-  body.mobile-mode > .rv-rate-popup-overlay,
-  body.mobile-mode > .th3-admin-trigger,
-  body.mobile-mode > .th3-admin-overlay{display:none !important;}
+  body.mobile-mode{overflow:hidden !important;}
   #mobile-home{display:none;}
-  body.mobile-mode #mobile-home{display:block !important;}
+  body.mobile-mode #mobile-home{display:block !important;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#fff;overflow-y:auto;overflow-x:hidden;}
 
   .mw-container{width:600px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
   .mw-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px;}
@@ -3988,10 +3982,10 @@
   .mw-promo-title{font-size:14px;font-weight:700;color:var(--tx);letter-spacing:-.2px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .mw-promo-chev{width:16px;height:16px;color:var(--tx3);flex-shrink:0;}
 
-  /* Floating search (on scroll) */
-  .mw-float{position:fixed;top:0;left:0;right:0;padding:10px 16px;z-index:100;transform:translateY(-120%);transition:transform .28s ease;pointer-events:none;}
+  /* Floating search (on scroll) — sticky within mobile-home overflow container */
+  .mw-float{position:sticky;top:0;left:0;right:0;padding:10px 16px;z-index:100;transform:translateY(-120%);transition:transform .28s ease;pointer-events:none;margin-bottom:-72px;}
   .mw-float.show{transform:translateY(0);pointer-events:auto;}
-  .mw-float-inner{width:568px;max-width:calc(100% - 32px);margin:0 auto;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 16px;background:#fff;border-radius:40px;box-shadow:0 4px 20px rgba(15,25,40,0.12),0 1px 3px rgba(15,25,40,0.06);border:1px solid rgba(0,0,0,0.04);}
+  .mw-float-inner{max-width:568px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 16px;background:#fff;border-radius:40px;box-shadow:0 4px 20px rgba(15,25,40,0.12),0 1px 3px rgba(15,25,40,0.06);border:1px solid rgba(0,0,0,0.04);}
   .mw-float-logo{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0;}
   .mw-float-input{flex:1;min-width:0;}
   .mw-float-input input{width:100%;border:none;outline:none;font-size:13.5px;color:var(--tx);background:none;font-family:var(--font);height:34px;font-weight:500;padding:0;}
@@ -4189,32 +4183,12 @@
   window.enterMobileView = function(){
     document.body.classList.add('mobile-mode');
     var mh = document.getElementById('mobile-home');
-    if(mh) mh.style.display = 'block';
-    ['page-home','page-job','page-review','page-review-write'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.style.display = 'none';
-    });
-    var gnb = document.querySelector('header.gnb, .gnb');
-    if(gnb) gnb.style.display = 'none';
-    var trigger = document.querySelector('.th3-admin-trigger');
-    if(trigger) trigger.style.display = 'none';
-    window.scrollTo(0,0);
+    if(mh){ mh.scrollTop = 0; }
   };
   window.exitMobileView = function(){
     document.body.classList.remove('mobile-mode');
-    var mh = document.getElementById('mobile-home');
-    if(mh) mh.style.display = '';
-    ['page-home','page-job','page-review','page-review-write'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.style.display = '';
-    });
-    var gnb = document.querySelector('header.gnb, .gnb');
-    if(gnb) gnb.style.display = '';
-    var trigger = document.querySelector('.th3-admin-trigger');
-    if(trigger) trigger.style.display = '';
     var float = document.getElementById('mwFloat');
     if(float) float.classList.remove('show');
-    window.scrollTo(0,0);
   };
   (function bindMobileEvents(){
     var backLogo = document.getElementById('mwBackLogo');
@@ -4228,13 +4202,15 @@
       backLogoFloat.addEventListener('click', handleBack);
       backLogoFloat.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ handleBack(e); } });
     }
-    window.addEventListener('scroll', function(){
-      if(!document.body.classList.contains('mobile-mode')) return;
-      var float = document.getElementById('mwFloat');
-      if(!float) return;
-      if(window.scrollY > 140) float.classList.add('show');
-      else float.classList.remove('show');
-    }, {passive:true});
+    var mh = document.getElementById('mobile-home');
+    if(mh){
+      mh.addEventListener('scroll', function(){
+        var float = document.getElementById('mwFloat');
+        if(!float) return;
+        if(mh.scrollTop > 140) float.classList.add('show');
+        else float.classList.remove('show');
+      }, {passive:true});
+    }
     document.querySelectorAll('.mw-mini-tab').forEach(function(btn){
       btn.addEventListener('click', function(){
         document.querySelectorAll('.mw-mini-tab').forEach(function(b){b.classList.remove('active');});
@@ -4535,38 +4511,18 @@
   window.th3GoUrgentList = function(){
     if(window.go) go('job');
     setTimeout(function(){
-      var candidates = document.querySelectorAll('[data-sort],.job-sort option,.sort-option,.sort-item,select');
-      for(var i=0;i<candidates.length;i++){
-        var el = candidates[i];
-        var txt = (el.textContent || el.value || '').trim();
-        if(txt.indexOf('마감') >= 0){
-          if(el.tagName === 'OPTION'){
-            el.selected = true;
-            var parent = el.parentElement;
-            if(parent) parent.dispatchEvent(new Event('change',{bubbles:true}));
-          } else {
-            el.click();
-          }
-          break;
-        }
+      if(typeof window.setSortOrder === 'function'){
+        window.setSortOrder('deadline');
       }
-      if(window.showToast) showToast('마감 임박 순으로 정렬했어요');
-    }, 200);
+    }, 150);
   };
   window.th3GoFollowList = function(){
     if(window.go) go('job');
     setTimeout(function(){
-      var candidates = document.querySelectorAll('[data-filter],.job-filter-chip,button,a');
-      for(var i=0;i<candidates.length;i++){
-        var el = candidates[i];
-        var txt = (el.textContent || '').trim();
-        if(txt.indexOf('팔로우') >= 0){
-          el.click();
-          break;
-        }
+      if(typeof window.setSortOrder === 'function'){
+        window.setSortOrder('deadline');
       }
-      if(window.showToast) showToast('팔로우 중인 기업 공고만 보기');
-    }, 200);
+    }, 150);
   };
 
   var TH3_POPULAR = [
