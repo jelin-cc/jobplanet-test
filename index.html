@@ -3673,7 +3673,10 @@
   @keyframes followDot{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.5);}50%{box-shadow:0 0 0 4px rgba(239,68,68,0);}}
   .th3-follow-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
   .th3-follow-co{font-size:13px;font-weight:700;color:var(--tx);letter-spacing:-.1px;display:flex;align-items:center;gap:5px;}
-  .th3-follow-co-badge{font-size:9px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:2px 5px;border-radius:4px;letter-spacing:-.1px;line-height:1.3;}
+  .th3-follow-co-badge{font-size:10px;font-weight:700;color:var(--brand-dk);background:var(--brand-lt);padding:3px 7px;border-radius:5px;letter-spacing:-.1px;line-height:1.3;}
+  .th3-follow-co-badge.urgent{color:#DC2626;background:#FEF2F2;}
+  .th3-follow-co-badge.new{color:#2563EB;background:#EFF6FF;}
+  .th3-follow-co-badge.match{color:#9333EA;background:#FAF5FF;}
   .th3-follow-update{font-size:12px;color:var(--tx3);font-weight:500;letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .th3-follow-update strong{color:var(--brand);font-weight:700;}
 
@@ -3694,12 +3697,14 @@
   .th3-salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .th3-salary-select{height:44px;padding:0 36px 0 14px;border:1.5px solid var(--ln);border-radius:10px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 12px center;appearance:none;-webkit-appearance:none;font-size:14px;font-family:var(--font);color:var(--tx);cursor:pointer;transition:border-color .15s;font-weight:600;}
   .th3-salary-select:focus{border-color:var(--brand);outline:none;}
+  .th3-salary-field.primary{background:linear-gradient(180deg,#F0FDF7 0%,#F7FEFB 100%);border:1px solid #C8F1DD;border-radius:14px;padding:16px 18px 18px;gap:10px;margin-top:4px;}
+  .th3-salary-field.primary label{color:var(--brand-dk);font-size:13px;font-weight:700;}
   .th3-salary-input-wrap{display:flex;gap:8px;}
-  .th3-salary-input{flex:1;min-width:0;height:44px;padding:0 16px;border:1.5px solid var(--ln);border-radius:10px;font-size:14px;font-family:var(--font);outline:none;background:#fff;color:var(--tx);transition:border-color .15s;font-weight:600;}
+  .th3-salary-input{flex:1;min-width:0;height:48px;padding:0 16px;border:1.5px solid var(--ln);border-radius:10px;font-size:15px;font-family:var(--font);outline:none;background:#fff;color:var(--tx);transition:border-color .15s;font-weight:700;}
   .th3-salary-input:focus{border-color:var(--brand);}
   .th3-salary-input::placeholder{color:var(--tx4);font-weight:500;}
-  .th3-salary-btn{height:44px;padding:0 22px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:-.1px;}
-  .th3-salary-btn:hover{background:var(--brand-dk);transform:translateY(-1px);}
+  .th3-salary-btn{height:48px;padding:0 24px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:-.1px;box-shadow:0 2px 6px rgba(0,194,116,0.25);}
+  .th3-salary-btn:hover{background:var(--brand-dk);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,194,116,0.35);}
 
   .th3-salary-viz{background:linear-gradient(180deg,#F0FDF7 0%,#F9FFFC 100%);border-radius:20px;padding:24px 24px 22px;display:flex;flex-direction:column;gap:28px;position:relative;}
   .th3-salary-viz-hero{display:flex;flex-direction:column;gap:6px;}
@@ -4031,7 +4036,6 @@
           hotTag+
           '<div class="th3-urgent-top">'+
             '<div class="th3-urgent-dday">'+it.dday+'</div>'+
-            '<div class="th3-urgent-logo">'+it.logo+'</div>'+
           '</div>'+
           '<div class="th3-urgent-body">'+
             '<div class="th3-urgent-title">'+it.title+'</div>'+
@@ -4043,16 +4047,16 @@
     },
     follow: function(){
       var items = [
-        {logo:'카',co:'카카오',badge:'내 전직장',update:'새 리뷰 <strong>4건</strong>'},
-        {logo:'토',co:'토스',badge:'팔로우 중',update:'<strong>신규 공고 2건</strong>'},
-        {logo:'네',co:'네이버',badge:'팔로우 중',update:'면접 후기 <strong>1건</strong>'},
-        {logo:'당',co:'당근',badge:'팔로우 중',update:'연봉 <strong>+5.2%</strong>'}
+        {logo:'카',co:'카카오',badge:'전직장 · 내 직무',badgeType:'',update:'채용 <strong>3건</strong> 진행중'},
+        {logo:'토',co:'토스',badge:'마감 임박',badgeType:'urgent',update:'내 직무 <strong>2건</strong> · D-5'},
+        {logo:'네',co:'네이버',badge:'신규 공고',badgeType:'new',update:'내 직무 <strong>1건</strong> 신규'},
+        {logo:'당',co:'당근',badge:'내 경력 매칭',badgeType:'match',update:'<strong>3년차 1건</strong> 채용중'}
       ];
       return '<div class="th3-follow-grid">'+items.map(function(it){
-        return '<div class="th3-follow-card" onclick="th3Go(\'review\')">'+
+        return '<div class="th3-follow-card" onclick="th3Go(\'job\')">'+
           '<div class="th3-follow-logo">'+it.logo+'</div>'+
           '<div class="th3-follow-body">'+
-            '<div class="th3-follow-co">'+it.co+'<span class="th3-follow-co-badge">'+it.badge+'</span></div>'+
+            '<div class="th3-follow-co">'+it.co+'<span class="th3-follow-co-badge'+(it.badgeType?' '+it.badgeType:'')+'">'+it.badge+'</span></div>'+
             '<div class="th3-follow-update">'+it.update+'</div>'+
           '</div>'+
         '</div>';
@@ -4099,7 +4103,7 @@
                 '<label>기업 규모</label>'+
                 '<select class="th3-salary-select"><option>스타트업</option><option selected>중견기업</option><option>대기업</option><option>외국계</option></select>'+
               '</div>'+
-              '<div class="th3-salary-field">'+
+              '<div class="th3-salary-field primary">'+
                 '<label>내 연봉 (만원)</label>'+
                 '<div class="th3-salary-input-wrap">'+
                   '<input class="th3-salary-input" placeholder="5,500" id="th3SalaryInput" autocomplete="off" inputmode="numeric">'+
@@ -4114,7 +4118,7 @@
                   '<span class="th3-salary-viz-prefix">또래보다</span>'+
                   '<span class="th3-salary-viz-rank-num">상위 32<small>%</small></span>'+
                 '</div>'+
-                '<div class="th3-salary-viz-msg">같은 직무·경력 <strong>1,284명</strong> 기준 · 약 <strong>410등</strong> · 평균 <strong>5,812만</strong></div>'+
+                '<div class="th3-salary-viz-msg">같은 직무·경력 재직자 <strong>1,284명</strong> 기준</div>'+
               '</div>'+
 
               '<div class="th3-salary-gauge">'+
@@ -4136,7 +4140,7 @@
   };
 
   var headers = {
-    follow:    {label:'내가 팔로우 중', title:'새 소식이 도착했어요',       sub:'팔로우한 기업에 새 리뷰·공고가 올라왔어요', more:'review'},
+    follow:    {label:'내가 팔로우 중', title:'새 소식이 도착했어요',       sub:'내 직무 채용 공고가 새로 올라왔어요', more:'job'},
     urgent:    {label:'놓치면 끝',      title:'마감 임박한 공고',          sub:'오늘 지원하지 않으면 놓칠 수 있어요',      more:'job'},
     pick:      {label:'',               title:'지금 뜨는 기업 리뷰',       sub:'',                                        more:'review'},
     salary:    {label:'데이터 기반',    title:'내 연봉, 또래보다 얼마나?', sub:'직무·경력·기업 규모로 30초 만에 비교',  more:'review'}
