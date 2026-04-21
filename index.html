@@ -3614,6 +3614,10 @@
   .th3-block-more svg{width:12px;height:12px;}
 
   /* Pick reviews — 지금 뜨는 기업 리뷰 */
+  .th3-pick-trend{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(90deg,#FEF3EC 0%,#FEF9F5 100%);border-radius:var(--rfull);margin-bottom:16px;font-size:12px;color:#9A3412;font-weight:600;letter-spacing:-.1px;width:fit-content;}
+  .th3-pick-trend::before{content:'';width:6px;height:6px;background:#EA580C;border-radius:50%;box-shadow:0 0 0 3px rgba(234,88,12,0.2);animation:pickPulse 1.8s ease-in-out infinite;}
+  @keyframes pickPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .th3-pick-trend strong{color:#EA580C;font-weight:700;}
   .th3-pick-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
   .th3-pick-tab{padding:8px 16px;border:none;background:#F2F4F6;color:var(--tx2);font-size:13px;font-weight:700;border-radius:var(--rfull);cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
   .th3-pick-tab-ic{width:16px;height:16px;vertical-align:middle;}
@@ -3622,19 +3626,22 @@
   .th3-pick-all{margin-left:auto;display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:var(--rfull);border:1.5px solid var(--ln);background:#fff;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx3);transition:all .15s;}
   .th3-pick-all:hover{border-color:var(--brand);color:var(--brand);}
   .th3-pick-all svg{width:12px;height:12px;}
-  .th3-pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .th3-pick-card{position:relative;background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:22px 22px 20px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);overflow:hidden;}
+  .th3-pick-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px;}
+  .th3-pick-card{position:relative;background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:22px 22px 20px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);overflow:hidden;display:flex;flex-direction:column;}
   .th3-pick-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 16px 32px rgba(17,24,39,0.08);border-color:#E5E8EB;}
   .th3-pick-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 75%);}
   .th3-pick-card.red{background:linear-gradient(180deg,#FEF2F2 0%,#fff 75%);}
   .th3-pick-card.purple{background:linear-gradient(180deg,#F5F3FF 0%,#fff 75%);}
+  .th3-pick-card.feature{padding:26px 26px 22px;}
+  .th3-pick-card.feature .th3-pick-title{font-size:17px;min-height:96px;}
+  .th3-pick-card.feature .th3-pick-rank{position:absolute;top:20px;right:20px;font-size:11px;font-weight:800;color:#fff;background:rgba(17,24,39,0.85);padding:5px 10px;border-radius:var(--rfull);letter-spacing:.3px;}
   .th3-pick-hd{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
   .th3-pick-emoji{width:18px;height:18px;line-height:1;}
   .th3-pick-badge{font-size:12px;font-weight:700;letter-spacing:-.2px;}
   .th3-pick-card.peach .th3-pick-badge{color:#EA580C;}
   .th3-pick-card.red .th3-pick-badge{color:#EF4444;}
   .th3-pick-card.purple .th3-pick-badge{color:#8B5CF6;}
-  .th3-pick-title{font-size:15px;font-weight:700;color:var(--tx);margin:0 0 18px;line-height:1.55;letter-spacing:-.3px;min-height:72px;}
+  .th3-pick-title{font-size:15px;font-weight:700;color:var(--tx);margin:0 0 auto;line-height:1.55;letter-spacing:-.3px;min-height:72px;padding-bottom:18px;}
   .th3-pick-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tx3);padding-top:14px;border-top:1px solid rgba(17,24,39,0.06);}
   .th3-pick-meta-logo{width:22px;height:22px;border-radius:6px;background:#fff;border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--tx2);flex-shrink:0;}
   .th3-pick-meta-co{font-weight:700;color:var(--tx2);}
@@ -3642,53 +3649,41 @@
   .th3-pick-helpful{margin-left:auto;font-size:12px;font-weight:600;color:var(--tx3);display:inline-flex;align-items:center;gap:4px;}
   .th3-pick-helpful::before{content:'';width:4px;height:4px;background:var(--tx4);border-radius:50%;}
 
-  /* Urgent jobs */
-  .th3-urgent{background:#fff;border:1px solid #F2F4F6;border-radius:20px;overflow:hidden;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
-  .th3-urgent-item{display:flex;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid var(--ln2);cursor:pointer;transition:background .15s;}
-  .th3-urgent-item:last-child{border-bottom:none;}
-  .th3-urgent-item:hover{background:#F9FAFB;}
-  .th3-urgent-logo{width:44px;height:44px;border-radius:12px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--brand);flex-shrink:0;font-size:15px;}
-  .th3-urgent-body{flex:1;min-width:0;}
-  .th3-urgent-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px;letter-spacing:-.1px;}
-  .th3-urgent-meta{font-size:12px;color:var(--tx3);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-  .th3-urgent-meta-co{color:var(--tx2);font-weight:600;}
-  .th3-urgent-dday{font-size:13px;font-weight:700;color:#EF4444;padding:6px 12px;border-radius:var(--rfull);background:#FEF2F2;flex-shrink:0;}
-  .th3-urgent-chev{color:var(--tx4);flex-shrink:0;}
+  /* Urgent jobs — 콤팩트 4x1 그리드 */
+  .th3-urgent-cta{display:flex;align-items:center;gap:10px;padding:12px 18px;background:linear-gradient(90deg,#FEF2F2 0%,#FFF7F7 100%);border:1px solid #FECACA;border-radius:14px;margin-bottom:14px;}
+  .th3-urgent-cta-ic{width:20px;height:20px;flex-shrink:0;}
+  .th3-urgent-cta-text{flex:1;font-size:13px;color:#991B1B;font-weight:600;letter-spacing:-.1px;}
+  .th3-urgent-cta-text strong{color:#DC2626;font-weight:800;}
+  .th3-urgent-cta-countdown{font-size:12px;font-weight:700;color:#DC2626;background:#fff;padding:4px 10px;border-radius:var(--rfull);letter-spacing:-.1px;}
+  .th3-urgent{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .th3-urgent-item{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px 16px 14px;background:#fff;border:1px solid #F2F4F6;border-radius:14px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04);overflow:hidden;}
+  .th3-urgent-item:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 10px 24px rgba(17,24,39,0.06);border-color:#E5E8EB;}
+  .th3-urgent-item.imminent{border-color:#FCA5A5;background:linear-gradient(180deg,#FEF2F2 0%,#fff 60%);}
+  .th3-urgent-item.imminent:hover{border-color:#F87171;}
+  .th3-urgent-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .th3-urgent-dday{font-size:12px;font-weight:800;color:#EF4444;padding:4px 10px;border-radius:var(--rfull);background:#FEF2F2;letter-spacing:-.1px;line-height:1;}
+  .th3-urgent-item.imminent .th3-urgent-dday{background:#EF4444;color:#fff;}
+  .th3-urgent-logo{width:28px;height:28px;border-radius:8px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--brand);font-size:12px;flex-shrink:0;}
+  .th3-urgent-body{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+  .th3-urgent-title{font-size:14px;font-weight:700;color:var(--tx);letter-spacing:-.2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:39px;}
+  .th3-urgent-meta{font-size:12px;color:var(--tx3);letter-spacing:-.1px;line-height:1.4;}
+  .th3-urgent-meta-co{color:var(--tx);font-weight:700;}
+  .th3-urgent-salary{margin-top:auto;padding-top:10px;border-top:1px solid var(--ln2);font-size:12px;font-weight:700;color:var(--brand-dk);letter-spacing:-.1px;display:flex;align-items:center;gap:4px;}
+  .th3-urgent-salary::before{content:'₩';font-size:11px;opacity:.7;}
+  .th3-urgent-hot{position:absolute;top:0;right:0;font-size:9px;font-weight:800;color:#fff;background:#EF4444;padding:3px 8px 3px 10px;letter-spacing:.3px;border-radius:0 14px 0 8px;}
 
-  /* Follow updates */
-  .th3-follow-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-  .th3-follow-card{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #F2F4F6;border-radius:16px;padding:20px 22px;cursor:pointer;transition:all .15s;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
-  .th3-follow-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 12px 28px rgba(17,24,39,0.08);border-color:#E5E8EB;}
-  .th3-follow-logo{width:44px;height:44px;border-radius:12px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--brand);flex-shrink:0;font-size:15px;position:relative;}
-  .th3-follow-logo::after{content:'';position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:#EF4444;border:2px solid #fff;}
-  .th3-follow-body{flex:1;min-width:0;}
-  .th3-follow-co{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px;letter-spacing:-.1px;display:flex;align-items:center;gap:6px;}
-  .th3-follow-co-badge{font-size:10px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:2px 6px;border-radius:4px;letter-spacing:-.1px;}
-  .th3-follow-update{font-size:12px;color:var(--tx3);font-weight:500;}
+  /* Follow updates — 4x1 콤팩트 */
+  .th3-follow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .th3-follow-card{position:relative;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #F2F4F6;border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04);}
+  .th3-follow-card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 10px 24px rgba(17,24,39,0.06);border-color:#E5E8EB;}
+  .th3-follow-logo{width:36px;height:36px;border-radius:10px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--brand);flex-shrink:0;font-size:13px;position:relative;}
+  .th3-follow-logo::after{content:'';position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#EF4444;border:2px solid #fff;box-shadow:0 0 0 0 rgba(239,68,68,0.5);animation:followDot 2s ease-in-out infinite;}
+  @keyframes followDot{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.5);}50%{box-shadow:0 0 0 4px rgba(239,68,68,0);}}
+  .th3-follow-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+  .th3-follow-co{font-size:13px;font-weight:700;color:var(--tx);letter-spacing:-.1px;display:flex;align-items:center;gap:5px;}
+  .th3-follow-co-badge{font-size:9px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:2px 5px;border-radius:4px;letter-spacing:-.1px;line-height:1.3;}
+  .th3-follow-update{font-size:12px;color:var(--tx3);font-weight:500;letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .th3-follow-update strong{color:var(--brand);font-weight:700;}
-  .th3-follow-chev{color:var(--tx4);flex-shrink:0;}
-
-  /* Interview TOP 10 */
-  .th3-iq{background:#fff;border:1px solid #F2F4F6;border-radius:20px;padding:12px 0;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
-  .th3-iq-item{display:flex;align-items:center;gap:16px;padding:14px 24px;cursor:pointer;transition:background .15s;}
-  .th3-iq-item:hover{background:#F9FAFB;}
-  .th3-iq-rank{font-size:16px;font-weight:700;color:var(--brand);width:28px;flex-shrink:0;letter-spacing:-.3px;}
-  .th3-iq-item:nth-child(n+4) .th3-iq-rank{color:var(--tx3);}
-  .th3-iq-q{flex:1;min-width:0;font-size:14px;color:var(--tx);line-height:1.55;font-weight:500;}
-  .th3-iq-stat{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .th3-iq-bar{width:60px;height:6px;background:#F2F4F6;border-radius:var(--rfull);overflow:hidden;}
-  .th3-iq-bar-fill{height:100%;background:linear-gradient(90deg,#BEF0DA 0%,#00C274 100%);border-radius:var(--rfull);}
-  .th3-iq-count{font-size:12px;color:var(--tx3);font-weight:700;width:40px;text-align:right;letter-spacing:-.1px;}
-
-  /* Theme reviews */
-  .th3-theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-  .th3-theme-card{position:relative;background:linear-gradient(180deg,#BBF7D0 0%,#E6FBEE 30%,#fff 55%);border:1px solid #F2F4F6;border-radius:20px;padding:28px 28px 30px;cursor:pointer;transition:all .18s;overflow:hidden;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 4px 16px rgba(17,24,39,0.04);}
-  .th3-theme-card:nth-child(2){background:linear-gradient(180deg,#FDE68A 0%,#FEF7CC 30%,#fff 55%);}
-  .th3-theme-card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 16px 32px rgba(17,24,39,0.1);}
-  .th3-theme-emoji{position:absolute;top:20px;right:20px;width:32px;height:32px;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.08));}
-  .th3-theme-tag{font-size:11px;font-weight:700;color:var(--tx);opacity:.6;margin-bottom:10px;display:block;letter-spacing:-.1px;}
-  .th3-theme-title{font-size:18px;font-weight:700;color:var(--tx);margin:0 0 8px;letter-spacing:-.3px;line-height:1.4;}
-  .th3-theme-desc{font-size:13px;color:var(--tx2);opacity:.85;}
 
   /* Salary block — Toss-style 디벨롭 */
   .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:36px 40px 28px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
@@ -3951,9 +3946,7 @@
     {id:'pick', name:'지금 뜨는 기업 리뷰', desc:'실시간 인기·전현직장·내 직무별 리뷰 피드', period:'주간', defaultOn:true},
     {id:'follow', name:'팔로우 기업 업데이트', desc:'내가 팔로우한 기업의 새 리뷰/공고 알림', period:'항상', defaultOn:false},
     {id:'urgent', name:'마감 임박 공고', desc:'오늘~3일 내 마감 공고 4건', period:'항상', defaultOn:false},
-    {id:'salary', name:'연봉 비교 입력', desc:'내 연봉을 입력하면 동종업계/직무 평균과 비교', period:'항상', defaultOn:false},
-    {id:'interview', name:'면접 질문 TOP 10', desc:'최근 1개월간 가장 많이 등장한 면접 질문', period:'월간', defaultOn:false},
-    {id:'theme', name:'테마별 리뷰', desc:'계절/시기별 테마 리뷰 (예: "올해의 연봉왕", "여름휴가 복지 BEST")', period:'계절', defaultOn:false}
+    {id:'salary', name:'연봉 비교 입력', desc:'내 연봉을 입력하면 동종업계/직무 평균과 비교', period:'항상', defaultOn:false}
   ];
 
   window.TH3_STATE = {
@@ -3999,8 +3992,11 @@
 
   function th3PickCards(tab){
     var picks = pickDataByTab[tab] || pickDataByTab.hot;
-    return picks.map(function(p){
-      return '<div class="th3-pick-card '+p.variant+'" onclick="th3Go(\'review\')">'+
+    return picks.map(function(p,i){
+      var isFeature = i === 0;
+      var rankLabel = isFeature ? '<span class="th3-pick-rank">이번 주 1위</span>' : '';
+      return '<div class="th3-pick-card '+p.variant+(isFeature?' feature':'')+'" onclick="th3Go(\'review\')">'+
+        rankLabel+
         '<div class="th3-pick-hd">'+
           '<img class="th3-pick-emoji" src="'+p.ic+'" alt="" aria-hidden="true">'+
           '<span class="th3-pick-badge">'+p.badge+'</span>'+
@@ -4029,38 +4025,48 @@
         return '<button type="button" class="th3-pick-tab'+(i===0?' active':'')+'" data-tab="'+t.key+'" onclick="th3PickTab(this,\''+t.key+'\')"><img class="th3-pick-tab-ic" src="'+t.ic+'" alt="" aria-hidden="true">'+t.label+'</button>';
       }).join('');
       var allBtn = '<button type="button" class="th3-pick-all" onclick="th3Go(\'review\')">전체보기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>';
+      var trend = '<div class="th3-pick-trend">이번 주 전·현직자가 <strong>3,247명</strong>이 읽은 리뷰</div>';
 
-      return '<div class="th3-pick-tabs">'+tabsHTML+allBtn+'</div>'+
+      return trend+
+             '<div class="th3-pick-tabs">'+tabsHTML+allBtn+'</div>'+
              '<div class="th3-pick-grid" id="th3PickGrid">'+th3PickCards('hot')+'</div>';
     },
     urgent: function(){
       var items = [
-        {logo:'토',title:'Frontend Engineer (3년차 이상)',co:'토스',meta:'서울 · 경력 3년↑ · 연봉 6,000~8,500',dday:'D-3'},
-        {logo:'카',title:'프론트엔드 개발자 (사업 부문)',co:'카카오페이',meta:'판교 · 경력무관 · 연봉 5,500~7,200',dday:'D-5'},
-        {logo:'라',title:'UX/UI 디자이너 (재택 가능)',co:'라인플러스',meta:'서울 · 경력 2년↑ · 연봉 5,000~6,800',dday:'D-6'},
-        {logo:'배',title:'Product Designer (Shopping)',co:'배달의민족',meta:'서울 · 경력 5년↑ · 연봉 7,500~9,800',dday:'D-8'}
+        {logo:'토',title:'Frontend Engineer (3년차 이상)',co:'토스',meta:'서울 · 경력 3년↑',salary:'6,000~8,500만원',dday:'D-1',imminent:true,hot:'오늘 12명 지원'},
+        {logo:'카',title:'프론트엔드 개발자 (사업 부문)',co:'카카오페이',meta:'판교 · 경력무관',salary:'5,500~7,200만원',dday:'D-3',imminent:false,hot:null},
+        {logo:'라',title:'UX/UI 디자이너 (재택 가능)',co:'라인플러스',meta:'서울 · 경력 2년↑',salary:'5,000~6,800만원',dday:'D-5',imminent:false,hot:null},
+        {logo:'배',title:'Product Designer (Shopping)',co:'배달의민족',meta:'서울 · 경력 5년↑',salary:'7,500~9,800만원',dday:'D-7',imminent:false,hot:null}
       ];
-      var chev = '<svg class="th3-urgent-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
-      return '<div class="th3-urgent">'+items.map(function(it){
-        return '<div class="th3-urgent-item" onclick="th3Go(\'job\')">'+
-          '<div class="th3-urgent-logo">'+it.logo+'</div>'+
+      var imminentCount = items.filter(function(i){return i.imminent;}).length;
+      var cta = '<div class="th3-urgent-cta">'+
+        '<svg class="th3-urgent-cta-ic" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'+
+        '<span class="th3-urgent-cta-text">팔로우 기업 중 <strong>오늘 마감 '+imminentCount+'건</strong> · 지원 놓치면 끝이에요</span>'+
+        '<span class="th3-urgent-cta-countdown">오늘 자정까지</span>'+
+      '</div>';
+      return cta+'<div class="th3-urgent">'+items.map(function(it){
+        var hotTag = it.hot ? '<span class="th3-urgent-hot">🔥 '+it.hot+'</span>' : '';
+        return '<div class="th3-urgent-item'+(it.imminent?' imminent':'')+'" onclick="th3Go(\'job\')">'+
+          hotTag+
+          '<div class="th3-urgent-top">'+
+            '<div class="th3-urgent-dday">'+it.dday+'</div>'+
+            '<div class="th3-urgent-logo">'+it.logo+'</div>'+
+          '</div>'+
           '<div class="th3-urgent-body">'+
             '<div class="th3-urgent-title">'+it.title+'</div>'+
-            '<div class="th3-urgent-meta"><span class="th3-urgent-meta-co">'+it.co+'</span><span>·</span><span>'+it.meta+'</span></div>'+
+            '<div class="th3-urgent-meta"><span class="th3-urgent-meta-co">'+it.co+'</span> · '+it.meta+'</div>'+
           '</div>'+
-          '<div class="th3-urgent-dday">'+it.dday+'</div>'+
-          chev+
+          '<div class="th3-urgent-salary">'+it.salary+'</div>'+
         '</div>';
       }).join('')+'</div>';
     },
     follow: function(){
       var items = [
-        {logo:'카',co:'카카오',badge:'내 전직장',update:'새 리뷰 <strong>4건</strong> · 단점 2건 포함'},
-        {logo:'토',co:'토스',badge:'팔로우 중',update:'채용 공고 <strong>2건 신규</strong> · D-3 마감'},
-        {logo:'네',co:'네이버',badge:'팔로우 중',update:'면접 후기 <strong>1건</strong> · 기술 질문'},
-        {logo:'당',co:'당근',badge:'팔로우 중',update:'평균 연봉 <strong>업데이트</strong> · +5.2%'}
+        {logo:'카',co:'카카오',badge:'내 전직장',update:'새 리뷰 <strong>4건</strong>'},
+        {logo:'토',co:'토스',badge:'팔로우 중',update:'<strong>신규 공고 2건</strong>'},
+        {logo:'네',co:'네이버',badge:'팔로우 중',update:'면접 후기 <strong>1건</strong>'},
+        {logo:'당',co:'당근',badge:'팔로우 중',update:'연봉 <strong>+5.2%</strong>'}
       ];
-      var chev = '<svg class="th3-follow-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
       return '<div class="th3-follow-grid">'+items.map(function(it){
         return '<div class="th3-follow-card" onclick="th3Go(\'review\')">'+
           '<div class="th3-follow-logo">'+it.logo+'</div>'+
@@ -4068,44 +4074,6 @@
             '<div class="th3-follow-co">'+it.co+'<span class="th3-follow-co-badge">'+it.badge+'</span></div>'+
             '<div class="th3-follow-update">'+it.update+'</div>'+
           '</div>'+
-          chev+
-        '</div>';
-      }).join('')+'</div>';
-    },
-    interview: function(){
-      var qs = [
-        '본인이 해결한 가장 어려운 기술적 문제를 설명해주세요',
-        '왜 우리 회사에 지원하셨나요?',
-        '팀 갈등을 겪었던 경험과 해결 방법',
-        '최근 1년간 가장 크게 성장한 부분은?',
-        '우리 서비스의 개선점을 제안해주세요',
-        '프로젝트 실패 경험과 그로부터 배운 것',
-        '5년 후 본인의 모습은?',
-        '본인의 가장 큰 단점은 무엇인가요?',
-        'Agile과 Waterfall의 차이를 설명해주세요',
-        '압박 상황에서의 의사결정 경험'
-      ];
-      return '<div class="th3-iq">'+qs.map(function(q,i){
-        var count = 412 - i*31;
-        var pct = Math.round((count/412)*100);
-        return '<div class="th3-iq-item" onclick="th3Go(\'review\')">'+
-          '<div class="th3-iq-rank">'+(i+1)+'</div>'+
-          '<div class="th3-iq-q">'+q+'</div>'+
-          '<div class="th3-iq-stat"><div class="th3-iq-bar"><div class="th3-iq-bar-fill" style="width:'+pct+'%;"></div></div><div class="th3-iq-count">'+count+'회</div></div>'+
-        '</div>';
-      }).join('')+'</div>';
-    },
-    theme: function(){
-      var items = [
-        {ic:'emoji-moneybag.svg', tag:'봄 · 2026', title:'올해의 연봉왕 TOP 10', desc:'업계별 평균 연봉 1위 기업을 한눈에'},
-        {ic:'emoji-ship.svg',     tag:'여름 · 계절', title:'여름휴가 복지 BEST 20', desc:'리프레시 연차·휴가비 지원 기업 모음'}
-      ];
-      return '<div class="th3-theme-grid">'+items.map(function(it){
-        return '<div class="th3-theme-card" onclick="th3Go(\'review\')">'+
-          '<img class="th3-theme-emoji" src="'+it.ic+'" alt="" aria-hidden="true">'+
-          '<span class="th3-theme-tag">'+it.tag+'</span>'+
-          '<h3 class="th3-theme-title">'+it.title+'</h3>'+
-          '<div class="th3-theme-desc">'+it.desc+'</div>'+
         '</div>';
       }).join('')+'</div>';
     },
@@ -4187,9 +4155,7 @@
     follow:    {label:'내가 팔로우 중', title:'새 소식이 도착했어요',       sub:'팔로우한 기업에 새 리뷰·공고가 올라왔어요', more:'review'},
     urgent:    {label:'놓치면 끝',      title:'마감 임박한 공고',          sub:'오늘 지원하지 않으면 놓칠 수 있어요',      more:'job'},
     pick:      {label:'',               title:'지금 뜨는 기업 리뷰',       sub:'',                                        more:'review'},
-    salary:    {label:'데이터 기반',    title:'내 연봉, 또래보다 얼마나?', sub:'직무·경력·기업 규모로 30초 만에 비교',  more:'review'},
-    interview: {label:'이번 달 인기',   title:'면접 질문 TOP 10',          sub:'최근 1개월 간 가장 많이 등장한 질문',    more:'review'},
-    theme:     {label:'시즌 기획',      title:'테마별 리뷰',               sub:'계절·시기별로 모아본 특별 기획',         more:'review'}
+    salary:    {label:'데이터 기반',    title:'내 연봉, 또래보다 얼마나?', sub:'직무·경력·기업 규모로 30초 만에 비교',  more:'review'}
   };
 
   window.th3RenderBlocks = function(){
