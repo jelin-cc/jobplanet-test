@@ -3682,10 +3682,10 @@
 
   /* Salary block — Toss-style 디벨롭 */
   .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:36px 40px 28px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
-  .th3-salary-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:16px;flex-wrap:wrap;}
-  .th3-salary-label{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-lt);padding:4px 10px;border-radius:var(--rfull);letter-spacing:-.1px;}
-  .th3-salary-trust{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--tx3);font-weight:600;}
-  .th3-salary-trust::before{content:'';width:6px;height:6px;background:#22C55E;border-radius:50%;box-shadow:0 0 0 3px rgba(34,197,94,0.2);}
+  .th3-salary-top{display:flex;justify-content:flex-start;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;}
+  .th3-salary-nhis{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--brand-dk);background:var(--brand-lt);padding:5px 12px 5px 8px;border-radius:var(--rfull);letter-spacing:-.1px;font-weight:700;}
+  .th3-salary-nhis img{width:18px;height:18px;display:block;}
+  .th3-salary-nhis strong{font-weight:800;color:var(--brand-dk);}
   .th3-salary-title{font-size:26px;font-weight:700;letter-spacing:-.5px;margin:0 0 6px;color:var(--tx);line-height:1.3;}
   .th3-salary-title em{color:var(--brand);font-style:normal;}
   .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 28px;letter-spacing:-.1px;}
@@ -3715,20 +3715,26 @@
   .th3-salary-viz-msg{font-size:13px;color:var(--tx3);letter-spacing:-.1px;}
   .th3-salary-viz-msg strong{color:var(--tx);font-weight:700;}
 
-  .th3-salary-gauge{display:flex;flex-direction:column;gap:14px;}
-  .th3-salary-gauge-track{position:relative;height:10px;border-radius:var(--rfull);background:#E5E8EB;margin-top:44px;}
-  .th3-salary-gauge-fill{height:100%;border-radius:var(--rfull);background:linear-gradient(90deg,#BEF0DA 0%,#00C274 100%);}
-  .th3-salary-gauge-avg{position:absolute;top:-6px;bottom:-6px;width:2px;background:#D1D5DB;transform:translateX(-50%);}
-  .th3-salary-gauge-marker{position:absolute;top:-5px;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--brand);box-shadow:0 2px 8px rgba(0,194,116,.4);transform:translateX(-50%);z-index:2;}
-  .th3-salary-gauge-marker::after{content:attr(data-value);position:absolute;bottom:30px;left:50%;transform:translateX(-50%);background:var(--tx);color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;}
-  .th3-salary-gauge-marker::before{content:'';position:absolute;bottom:23px;left:50%;transform:translateX(-50%);width:0;height:0;border:5px solid transparent;border-top-color:var(--tx);}
-  .th3-salary-gauge-axis{display:flex;justify-content:space-between;gap:8px;}
-  .th3-salary-gauge-axis span{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
-  .th3-salary-gauge-axis span:first-child{align-items:flex-start;}
-  .th3-salary-gauge-axis span:nth-child(2){align-items:center;}
-  .th3-salary-gauge-axis span:last-child{align-items:flex-end;}
-  .th3-salary-gauge-axis small{font-size:10px;color:var(--tx4);font-weight:700;letter-spacing:-.1px;}
-  .th3-salary-gauge-axis strong{font-size:13px;color:var(--tx2);font-weight:700;letter-spacing:-.2px;}
+  /* 분포 히스토그램 (토스 스타일 디벨롭) */
+  .th3-salary-dist{position:relative;margin-top:20px;padding-top:46px;}
+  .th3-salary-dist-tooltip{position:absolute;top:0;transform:translateX(-50%);background:var(--tx);color:#fff;font-size:12.5px;font-weight:800;padding:7px 14px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:2;box-shadow:0 4px 14px rgba(15,25,40,0.18);animation:salTipFloat 2.6s ease-in-out infinite;}
+  .th3-salary-dist-tooltip::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border:5px solid transparent;border-top-color:var(--tx);}
+  @keyframes salTipFloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-3px);}}
+  .th3-salary-dist-bars{display:flex;align-items:flex-end;gap:3px;height:72px;position:relative;}
+  .th3-salary-dist-bar{flex:1;background:#E5E8EB;border-radius:3px 3px 1px 1px;min-height:10px;transition:all .4s cubic-bezier(.2,.7,.2,1);}
+  .th3-salary-dist-bar.lt{background:#EDF3F0;}
+  .th3-salary-dist-bar.hi{background:linear-gradient(180deg,#BEF0DA 0%,#90E3BF 100%);}
+  .th3-salary-dist-bar.me{background:linear-gradient(180deg,#00C274 0%,#009A5C 100%);box-shadow:0 4px 12px rgba(0,194,116,0.35);border-radius:5px 5px 1px 1px;position:relative;z-index:1;}
+  .th3-salary-dist-bar.me::after{content:'';position:absolute;top:-4px;left:-2px;right:-2px;bottom:0;border-radius:6px;border:2px solid rgba(0,194,116,0.3);pointer-events:none;animation:meRipple 2s ease-out infinite;}
+  @keyframes meRipple{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1.4);}}
+  .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:14px;padding-top:10px;border-top:1px dashed var(--ln2);}
+  .th3-salary-axis span{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
+  .th3-salary-axis span:first-child{align-items:flex-start;}
+  .th3-salary-axis span:nth-child(2){align-items:center;}
+  .th3-salary-axis span:last-child{align-items:flex-end;}
+  .th3-salary-axis small{font-size:10.5px;color:var(--tx4);font-weight:700;letter-spacing:-.1px;}
+  .th3-salary-axis strong{font-size:13.5px;color:var(--tx2);font-weight:800;letter-spacing:-.2px;}
+  .th3-salary-axis span:nth-child(2) strong{color:var(--brand-dk);}
 
   @media (max-width:860px){
     .th3-salary{padding:28px 24px 20px;}
@@ -3906,12 +3912,6 @@
 
   <div class="th3-blocks" id="th3BlocksContainer"></div>
 
-  <div class="view-toggle-wrap">
-    <button type="button" class="view-toggle-btn" onclick="enterMobileView()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-      모바일 버전으로 보기
-    </button>
-  </div>
 
 </div>
 
@@ -4019,11 +4019,10 @@
   .mw-tab.active{color:var(--brand);}
   .mw-tab svg{width:22px;height:22px;}
 
-  /* View toggle */
-  .view-toggle-wrap{text-align:center;padding:60px 0 24px;}
-  .view-toggle-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:#fff;border:1px solid var(--ln);border-radius:var(--rfull);font-size:13px;font-weight:700;color:var(--tx2);font-family:var(--font);cursor:pointer;transition:all .15s;}
-  .view-toggle-btn:hover{border-color:var(--brand);color:var(--brand);}
-  .view-toggle-btn svg{width:16px;height:16px;}
+  /* 홈 관리 팝업 내 모바일 전환 버튼 */
+  .th3-admin-mobile{margin-top:12px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;background:#fff;border:1.5px solid var(--ln);border-radius:12px;font-family:var(--font);font-size:13px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .15s;letter-spacing:-.1px;}
+  .th3-admin-mobile:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-lt);}
+  .th3-admin-mobile svg{width:16px;height:16px;}
 </style>
 
 <div id="mobile-home">
@@ -4384,11 +4383,25 @@
         }).join('')+'</optgroup>';
       }).join('');
 
+      var totalBars = 40, myBarIdx = 27;
+      var bars = '';
+      for(var i=0; i<totalBars; i++){
+        var x = (i - totalBars/2) / (totalBars/4);
+        var h = Math.round(12 + Math.exp(-x*x/2) * 58);
+        var cls = 'th3-salary-dist-bar';
+        if(i === myBarIdx) cls += ' me';
+        else if(i > myBarIdx) cls += ' hi';
+        else if(i < totalBars*0.2) cls += ' lt';
+        bars += '<div class="'+cls+'" style="height:'+h+'px"></div>';
+      }
+
       return ''+
         '<div class="th3-salary">'+
           '<div class="th3-salary-top">'+
-            '<span class="th3-salary-label">데이터 기반</span>'+
-            '<span class="th3-salary-trust">재직자 12,847명의 실제 연봉 데이터</span>'+
+            '<span class="th3-salary-nhis">'+
+              '<img src="nhis-logo.svg" alt="" aria-hidden="true">'+
+              '건강보험 연봉 데이터 <strong>2,015,619건</strong> 기준'+
+            '</span>'+
           '</div>'+
           '<h2 class="th3-salary-title">내 연봉, 또래보다 <em>얼마나?</em></h2>'+
           '<p class="th3-salary-sub">30초 만에 내 위치를 확인하고, 다음 협상 카드로 써보세요</p>'+
@@ -4427,17 +4440,14 @@
                 '<div class="th3-salary-viz-msg">같은 직무·경력 재직자 <strong>1,284명</strong> 기준</div>'+
               '</div>'+
 
-              '<div class="th3-salary-gauge">'+
-                '<div class="th3-salary-gauge-track">'+
-                  '<div class="th3-salary-gauge-fill" style="width:68%;"></div>'+
-                  '<div class="th3-salary-gauge-avg" style="left:50%;"></div>'+
-                  '<div class="th3-salary-gauge-marker" data-value="내 연봉 5,500만" style="left:68%;"></div>'+
-                '</div>'+
-                '<div class="th3-salary-gauge-axis">'+
-                  '<span><small>하위 10%</small><strong>3,200만</strong></span>'+
-                  '<span><small>중앙값</small><strong>5,500만</strong></span>'+
-                  '<span><small>상위 10%</small><strong>7,820만+</strong></span>'+
-                '</div>'+
+              '<div class="th3-salary-dist">'+
+                '<div class="th3-salary-dist-tooltip" style="left:'+((myBarIdx+0.5)/totalBars*100)+'%;">내 연봉 5,500만 · 상위 32%</div>'+
+                '<div class="th3-salary-dist-bars">'+bars+'</div>'+
+              '</div>'+
+              '<div class="th3-salary-axis">'+
+                '<span><small>하위 10%</small><strong>3,200만</strong></span>'+
+                '<span><small>중앙값</small><strong>5,500만</strong></span>'+
+                '<span><small>상위 10%</small><strong>7,820만+</strong></span>'+
               '</div>'+
             '</div>'+
           '</div>'+
@@ -26330,7 +26340,12 @@ function closeRatePopup() {
 
     <div class="th3-admin-body">
       <div id="th3AdminList"></div>
-      <div class="th3-admin-tip">💡 <strong>운영 팁.</strong> "항상"은 상시 노출, "주간"은 한 주 단위로 자동 회전되는 슬롯이에요. 실제 서비스에서는 기간·타겟 세그먼트·A/B 실험을 함께 설정합니다.</div>
+      <div class="th3-admin-tip">💡 <strong>운영 팁</strong> "항상"은 상시 노출, "주간"은 한 주 단위로 자동 회전되는 슬롯이에요. 실제 서비스에서는 기간·타겟 세그먼트·A/B 실험을 함께 설정합니다.</div>
+
+      <button type="button" class="th3-admin-mobile" onclick="window.enterMobileView();window.th3AdminClose();">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        모바일 버전으로 보기
+      </button>
     </div>
 
     <div class="th3-admin-ft">
