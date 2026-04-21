@@ -3690,15 +3690,15 @@
   .th3-salary-title em{color:var(--brand);font-style:normal;}
   .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 28px;letter-spacing:-.1px;}
 
-  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;}
-  .th3-salary-form-wrap{display:flex;flex-direction:column;gap:14px;}
+  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;align-items:stretch;}
+  .th3-salary-form-wrap{display:flex;flex-direction:column;gap:14px;justify-content:space-between;}
   .th3-salary-field{display:flex;flex-direction:column;gap:8px;}
   .th3-salary-field label{font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:-.1px;}
   .th3-salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .th3-salary-select{height:44px;padding:0 36px 0 14px;border:1.5px solid var(--ln);border-radius:10px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 12px center;appearance:none;-webkit-appearance:none;font-size:14px;font-family:var(--font);color:var(--tx);cursor:pointer;transition:border-color .15s;font-weight:600;}
   .th3-salary-select:focus{border-color:var(--brand);outline:none;}
-  .th3-salary-field.primary{background:linear-gradient(180deg,#F0FDF7 0%,#F7FEFB 100%);border:1px solid #C8F1DD;border-radius:14px;padding:16px 18px 18px;gap:10px;margin-top:4px;}
-  .th3-salary-field.primary label{color:var(--brand-dk);font-size:13px;font-weight:700;}
+  .th3-salary-field.primary{background:#F9FAFB;border:1.5px solid var(--tx);border-radius:14px;padding:16px 18px 18px;gap:10px;}
+  .th3-salary-field.primary label{color:var(--tx);font-size:13px;font-weight:800;letter-spacing:-.1px;}
   .th3-salary-input-wrap{display:flex;gap:8px;}
   .th3-salary-input{flex:1;min-width:0;height:48px;padding:0 16px;border:1.5px solid var(--ln);border-radius:10px;font-size:15px;font-family:var(--font);outline:none;background:#fff;color:var(--tx);transition:border-color .15s;font-weight:700;}
   .th3-salary-input:focus{border-color:var(--brand);}
@@ -3722,8 +3722,6 @@
   @keyframes salTipFloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-3px);}}
   .th3-salary-dist-bars{display:flex;align-items:flex-end;gap:3px;height:72px;position:relative;}
   .th3-salary-dist-bar{flex:1;background:#E5E8EB;border-radius:3px 3px 1px 1px;min-height:10px;transition:all .4s cubic-bezier(.2,.7,.2,1);}
-  .th3-salary-dist-bar.lt{background:#EDF3F0;}
-  .th3-salary-dist-bar.hi{background:linear-gradient(180deg,#BEF0DA 0%,#90E3BF 100%);}
   .th3-salary-dist-bar.me{background:linear-gradient(180deg,#00C274 0%,#009A5C 100%);box-shadow:0 4px 12px rgba(0,194,116,0.35);border-radius:5px 5px 1px 1px;position:relative;z-index:1;}
   .th3-salary-dist-bar.me::after{content:'';position:absolute;top:-4px;left:-2px;right:-2px;bottom:0;border-radius:6px;border:2px solid rgba(0,194,116,0.3);pointer-events:none;animation:meRipple 2s ease-out infinite;}
   @keyframes meRipple{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1.4);}}
@@ -3917,14 +3915,11 @@
 
 <!-- ===== Mobile Web View ===== -->
 <style>
-  body.mobile-mode{min-width:600px;background:#fff;}
-  body.mobile-mode > .header,
-  body.mobile-mode #page-home,
-  body.mobile-mode #page-job,
-  body.mobile-mode .footer,
-  body.mobile-mode .th3-admin-trigger{display:none !important;}
+  body.mobile-mode{min-width:600px;background:#fff;padding:0 !important;margin:0 !important;}
+  body.mobile-mode > *:not(#mobile-home):not(script):not(style):not(.mw-float){display:none !important;}
   #mobile-home{display:none;}
-  body.mobile-mode #mobile-home{display:block;}
+  body.mobile-mode #mobile-home{display:block !important;}
+  body.mobile-mode .mw-float{display:block;}
 
   .mw-container{width:600px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
   .mw-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px;}
@@ -4388,10 +4383,7 @@
       for(var i=0; i<totalBars; i++){
         var x = (i - totalBars/2) / (totalBars/4);
         var h = Math.round(12 + Math.exp(-x*x/2) * 58);
-        var cls = 'th3-salary-dist-bar';
-        if(i === myBarIdx) cls += ' me';
-        else if(i > myBarIdx) cls += ' hi';
-        else if(i < totalBars*0.2) cls += ' lt';
+        var cls = 'th3-salary-dist-bar' + (i === myBarIdx ? ' me' : '');
         bars += '<div class="'+cls+'" style="height:'+h+'px"></div>';
       }
 
