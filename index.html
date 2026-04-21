@@ -3675,18 +3675,18 @@
   .th3-follow-card.info .th3-follow-logo{background:var(--ln2);color:var(--tx2);}
   .th3-follow-logo::after{content:'';position:absolute;top:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:#FF5A5F;border:2px solid #fff;}
   .th3-follow-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
-  .th3-follow-co{font-size:15px;font-weight:700;color:var(--tx);letter-spacing:-.3px;line-height:1.25;}
-  .th3-follow-sub{font-size:12px;color:var(--tx3);font-weight:500;letter-spacing:-.1px;line-height:1.3;}
+  .th3-follow-co{font-size:14px;font-weight:700;color:var(--tx);letter-spacing:-.2px;line-height:1.25;}
+  .th3-follow-sub{font-size:11.5px;color:var(--tx3);font-weight:500;letter-spacing:-.1px;line-height:1.3;}
 
-  .th3-follow-badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:var(--rfull);letter-spacing:-.1px;line-height:1.3;width:fit-content;}
+  .th3-follow-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:var(--rfull);letter-spacing:-.1px;line-height:1.3;width:fit-content;}
   .th3-follow-badge.action{color:var(--brand-dk);background:var(--brand-lt);}
   .th3-follow-badge.action::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand);}
   .th3-follow-badge.info{color:var(--tx3);background:var(--ln2);}
 
-  .th3-follow-update{font-size:15px;color:var(--tx);font-weight:700;line-height:1.35;letter-spacing:-.3px;margin-top:auto;display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding-top:14px;border-top:1px solid var(--ln2);}
-  .th3-follow-update strong{color:var(--tx);font-weight:800;}
+  .th3-follow-update{font-size:13px;color:var(--tx3);font-weight:500;line-height:1.4;letter-spacing:-.2px;margin-top:auto;display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;padding-top:14px;border-top:1px solid var(--ln2);}
+  .th3-follow-update strong{color:var(--tx);font-weight:800;font-size:15.5px;letter-spacing:-.3px;}
   .th3-follow-card.action .th3-follow-update strong{color:var(--brand-dk);}
-  .th3-follow-dday{color:#EF4444;background:#FEF0F0;font-weight:800;padding:2px 7px;border-radius:6px;font-size:11.5px;line-height:1.3;letter-spacing:.1px;}
+  .th3-follow-dday{color:#EF4444;background:#FEF0F0;font-weight:800;padding:2px 7px;border-radius:6px;font-size:11px;line-height:1.3;letter-spacing:.1px;align-self:center;}
 
   /* Salary block — Toss-style 디벨롭 */
   .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:28px 32px 22px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
@@ -3705,9 +3705,8 @@
   .th3-salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .th3-salary-select{height:44px;padding:0 36px 0 14px;border:1.5px solid var(--ln);border-radius:10px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 12px center;appearance:none;-webkit-appearance:none;font-size:14px;font-family:var(--font);color:var(--tx);cursor:pointer;transition:border-color .15s;font-weight:600;}
   .th3-salary-select:focus{border-color:var(--brand);outline:none;}
-  .th3-salary-field.primary{position:relative;background:linear-gradient(180deg,#F0FDF7 0%,#FAFFFC 100%);border:1.5px solid #CFEEDF;border-radius:14px;padding:16px 16px 16px;gap:10px;margin-top:6px;box-shadow:0 1px 3px rgba(0,194,116,0.06);}
-  .th3-salary-field.primary::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:3px;background:var(--brand);border-radius:0 3px 3px 0;}
-  .th3-salary-field.primary label{color:var(--brand-dk);font-size:13px;font-weight:800;letter-spacing:-.1px;display:flex;align-items:center;gap:6px;padding-left:8px;}
+  .th3-salary-field.primary{position:relative;background:linear-gradient(180deg,#F0FDF7 0%,#FAFFFC 100%);border:1.5px solid #CFEEDF;border-radius:14px;padding:16px;gap:10px;margin-top:6px;box-shadow:0 1px 3px rgba(0,194,116,0.06);}
+  .th3-salary-field.primary label{color:var(--brand-dk);font-size:13px;font-weight:800;letter-spacing:-.1px;display:flex;align-items:center;gap:6px;}
   .th3-salary-field.primary label::before{content:'★';font-size:11px;color:var(--brand);}
   .th3-salary-input-wrap{display:flex;gap:8px;}
   .th3-salary-input{flex:1;min-width:0;height:52px;padding:0 18px;border:1.5px solid #fff;border-radius:10px;font-size:19px;font-family:var(--font);outline:none;background:#fff;color:var(--tx);transition:all .15s;font-weight:800;letter-spacing:-.4px;box-shadow:0 1px 2px rgba(15,25,40,0.04);}
@@ -3730,13 +3729,14 @@
   .th3-salary-dist-tooltip{position:absolute;top:0;transform:translateX(-50%);background:var(--tx);color:#fff;font-size:12.5px;font-weight:800;padding:7px 14px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:2;box-shadow:0 4px 14px rgba(15,25,40,0.18);animation:salTipFloat 2.6s ease-in-out infinite;}
   .th3-salary-dist-tooltip::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border:5px solid transparent;border-top-color:var(--tx);}
   @keyframes salTipFloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-3px);}}
-  .th3-salary-dist-bars{display:flex;align-items:flex-end;gap:3px;height:72px;position:relative;}
-  .th3-salary-dist-bar{flex:1;background:#E5E8EB;border-radius:3px 3px 1px 1px;min-height:10px;transition:background .2s ease,transform .2s ease;cursor:default;}
-  .th3-salary-dist-bar:not(.me):hover{background:#B5BDC7;transform:scaleY(1.08);transform-origin:bottom;}
-  .th3-salary-dist-bar.me{background:linear-gradient(180deg,#00C274 0%,#009A5C 100%);box-shadow:0 4px 14px rgba(0,194,116,0.4);border-radius:5px 5px 1px 1px;position:relative;z-index:1;animation:meBarIn .6s cubic-bezier(.2,.8,.2,1);}
-  @keyframes meBarIn{from{transform:scaleY(0);opacity:0;}to{transform:scaleY(1);opacity:1;}}
-  .th3-salary-dist-bar.me::after{content:'';position:absolute;top:-4px;left:-2px;right:-2px;bottom:0;border-radius:6px;border:2px solid rgba(0,194,116,0.3);pointer-events:none;animation:meRipple 2s ease-out infinite;}
-  @keyframes meRipple{0%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1.4);}}
+  .th3-salary-line-wrap{position:relative;height:84px;width:100%;}
+  .th3-salary-line-wrap svg{display:block;width:100%;height:100%;overflow:visible;}
+  .th3-salary-line-path{fill:none;stroke:#00C274;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .th3-salary-line-area{fill:url(#th3SalaryLineGrad);}
+  .th3-salary-line-axis{stroke:#E5E8EB;stroke-width:1;stroke-dasharray:2 3;}
+  .th3-salary-line-me-line{stroke:var(--brand);stroke-width:1.5;stroke-dasharray:3 3;opacity:.5;}
+  .th3-salary-line-me-dot{fill:#fff;stroke:var(--brand);stroke-width:3;filter:drop-shadow(0 2px 6px rgba(0,194,116,0.35));animation:meDotIn .5s cubic-bezier(.2,.8,.2,1);}
+  @keyframes meDotIn{from{transform:scale(0);transform-origin:center;opacity:0;}to{transform:scale(1);opacity:1;}}
   .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:14px;padding-top:10px;border-top:1px dashed var(--ln2);}
   .th3-salary-axis span{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
   .th3-salary-axis span:first-child{align-items:flex-start;}
@@ -3938,30 +3938,26 @@
   .mw-icon-btn svg{width:22px;height:22px;}
   .mw-logo{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:4px 8px;border-radius:10px;transition:background .15s;}
   .mw-logo:hover{background:#F9FAFB;}
-  .mw-logo-img{height:22px;display:block;}
+  .mw-logo-img{height:30px;display:block;}
   .mw-float-logo{cursor:pointer;}
   .mw-float-logo:hover{background:var(--brand-dk);}
 
-  .mw-hero{padding:14px 16px 20px;}
+  .mw-hero{padding:clamp(100px,22vh,200px) 16px 28px;display:flex;flex-direction:column;align-items:center;}
   @keyframes mwFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-6px) rotate(-3deg);}}
 
-  .mw-searchbar{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 20px;background:#fff;border:2.5px solid var(--brand);border-radius:999px;box-shadow:0 6px 24px rgba(0,194,116,0.18),0 2px 6px rgba(0,194,116,0.1);transition:all .18s;cursor:text;}
-  .mw-searchbar:hover{box-shadow:0 8px 28px rgba(0,194,116,0.24),0 2px 6px rgba(0,194,116,0.12);transform:translateY(-1px);}
+  .mw-searchbar{width:100%;max-width:440px;display:flex;align-items:center;gap:8px;padding:5px 5px 5px 18px;background:#fff;border:2px solid var(--brand);border-radius:999px;box-shadow:0 4px 18px rgba(0,194,116,0.14),0 1px 3px rgba(0,194,116,0.08);transition:all .18s;cursor:text;}
+  .mw-searchbar:hover{box-shadow:0 6px 22px rgba(0,194,116,0.2),0 1px 3px rgba(0,194,116,0.1);}
   .mw-searchbar:focus-within{border-color:var(--brand-dk);}
-  .mw-searchbar-ic{width:22px;height:22px;color:var(--brand);flex-shrink:0;}
-  .mw-searchbar input{flex:1;border:none;outline:none;font-size:17px;color:var(--tx);background:none;font-family:var(--font);height:52px;font-weight:700;padding:0;min-width:0;letter-spacing:-.3px;}
+  .mw-searchbar-ic{width:19px;height:19px;color:var(--brand);flex-shrink:0;}
+  .mw-searchbar input{flex:1;border:none;outline:none;font-size:15.5px;color:var(--tx);background:none;font-family:var(--font);height:44px;font-weight:700;padding:0;min-width:0;letter-spacing:-.3px;}
   .mw-searchbar input::placeholder{color:var(--tx3);font-weight:600;}
-  .mw-searchbar-submit{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s, transform .15s;box-shadow:0 2px 8px rgba(0,194,116,0.3);}
+  .mw-searchbar-submit{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s, transform .15s;box-shadow:0 2px 6px rgba(0,194,116,0.3);}
   .mw-searchbar-submit:hover{background:var(--brand-dk);transform:scale(1.06);}
-  .mw-searchbar-submit svg{width:18px;height:18px;}
+  .mw-searchbar-submit svg{width:15px;height:15px;}
   .mw-mic-btn{width:40px;height:40px;border-radius:50%;background:var(--brand-lt);border:none;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
   .mw-mic-btn:hover{background:#BDF0D6;}
   .mw-mic-btn svg{width:18px;height:18px;}
 
-  .mw-qc-chips{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;align-items:center;justify-content:center;}
-  .mw-qc-label{font-size:12px;color:var(--tx3);font-weight:600;letter-spacing:-.1px;margin-right:2px;}
-  .mw-qc-chip{padding:6px 12px;background:#F2F4F6;border:none;border-radius:20px;font-size:12.5px;font-weight:600;color:var(--tx2);cursor:pointer;font-family:var(--font);letter-spacing:-.1px;transition:all .15s;}
-  .mw-qc-chip:hover{background:#E5E8EB;}
 
   /* Promo banner — 네이버 홈의 프로모션 카드 자리 */
   .mw-promo{margin:0 16px 22px;display:flex;align-items:center;gap:14px;padding:14px 16px 14px 18px;background:linear-gradient(120deg,#F0FDF7 0%,#FEF9E7 100%);border:1px solid #DBF4E2;border-radius:16px;cursor:pointer;transition:all .18s;}
@@ -4064,18 +4060,11 @@
     <section class="mw-hero">
       <form class="mw-searchbar" onsubmit="event.preventDefault();">
         <svg class="mw-searchbar-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="text" placeholder="어떤 회사 다녀볼까요?" autocomplete="off">
+        <input type="text" placeholder="어느 회사가 궁금해요?" autocomplete="off">
         <button type="button" class="mw-searchbar-submit" aria-label="검색">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </form>
-      <div class="mw-qc-chips">
-        <span class="mw-qc-label">많이 찾아요</span>
-        <button type="button" class="mw-qc-chip">토스</button>
-        <button type="button" class="mw-qc-chip">당근</button>
-        <button type="button" class="mw-qc-chip">카카오</button>
-        <button type="button" class="mw-qc-chip">네이버</button>
-      </div>
     </section>
 
     <section class="mw-updates">
@@ -4403,9 +4392,9 @@
     },
     follow: function(){
       var items = [
-        {logo:'카',co:'카카오',sub:'내 전직장',cardType:'action',badgeLabel:'내 직무 채용중',update:'<strong>채용 3건</strong> 진행중',dest:'job'},
-        {logo:'토',co:'토스',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 채용중',update:'<strong>2건 채용</strong> <span class="th3-follow-dday">D-5</span>',dest:'job'},
-        {logo:'네',co:'네이버',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 채용중',update:'<strong>신규 공고 1건</strong>',dest:'job'},
+        {logo:'카',co:'카카오',sub:'내 전직장',cardType:'action',badgeLabel:'내 직무 채용중',update:'채용 <strong>3건</strong> 진행중',dest:'job'},
+        {logo:'토',co:'토스',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 채용중',update:'<strong>2건</strong> 채용 <span class="th3-follow-dday">D-5</span>',dest:'job'},
+        {logo:'네',co:'네이버',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 채용중',update:'신규 공고 <strong>1건</strong>',dest:'job'},
         {logo:'당',co:'당근',sub:'팔로우 중',cardType:'info',badgeLabel:'관심 업데이트',update:'3년차 연봉 <strong>6,400만</strong> 공개',dest:'review'}
       ];
       return '<div class="th3-follow-grid">'+items.map(function(it){
@@ -4438,14 +4427,24 @@
         }).join('')+'</optgroup>';
       }).join('');
 
-      var totalBars = 40, myBarIdx = 27;
-      var bars = '';
-      for(var i=0; i<totalBars; i++){
-        var x = (i - totalBars/2) / (totalBars/4);
-        var h = Math.round(12 + Math.exp(-x*x/2) * 58);
-        var cls = 'th3-salary-dist-bar' + (i === myBarIdx ? ' me' : '');
-        bars += '<div class="'+cls+'" style="height:'+h+'px"></div>';
+      var totalPoints = 60, myIdx = 41;
+      var VBW = 400, VBH = 84;
+      var pts = [];
+      for(var i=0; i<totalPoints; i++){
+        var x = (i - totalPoints/2) / (totalPoints/4);
+        var h = 10 + Math.exp(-x*x/2) * 66;
+        pts.push({x: (i/(totalPoints-1))*VBW, y: VBH - h});
       }
+      var lineD = 'M'+pts[0].x.toFixed(1)+','+pts[0].y.toFixed(1);
+      for(var i=1;i<totalPoints;i++){
+        var p0 = pts[i-1], p1 = pts[i];
+        var cpx = (p0.x + p1.x) / 2;
+        lineD += ' Q'+cpx.toFixed(1)+','+p0.y.toFixed(1)+' '+((cpx+p1.x)/2).toFixed(1)+','+((p0.y+p1.y)/2).toFixed(1);
+      }
+      lineD += ' L'+pts[totalPoints-1].x.toFixed(1)+','+pts[totalPoints-1].y.toFixed(1);
+      var areaD = lineD + ' L'+VBW+','+VBH+' L0,'+VBH+' Z';
+      var me = pts[myIdx];
+      var meLeftPct = (me.x / VBW) * 100;
 
       return ''+
         '<div class="th3-salary">'+
@@ -4493,8 +4492,21 @@
               '</div>'+
 
               '<div class="th3-salary-dist">'+
-                '<div class="th3-salary-dist-tooltip" style="left:'+((myBarIdx+0.5)/totalBars*100)+'%;">내 연봉 5,500만 · 상위 32%</div>'+
-                '<div class="th3-salary-dist-bars">'+bars+'</div>'+
+                '<div class="th3-salary-dist-tooltip" style="left:'+meLeftPct.toFixed(1)+'%;">내 연봉 5,500만 · 상위 32%</div>'+
+                '<div class="th3-salary-line-wrap">'+
+                  '<svg viewBox="0 0 '+VBW+' '+VBH+'" preserveAspectRatio="none" aria-hidden="true">'+
+                    '<defs>'+
+                      '<linearGradient id="th3SalaryLineGrad" x1="0" y1="0" x2="0" y2="1">'+
+                        '<stop offset="0%" stop-color="#00C274" stop-opacity="0.22"/>'+
+                        '<stop offset="100%" stop-color="#00C274" stop-opacity="0"/>'+
+                      '</linearGradient>'+
+                    '</defs>'+
+                    '<path class="th3-salary-line-area" d="'+areaD+'"/>'+
+                    '<path class="th3-salary-line-path" d="'+lineD+'"/>'+
+                    '<line class="th3-salary-line-me-line" x1="'+me.x.toFixed(1)+'" y1="'+me.y.toFixed(1)+'" x2="'+me.x.toFixed(1)+'" y2="'+VBH+'"/>'+
+                    '<circle class="th3-salary-line-me-dot" cx="'+me.x.toFixed(1)+'" cy="'+me.y.toFixed(1)+'" r="5"/>'+
+                  '</svg>'+
+                '</div>'+
               '</div>'+
               '<div class="th3-salary-axis">'+
                 '<span><small>하위 10%</small><strong>3,200만</strong></span>'+
