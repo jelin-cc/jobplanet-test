@@ -3691,10 +3691,6 @@
   .th3-salary-form-wrap{display:flex;flex-direction:column;gap:14px;}
   .th3-salary-field{display:flex;flex-direction:column;gap:8px;}
   .th3-salary-field label{font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:-.1px;}
-  .th3-salary-chips{display:flex;gap:6px;flex-wrap:wrap;}
-  .th3-salary-chip{padding:8px 14px;border-radius:var(--rfull);border:none;background:#F2F4F6;color:var(--tx2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s;letter-spacing:-.1px;}
-  .th3-salary-chip:hover{background:#E5E8EB;}
-  .th3-salary-chip.active{background:var(--tx);color:#fff;}
   .th3-salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .th3-salary-select{height:44px;padding:0 36px 0 14px;border:1.5px solid var(--ln);border-radius:10px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E5968' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 12px center;appearance:none;-webkit-appearance:none;font-size:14px;font-family:var(--font);color:var(--tx);cursor:pointer;transition:border-color .15s;font-weight:600;}
   .th3-salary-select:focus{border-color:var(--brand);outline:none;}
@@ -3729,20 +3725,9 @@
   .th3-salary-gauge-axis small{font-size:10px;color:var(--tx4);font-weight:700;letter-spacing:-.1px;}
   .th3-salary-gauge-axis strong{font-size:13px;color:var(--tx2);font-weight:700;letter-spacing:-.2px;}
 
-  .th3-salary-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-top:24px;border-top:1px solid var(--ln2);}
-  .th3-salary-stat{display:flex;flex-direction:column;gap:8px;padding:16px 18px;background:#F9FAFB;border-radius:14px;transition:all .15s;}
-  .th3-salary-stat:hover{background:#F2F4F6;}
-  .th3-salary-stat.highlight{background:var(--brand-lt);}
-  .th3-salary-stat.highlight .th3-salary-stat-lb{color:var(--brand-dk);}
-  .th3-salary-stat.highlight .th3-salary-stat-val{color:var(--brand-dk);}
-  .th3-salary-stat-lb{font-size:11px;color:var(--tx3);font-weight:700;letter-spacing:-.1px;}
-  .th3-salary-stat-val{font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.5px;line-height:1;}
-  .th3-salary-stat-val em{font-style:normal;font-size:12px;font-weight:600;opacity:.7;margin-left:2px;}
-
   @media (max-width:860px){
     .th3-salary{padding:28px 24px 20px;}
     .th3-salary-main{grid-template-columns:1fr;gap:16px;}
-    .th3-salary-stats{grid-template-columns:repeat(2,1fr);row-gap:16px;}
   }
 
   .th3-empty{text-align:center;padding:64px 20px;color:var(--tx4);font-size:14px;background:#fff;border:1px dashed var(--ln);border-radius:16px;}
@@ -4074,9 +4059,19 @@
       }).join('')+'</div>';
     },
     salary: function(){
-      var roles = ['프로덕트 디자이너','개발자','PM','마케터','데이터 분석가'];
-      var chipsHTML = roles.map(function(r,i){
-        return '<button type="button" class="th3-salary-chip'+(i===0?' active':'')+'" onclick="th3SalaryChip(this)">'+r+'</button>';
+      var roleGroups = [
+        {label:'디자인', items:['프로덕트 디자이너','UX 디자이너','UI 디자이너','BX 디자이너','그래픽 디자이너']},
+        {label:'개발',   items:['프론트엔드 개발자','백엔드 개발자','풀스택 개발자','iOS 개발자','안드로이드 개발자','데이터 엔지니어','AI/ML 엔지니어','DevOps 엔지니어','QA 엔지니어']},
+        {label:'기획·PM', items:['PM','PO','서비스 기획자','전략 기획']},
+        {label:'데이터', items:['데이터 분석가','데이터 사이언티스트','BI 분석가']},
+        {label:'마케팅', items:['그로스 마케터','브랜드 마케터','콘텐츠 마케터','퍼포먼스 마케터']},
+        {label:'사업·운영', items:['세일즈','CS 매니저','오퍼레이션','HR','재무·회계','법무']}
+      ];
+      var roleOpts = roleGroups.map(function(g){
+        return '<optgroup label="'+g.label+'">'+g.items.map(function(r,i){
+          var sel = (g.label==='디자인' && i===0) ? ' selected' : '';
+          return '<option'+sel+'>'+r+'</option>';
+        }).join('')+'</optgroup>';
       }).join('');
 
       return ''+
@@ -4090,19 +4085,19 @@
 
           '<div class="th3-salary-main">'+
             '<form class="th3-salary-form-wrap" onsubmit="return th3SalaryCompare(event)">'+
-              '<div class="th3-salary-field">'+
-                '<label>직무</label>'+
-                '<div class="th3-salary-chips">'+chipsHTML+'</div>'+
-              '</div>'+
               '<div class="th3-salary-row">'+
+                '<div class="th3-salary-field">'+
+                  '<label>직무</label>'+
+                  '<select class="th3-salary-select">'+roleOpts+'</select>'+
+                '</div>'+
                 '<div class="th3-salary-field">'+
                   '<label>경력</label>'+
                   '<select class="th3-salary-select"><option>1년차</option><option>2~3년차</option><option>4~6년차</option><option selected>5년차</option><option>7~10년차</option><option>10년차 이상</option></select>'+
                 '</div>'+
-                '<div class="th3-salary-field">'+
-                  '<label>기업 규모</label>'+
-                  '<select class="th3-salary-select"><option>스타트업</option><option selected>중견기업</option><option>대기업</option><option>외국계</option></select>'+
-                '</div>'+
+              '</div>'+
+              '<div class="th3-salary-field">'+
+                '<label>기업 규모</label>'+
+                '<select class="th3-salary-select"><option>스타트업</option><option selected>중견기업</option><option>대기업</option><option>외국계</option></select>'+
               '</div>'+
               '<div class="th3-salary-field">'+
                 '<label>내 연봉 (만원)</label>'+
@@ -4119,7 +4114,7 @@
                   '<span class="th3-salary-viz-prefix">또래보다</span>'+
                   '<span class="th3-salary-viz-rank-num">상위 32<small>%</small></span>'+
                 '</div>'+
-                '<div class="th3-salary-viz-msg">같은 직무·경력 <strong>1,284명</strong> 기준 · 약 <strong>410등</strong></div>'+
+                '<div class="th3-salary-viz-msg">같은 직무·경력 <strong>1,284명</strong> 기준 · 약 <strong>410등</strong> · 평균 <strong>5,812만</strong></div>'+
               '</div>'+
 
               '<div class="th3-salary-gauge">'+
@@ -4130,18 +4125,11 @@
                 '</div>'+
                 '<div class="th3-salary-gauge-axis">'+
                   '<span><small>하위 10%</small><strong>3,200만</strong></span>'+
-                  '<span><small>평균</small><strong>5,500만</strong></span>'+
-                  '<span><small>상위 10%</small><strong>7,820만</strong></span>'+
+                  '<span><small>중앙값</small><strong>5,500만</strong></span>'+
+                  '<span><small>상위 10%</small><strong>7,820만+</strong></span>'+
                 '</div>'+
               '</div>'+
             '</div>'+
-          '</div>'+
-
-          '<div class="th3-salary-stats">'+
-            '<div class="th3-salary-stat"><span class="th3-salary-stat-lb">평균</span><span class="th3-salary-stat-val">5,812<em>만</em></span></div>'+
-            '<div class="th3-salary-stat"><span class="th3-salary-stat-lb">중앙값</span><span class="th3-salary-stat-val">5,500<em>만</em></span></div>'+
-            '<div class="th3-salary-stat highlight"><span class="th3-salary-stat-lb">상위 10%</span><span class="th3-salary-stat-val">7,820<em>만+</em></span></div>'+
-            '<div class="th3-salary-stat"><span class="th3-salary-stat-lb">데이터 수</span><span class="th3-salary-stat-val">12,847<em>명</em></span></div>'+
           '</div>'+
         '</div>';
     }
@@ -4323,12 +4311,6 @@
     v=(v||'').trim();
     if(v){ th3AddRecent(v); window.th3SearchDDClose(); if(window.go) go('search'); }
     return false;
-  };
-  window.th3SalaryChip = function(el){
-    var parent = el.parentElement;
-    if(!parent) return;
-    parent.querySelectorAll('.th3-salary-chip').forEach(function(c){c.classList.remove('active');});
-    el.classList.add('active');
   };
   window.th3PickTab = function(el, tab){
     var parent = el.parentElement;
