@@ -3650,7 +3650,7 @@
   .th3-urgent{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
   .th3-urgent-item{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px 16px 14px;background:#fff;border:1px solid #F2F4F6;border-radius:14px;cursor:pointer;transition:all .18s;box-shadow:0 1px 2px rgba(17,24,39,0.04);overflow:hidden;}
   .th3-urgent-item:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(17,24,39,0.06),0 10px 24px rgba(17,24,39,0.06);border-color:#E5E8EB;}
-  .th3-urgent-item.imminent{border-color:#FCA5A5;background:linear-gradient(180deg,#FEF2F2 0%,#fff 60%);}
+  .th3-urgent-item.imminent{border-color:#FCA5A5;background:linear-gradient(180deg,#FEF2F2 0%,#fff 60%);padding-top:28px;}
   .th3-urgent-item.imminent:hover{border-color:#F87171;}
   .th3-urgent-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
   .th3-urgent-dday{font-size:12px;font-weight:800;color:#EF4444;padding:4px 10px;border-radius:var(--rfull);background:#FEF2F2;letter-spacing:-.1px;line-height:1;}
@@ -3669,7 +3669,7 @@
   .th3-follow-card{position:relative;display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid #F2F4F6;border-radius:16px;padding:18px 18px 16px;cursor:pointer;transition:all .22s cubic-bezier(.2,.8,.2,1);box-shadow:0 1px 2px rgba(15,25,40,0.04);overflow:hidden;min-height:140px;}
   .th3-follow-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,25,40,0.08);border-color:#E5E8EB;}
   .th3-follow-card.action{background:linear-gradient(180deg,#F6FEFA 0%,#fff 45%);border-color:#E5F6EC;}
-  .th3-follow-card.action::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--brand) 0%,#009A5C 100%);}
+  .th3-follow-card.action::before{content:'';position:absolute;left:0;top:18px;bottom:18px;width:3px;background:linear-gradient(180deg,var(--brand) 0%,#009A5C 100%);border-radius:0 3px 3px 0;}
   .th3-follow-card.action:hover{border-color:#C6EED4;}
 
   .th3-follow-top{display:flex;align-items:center;gap:10px;}
@@ -3693,17 +3693,17 @@
   .th3-follow-dday{color:#fff;background:#EF4444;font-weight:800;padding:3px 8px;border-radius:6px;font-size:11px;line-height:1.25;letter-spacing:.1px;}
 
   /* Salary block — Toss-style 디벨롭 */
-  .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:36px 40px 28px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
+  .th3-salary{background:#fff;border:1px solid #F2F4F6;border-radius:24px;padding:28px 32px 22px;box-shadow:0 1px 2px rgba(17,24,39,0.04),0 6px 20px rgba(17,24,39,0.04);position:relative;overflow:hidden;}
   .th3-salary-top{display:flex;justify-content:flex-start;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;}
   .th3-salary-nhis{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--brand-dk);background:var(--brand-lt);padding:5px 12px 5px 8px;border-radius:var(--rfull);letter-spacing:-.1px;font-weight:700;}
   .th3-salary-nhis img{width:18px;height:18px;display:block;}
   .th3-salary-nhis strong{font-weight:800;color:var(--brand-dk);}
-  .th3-salary-title{font-size:26px;font-weight:700;letter-spacing:-.5px;margin:0 0 6px;color:var(--tx);line-height:1.3;}
+  .th3-salary-title{font-size:24px;font-weight:700;letter-spacing:-.5px;margin:0 0 4px;color:var(--tx);line-height:1.3;}
   .th3-salary-title em{color:var(--brand);font-style:normal;}
-  .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 28px;letter-spacing:-.1px;}
+  .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 20px;letter-spacing:-.1px;}
 
-  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;align-items:stretch;}
-  .th3-salary-form-wrap{display:flex;flex-direction:column;gap:14px;}
+  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:stretch;}
+  .th3-salary-form-wrap{display:flex;flex-direction:column;gap:12px;}
   .th3-salary-form-wrap > .th3-salary-field.primary{margin-top:auto;}
   .th3-salary-field{display:flex;flex-direction:column;gap:8px;}
   .th3-salary-field label{font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:-.1px;}
@@ -3931,10 +3931,17 @@
 <!-- ===== Mobile Web View ===== -->
 <style>
   body.mobile-mode{min-width:600px;background:#fff;padding:0 !important;margin:0 !important;}
-  body.mobile-mode > *:not(#mobile-home):not(script):not(style):not(.mw-float){display:none !important;}
+  body.mobile-mode > header,
+  body.mobile-mode > .gnb,
+  body.mobile-mode > .page,
+  body.mobile-mode > footer,
+  body.mobile-mode > .footer,
+  body.mobile-mode > .s-ov,
+  body.mobile-mode > .rv-rate-popup-overlay,
+  body.mobile-mode > .th3-admin-trigger,
+  body.mobile-mode > .th3-admin-overlay{display:none !important;}
   #mobile-home{display:none;}
   body.mobile-mode #mobile-home{display:block !important;}
-  body.mobile-mode .mw-float{display:block;}
 
   .mw-container{width:600px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
   .mw-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px;}
@@ -4181,10 +4188,30 @@
 <script>
   window.enterMobileView = function(){
     document.body.classList.add('mobile-mode');
+    var mh = document.getElementById('mobile-home');
+    if(mh) mh.style.display = 'block';
+    ['page-home','page-job','page-review','page-review-write'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.style.display = 'none';
+    });
+    var gnb = document.querySelector('header.gnb, .gnb');
+    if(gnb) gnb.style.display = 'none';
+    var trigger = document.querySelector('.th3-admin-trigger');
+    if(trigger) trigger.style.display = 'none';
     window.scrollTo(0,0);
   };
   window.exitMobileView = function(){
     document.body.classList.remove('mobile-mode');
+    var mh = document.getElementById('mobile-home');
+    if(mh) mh.style.display = '';
+    ['page-home','page-job','page-review','page-review-write'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.style.display = '';
+    });
+    var gnb = document.querySelector('header.gnb, .gnb');
+    if(gnb) gnb.style.display = '';
+    var trigger = document.querySelector('.th3-admin-trigger');
+    if(trigger) trigger.style.display = '';
     var float = document.getElementById('mwFloat');
     if(float) float.classList.remove('show');
     window.scrollTo(0,0);
@@ -4486,6 +4513,10 @@
       var body = renderers[id] ? renderers[id]() : '';
       if(id === 'salary') return '<section class="th3-block" data-id="'+id+'">'+body+'</section>';
       var hideMore = (id === 'pick');
+      var moreAction;
+      if(id === 'urgent') moreAction = 'th3GoUrgentList()';
+      else if(id === 'follow') moreAction = 'th3GoFollowList()';
+      else moreAction = 'th3Go(\''+(h.more||'review')+'\')';
       return '<section class="th3-block" data-id="'+id+'">'+
         '<div class="th3-block-hd">'+
           '<div class="th3-block-hd-left">'+
@@ -4493,7 +4524,7 @@
             '<h2 class="th3-block-title">'+h.title+'</h2>'+
             (h.sub  ? '<span class="th3-block-sub">'+h.sub+'</span>' : '')+
           '</div>'+
-          (hideMore ? '' : '<button type="button" class="th3-block-more" onclick="th3Go(\''+(h.more||'review')+'\')">전체보기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>')+
+          (hideMore ? '' : '<button type="button" class="th3-block-more" onclick="'+moreAction+'">전체보기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>')+
         '</div>'+
         body+
       '</section>';
@@ -4501,6 +4532,42 @@
   };
 
   window.th3Go = function(page){ if(window.go) go(page); };
+  window.th3GoUrgentList = function(){
+    if(window.go) go('job');
+    setTimeout(function(){
+      var candidates = document.querySelectorAll('[data-sort],.job-sort option,.sort-option,.sort-item,select');
+      for(var i=0;i<candidates.length;i++){
+        var el = candidates[i];
+        var txt = (el.textContent || el.value || '').trim();
+        if(txt.indexOf('마감') >= 0){
+          if(el.tagName === 'OPTION'){
+            el.selected = true;
+            var parent = el.parentElement;
+            if(parent) parent.dispatchEvent(new Event('change',{bubbles:true}));
+          } else {
+            el.click();
+          }
+          break;
+        }
+      }
+      if(window.showToast) showToast('마감 임박 순으로 정렬했어요');
+    }, 200);
+  };
+  window.th3GoFollowList = function(){
+    if(window.go) go('job');
+    setTimeout(function(){
+      var candidates = document.querySelectorAll('[data-filter],.job-filter-chip,button,a');
+      for(var i=0;i<candidates.length;i++){
+        var el = candidates[i];
+        var txt = (el.textContent || '').trim();
+        if(txt.indexOf('팔로우') >= 0){
+          el.click();
+          break;
+        }
+      }
+      if(window.showToast) showToast('팔로우 중인 기업 공고만 보기');
+    }, 200);
+  };
 
   var TH3_POPULAR = [
     {rank:1, text:'카카오',       trend:'up',   delta:2},
