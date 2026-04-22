@@ -3789,22 +3789,24 @@
   .th3-salary-viz-nhis img{width:16px;height:16px;display:block;}
   .th3-salary-viz-nhis strong{font-weight:800;color:var(--brand-dk);}
 
-  /* 가로 막대 분포 */
-  .th3-salary-bar-wrap{position:relative;margin-top:4px;padding-top:26px;}
-  .th3-salary-bar{position:relative;height:10px;background:#ECEDF0;border-radius:var(--rfull);overflow:hidden;}
-  .th3-salary-bar-fill{position:absolute;top:0;left:0;height:100%;border-radius:var(--rfull);background:linear-gradient(90deg,#A8E8C8 0%,var(--brand) 100%);transition:width .6s cubic-bezier(.2,.8,.2,1);}
-  .th3-salary-bar-me{position:absolute;top:50%;width:18px;height:18px;background:var(--brand);border:3px solid #fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(0,194,116,.35);z-index:2;opacity:0;transition:opacity .3s;}
-  .th3-salary-bar-me.on{opacity:1;}
-  .th3-salary-bar-tip{position:absolute;top:-4px;transform:translate(-50%,-100%);background:var(--tx);color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:3;box-shadow:0 4px 12px rgba(15,25,40,0.18);}
+  /* 분포 히스토그램 */
+  .th3-salary-hist-wrap{position:relative;margin-top:4px;padding-top:32px;}
+  .th3-salary-hist{display:flex;align-items:flex-end;gap:3px;height:86px;position:relative;}
+  .th3-salary-hist-bar{flex:1;min-width:0;background:#E5E8EB;border-radius:4px 4px 0 0;transition:background .35s, transform .35s, box-shadow .35s;position:relative;}
+  .th3-salary-hist-bar.peak{background:#D5ECDF;}
+  .th3-salary-hist-bar.me{background:var(--brand);box-shadow:0 2px 10px rgba(0,194,116,.35);transform:translateY(-2px);z-index:2;}
+  .th3-salary-hist-bar.me::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--brand);}
+  .th3-salary-hist-avg{position:absolute;top:-6px;bottom:0;width:0;border-left:1.5px dashed var(--brand-dk);z-index:1;pointer-events:none;}
+  .th3-salary-hist-avg-lbl{position:absolute;top:-22px;left:50%;transform:translateX(-50%);background:var(--brand-lt);color:var(--brand-dk);font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;white-space:nowrap;letter-spacing:-.1px;}
+  .th3-salary-bar-tip{position:absolute;top:-4px;transform:translate(-50%,-100%);background:var(--tx);color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:4;box-shadow:0 4px 12px rgba(15,25,40,0.18);}
   .th3-salary-bar-tip::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border:4px solid transparent;border-top-color:var(--tx);}
-  .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:14px;}
-  .th3-salary-axis span{display:flex;flex-direction:column;gap:2px;}
-  .th3-salary-axis span:first-child{align-items:flex-start;}
-  .th3-salary-axis span:nth-child(2){align-items:center;}
-  .th3-salary-axis span:last-child{align-items:flex-end;}
-  .th3-salary-axis small{font-size:10.5px;color:var(--tx4);font-weight:800;letter-spacing:-.1px;text-transform:uppercase;}
-  .th3-salary-axis strong{font-size:13px;color:var(--tx2);font-weight:800;letter-spacing:-.2px;}
-  .th3-salary-axis span:nth-child(2) strong{color:var(--brand-dk);}
+  .th3-salary-hist-axis{display:flex;justify-content:space-between;gap:4px;margin-top:10px;padding:0 1px;}
+  .th3-salary-hist-axis span{display:inline-flex;flex-direction:column;gap:1px;align-items:center;}
+  .th3-salary-hist-axis span:first-child{align-items:flex-start;}
+  .th3-salary-hist-axis span:last-child{align-items:flex-end;}
+  .th3-salary-hist-axis small{font-size:9.5px;color:var(--tx4);font-weight:800;letter-spacing:0;text-transform:uppercase;}
+  .th3-salary-hist-axis strong{font-size:12px;color:var(--tx2);font-weight:800;letter-spacing:-.2px;}
+  .th3-salary-hist-axis span.peak strong{color:var(--brand-dk);}
 
   @media (max-width:860px){
     .th3-salary{padding:28px 24px 20px;}
@@ -4082,7 +4084,6 @@
   .mw-update-card.urgent .mw-update-line strong{color:#EF4444;}
   .mw-update-dday{color:#EF4444;background:rgba(239,68,68,0.12);font-weight:800;padding:2px 7px;border-radius:999px;font-size:10.5px;line-height:1.4;letter-spacing:-.1px;flex-shrink:0;margin-left:4px;}
   .mw-update-card.urgent .mw-update-dday{background:#EF4444;color:#fff;}
-  .mw-update-chev{display:none;}
 
   .mw-section{margin:0;padding:18px 20px 100px;background:#fff;border-radius:0;}
   .mw-section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;gap:12px;}
@@ -4118,6 +4119,9 @@
   .mw-card-meta{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--tx3);padding-top:8px;border-top:1px solid rgba(15,25,40,0.06);}
   .mw-card-meta-logo{width:18px;height:18px;border-radius:5px;background:#fff;border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--tx2);flex-shrink:0;}
   .mw-card-meta strong{color:var(--tx2);font-weight:700;}
+  .mw-card-meta-chev{margin-left:auto;width:14px;height:14px;color:var(--tx4);flex-shrink:0;}
+  .mw-update-chev{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;color:var(--tx4);flex-shrink:0;margin-left:2px;}
+  .mw-update-chev svg{width:14px;height:14px;}
 
   /* 스크롤 유도 플로팅 버튼 */
   .mw-scroll-hint{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;padding:11px 18px 11px 16px;background:var(--tx);color:#fff;border:none;border-radius:var(--rfull);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:-.2px;cursor:pointer;z-index:60;box-shadow:0 6px 20px rgba(15,25,40,0.24);opacity:1;transition:opacity .2s, transform .2s;white-space:nowrap;}
@@ -4233,6 +4237,7 @@
             <strong>쿠팡</strong>
             <span>·</span>
             <span>물류·IT</span>
+            <svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
         </div>
         <div class="mw-card red">
@@ -4247,6 +4252,7 @@
             <strong>비바리퍼블리카</strong>
             <span>·</span>
             <span>IT·핀테크</span>
+            <svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
         </div>
         <div class="mw-card purple">
@@ -4261,6 +4267,7 @@
             <strong>네이버</strong>
             <span>·</span>
             <span>IT·플랫폼</span>
+            <svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
         </div>
       </div>
@@ -4963,16 +4970,24 @@
                 '</span>'+
               '</div>'+
 
-              '<div class="th3-salary-bar-wrap">'+
+              '<div class="th3-salary-hist-wrap">'+
                 '<div class="th3-salary-bar-tip" id="th3SalaryTip" style="left:50%;display:none;">내 연봉 5,500만</div>'+
-                '<div class="th3-salary-bar">'+
-                  '<div class="th3-salary-bar-fill" id="th3SalaryFill" style="width:50%;"></div>'+
-                  '<div class="th3-salary-bar-me" id="th3SalaryMe" style="left:50%;"></div>'+
+                '<div class="th3-salary-hist" id="th3SalaryHist">'+
+                  '<div class="th3-salary-hist-bar" data-idx="0" style="height:16%;"></div>'+
+                  '<div class="th3-salary-hist-bar" data-idx="1" style="height:30%;"></div>'+
+                  '<div class="th3-salary-hist-bar" data-idx="2" style="height:50%;"></div>'+
+                  '<div class="th3-salary-hist-bar peak" data-idx="3" style="height:78%;"></div>'+
+                  '<div class="th3-salary-hist-bar peak" data-idx="4" style="height:100%;"></div>'+
+                  '<div class="th3-salary-hist-bar peak" data-idx="5" style="height:82%;"></div>'+
+                  '<div class="th3-salary-hist-bar" data-idx="6" style="height:54%;"></div>'+
+                  '<div class="th3-salary-hist-bar" data-idx="7" style="height:30%;"></div>'+
+                  '<div class="th3-salary-hist-bar" data-idx="8" style="height:14%;"></div>'+
+                  '<div class="th3-salary-hist-avg" id="th3SalaryAvgMark" style="left:50%;"><span class="th3-salary-hist-avg-lbl">평균 5,500만</span></div>'+
                 '</div>'+
-                '<div class="th3-salary-axis">'+
-                  '<span><small>하위 25%</small><strong>~3,200만</strong></span>'+
-                  '<span><small>평균 50%</small><strong>5,500만</strong></span>'+
-                  '<span><small>상위 10%</small><strong>7,820만↑</strong></span>'+
+                '<div class="th3-salary-hist-axis">'+
+                  '<span><strong>3,200만</strong><small>하위 25%</small></span>'+
+                  '<span class="peak"><strong>5,500만</strong><small>평균</small></span>'+
+                  '<span><strong>7,820만↑</strong><small>상위 10%</small></span>'+
                 '</div>'+
               '</div>'+
 
@@ -5256,11 +5271,14 @@
     var delta = salary - AVG;
     var absDelta = Math.abs(delta).toLocaleString('ko-KR');
 
-    var fill = document.getElementById('th3SalaryFill');
-    var me   = document.getElementById('th3SalaryMe');
+    var hist = document.getElementById('th3SalaryHist');
     var tip  = document.getElementById('th3SalaryTip');
-    if(fill) fill.style.width = pct+'%';
-    if(me){ me.style.left = pct+'%'; me.classList.add('on'); }
+    if(hist){
+      var bars = hist.querySelectorAll('.th3-salary-hist-bar');
+      bars.forEach(function(b){ b.classList.remove('me'); });
+      var targetIdx = Math.min(bars.length-1, Math.max(0, Math.floor(pct/100 * bars.length)));
+      if(bars[targetIdx]) bars[targetIdx].classList.add('me');
+    }
     if(tip){ tip.style.left = pct+'%'; tip.style.display = 'block'; tip.textContent = '내 연봉 '+salary.toLocaleString('ko-KR')+'만'; }
 
     var v     = document.getElementById('th3SalaryVerdict');
