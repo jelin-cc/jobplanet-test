@@ -3716,10 +3716,11 @@
   .th3-follow-co{font-size:14px;font-weight:700;color:var(--tx);letter-spacing:-.2px;line-height:1.25;}
   .th3-follow-sub{font-size:11.5px;color:var(--tx3);font-weight:500;letter-spacing:-.1px;line-height:1.3;}
 
-  .th3-follow-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:var(--rfull);letter-spacing:-.1px;line-height:1.3;width:fit-content;}
-  .th3-follow-badge.action{color:var(--brand-dk);background:var(--brand-lt);}
-  .th3-follow-badge.action::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand);}
+  .th3-follow-badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:var(--rfull);letter-spacing:-.1px;line-height:1.3;width:fit-content;}
+  .th3-follow-badge.action{color:#EF4444;background:#FEF2F2;box-shadow:inset 0 0 0 1px rgba(239,68,68,0.14);}
+  .th3-follow-badge.action svg{width:13px;height:13px;flex-shrink:0;stroke:currentColor;}
   .th3-follow-badge.info{color:var(--tx3);background:var(--ln2);}
+  .th3-follow-badge.info svg{width:13px;height:13px;flex-shrink:0;stroke:currentColor;}
 
   .th3-follow-update{font-size:13px;color:var(--tx3);font-weight:500;line-height:1.4;letter-spacing:-.2px;margin-top:auto;display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;padding-top:14px;border-top:1px solid var(--ln2);}
   .th3-follow-update strong{color:var(--tx);font-weight:800;font-size:15.5px;letter-spacing:-.3px;}
@@ -4706,7 +4707,12 @@
               '<div class="th3-follow-sub">'+it.sub+'</div>'+
             '</div>'+
           '</div>'+
-          '<span class="th3-follow-badge '+it.cardType+'">'+it.badgeLabel+'</span>'+
+          '<span class="th3-follow-badge '+it.cardType+'">'+
+            (it.cardType==='action'
+              ? '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>'
+              : '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>')+
+            it.badgeLabel+
+          '</span>'+
           '<div class="th3-follow-update">'+it.update+'</div>'+
         '</div>';
       }).join('')+'</div>';
@@ -4814,7 +4820,7 @@
   };
 
   var headers = {
-    follow:    {label:'내가 팔로우 중', title:'새 소식이 도착했어요',       sub:'내 직무 채용 공고가 새로 올라왔어요', more:'job'},
+    follow:    {label:'내 관심 기업', title:'새 소식이 도착했어요',       sub:'채용·연봉·리뷰 소식이 업데이트됐어요', more:'job'},
     urgent:    {label:'',               title:'마감 임박한 공고',          sub:'',                                        more:'job'},
     pick:      {label:'',               title:'지금 뜨는 기업 리뷰',       sub:'',                                        more:'review'},
     theme:     {label:'리뷰 기반 추천', title:'리뷰로 찾은 채용 공고',     sub:'',                                        more:'job'},
