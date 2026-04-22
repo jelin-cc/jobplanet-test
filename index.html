@@ -4084,7 +4084,7 @@
   .mw-update-dday{color:#EF4444;background:rgba(239,68,68,0.12);font-weight:800;padding:3px 8px;border-radius:999px;font-size:10.5px;line-height:1;letter-spacing:-.1px;flex-shrink:0;margin-left:4px;display:inline-flex;align-items:center;justify-content:center;}
   .mw-update-card.urgent .mw-update-dday{background:#EF4444;color:#fff;}
 
-  .mw-section{margin:0;padding:18px 20px 100px;background:#fff;border-radius:0;}
+  .mw-section{margin:0;padding:22px 20px 100px;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -2px 8px rgba(15,25,40,0.04);}
   .mw-section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;gap:12px;}
   .mw-section-ti{display:flex;flex-direction:column;gap:2px;}
   .mw-section-ti h2{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;}
@@ -4283,22 +4283,25 @@
   .hb-insight-title em{font-style:normal;background:linear-gradient(135deg,#00C362 0%,#4CC4F0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;}
   .hb-insight-sub{font-size:13px;color:#8B93A1;margin:0 0 10px;font-weight:600;letter-spacing:-.1px;}
 
-  .hb-radar-wrap{position:relative;width:280px;height:280px;margin:0 auto 4px;}
+  .hb-radar-wrap{position:relative;width:200px;height:200px;margin:0 auto 4px;}
   .hb-radar-svg{width:100%;height:100%;overflow:visible;display:block;}
   .hb-emo-lbl{font-size:11px;font-weight:700;fill:#6B7684;letter-spacing:-.1px;font-family:inherit;}
-  /* 잡플래닛 행성 오브 - 이리데슨트 블러 글래스 */
-  .p-halo{transform-box:fill-box;transform-origin:center;animation:pHalo 5s ease-in-out infinite;}
-  .p-body{transform-box:fill-box;transform-origin:center;animation:pBody 6s ease-in-out infinite;}
-  .p-iris{transform-box:fill-box;transform-origin:center;animation:pIris 8s ease-in-out infinite;}
-  .p-shine{transform-box:fill-box;transform-origin:center;animation:pShine 7s ease-in-out infinite;mix-blend-mode:screen;}
-  .p-ring{transform-box:fill-box;transform-origin:center;animation:pRing 18s linear infinite;}
-  .p-ring-2{transform-box:fill-box;transform-origin:center;animation:pRing2 24s linear infinite;}
-  @keyframes pHalo{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.1);}}
-  @keyframes pBody{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.04) rotate(6deg);}}
-  @keyframes pIris{0%,100%{transform:scale(1) translate(0,0);}33%{transform:scale(1.06) translate(-5px,-4px);}66%{transform:scale(1.02) translate(4px,5px);}}
-  @keyframes pShine{0%,100%{transform:scale(1) rotate(0);opacity:.6;}50%{transform:scale(1.08) rotate(-10deg);opacity:.85;}}
-  @keyframes pRing{from{transform:rotate(-18deg);}to{transform:rotate(342deg);}}
-  @keyframes pRing2{from{transform:rotate(22deg);}to{transform:rotate(-338deg);}}
+  /* 이리데슨트 버블 오브 - 토스 글래스 무드 */
+  .bub{transform-box:fill-box;transform-origin:center;will-change:transform,opacity;}
+  .bub-halo{animation:bubHalo 7s ease-in-out infinite;}
+  .bub-rim{animation:bubRim 9s ease-in-out infinite;}
+  .bub-pink{animation:bubPink 8s ease-in-out infinite;}
+  .bub-violet{animation:bubViolet 10s ease-in-out infinite;}
+  .bub-cyan{animation:bubCyan 9s ease-in-out infinite;}
+  .bub-green{animation:bubGreen 12s ease-in-out infinite;}
+  .bub-shine{animation:bubShine 6s ease-in-out infinite;}
+  @keyframes bubHalo{0%,100%{opacity:.78;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+  @keyframes bubRim{0%,100%{opacity:.72;transform:rotate(0deg) scale(1);}50%{opacity:.9;transform:rotate(16deg) scale(1.03);}}
+  @keyframes bubPink{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-8px,6px) scale(1.1);}}
+  @keyframes bubViolet{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(6px,-6px) scale(1.08);}}
+  @keyframes bubCyan{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-4px,-10px) scale(1.12);}}
+  @keyframes bubGreen{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(8px,4px) scale(0.9);}}
+  @keyframes bubShine{0%,100%{transform:translate(0,0) scale(1);opacity:.75;}50%{transform:translate(6px,4px) scale(1.1);opacity:1;}}
   .hb-emo-labels g{opacity:0;animation:hbLblIn .6s ease var(--d,0s) forwards;}
   @keyframes hbLblIn{from{opacity:0;}to{opacity:1;}}
 
@@ -4325,7 +4328,7 @@
   .hb-reco-logo img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;}
   .hb-reco-more{font-size:13.5px;color:#4E5968;font-weight:700;letter-spacing:-.2px;}
   .hb-reco-more strong{color:#191F28;font-weight:800;}
-  .hb-reco-cta{display:block;width:100%;padding:16px;background:#00C362;color:#fff;font-size:15.5px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:background .15s, transform .1s;box-shadow:0 4px 14px rgba(0,194,116,0.28);}
+  .hb-reco-cta{display:block;width:100%;padding:13px;background:#00C362;color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:background .15s, transform .1s;box-shadow:0 3px 10px rgba(0,194,116,0.22);}
   .hb-reco-cta:hover{background:#00A362;}
   .hb-reco-cta:active{transform:scale(0.98);}
 
@@ -4400,43 +4403,60 @@
     <div class="hb-radar-wrap">
       <svg viewBox="0 0 280 280" class="hb-radar-svg" aria-hidden="true">
         <defs>
-          <radialGradient id="planetCore" cx="38%" cy="32%" r="72%">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-            <stop offset="30%" stop-color="#C8F5DE" stop-opacity="0.9"/>
-            <stop offset="65%" stop-color="#6AE0B3" stop-opacity="0.78"/>
-            <stop offset="100%" stop-color="#00A877" stop-opacity="0.55"/>
+          <clipPath id="bubClip"><circle cx="140" cy="140" r="105"/></clipPath>
+          <radialGradient id="bubBaseG" cx="50%" cy="45%" r="65%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.98"/>
+            <stop offset="70%" stop-color="#F5F2FC" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#E8E4F8" stop-opacity="0.65"/>
           </radialGradient>
-          <radialGradient id="planetBlobA" cx="70%" cy="60%" r="50%">
-            <stop offset="0%" stop-color="#FFCDE6" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#FFCDE6" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="planetBlobB" cx="30%" cy="75%" r="45%">
-            <stop offset="0%" stop-color="#BDDCFF" stop-opacity="0.5"/>
-            <stop offset="100%" stop-color="#BDDCFF" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="planetBlobC" cx="50%" cy="28%" r="45%">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+          <radialGradient id="bubHaloG" cx="50%" cy="50%" r="55%">
+            <stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"/>
+            <stop offset="85%" stop-color="#E3D9F7" stop-opacity="0.55"/>
+            <stop offset="92%" stop-color="#FFD4E6" stop-opacity="0.4"/>
             <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
           </radialGradient>
-          <radialGradient id="planetHaloG" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stop-color="#B8F2D5" stop-opacity="0.55"/>
-            <stop offset="50%" stop-color="#A8E0FF" stop-opacity="0.22"/>
-            <stop offset="100%" stop-color="#FFCBE8" stop-opacity="0"/>
+          <radialGradient id="blobPinkG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FF9EC6" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#FF9EC6" stop-opacity="0"/>
           </radialGradient>
-          <filter id="pBlurL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
-          <filter id="pBlurM" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
-          <filter id="pBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+          <radialGradient id="blobVioletG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#8B6FF0" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#8B6FF0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobCyanG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#5CA5F5" stop-opacity="0.78"/>
+            <stop offset="100%" stop-color="#5CA5F5" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobGreenG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00C362" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#00C362" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="blobShineG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="bubBlurL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+          <filter id="bubBlurM" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="bubBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
         </defs>
-        <!-- 먼 헤일로 -->
-        <circle class="p-halo" cx="140" cy="140" r="120" fill="url(#planetHaloG)" filter="url(#pBlurL)"/>
-        <!-- 행성 본체 -->
-        <circle class="p-body" cx="140" cy="140" r="90" fill="url(#planetCore)" filter="url(#pBlurM)"/>
-        <!-- 색수차 블롭 A (핑크, 우하단) -->
-        <circle class="p-blob-a" cx="158" cy="158" r="46" fill="url(#planetBlobA)" filter="url(#pBlurS)"/>
-        <!-- 색수차 블롭 B (블루, 좌하단) -->
-        <circle class="p-blob-b" cx="114" cy="168" r="42" fill="url(#planetBlobB)" filter="url(#pBlurS)"/>
-        <!-- 상단 하이라이트 -->
-        <circle class="p-shine" cx="124" cy="108" r="38" fill="url(#planetBlobC)" filter="url(#pBlurS)" style="mix-blend-mode:screen;"/>
+
+        <!-- 외부 헤일로 림 -->
+        <circle class="bub bub-halo" cx="140" cy="140" r="128" fill="url(#bubHaloG)" filter="url(#bubBlurM)"/>
+        <!-- 림 그라데이션 -->
+        <circle class="bub bub-rim" cx="140" cy="140" r="108" fill="none" stroke="#E0D6F5" stroke-width="3" opacity="0.55" filter="url(#bubBlurS)"/>
+
+        <!-- 베이스 버블 -->
+        <circle cx="140" cy="140" r="105" fill="url(#bubBaseG)"/>
+
+        <!-- 내부 색수차 블롭 (clip to sphere) -->
+        <g clip-path="url(#bubClip)">
+          <circle class="bub bub-pink" cx="118" cy="92" r="82" fill="url(#blobPinkG)" filter="url(#bubBlurL)"/>
+          <circle class="bub bub-violet" cx="108" cy="148" r="72" fill="url(#blobVioletG)" filter="url(#bubBlurL)"/>
+          <circle class="bub bub-cyan" cx="178" cy="175" r="80" fill="url(#blobCyanG)" filter="url(#bubBlurL)"/>
+          <circle class="bub bub-green" cx="200" cy="118" r="58" fill="url(#blobGreenG)" filter="url(#bubBlurL)"/>
+          <circle class="bub bub-shine" cx="112" cy="104" r="44" fill="url(#blobShineG)" filter="url(#bubBlurM)" style="mix-blend-mode:screen;"/>
+        </g>
+
         <g class="hb-emo-labels">
           <g transform="translate(140,24)" style="--d:.55s"><text class="hb-emo-lbl" text-anchor="middle">성장</text></g>
           <g transform="translate(244,100)" style="--d:.65s"><text class="hb-emo-lbl" text-anchor="middle">급여</text></g>
@@ -4458,43 +4478,23 @@
     <button type="button" class="hb-reco-cta" onclick="closeHomeB();if(typeof go==='function'){go('job');}">나에게 맞는 기업 보기</button>
   </section>
 
-  <div class="hb-features">
-    <button type="button" class="hb-feature accent-green" onclick="closeHomeB();if(typeof go==='function'){go('salary');}">
-      <div>
-        <div class="hb-feature-eyebrow">데이터 기반</div>
-        <h3 class="hb-feature-title">실연봉<br>비교하기</h3>
-      </div>
-      <div class="hb-feature-emoji"><img src="emoji-moneybag.svg" alt=""></div>
-    </button>
-    <button type="button" class="hb-feature accent-peach" onclick="closeHomeB();if(typeof go==='function'){go('job');}">
-      <div>
-        <div class="hb-feature-eyebrow">오늘 마감</div>
-        <h3 class="hb-feature-title">놓치면<br>안 될 공고</h3>
-      </div>
-      <div class="hb-feature-emoji"><img src="emoji-fire.svg" alt=""></div>
-    </button>
-  </div>
-
   <section class="hb-quick-section">
-    <div class="hb-quick-hd">
-      <span class="hb-quick-ti">바로가기</span>
-    </div>
     <div class="hb-quick-menu">
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('job');}">
+        <span class="hb-quick-ic"><img src="emoji-fire.svg" alt=""><span class="hb-quick-badge">3</span></span>
+        <span class="hb-quick-label">마감 임박 공고</span>
+      </button>
       <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-quick-ic"><img src="emoji-trophy.svg" alt=""></span>
-        <span class="hb-quick-label">인기 기업</span>
+        <span class="hb-quick-label">이번 주 인기 기업</span>
+      </button>
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('salary');}">
+        <span class="hb-quick-ic"><img src="emoji-moneybag.svg" alt=""></span>
+        <span class="hb-quick-label">실연봉 비교</span>
       </button>
       <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('job');}">
         <span class="hb-quick-ic"><img src="emoji-briefcase.svg" alt=""></span>
         <span class="hb-quick-label">내 직무 공고</span>
-      </button>
-      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof showToast==='function'){showToast('지금은 지원하지 않는 서비스입니다.');}">
-        <span class="hb-quick-ic"><img src="emoji-memo.svg" alt=""><span class="hb-quick-badge brand">N</span></span>
-        <span class="hb-quick-label">리뷰 작성</span>
-      </button>
-      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('story');}">
-        <span class="hb-quick-ic"><img src="emoji-officebuilding.svg" alt=""></span>
-        <span class="hb-quick-label">취업 스토리</span>
       </button>
     </div>
   </section>
