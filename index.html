@@ -3951,19 +3951,19 @@
       <div class="th3-modular-main">
         <button type="button" class="tm-quick" onclick="th3Go('job')">
           <span class="tm-quick-ic"><img src="emoji-fire.svg" alt="" aria-hidden="true"><span class="tm-quick-badge urgent">3</span></span>
-          <span class="tm-quick-label">마감 임박 공고</span>
+          <span class="tm-quick-label">내 직군<br>마감 임박 공고</span>
         </button>
         <button type="button" class="tm-quick" onclick="th3Go('review')">
           <span class="tm-quick-ic"><img src="emoji-trophy.svg" alt="" aria-hidden="true"></span>
-          <span class="tm-quick-label">이번 주 인기 기업</span>
+          <span class="tm-quick-label">TOP100 기업</span>
         </button>
         <button type="button" class="tm-quick" onclick="th3Go('salary')">
           <span class="tm-quick-ic"><img src="emoji-moneybag.svg" alt="" aria-hidden="true"></span>
           <span class="tm-quick-label">실연봉 비교</span>
         </button>
-        <button type="button" class="tm-quick" onclick="th3Go('job')">
-          <span class="tm-quick-ic"><img src="emoji-briefcase.svg" alt="" aria-hidden="true"></span>
-          <span class="tm-quick-label">내 직무 공고</span>
+        <button type="button" class="tm-quick" onclick="th3Go('review');setTimeout(function(){if(typeof switchReviewTab==='function')switchReviewTab('interest');},50);">
+          <span class="tm-quick-ic"><img src="emoji-officebuilding.svg" alt="" aria-hidden="true"></span>
+          <span class="tm-quick-label">팔로우한 기업</span>
         </button>
         <button type="button" class="tm-quick" onclick="showToast('지금은 지원하지 않는 서비스입니다.')">
           <span class="tm-quick-ic"><img src="emoji-memo.svg" alt="" aria-hidden="true"><span class="tm-quick-badge n">N</span></span>
@@ -3974,7 +3974,7 @@
 
     <section class="th3-modular-content">
       <div class="th3-modular-content-hd">
-        <h2 class="th3-modular-content-title">🔥 지금 가장 뜨거운 마감 임박 공고</h2>
+        <h2 class="th3-modular-content-title"><img src="emoji-fire.svg" alt="" aria-hidden="true" style="width:1em;height:1em;vertical-align:-0.15em;margin-right:4px;">지원자가 몰리고 있는 마감 임박 공고</h2>
         <div class="th3-modular-content-nav">
           <button type="button" aria-label="이전" onclick="tmContentScroll(-1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
           <button type="button" aria-label="다음" onclick="tmContentScroll(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -4533,13 +4533,13 @@
           <span class="hb-quick-ic"><img src="emoji-fire.svg" alt=""></span>
           <span class="hb-quick-badge">3</span>
         </span>
-        <span class="hb-quick-label">마감 임박 공고</span>
+        <span class="hb-quick-label">내 직군<br>마감 임박 공고</span>
       </button>
       <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-quick-box">
           <span class="hb-quick-ic"><img src="emoji-trophy.svg" alt=""></span>
         </span>
-        <span class="hb-quick-label">이번 주<br>인기 기업</span>
+        <span class="hb-quick-label">TOP100 기업</span>
       </button>
       <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('salary');}">
         <span class="hb-quick-box">
@@ -4547,11 +4547,11 @@
         </span>
         <span class="hb-quick-label">실연봉 비교</span>
       </button>
-      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('job');}">
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('review');setTimeout(function(){if(typeof switchReviewTab==='function')switchReviewTab('interest');},50);}">
         <span class="hb-quick-box">
-          <span class="hb-quick-ic"><img src="emoji-briefcase.svg" alt=""></span>
+          <span class="hb-quick-ic"><img src="emoji-officebuilding.svg" alt=""></span>
         </span>
-        <span class="hb-quick-label">내 직무 공고</span>
+        <span class="hb-quick-label">팔로우한 기업</span>
       </button>
     </div>
   </section>
