@@ -4351,12 +4351,33 @@
   .hb-quick-menu{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;justify-items:center;}
   .hb-quick{display:flex;flex-direction:column;align-items:center;gap:8px;background:transparent;border:none;cursor:pointer;padding:0;font-family:inherit;transition:transform .15s;}
   .hb-quick:hover .hb-quick-box{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,25,40,0.05),0 8px 22px rgba(15,25,40,0.06);}
-  .hb-quick-box{position:relative;width:64px;height:64px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 4px 14px rgba(15,25,40,0.04);transition:transform .15s, box-shadow .15s;}
+  .hb-quick-box{position:relative;width:60px;height:60px;background:#fff;border:1px solid rgba(15,25,40,0.04);border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(15,25,40,0.03);transition:transform .15s, box-shadow .15s;}
   .hb-quick-ic{width:28px;height:28px;display:flex;align-items:center;justify-content:center;}
   .hb-quick-ic img{max-width:24px;max-height:24px;width:auto;height:auto;object-fit:contain;}
   .hb-quick-label{font-size:11.5px;font-weight:700;color:#4E5968;text-align:center;letter-spacing:-.2px;line-height:1.35;}
   .hb-quick-badge{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;font-size:9.5px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;letter-spacing:-.1px;z-index:2;}
   .hb-quick-badge.brand{background:#00c362;}
+
+  /* 연봉 리포트 카드 (UT 기반: 실연봉 투명성) */
+  .hb-salary{margin:14px 16px 0;position:relative;background:linear-gradient(145deg,#FFF8EE 0%,#FFFBF4 45%,#fff 100%);border-radius:20px;padding:18px 18px 16px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(255,168,0,0.06);overflow:hidden;}
+  .hb-salary::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,180,70,0.22),rgba(255,180,70,0) 70%);pointer-events:none;}
+  .hb-salary-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;position:relative;}
+  .hb-salary-ti{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#C17B00;letter-spacing:-.1px;}
+  .hb-salary-ti img{width:15px;height:15px;}
+  .hb-salary-eyebrow{font-size:11px;font-weight:700;color:#8B93A1;letter-spacing:-.1px;margin-bottom:6px;position:relative;}
+  .hb-salary-main{display:flex;align-items:baseline;gap:8px;margin-bottom:14px;position:relative;}
+  .hb-salary-amount{font-size:26px;font-weight:900;color:#191F28;letter-spacing:-.8px;line-height:1;}
+  .hb-salary-unit{font-size:15px;font-weight:800;color:#191F28;letter-spacing:-.3px;}
+  .hb-salary-delta{display:inline-flex;align-items:center;gap:2px;font-size:11.5px;font-weight:800;color:#EA580C;background:#FEF2EC;padding:3px 8px;border-radius:100px;letter-spacing:-.1px;margin-left:auto;}
+  .hb-salary-bars{display:flex;align-items:flex-end;gap:6px;height:42px;margin-bottom:12px;padding:0 2px;position:relative;}
+  .hb-salary-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;}
+  .hb-salary-bar-col{width:100%;background:linear-gradient(180deg,#FFD58A 0%,#F5A623 100%);border-radius:6px 6px 0 0;position:relative;}
+  .hb-salary-bar.me .hb-salary-bar-col{background:linear-gradient(180deg,#4CE0A2 0%,#00A362 100%);box-shadow:0 2px 8px rgba(0,194,116,0.25);}
+  .hb-salary-bar-lbl{font-size:9.5px;font-weight:700;color:#8B93A1;letter-spacing:-.1px;white-space:nowrap;}
+  .hb-salary-bar.me .hb-salary-bar-lbl{color:#00A362;font-weight:800;}
+  .hb-salary-bar-marker{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;color:#00A362;background:#fff;padding:2px 6px;border-radius:100px;box-shadow:0 1px 4px rgba(0,0,0,0.08);white-space:nowrap;letter-spacing:-.1px;}
+  .hb-salary-cta{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:800;color:#4E5968;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;letter-spacing:-.1px;position:relative;}
+  .hb-salary-cta svg{width:12px;height:12px;}
 
   /* 트렌드 리스트 (요즘 보는 기업) */
   .hb-trend{margin:14px 16px 0;background:#fff;border-radius:20px;padding:20px 16px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(15,25,40,0.04);}
@@ -4373,8 +4394,10 @@
   .hb-trend-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
   .hb-trend-co{font-size:13.5px;font-weight:700;color:#191F28;letter-spacing:-.2px;line-height:1.3;}
   .hb-trend-meta{font-size:11px;color:#8B93A1;font-weight:600;letter-spacing:-.1px;}
-  .hb-trend-delta{font-size:11.5px;font-weight:800;color:#00A362;flex-shrink:0;letter-spacing:-.1px;padding:3px 7px;background:rgba(0,194,116,0.09);border-radius:6px;}
-  .hb-trend-delta.down{color:#EF4444;background:rgba(239,68,68,0.08);}
+  .hb-trend-delta{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;letter-spacing:-.1px;}
+  .hb-trend-spark{width:42px;height:18px;display:block;}
+  .hb-trend-delta-val{font-size:11.5px;font-weight:800;color:#00A362;padding:3px 7px;background:rgba(0,194,116,0.09);border-radius:6px;}
+  .hb-trend-delta.down .hb-trend-delta-val{color:#8B93A1;background:#F2F4F6;}
 </style>
 
 <div id="mobileHomeB" aria-hidden="true" role="dialog" onclick="if(event.target===this)closeHomeB()">
@@ -4506,6 +4529,24 @@
     </div>
   </section>
 
+  <section class="hb-salary" onclick="closeHomeB();if(typeof go==='function'){go('salary');}">
+    <div class="hb-salary-eyebrow">UX 디자이너 · 3년차 기준</div>
+    <div class="hb-salary-hd">
+      <span class="hb-salary-ti"><img src="emoji-moneybag.svg" alt="">오늘의 연봉 리포트</span>
+    </div>
+    <div class="hb-salary-main">
+      <span class="hb-salary-amount">5,820</span>
+      <span class="hb-salary-unit">만원</span>
+      <span class="hb-salary-delta">▲ 320만 (전년比)</span>
+    </div>
+    <div class="hb-salary-bars" aria-hidden="true">
+      <div class="hb-salary-bar"><div class="hb-salary-bar-col" style="height:38%"></div><span class="hb-salary-bar-lbl">하위 25%</span></div>
+      <div class="hb-salary-bar me"><div class="hb-salary-bar-col" style="height:68%"><span class="hb-salary-bar-marker">내 위치</span></div><span class="hb-salary-bar-lbl">평균</span></div>
+      <div class="hb-salary-bar"><div class="hb-salary-bar-col" style="height:88%"></div><span class="hb-salary-bar-lbl">상위 10%</span></div>
+    </div>
+    <button type="button" class="hb-salary-cta" onclick="event.stopPropagation();closeHomeB();if(typeof go==='function'){go('salary');}">내 연봉 비교하기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </section>
+
   <section class="hb-trend">
     <div class="hb-trend-hd">
       <span class="hb-trend-ti"><img src="emoji-fire.svg" alt="">이번 주 핫한 기업</span>
@@ -4519,7 +4560,10 @@
           <span class="hb-trend-co">토스</span>
           <span class="hb-trend-meta">리뷰 1,284 · ⭐ 4.3</span>
         </span>
-        <span class="hb-trend-delta">▲ 320</span>
+        <span class="hb-trend-delta">
+          <svg class="hb-trend-spark" viewBox="0 0 42 18" fill="none" stroke="#00C362" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,15 10,12 18,13 26,8 34,5 40,2"/></svg>
+          <span class="hb-trend-delta-val">▲ 320</span>
+        </span>
       </button>
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank">2</span>
@@ -4528,7 +4572,10 @@
           <span class="hb-trend-co">당근</span>
           <span class="hb-trend-meta">리뷰 612 · ⭐ 4.1</span>
         </span>
-        <span class="hb-trend-delta">▲ 180</span>
+        <span class="hb-trend-delta">
+          <svg class="hb-trend-spark" viewBox="0 0 42 18" fill="none" stroke="#00C362" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,13 10,14 18,11 26,9 34,7 40,4"/></svg>
+          <span class="hb-trend-delta-val">▲ 180</span>
+        </span>
       </button>
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank gray">3</span>
@@ -4537,7 +4584,10 @@
           <span class="hb-trend-co">네이버</span>
           <span class="hb-trend-meta">리뷰 3,402 · ⭐ 3.9</span>
         </span>
-        <span class="hb-trend-delta down">▼ 42</span>
+        <span class="hb-trend-delta down">
+          <svg class="hb-trend-spark" viewBox="0 0 42 18" fill="none" stroke="#AFB5BE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 10,8 18,7 26,10 34,12 40,14"/></svg>
+          <span class="hb-trend-delta-val">▼ 42</span>
+        </span>
       </button>
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank gray">4</span>
@@ -4546,7 +4596,10 @@
           <span class="hb-trend-co">카카오</span>
           <span class="hb-trend-meta">리뷰 2,891 · ⭐ 4.0</span>
         </span>
-        <span class="hb-trend-delta">▲ 96</span>
+        <span class="hb-trend-delta">
+          <svg class="hb-trend-spark" viewBox="0 0 42 18" fill="none" stroke="#00C362" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,12 10,10 18,11 26,9 34,8 40,6"/></svg>
+          <span class="hb-trend-delta-val">▲ 96</span>
+        </span>
       </button>
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank gray">5</span>
@@ -4555,7 +4608,10 @@
           <span class="hb-trend-co">쿠팡</span>
           <span class="hb-trend-meta">리뷰 4,120 · ⭐ 3.7</span>
         </span>
-        <span class="hb-trend-delta">▲ 54</span>
+        <span class="hb-trend-delta">
+          <svg class="hb-trend-spark" viewBox="0 0 42 18" fill="none" stroke="#00C362" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,11 10,12 18,10 26,9 34,9 40,7"/></svg>
+          <span class="hb-trend-delta-val">▲ 54</span>
+        </span>
       </button>
     </div>
   </section>
