@@ -3641,25 +3641,40 @@
   .th3-pick-meta-co{font-weight:700;color:var(--tx2);}
   .th3-pick-meta-dot{color:var(--tx4);}
 
-  /* Theme jobs — 리뷰로 찾은 채용 공고 */
+  /* Theme jobs — 리뷰로 찾은 채용 공고 (심플 카드 버전) */
   .th3-theme-wrap{position:relative;}
   .th3-theme-scroll{display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px;}
   .th3-theme-scroll::-webkit-scrollbar{display:none;}
-  .th3-theme-card{position:relative;flex-shrink:0;min-width:calc((100% - 24px)/2.7);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .18s, box-shadow .18s;background:#F2F4F6;aspect-ratio:5/3;display:flex;align-items:flex-end;}
-  .th3-theme-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,24,39,0.10);}
-  .th3-theme-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
-  .th3-theme-card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.62) 100%);z-index:1;}
-  .th3-theme-card-body{position:relative;z-index:2;padding:14px 16px 16px;width:100%;}
-  .th3-theme-card-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;color:var(--tx);background:rgba(255,255,255,0.92);padding:4px 10px;border-radius:var(--rfull);letter-spacing:-.1px;margin-bottom:8px;line-height:1.3;backdrop-filter:blur(4px);}
-  .th3-theme-card-title{font-size:15px;font-weight:800;color:#fff;margin:0 0 4px;line-height:1.35;letter-spacing:-.3px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
-  .th3-theme-card-desc{font-size:12px;color:rgba(255,255,255,0.86);margin:0;line-height:1.4;font-weight:500;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+  .th3-theme-card{position:relative;flex-shrink:0;min-width:calc((100% - 36px)/4);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .18s, box-shadow .18s;background:#F9FAFB;padding:18px 18px 20px;display:flex;flex-direction:column;gap:12px;border:1px solid transparent;}
+  .th3-theme-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(17,24,39,0.08);}
+  .th3-theme-card.v-green{background:#F0FAF5;}
+  .th3-theme-card.v-yellow{background:#FFF8E7;}
+  .th3-theme-card.v-blue{background:#EFF6FF;}
+  .th3-theme-card.v-purple{background:#F5F3FF;}
+  .th3-theme-card.v-peach{background:#FEF3EC;}
+  .th3-theme-card.v-red{background:#FEF2F2;}
+  .th3-theme-card.v-gray{background:#F4F6F8;}
+  .th3-theme-card-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .th3-theme-card-badge{display:inline-flex;align-items:center;font-size:12px;font-weight:800;padding:5px 11px;border-radius:var(--rfull);letter-spacing:-.2px;line-height:1.3;background:#fff;}
+  .th3-theme-card.v-green .th3-theme-card-badge{color:#00A768;}
+  .th3-theme-card.v-yellow .th3-theme-card-badge{color:#B47A00;}
+  .th3-theme-card.v-blue .th3-theme-card-badge{color:#2563EB;}
+  .th3-theme-card.v-purple .th3-theme-card-badge{color:#7C3AED;}
+  .th3-theme-card.v-peach .th3-theme-card-badge{color:#EA580C;}
+  .th3-theme-card.v-red .th3-theme-card-badge{color:#EF4444;}
+  .th3-theme-card.v-gray .th3-theme-card-badge{color:var(--tx2);}
+  .th3-theme-card-emoji{width:44px;height:44px;display:block;filter:drop-shadow(0 3px 8px rgba(15,25,40,0.08));}
+  .th3-theme-card-body{display:flex;flex-direction:column;gap:4px;margin-top:auto;}
+  .th3-theme-card-title{font-size:15px;font-weight:800;color:var(--tx);margin:0;line-height:1.4;letter-spacing:-.3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px;}
+  .th3-theme-card-desc{font-size:12.5px;color:var(--tx3);margin:0;line-height:1.45;font-weight:500;letter-spacing:-.1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   .th3-theme-scroll-btn{position:absolute;top:0;bottom:4px;width:72px;cursor:pointer;display:flex;align-items:center;transition:opacity .2s;z-index:3;}
   .th3-theme-scroll-btn.right{right:0;justify-content:flex-end;padding-right:8px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.92));}
   .th3-theme-scroll-btn.left{left:0;justify-content:flex-start;padding-left:8px;background:linear-gradient(270deg,transparent,rgba(255,255,255,0.92));opacity:0;pointer-events:none;}
   .th3-theme-scroll-btn.left.show{opacity:1;pointer-events:auto;}
   .th3-theme-scroll-btn .th3-theme-scroll-circle{width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;color:var(--tx2);}
   @media (max-width:860px){
-    .th3-theme-card{min-width:calc((100% - 12px)/2.2);}
+    .th3-theme-card{min-width:calc((100% - 12px)/2.3);padding:16px;}
+    .th3-theme-card-emoji{width:40px;height:40px;}
   }
 
   /* Urgent jobs — 콤팩트 4x1 그리드 */
@@ -3669,21 +3684,22 @@
   .th3-urgent-cta-text strong{color:#DC2626;font-weight:800;}
   .th3-urgent-cta-countdown{font-size:12px;font-weight:700;color:#DC2626;background:#fff;padding:4px 10px;border-radius:var(--rfull);letter-spacing:-.1px;}
   .th3-urgent{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-  .th3-urgent-item{position:relative;display:flex;flex-direction:column;gap:14px;padding:20px 18px 16px;background:#fff;border:1px solid #EEF0F2;border-radius:16px;cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .15s;overflow:hidden;}
+  .th3-urgent-item{position:relative;display:flex;flex-direction:column;gap:12px;padding:18px 18px 16px;background:#fff;border:1px solid #EEF0F2;border-radius:16px;cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .15s;overflow:hidden;}
   .th3-urgent-item:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(17,24,39,0.06);border-color:#D1D6DB;}
-  .th3-urgent-item.imminent{border-color:#FECACA;background:#FFFBFB;padding-top:46px;}
+  .th3-urgent-item.imminent{border-color:#FECACA;background:#FFFBFB;}
   .th3-urgent-item.imminent:hover{border-color:#F87171;}
-  .th3-urgent-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-  .th3-urgent-dday{font-size:12px;font-weight:800;color:#EF4444;padding:4px 10px;border-radius:var(--rfull);background:#FEF2F2;letter-spacing:-.1px;line-height:1;}
+  .th3-urgent-top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:22px;}
+  .th3-urgent-dday{font-size:12px;font-weight:800;color:#EF4444;padding:4px 10px;border-radius:var(--rfull);background:#FEF2F2;letter-spacing:-.1px;line-height:1;flex-shrink:0;}
   .th3-urgent-item.imminent .th3-urgent-dday{background:#EF4444;color:#fff;}
   .th3-urgent-logo{width:32px;height:32px;border-radius:9px;background:var(--brand-lt);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--brand-dk);font-size:13px;flex-shrink:0;letter-spacing:-.2px;}
   .th3-urgent-body{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+  .th3-urgent-co{font-size:12.5px;color:var(--tx2);letter-spacing:-.2px;font-weight:800;line-height:1.3;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
   .th3-urgent-title{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.3px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px;}
-  .th3-urgent-meta{font-size:12px;color:var(--tx4);letter-spacing:-.1px;line-height:1.4;font-weight:500;}
-  .th3-urgent-meta-co{color:var(--tx2);font-weight:700;}
+  .th3-urgent-meta{font-size:12px;color:var(--tx4);letter-spacing:-.1px;line-height:1.4;font-weight:500;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+  .th3-urgent-hot{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:800;color:#EF4444;background:#FEF2F2;padding:4px 9px;letter-spacing:-.1px;border-radius:var(--rfull);line-height:1.2;flex-shrink:0;position:static;top:auto;right:auto;box-shadow:none;}
+  .th3-urgent-item.imminent .th3-urgent-hot{color:#fff;background:rgba(255,255,255,0.22);}
   .th3-urgent-salary{margin-top:auto;padding-top:10px;border-top:1px solid var(--ln2);font-size:12px;font-weight:700;color:var(--tx2);letter-spacing:-.1px;display:flex;align-items:center;gap:5px;}
   .th3-urgent-salary::before{content:'';width:14px;height:14px;flex-shrink:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'><path fill-rule='evenodd' clip-rule='evenodd' d='M7 13.125C10.3827 13.125 13.125 10.3827 13.125 7C13.125 3.61726 10.3827 0.875 7 0.875C3.61726 0.875 0.875 3.61726 0.875 7C0.875 10.3827 3.61726 13.125 7 13.125Z' fill='%23FFB701'/><path d='M7.75087 9.44648L7.00002 6.89361L6.26028 9.40874C6.21799 9.60061 6.07523 9.7642 5.87342 9.82356C5.82084 9.83902 5.7678 9.84637 5.71564 9.84633C5.66349 9.84637 5.61045 9.83902 5.55787 9.82356C5.35605 9.7642 5.21329 9.60061 5.17101 9.40874L4.40521 6.80502H3.65911C3.35159 6.80502 3.10229 6.55572 3.10229 6.2482C3.10229 5.94067 3.35159 5.69138 3.65911 5.69138H4.07767L3.89722 5.07785C3.81044 4.78282 3.97927 4.47331 4.27429 4.38654C4.56932 4.29977 4.87883 4.46859 4.9656 4.76362L5.71564 7.31376L6.46568 4.76362C6.53707 4.5209 6.75921 4.3636 7.00002 4.36377C7.24083 4.3636 7.46297 4.5209 7.53436 4.76362L8.28549 7.31746L9.03662 4.76362C9.12339 4.46859 9.4329 4.29977 9.72793 4.38654C10.023 4.47331 10.1918 4.78282 10.105 5.07785L9.92455 5.69138H10.3427C10.6503 5.69138 10.8996 5.94067 10.8996 6.2482C10.8996 6.55572 10.6503 6.80502 10.3427 6.80502H9.59701L8.82011 9.44648C8.74869 9.68929 8.5264 9.84662 8.28549 9.84633C8.04457 9.84662 7.82228 9.68929 7.75087 9.44648Z' fill='white'/></svg>");background-repeat:no-repeat;background-size:contain;}
-  .th3-urgent-hot{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;color:#fff;background:#EF4444;padding:5px 10px;letter-spacing:-.1px;border-radius:var(--rfull);line-height:1.2;box-shadow:0 2px 8px rgba(239,68,68,0.25);}
 
   /* Follow updates — 4x1 카드 (action/info 이원화) */
   .th3-follow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
@@ -3735,34 +3751,28 @@
   .th3-salary-btn{height:52px;padding:0 26px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-size:15px;font-weight:800;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:-.1px;box-shadow:0 2px 8px rgba(0,194,116,0.3);}
   .th3-salary-btn:hover{background:var(--brand-dk);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,194,116,0.4);}
 
-  .th3-salary-viz{background:#F9FAFB;border-radius:20px;padding:20px 22px 18px;display:flex;flex-direction:column;gap:14px;position:relative;align-self:start;}
-  .th3-salary-viz-hero{display:flex;flex-direction:column;gap:4px;}
-  .th3-salary-viz-rank-big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
-  .th3-salary-viz-prefix{font-size:14px;color:var(--tx3);font-weight:700;letter-spacing:-.2px;}
-  .th3-salary-viz-rank-num{font-size:40px;font-weight:900;letter-spacing:-1.2px;line-height:1;color:var(--brand);}
-  .th3-salary-viz-rank-num small{font-size:22px;font-weight:800;margin-left:1px;}
-  .th3-salary-viz-msg{font-size:13px;color:var(--tx3);letter-spacing:-.1px;}
-  .th3-salary-viz-msg strong{color:var(--tx);font-weight:700;}
+  .th3-salary-viz{background:#F9FAFB;border-radius:20px;padding:24px 24px 22px;display:flex;flex-direction:column;gap:18px;position:relative;align-self:start;}
+  .th3-salary-viz-hero{display:flex;flex-direction:column;gap:6px;}
+  .th3-salary-viz-label{font-size:14px;color:var(--tx3);font-weight:700;letter-spacing:-.2px;}
+  .th3-salary-viz-value{font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1.1;color:var(--tx);}
+  .th3-salary-viz-nhis{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--brand-dk);background:var(--brand-lt);padding:6px 12px;border-radius:var(--rfull);letter-spacing:-.1px;font-weight:700;width:fit-content;}
+  .th3-salary-viz-nhis img{width:16px;height:16px;display:block;}
+  .th3-salary-viz-nhis strong{font-weight:800;color:var(--brand-dk);}
 
-  /* 분포 히스토그램 (토스 스타일 디벨롭) */
-  .th3-salary-dist{position:relative;margin-top:8px;padding-top:40px;}
-  .th3-salary-dist-tooltip{position:absolute;top:0;transform:translateX(-50%);background:var(--tx);color:#fff;font-size:12.5px;font-weight:800;padding:7px 14px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:2;box-shadow:0 4px 14px rgba(15,25,40,0.18);animation:salTipFloat 2.6s ease-in-out infinite;}
-  .th3-salary-dist-tooltip::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border:5px solid transparent;border-top-color:var(--tx);}
-  @keyframes salTipFloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-3px);}}
-  .th3-salary-line-wrap{position:relative;height:84px;width:100%;}
-  .th3-salary-line-wrap svg{display:block;width:100%;height:100%;overflow:visible;}
-  .th3-salary-line-path{fill:none;stroke:#9BA3AD;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-  .th3-salary-line-area{fill:url(#th3SalaryLineGrad);}
-  .th3-salary-line-axis{stroke:#E5E8EB;stroke-width:1;stroke-dasharray:2 3;}
-  .th3-salary-line-me-line{stroke:var(--brand);stroke-width:1.5;stroke-dasharray:3 3;opacity:.5;}
-  .th3-salary-line-me-dot{fill:#fff;stroke:var(--brand);stroke-width:3;filter:drop-shadow(0 2px 6px rgba(0,194,116,0.35));animation:meDotIn .5s cubic-bezier(.2,.8,.2,1);}
-  @keyframes meDotIn{from{transform:scale(0);transform-origin:center;opacity:0;}to{transform:scale(1);opacity:1;}}
-  .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:14px;padding-top:10px;border-top:1px dashed var(--ln2);}
-  .th3-salary-axis span{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
+  /* 가로 막대 분포 */
+  .th3-salary-bar-wrap{position:relative;margin-top:4px;padding-top:26px;}
+  .th3-salary-bar{position:relative;height:10px;background:#ECEDF0;border-radius:var(--rfull);overflow:hidden;}
+  .th3-salary-bar-fill{position:absolute;top:0;left:0;height:100%;border-radius:var(--rfull);background:linear-gradient(90deg,#A8E8C8 0%,var(--brand) 100%);transition:width .6s cubic-bezier(.2,.8,.2,1);}
+  .th3-salary-bar-me{position:absolute;top:50%;width:18px;height:18px;background:var(--brand);border:3px solid #fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(0,194,116,.35);z-index:2;opacity:0;transition:opacity .3s;}
+  .th3-salary-bar-me.on{opacity:1;}
+  .th3-salary-bar-tip{position:absolute;top:-4px;transform:translate(-50%,-100%);background:var(--tx);color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:3;box-shadow:0 4px 12px rgba(15,25,40,0.18);}
+  .th3-salary-bar-tip::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border:4px solid transparent;border-top-color:var(--tx);}
+  .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:12px;}
+  .th3-salary-axis span{display:flex;flex-direction:column;gap:2px;}
   .th3-salary-axis span:first-child{align-items:flex-start;}
   .th3-salary-axis span:nth-child(2){align-items:center;}
   .th3-salary-axis span:last-child{align-items:flex-end;}
-  .th3-salary-axis small{font-size:10.5px;color:var(--tx4);font-weight:700;letter-spacing:-.1px;}
+  .th3-salary-axis small{font-size:11px;color:var(--tx4);font-weight:700;letter-spacing:-.1px;}
   .th3-salary-axis strong{font-size:13.5px;color:var(--tx2);font-weight:800;letter-spacing:-.2px;}
   .th3-salary-axis span:nth-child(2) strong{color:var(--brand-dk);}
 
@@ -3797,14 +3807,14 @@
   .th3-qc:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-lt);}
 
   .th3-modular-top{display:block;margin-top:32px;}
-  .th3-modular-main{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .th3-modular-main{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;}
 
   /* 원티드 스타일: 아이콘 + 라벨 수직 */
-  .tm-quick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;padding:16px 6px 14px;background:transparent;border:none;cursor:pointer;transition:transform .15s;}
+  .tm-quick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:12px 4px 10px;background:transparent;border:none;cursor:pointer;transition:transform .15s;}
   .tm-quick:hover{transform:translateY(-2px);}
-  .tm-quick-ic{position:relative;width:56px;height:56px;border-radius:16px;background:#F2F4F6;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .tm-quick-ic{position:relative;width:64px;height:64px;border-radius:18px;background:#F2F4F6;display:flex;align-items:center;justify-content:center;transition:background .15s;}
   .tm-quick:hover .tm-quick-ic{background:#E5E8EB;}
-  .tm-quick-ic img{width:34px;height:34px;}
+  .tm-quick-ic img{width:44px;height:44px;}
   .tm-quick-label{font-size:13px;font-weight:600;color:var(--tx2);letter-spacing:-.2px;text-align:center;line-height:1.3;}
   .tm-quick-badge{position:absolute;top:6px;right:-4px;min-width:18px;height:18px;padding:0 5px;font-size:10px;font-weight:800;color:#fff;background:#EF4444;border-radius:var(--rfull);display:inline-flex;align-items:center;justify-content:center;line-height:1;letter-spacing:-.1px;box-shadow:0 0 0 2px #fff;}
   .tm-quick-badge.brand{background:var(--brand);}
@@ -3900,7 +3910,7 @@
           <span class="tm-quick-label">마감 임박 공고</span>
         </button>
         <button type="button" class="tm-quick" onclick="th3Go('review')">
-          <span class="tm-quick-ic"><img src="emoji-onepick.svg" alt="" aria-hidden="true"><span class="tm-quick-badge brand">8</span></span>
+          <span class="tm-quick-ic"><img src="emoji-star.svg" alt="" aria-hidden="true"><span class="tm-quick-badge brand">8</span></span>
           <span class="tm-quick-label">관심기업 새 리뷰</span>
         </button>
         <button type="button" class="tm-quick" onclick="th3Go('salary')">
@@ -3912,7 +3922,7 @@
           <span class="tm-quick-label">면접 후기</span>
         </button>
         <button type="button" class="tm-quick" onclick="showToast('지금은 지원하지 않는 서비스입니다.')">
-          <span class="tm-quick-ic"><img src="emoji-wrappedgift.svg" alt="" aria-hidden="true"><span class="tm-quick-badge n">N</span></span>
+          <span class="tm-quick-ic"><img src="emoji-pen.svg" alt="" aria-hidden="true"><span class="tm-quick-badge n">N</span></span>
           <span class="tm-quick-label">리뷰 작성</span>
         </button>
       </div>
@@ -3931,39 +3941,17 @@
 
     <section class="th3-modular-ai">
       <h2 class="th3-modular-ai-head">관심 있는 <em>프로덕트 디자이너</em> 리뷰, AI가 대신 찾아봤어요</h2>
-      <p class="th3-modular-ai-desc">최근 열람한 기업과 관심 직무를 바탕으로 자동 추천해드려요</p>
       <div class="th3-modular-chips" id="th3ModularChips">
-        <button class="tm-chip active" type="button" onclick="th3ModularChip(this)">#이번주 핫</button>
-        <button class="tm-chip" type="button" onclick="th3ModularChip(this)">#내 직무</button>
-        <button class="tm-chip" type="button" onclick="th3ModularChip(this)">#연봉 TOP</button>
-        <button class="tm-chip" type="button" onclick="th3ModularChip(this)">#성장 문화</button>
-        <button class="tm-chip" type="button" onclick="th3ModularChip(this)">#리더십</button>
-        <button class="tm-chip" type="button" onclick="th3ModularChip(this)">#워라밸</button>
+        <button class="tm-chip active" type="button" data-tab="hot" onclick="th3ModularChip(this)">#이번주 핫</button>
+        <button class="tm-chip" type="button" data-tab="job" onclick="th3ModularChip(this)">#내 직무</button>
+        <button class="tm-chip" type="button" data-tab="salary" onclick="th3ModularChip(this)">#연봉 TOP</button>
+        <button class="tm-chip" type="button" data-tab="growth" onclick="th3ModularChip(this)">#성장 문화</button>
+        <button class="tm-chip" type="button" data-tab="leader" onclick="th3ModularChip(this)">#리더십</button>
+        <button class="tm-chip" type="button" data-tab="wlb" onclick="th3ModularChip(this)">#워라밸</button>
       </div>
       <div class="th3-modular-ai-wrap">
-        <h3 class="th3-modular-ai-sub"><img src="emoji-fire.svg" alt="" aria-hidden="true">이번 주 가장 많이 읽힌 리뷰</h3>
-        <div class="th3-modular-ai-grid">
-          <div class="tm-ai-card" onclick="th3Go('review')">
-            <span class="tm-ai-card-tag hot">HOT</span>
-            <p class="tm-ai-card-quote">"디자이너 연봉이 업계 최고 수준, 성장 기회도 많아요"</p>
-            <div class="tm-ai-card-co"><span class="tm-ai-card-co-logo">당</span>당근 · IT·플랫폼</div>
-          </div>
-          <div class="tm-ai-card" onclick="th3Go('review')">
-            <span class="tm-ai-card-tag brand">성장</span>
-            <p class="tm-ai-card-quote">"프로덕트 디자이너 3년차, 여기서 가장 많이 성장했어요"</p>
-            <div class="tm-ai-card-co"><span class="tm-ai-card-co-logo">토</span>토스 · IT·핀테크</div>
-          </div>
-          <div class="tm-ai-card" onclick="th3Go('review')">
-            <span class="tm-ai-card-tag">연봉</span>
-            <p class="tm-ai-card-quote">"이직했는데 전 회사와 비교 불가예요. 연봉·복지 다 만족"</p>
-            <div class="tm-ai-card-co"><span class="tm-ai-card-co-logo">2</span>29CM · 이커머스</div>
-          </div>
-          <div class="tm-ai-card" onclick="th3Go('review')">
-            <span class="tm-ai-card-tag">워라밸</span>
-            <p class="tm-ai-card-quote">"자유로운 분위기 최고. 다만 연봉은 협상이 중요해요"</p>
-            <div class="tm-ai-card-co"><span class="tm-ai-card-co-logo">네</span>네이버 · IT·플랫폼</div>
-          </div>
-        </div>
+        <h3 class="th3-modular-ai-sub" id="th3ModularAiSub"><img src="emoji-fire.svg" alt="" aria-hidden="true"><span id="th3ModularAiSubLabel">이번 주 가장 많이 읽힌 리뷰</span></h3>
+        <div class="th3-modular-ai-grid" id="th3ModularAiGrid"></div>
       </div>
     </section>
   </div>
@@ -3980,17 +3968,17 @@
   body.mobile-mode #mobile-home{display:block !important;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#fff;overflow-y:auto;overflow-x:hidden;}
 
   .mw-container{width:600px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
-  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:16px 12px 8px;}
+  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;}
   .mw-icon-btn{width:40px;height:40px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx);border-radius:10px;transition:background .15s;}
   .mw-icon-btn:hover{background:#F9FAFB;}
   .mw-icon-btn svg{width:22px;height:22px;}
-  .mw-logo{display:flex;align-items:center;justify-content:flex-start;cursor:pointer;padding:4px 6px;border-radius:10px;transition:background .15s;margin-bottom:18px;align-self:flex-start;}
+  .mw-logo{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:4px 8px;border-radius:10px;transition:background .15s;margin:0 auto 18px;}
   .mw-logo:hover{background:#F9FAFB;}
-  .mw-logo-img{height:28px;display:block;}
+  .mw-logo-img{height:36px;display:block;}
   .mw-float-logo{cursor:pointer;}
   .mw-float-logo:hover{background:var(--brand-dk);}
 
-  .mw-hero{padding:20px 16px 48px;display:flex;flex-direction:column;align-items:stretch;}
+  .mw-hero{padding:16px 24px 40px;display:flex;flex-direction:column;align-items:stretch;}
   @keyframes mwFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-6px) rotate(-3deg);}}
 
   .mw-searchbar{width:100%;max-width:none;display:flex;align-items:center;gap:8px;padding:5px 5px 5px 18px;background:#fff;border:2px solid var(--brand);border-radius:999px;box-shadow:0 4px 18px rgba(0,194,116,0.14),0 1px 3px rgba(0,194,116,0.08);transition:all .18s;cursor:text;}
@@ -4027,28 +4015,33 @@
   .mw-float-mic svg{width:15px;height:15px;}
 
   /* Content section */
-  .mw-updates{padding:4px 16px 22px;}
+  .mw-updates{padding:4px 24px 22px;}
   .mw-updates-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;}
   .mw-updates-ti{font-size:17px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;display:flex;align-items:center;gap:7px;}
   .mw-updates-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;background:var(--brand);color:#fff;border-radius:var(--rfull);font-size:11px;font-weight:800;letter-spacing:-.1px;}
-  .mw-updates-list{display:flex;flex-direction:column;gap:8px;}
-  .mw-update-card{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 14px;background:#fff;border:1px solid var(--ln);border-radius:14px;cursor:pointer;transition:border-color .15s, background .15s;text-align:left;font-family:var(--font);width:100%;}
-  .mw-update-card:hover{background:#FAFBFC;border-color:#D1D6DB;}
-  .mw-update-card.urgent{background:linear-gradient(180deg,#FFF6F6 0%,#fff 60%);border-color:#FCDADA;}
-  .mw-update-card.urgent:hover{border-color:#FBB6B6;}
-  .mw-update-logo{width:38px;height:38px;border-radius:50%;background:var(--brand-lt);color:var(--brand-dk);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;letter-spacing:-.3px;position:relative;}
-  .mw-update-logo.alt{background:var(--ln2);color:var(--tx2);}
-  .mw-update-logo::after{content:'';position:absolute;top:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:#FF5A5F;border:2px solid #fff;}
-  .mw-update-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
-  .mw-update-co{font-size:13px;font-weight:700;color:var(--tx);letter-spacing:-.2px;display:flex;align-items:center;gap:6px;}
-  .mw-update-sub{font-size:11px;color:var(--tx3);font-weight:500;}
-  .mw-update-line{font-size:14.5px;color:var(--tx);font-weight:500;letter-spacing:-.2px;line-height:1.35;}
-  .mw-update-line strong{color:var(--tx);font-weight:800;}
-  .mw-update-card.urgent .mw-update-line strong{color:#D03535;}
-  .mw-update-dday{color:#fff;background:#EF4444;font-weight:800;padding:4px 9px;border-radius:8px;font-size:11.5px;line-height:1.2;letter-spacing:.1px;flex-shrink:0;box-shadow:0 2px 6px rgba(239,68,68,0.25);}
+  .mw-updates-list{display:flex;flex-direction:column;gap:10px;}
+  .mw-update-card{display:flex;align-items:center;gap:14px;padding:16px 18px;background:#F9FAFB;border:1px solid transparent;border-radius:16px;cursor:pointer;transition:background .15s, transform .12s;text-align:left;font-family:var(--font);width:100%;}
+  .mw-update-card:hover{background:#F2F4F6;}
+  .mw-update-card:active{transform:scale(0.995);}
+  .mw-update-card.urgent{background:#FFF5F5;}
+  .mw-update-card.urgent:hover{background:#FEECEC;}
+  .mw-update-logo{width:40px;height:40px;border-radius:50%;background:#E8F5EE;color:var(--brand-dk);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;letter-spacing:-.3px;position:relative;}
+  .mw-update-logo.alt{background:#FFF1E0;color:#C77700;}
+  .mw-update-logo.alt2{background:#EDE8FF;color:#6B4BD1;}
+  .mw-update-logo.dot::after{content:'';position:absolute;top:1px;right:1px;width:8px;height:8px;border-radius:50%;background:#FF5A5F;border:2px solid #F9FAFB;}
+  .mw-update-card.urgent .mw-update-logo.dot::after{border-color:#FFF5F5;}
+  .mw-update-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
+  .mw-update-co{font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:-.2px;display:flex;align-items:center;gap:6px;line-height:1.3;}
+  .mw-update-co-name{color:var(--tx);font-weight:800;font-size:13.5px;letter-spacing:-.2px;}
+  .mw-update-sub{font-size:11.5px;color:var(--tx4);font-weight:500;}
+  .mw-update-line{font-size:14.5px;color:var(--tx);font-weight:700;letter-spacing:-.3px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+  .mw-update-line strong{color:var(--brand);font-weight:800;}
+  .mw-update-card.urgent .mw-update-line strong{color:#EF4444;}
+  .mw-update-dday{color:#EF4444;background:rgba(239,68,68,0.1);font-weight:800;padding:3px 9px;border-radius:999px;font-size:11.5px;line-height:1.3;letter-spacing:-.1px;flex-shrink:0;}
+  .mw-update-card.urgent .mw-update-dday{background:#EF4444;color:#fff;}
   .mw-update-chev{width:14px;height:14px;color:var(--tx4);flex-shrink:0;}
 
-  .mw-section{padding:4px 16px 22px;}
+  .mw-section{padding:4px 24px 22px;}
   .mw-section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;gap:12px;}
   .mw-section-ti{display:flex;flex-direction:column;gap:2px;}
   .mw-section-ti h2{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;}
@@ -4061,10 +4054,10 @@
   .mw-mini-tab img{width:13px;height:13px;}
   .mw-mini-tab.active{background:var(--tx);color:#fff;}
 
-  .mw-cards{display:flex;flex-direction:row;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:2px 16px 10px;}
+  .mw-cards{display:flex;flex-direction:row;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -24px;padding:2px 24px 10px;}
   .mw-cards::-webkit-scrollbar{display:none;}
-  .mw-cards > .mw-card{flex:0 0 76%;scroll-snap-align:start;min-width:0;}
-  .mw-cards > .mw-card:last-child{margin-right:16px;}
+  .mw-cards > .mw-card{flex:0 0 72%;scroll-snap-align:start;min-width:0;}
+  .mw-cards > .mw-card:last-child{margin-right:24px;}
   .mw-card{padding:16px 18px;background:#fff;border:1px solid #F2F4F6;border-radius:16px;cursor:pointer;box-shadow:0 1px 3px rgba(15,25,40,0.04);transition:all .15s;}
   .mw-card:active{transform:scale(0.99);}
   .mw-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 70%);}
@@ -4083,10 +4076,12 @@
   .mw-card-meta strong{color:var(--tx2);font-weight:700;}
 
   /* 스크롤 유도 플로팅 버튼 */
-  .mw-scroll-hint{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;padding:10px 16px 10px 14px;background:var(--tx);color:#fff;border:none;border-radius:var(--rfull);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:-.2px;cursor:pointer;z-index:60;box-shadow:0 6px 20px rgba(15,25,40,0.18);animation:mwScrollBounce 1.8s ease-in-out infinite;opacity:1;transition:opacity .2s, transform .2s;}
+  .mw-scroll-hint{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;padding:11px 18px 11px 16px;background:var(--tx);color:#fff;border:none;border-radius:var(--rfull);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:-.2px;cursor:pointer;z-index:60;box-shadow:0 6px 20px rgba(15,25,40,0.24);opacity:1;transition:opacity .2s, transform .2s;white-space:nowrap;}
+  .mw-scroll-hint:hover{background:#000;}
   .mw-scroll-hint.hidden{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(6px);}
-  .mw-scroll-hint svg{width:14px;height:14px;}
-  @keyframes mwScrollBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-4px);}}
+  .mw-scroll-hint .mw-hint-arrow{width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;animation:mwArrowBounce 1.4s ease-in-out infinite;}
+  .mw-scroll-hint .mw-hint-arrow svg{width:14px;height:14px;}
+  @keyframes mwArrowBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
 
   /* Tab bar */
   .mw-tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:600px;background:#fff;border-top:1px solid #F2F4F6;display:flex;padding:6px 0 10px;z-index:50;box-shadow:0 -2px 12px rgba(15,25,40,0.04);}
@@ -4131,25 +4126,25 @@
       </div>
       <div class="mw-updates-list">
         <button type="button" class="mw-update-card urgent">
-          <div class="mw-update-logo">토</div>
+          <div class="mw-update-logo dot">토</div>
           <div class="mw-update-body">
-            <div class="mw-update-co">토스 <span class="mw-update-sub">팔로우 중</span></div>
-            <div class="mw-update-line"><strong>내 직무 공고 2건</strong> · 마감 임박</div>
+            <div class="mw-update-co"><span class="mw-update-co-name">토스</span><span class="mw-update-sub">팔로우 중</span></div>
+            <div class="mw-update-line"><strong>내 직무 공고 2건</strong> 마감 임박</div>
           </div>
           <span class="mw-update-dday">D-5</span>
         </button>
         <button type="button" class="mw-update-card">
-          <div class="mw-update-logo alt">카</div>
+          <div class="mw-update-logo alt dot">카</div>
           <div class="mw-update-body">
-            <div class="mw-update-co">카카오 <span class="mw-update-sub">전 직장</span></div>
-            <div class="mw-update-line"><strong>새 리뷰 8건</strong> · 오늘 업데이트</div>
+            <div class="mw-update-co"><span class="mw-update-co-name">카카오</span><span class="mw-update-sub">전 직장</span></div>
+            <div class="mw-update-line"><strong>새 리뷰 8건</strong> 오늘 업데이트</div>
           </div>
           <svg class="mw-update-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
         <button type="button" class="mw-update-card">
-          <div class="mw-update-logo alt">당</div>
+          <div class="mw-update-logo alt2">당</div>
           <div class="mw-update-body">
-            <div class="mw-update-co">당근 <span class="mw-update-sub">관심 기업</span></div>
+            <div class="mw-update-co"><span class="mw-update-co-name">당근</span><span class="mw-update-sub">관심 기업</span></div>
             <div class="mw-update-line"><strong>3년차 연봉 6,400만</strong> 공개</div>
           </div>
           <svg class="mw-update-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -4227,9 +4222,9 @@
       </div>
     </section>
 
-    <button type="button" class="mw-scroll-hint" id="mwScrollHint" onclick="mwScrollDown()" aria-label="아래로 스크롤">
-      더 보기
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <button type="button" class="mw-scroll-hint" id="mwScrollHint" onclick="mwScrollDown()" aria-label="지금 뜨는 기업 리뷰 보기">
+      🔥 지금 뜨는 기업 리뷰 보러가기
+      <span class="mw-hint-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
     </button>
 
     <nav class="mw-tabbar" aria-label="주요 메뉴">
@@ -4339,11 +4334,92 @@
     page.classList.toggle('modular-view');
     window.scrollTo({top:0, behavior:'smooth'});
   };
+  var TM_AI_DATA = {
+    hot: {
+      sub:{icon:'emoji-fire.svg', label:'이번 주 가장 많이 읽힌 리뷰'},
+      cards:[
+        {tag:'HOT', tagCls:'hot', quote:'"디자이너 연봉이 업계 최고 수준, 성장 기회도 많아요"', logo:'당', co:'당근 · IT·플랫폼'},
+        {tag:'성장', tagCls:'brand', quote:'"프로덕트 디자이너 3년차, 여기서 가장 많이 성장했어요"', logo:'토', co:'토스 · IT·핀테크'},
+        {tag:'연봉', tagCls:'', quote:'"이직했는데 전 회사와 비교 불가예요. 연봉·복지 다 만족"', logo:'2', co:'29CM · 이커머스'},
+        {tag:'워라밸', tagCls:'', quote:'"자유로운 분위기 최고. 다만 연봉은 협상이 중요해요"', logo:'네', co:'네이버 · IT·플랫폼'}
+      ]
+    },
+    job: {
+      sub:{icon:'emoji-briefcase.svg', label:'내 직무 리뷰에서 자주 등장한 키워드'},
+      cards:[
+        {tag:'디자인팀', tagCls:'brand', quote:'"리서치·프로토타이핑 전 주기를 경험할 수 있어요"', logo:'토', co:'토스 · IT·핀테크'},
+        {tag:'디자인팀', tagCls:'brand', quote:'"디자인 시스템이 체계적이라 온보딩이 수월했어요"', logo:'라', co:'라인플러스 · IT·플랫폼'},
+        {tag:'팀문화', tagCls:'', quote:'"디자이너 의견이 제품에 실제로 반영됩니다"', logo:'우', co:'우아한형제들 · IT·플랫폼'},
+        {tag:'성장', tagCls:'hot', quote:'"주니어가 빠르게 성장하는 환경, 멘토 제도 좋음"', logo:'쿠', co:'쿠팡 · 물류·IT'}
+      ]
+    },
+    salary: {
+      sub:{icon:'emoji-moneybag.svg', label:'연봉·보상 만족도가 높은 기업'},
+      cards:[
+        {tag:'연봉 TOP', tagCls:'brand', quote:'"동종 업계 대비 기본급·스톡 구조가 확실해요"', logo:'당', co:'당근 · IT·플랫폼'},
+        {tag:'스톡', tagCls:'', quote:'"스톡옵션 조건이 좋고 행사 기간이 충분해요"', logo:'T', co:'토스 · IT·핀테크'},
+        {tag:'성과급', tagCls:'hot', quote:'"성과 평가가 명확하고 보상도 빠르게 반영됩니다"', logo:'카', co:'카카오뱅크 · IT·핀테크'},
+        {tag:'보상', tagCls:'', quote:'"연봉 인상률이 업계 평균을 상회합니다"', logo:'네', co:'네이버 · IT·플랫폼'}
+      ]
+    },
+    growth: {
+      sub:{icon:'emoji-rocket.svg', label:'성장 문화가 잘 자리 잡은 기업'},
+      cards:[
+        {tag:'성장', tagCls:'brand', quote:'"온보딩과 멘토링이 체계적이에요"', logo:'쿠', co:'쿠팡 · 물류·IT'},
+        {tag:'교육비', tagCls:'', quote:'"학습 예산이 넉넉해서 세미나·강의 수강이 자유로움"', logo:'토', co:'토스 · IT·핀테크'},
+        {tag:'발표문화', tagCls:'', quote:'"내부 지식 공유가 활발하고 발표 기회가 많아요"', logo:'라', co:'라인플러스 · IT·플랫폼'},
+        {tag:'코드리뷰', tagCls:'hot', quote:'"코드리뷰 문화가 잘 자리잡혀서 기술 성장이 빠름"', logo:'네', co:'네이버 · IT·플랫폼'}
+      ]
+    },
+    leader: {
+      sub:{icon:'emoji-handshake.svg', label:'리더십·경영진 신뢰도가 높은 기업'},
+      cards:[
+        {tag:'리더십', tagCls:'brand', quote:'"경영진이 직원 의견을 실제로 반영해요"', logo:'토', co:'토스 · IT·핀테크'},
+        {tag:'소통', tagCls:'', quote:'"타운홀 미팅이 솔직하고 방향성이 명확해요"', logo:'당', co:'당근 · IT·플랫폼'},
+        {tag:'투명성', tagCls:'hot', quote:'"실적 공유가 자주 이루어져 회사 상황을 알 수 있어요"', logo:'우', co:'우아한형제들 · IT·플랫폼'},
+        {tag:'매니저', tagCls:'', quote:'"매니저가 팀원 성장에 많이 신경 씁니다"', logo:'L', co:'라인플러스 · IT·플랫폼'}
+      ]
+    },
+    wlb: {
+      sub:{icon:'emoji-balance.svg', label:'워라밸·유연근무 만족도 높은 기업'},
+      cards:[
+        {tag:'워라밸', tagCls:'brand', quote:'"자유로운 분위기 최고. 칼퇴가 자연스러움"', logo:'네', co:'네이버 · IT·플랫폼'},
+        {tag:'재택', tagCls:'', quote:'"재택·원격 근무가 제도화되어 있어요"', logo:'당', co:'당근 · IT·플랫폼'},
+        {tag:'유연근무', tagCls:'hot', quote:'"유연 근무제로 개인 일정 맞추기 편합니다"', logo:'T', co:'토스 · IT·핀테크'},
+        {tag:'연차', tagCls:'', quote:'"연차 사용에 눈치 안 봐도 됩니다"', logo:'라', co:'라인플러스 · IT·플랫폼'}
+      ]
+    }
+  };
+  window.tmRenderAi = function(tab){
+    var data = TM_AI_DATA[tab] || TM_AI_DATA.hot;
+    var subLabel = document.getElementById('th3ModularAiSubLabel');
+    var subWrap = document.getElementById('th3ModularAiSub');
+    var grid = document.getElementById('th3ModularAiGrid');
+    if(subLabel) subLabel.textContent = data.sub.label;
+    if(subWrap){
+      var img = subWrap.querySelector('img');
+      if(img) img.src = data.sub.icon;
+    }
+    if(grid){
+      grid.innerHTML = data.cards.map(function(c){
+        return '<div class="tm-ai-card" onclick="th3Go(\'review\')">'+
+          '<span class="tm-ai-card-tag '+(c.tagCls||'')+'">'+c.tag+'</span>'+
+          '<p class="tm-ai-card-quote">'+c.quote+'</p>'+
+          '<div class="tm-ai-card-co"><span class="tm-ai-card-co-logo">'+c.logo+'</span>'+c.co+'</div>'+
+        '</div>';
+      }).join('');
+    }
+  };
   window.th3ModularChip = function(el){
     var chips = document.querySelectorAll('#th3ModularChips .tm-chip');
     chips.forEach(function(c){ c.classList.remove('active'); });
     el.classList.add('active');
+    var tab = el.getAttribute('data-tab') || 'hot';
+    if(typeof tmRenderAi === 'function') tmRenderAi(tab);
   };
+  document.addEventListener('DOMContentLoaded', function(){
+    if(typeof tmRenderAi==='function') tmRenderAi('hot');
+  });
 
   // 모듈러 뷰 하단 콘텐츠 스크롤 (원티드 "모두가 주목" 스타일)
   var TM_CONTENT_CARDS = [
@@ -4467,16 +4543,16 @@
   window.th3PickCards = th3PickCards;
 
   var themeData = [
-    {title:'"칼퇴 가능" 리뷰 많은 곳', desc:'현직자들이 워라밸을 인정한 기업 모음', badge:'워라밸 우수', img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80'},
-    {title:'"연봉 만족" 리뷰 많은 곳', desc:'연봉 관련 긍정 리뷰가 가장 많은 기업 모음', badge:'연봉 상위', img:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80'},
-    {title:'"성장할 수 있었다" 리뷰 많은 곳', desc:'커리어 성장 키워드가 자주 등장하는 기업 모음', badge:'성장 기회 ↑', img:'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80'},
-    {title:'"자유로운 분위기" 리뷰 많은 곳', desc:'수평적 문화를 장점으로 꼽은 기업 모음', badge:'수평 문화', img:'https://images.unsplash.com/photo-1497215842964-222b430dc094?w=600&q=80'},
-    {title:'"복지 최고" 리뷰 많은 곳', desc:'복지 만족도가 높게 평가된 기업 모음', badge:'복지 우수', img:'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=600&q=80'},
-    {title:'"재택도 OK" 리뷰 많은 곳', desc:'재택·원격 근무 가능 포지션이 있는 기업 모음', badge:'재택근무', img:'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80'},
-    {title:'지금 대규모로 뽑고 있는 곳', desc:'채용 공고가 활발하게 올라오는 기업 모음', badge:'대규모 채용 중', img:'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80'},
-    {title:'"경영진이 믿음직하다" 리뷰 많은 곳', desc:'경영진 신뢰도가 높게 평가된 기업 모음', badge:'경영진 우수', img:'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80'},
-    {title:'"코드리뷰 문화가 좋다" 리뷰 많은 곳', desc:'개발 문화와 기술 성장 환경을 높이 평가한 기업', badge:'개발문화 우수', img:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80'},
-    {title:'"데이터 기반 의사결정" 리뷰 많은 곳', desc:'데이터 인프라와 분석 환경이 잘 갖춰진 기업', badge:'데이터 드리븐', img:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80'}
+    {title:'"칼퇴 가능" 리뷰 많은 곳', desc:'현직자들이 워라밸을 인정한 기업 모음', badge:'워라밸 우수', emoji:'emoji-balance.svg', variant:'v-green'},
+    {title:'"연봉 만족" 리뷰 많은 곳', desc:'연봉 관련 긍정 리뷰가 가장 많은 기업 모음', badge:'연봉 상위', emoji:'emoji-moneybag.svg', variant:'v-yellow'},
+    {title:'"성장할 수 있었다" 리뷰 많은 곳', desc:'커리어 성장 키워드가 자주 등장하는 기업 모음', badge:'성장 기회 ↑', emoji:'emoji-rocket.svg', variant:'v-peach'},
+    {title:'"자유로운 분위기" 리뷰 많은 곳', desc:'수평적 문화를 장점으로 꼽은 기업 모음', badge:'수평 문화', emoji:'emoji-handshake.svg', variant:'v-blue'},
+    {title:'"복지 최고" 리뷰 많은 곳', desc:'복지 만족도가 높게 평가된 기업 모음', badge:'복지 우수', emoji:'emoji-clover.svg', variant:'v-green'},
+    {title:'"재택도 OK" 리뷰 많은 곳', desc:'재택·원격 근무 가능 포지션이 있는 기업 모음', badge:'재택근무', emoji:'emoji-place.svg', variant:'v-purple'},
+    {title:'지금 대규모로 뽑고 있는 곳', desc:'채용 공고가 활발하게 올라오는 기업 모음', badge:'대규모 채용 중', emoji:'emoji-fire.svg', variant:'v-red'},
+    {title:'"경영진이 믿음직하다" 리뷰 많은 곳', desc:'경영진 신뢰도가 높게 평가된 기업 모음', badge:'경영진 우수', emoji:'emoji-institution.svg', variant:'v-gray'},
+    {title:'"코드리뷰 문화가 좋다" 리뷰 많은 곳', desc:'개발 문화와 기술 성장 환경을 높이 평가한 기업', badge:'개발문화 우수', emoji:'emoji-thunder.svg', variant:'v-blue'},
+    {title:'"데이터 기반 의사결정" 리뷰 많은 곳', desc:'데이터 인프라와 분석 환경이 잘 갖춰진 기업', badge:'데이터 드리븐', emoji:'emoji-barchart.svg', variant:'v-purple'}
   ];
   window.th3ThemeScroll = function(dir){
     var el = document.getElementById('th3ThemeScroll');
@@ -4516,13 +4592,14 @@
       return cta+'<div class="th3-urgent">'+items.map(function(it){
         var hotTag = it.hot ? '<span class="th3-urgent-hot">🔥 '+it.hot+'</span>' : '';
         return '<div class="th3-urgent-item'+(it.imminent?' imminent':'')+'" onclick="th3Go(\'job\')">'+
-          hotTag+
           '<div class="th3-urgent-top">'+
             '<div class="th3-urgent-dday">'+it.dday+'</div>'+
+            hotTag+
           '</div>'+
           '<div class="th3-urgent-body">'+
+            '<div class="th3-urgent-co">'+it.co+'</div>'+
             '<div class="th3-urgent-title">'+it.title+'</div>'+
-            '<div class="th3-urgent-meta"><span class="th3-urgent-meta-co">'+it.co+'</span> · '+it.meta+'</div>'+
+            '<div class="th3-urgent-meta">'+it.meta+'</div>'+
           '</div>'+
           '<div class="th3-urgent-salary">'+it.salary+'</div>'+
         '</div>';
@@ -4530,11 +4607,12 @@
     },
     theme: function(){
       var cards = themeData.map(function(t){
-        return '<div class="th3-theme-card" onclick="th3Go(\'job\')">'+
-          '<img class="th3-theme-card-img" src="'+t.img+'" alt="" loading="lazy">'+
-          '<div class="th3-theme-card-overlay"></div>'+
-          '<div class="th3-theme-card-body">'+
+        return '<div class="th3-theme-card '+(t.variant||'v-gray')+'" onclick="th3Go(\'job\')">'+
+          '<div class="th3-theme-card-hd">'+
             '<span class="th3-theme-card-badge">'+t.badge+'</span>'+
+            '<img class="th3-theme-card-emoji" src="'+t.emoji+'" alt="" aria-hidden="true">'+
+          '</div>'+
+          '<div class="th3-theme-card-body">'+
             '<h3 class="th3-theme-card-title">'+t.title+'</h3>'+
             '<p class="th3-theme-card-desc">'+t.desc+'</p>'+
           '</div>'+
@@ -4583,33 +4661,11 @@
         }).join('')+'</optgroup>';
       }).join('');
 
-      var totalPoints = 60, myIdx = 41;
-      var VBW = 400, VBH = 84;
-      var pts = [];
-      for(var i=0; i<totalPoints; i++){
-        var x = (i - totalPoints/2) / (totalPoints/4);
-        var h = 10 + Math.exp(-x*x/2) * 66;
-        pts.push({x: (i/(totalPoints-1))*VBW, y: VBH - h});
-      }
-      var lineD = 'M'+pts[0].x.toFixed(1)+','+pts[0].y.toFixed(1);
-      for(var i=1;i<totalPoints;i++){
-        var p0 = pts[i-1], p1 = pts[i];
-        var cpx = (p0.x + p1.x) / 2;
-        lineD += ' Q'+cpx.toFixed(1)+','+p0.y.toFixed(1)+' '+((cpx+p1.x)/2).toFixed(1)+','+((p0.y+p1.y)/2).toFixed(1);
-      }
-      lineD += ' L'+pts[totalPoints-1].x.toFixed(1)+','+pts[totalPoints-1].y.toFixed(1);
-      var areaD = lineD + ' L'+VBW+','+VBH+' L0,'+VBH+' Z';
-      var me = pts[myIdx];
-      var meLeftPct = (me.x / VBW) * 100;
+      var avgPct = 62;
+      var myLeftPct = 68;
 
       return ''+
         '<div class="th3-salary">'+
-          '<div class="th3-salary-top">'+
-            '<span class="th3-salary-nhis">'+
-              '<img src="nhis-logo.svg" alt="" aria-hidden="true">'+
-              '건강보험 연봉 데이터 <strong>2,015,619건</strong> 기준'+
-            '</span>'+
-          '</div>'+
           '<h2 class="th3-salary-title">내 연봉, 또래보다 <em>얼마나?</em></h2>'+
           '<p class="th3-salary-sub">30초 만에 내 위치를 확인하고, 다음 협상 카드로 써보세요</p>'+
 
@@ -4640,34 +4696,25 @@
 
             '<div class="th3-salary-viz">'+
               '<div class="th3-salary-viz-hero">'+
-                '<div class="th3-salary-viz-rank-big">'+
-                  '<span class="th3-salary-viz-prefix">또래보다</span>'+
-                  '<span class="th3-salary-viz-rank-num">상위 32<small>%</small></span>'+
-                '</div>'+
-                '<div class="th3-salary-viz-msg">같은 직무·경력 재직자 <strong>1,284명</strong> 기준</div>'+
+                '<div class="th3-salary-viz-label">직무 평균 연봉</div>'+
+                '<div class="th3-salary-viz-value">5,500<span style="font-size:22px;font-weight:800;">만원</span></div>'+
+                '<span class="th3-salary-viz-nhis">'+
+                  '<img src="nhis-logo.svg" alt="" aria-hidden="true">'+
+                  '건강보험 연봉 데이터 <strong>2,015,619건</strong> 기준'+
+                '</span>'+
               '</div>'+
 
-              '<div class="th3-salary-dist">'+
-                '<div class="th3-salary-dist-tooltip" style="left:'+meLeftPct.toFixed(1)+'%;">내 연봉 5,500만 · 상위 32%</div>'+
-                '<div class="th3-salary-line-wrap">'+
-                  '<svg viewBox="0 0 '+VBW+' '+VBH+'" preserveAspectRatio="none" aria-hidden="true">'+
-                    '<defs>'+
-                      '<linearGradient id="th3SalaryLineGrad" x1="0" y1="0" x2="0" y2="1">'+
-                        '<stop offset="0%" stop-color="#9BA3AD" stop-opacity="0.16"/>'+
-                        '<stop offset="100%" stop-color="#9BA3AD" stop-opacity="0"/>'+
-                      '</linearGradient>'+
-                    '</defs>'+
-                    '<path class="th3-salary-line-area" d="'+areaD+'"/>'+
-                    '<path class="th3-salary-line-path" d="'+lineD+'"/>'+
-                    '<line class="th3-salary-line-me-line" x1="'+me.x.toFixed(1)+'" y1="'+me.y.toFixed(1)+'" x2="'+me.x.toFixed(1)+'" y2="'+VBH+'"/>'+
-                    '<circle class="th3-salary-line-me-dot" cx="'+me.x.toFixed(1)+'" cy="'+me.y.toFixed(1)+'" r="5"/>'+
-                  '</svg>'+
+              '<div class="th3-salary-bar-wrap">'+
+                '<div class="th3-salary-bar-tip" style="left:'+myLeftPct+'%;">내 연봉 5,500만 · 상위 32%</div>'+
+                '<div class="th3-salary-bar">'+
+                  '<div class="th3-salary-bar-fill" style="width:'+avgPct+'%;"></div>'+
+                  '<div class="th3-salary-bar-me on" style="left:'+myLeftPct+'%;"></div>'+
                 '</div>'+
               '</div>'+
               '<div class="th3-salary-axis">'+
-                '<span><small>하위 10%</small><strong>3,200만</strong></span>'+
-                '<span><small>중앙값</small><strong>5,500만</strong></span>'+
-                '<span><small>상위 10%</small><strong>7,820만+</strong></span>'+
+                '<span><small>하위 · ~3,200만</small></span>'+
+                '<span><small>평균</small><strong>5,500만</strong></span>'+
+                '<span><small>상위 · 7,820만↑</small></span>'+
               '</div>'+
             '</div>'+
           '</div>'+
