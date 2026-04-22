@@ -4058,7 +4058,7 @@
   .mw-float-mic svg{width:15px;height:15px;}
 
   /* Content section — 통합 화이트 플로어 (gray hero 아래로 rounded-top white) */
-  .mw-updates{margin:0;padding:20px 20px 8px;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -2px 10px rgba(15,25,40,0.04);}
+  .mw-updates{margin:12px 14px 14px;padding:16px 16px 12px;background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(15,25,40,0.04);}
   .mw-updates-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px;}
   .mw-updates-ti{font-size:15px;font-weight:700;color:var(--tx);letter-spacing:-.3px;margin:0;display:flex;align-items:center;gap:6px;}
   .mw-updates-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;background:var(--brand);color:#fff;border-radius:var(--rfull);font-size:10.5px;font-weight:800;letter-spacing:-.1px;}
@@ -4393,63 +4393,50 @@
   <section class="hb-insight">
     <span class="hb-insight-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      이번 달 <strong>2,847명</strong>이 추천받았어요
+      이번 달 <strong>2,847명이</strong> 추천 받았어요
     </span>
     <h2 class="hb-insight-title">내 조건에 <em>딱 맞는</em> 기업 찾기</h2>
     <p class="hb-insight-sub">직군·산업군·연봉·복지 원하는 조건으로 추천해요</p>
     <div class="hb-radar-wrap">
       <svg viewBox="0 0 280 280" class="hb-radar-svg" aria-hidden="true">
         <defs>
-          <radialGradient id="planetCore" cx="38%" cy="34%" r="70%">
-            <stop offset="0%" stop-color="#F3FDF7" stop-opacity="1"/>
-            <stop offset="35%" stop-color="#B8F2D5" stop-opacity="0.85"/>
-            <stop offset="70%" stop-color="#4FD9A8" stop-opacity="0.72"/>
-            <stop offset="100%" stop-color="#00A877" stop-opacity="0.58"/>
+          <radialGradient id="planetCore" cx="38%" cy="32%" r="72%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+            <stop offset="30%" stop-color="#C8F5DE" stop-opacity="0.9"/>
+            <stop offset="65%" stop-color="#6AE0B3" stop-opacity="0.78"/>
+            <stop offset="100%" stop-color="#00A877" stop-opacity="0.55"/>
           </radialGradient>
-          <radialGradient id="planetIris" cx="68%" cy="72%" r="55%">
-            <stop offset="0%" stop-color="#FFC9E4" stop-opacity="0.55"/>
-            <stop offset="45%" stop-color="#C4DFFF" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+          <radialGradient id="planetBlobA" cx="70%" cy="60%" r="50%">
+            <stop offset="0%" stop-color="#FFCDE6" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#FFCDE6" stop-opacity="0"/>
           </radialGradient>
-          <radialGradient id="planetShine" cx="32%" cy="28%" r="38%">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85"/>
-            <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.18"/>
+          <radialGradient id="planetBlobB" cx="30%" cy="75%" r="45%">
+            <stop offset="0%" stop-color="#BDDCFF" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#BDDCFF" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="planetBlobC" cx="50%" cy="28%" r="45%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
             <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
           </radialGradient>
           <radialGradient id="planetHaloG" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stop-color="#A8F0CC" stop-opacity="0.55"/>
-            <stop offset="55%" stop-color="#7DD9FF" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#F0B8FF" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#B8F2D5" stop-opacity="0.55"/>
+            <stop offset="50%" stop-color="#A8E0FF" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#FFCBE8" stop-opacity="0"/>
           </radialGradient>
-          <linearGradient id="planetRingG" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00C362" stop-opacity="0"/>
-            <stop offset="25%" stop-color="#00C362" stop-opacity="0.85"/>
-            <stop offset="50%" stop-color="#A8F0CC" stop-opacity="0.6"/>
-            <stop offset="75%" stop-color="#00C362" stop-opacity="0.85"/>
-            <stop offset="100%" stop-color="#00C362" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="planetRingG2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#B4E5FF" stop-opacity="0"/>
-            <stop offset="30%" stop-color="#B4E5FF" stop-opacity="0.7"/>
-            <stop offset="70%" stop-color="#FFCBE8" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#B4E5FF" stop-opacity="0"/>
-          </linearGradient>
-          <filter id="pBlurL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
-          <filter id="pBlurM" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
-          <filter id="pBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+          <filter id="pBlurL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="pBlurM" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="pBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
         </defs>
-        <!-- 행성 헤일로 (먼 빛) -->
-        <circle class="p-halo" cx="140" cy="140" r="118" fill="url(#planetHaloG)" filter="url(#pBlurL)"/>
-        <!-- 아우터 링 (Saturn-like) -->
-        <ellipse class="p-ring-2" cx="140" cy="140" rx="118" ry="24" fill="none" stroke="url(#planetRingG2)" stroke-width="8" filter="url(#pBlurS)" opacity="0.75"/>
+        <!-- 먼 헤일로 -->
+        <circle class="p-halo" cx="140" cy="140" r="120" fill="url(#planetHaloG)" filter="url(#pBlurL)"/>
         <!-- 행성 본체 -->
-        <circle class="p-body" cx="140" cy="140" r="82" fill="url(#planetCore)" filter="url(#pBlurM)"/>
-        <!-- 이리데슨트 오버레이 (뒷면 색수차) -->
-        <circle class="p-iris" cx="140" cy="140" r="82" fill="url(#planetIris)" filter="url(#pBlurS)"/>
-        <!-- 표면 하이라이트 -->
-        <circle class="p-shine" cx="140" cy="140" r="82" fill="url(#planetShine)" filter="url(#pBlurS)"/>
-        <!-- 잡플래닛 로고 모티브 링 -->
-        <ellipse class="p-ring" cx="140" cy="140" rx="105" ry="22" fill="none" stroke="url(#planetRingG)" stroke-width="4" opacity="0.92"/>
+        <circle class="p-body" cx="140" cy="140" r="90" fill="url(#planetCore)" filter="url(#pBlurM)"/>
+        <!-- 색수차 블롭 A (핑크, 우하단) -->
+        <circle class="p-blob-a" cx="158" cy="158" r="46" fill="url(#planetBlobA)" filter="url(#pBlurS)"/>
+        <!-- 색수차 블롭 B (블루, 좌하단) -->
+        <circle class="p-blob-b" cx="114" cy="168" r="42" fill="url(#planetBlobB)" filter="url(#pBlurS)"/>
+        <!-- 상단 하이라이트 -->
+        <circle class="p-shine" cx="124" cy="108" r="38" fill="url(#planetBlobC)" filter="url(#pBlurS)" style="mix-blend-mode:screen;"/>
         <g class="hb-emo-labels">
           <g transform="translate(140,24)" style="--d:.55s"><text class="hb-emo-lbl" text-anchor="middle">성장</text></g>
           <g transform="translate(244,100)" style="--d:.65s"><text class="hb-emo-lbl" text-anchor="middle">급여</text></g>
