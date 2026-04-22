@@ -4344,18 +4344,16 @@
   .hb-feature.accent-peach{background:linear-gradient(145deg,#FFF2E8 0%,#fff 70%);}
 
   /* 퀵 메뉴 (가로 스크롤 아닌 그리드) */
-  .hb-quick-section{margin:14px 16px 0;background:#fff;border-radius:20px;padding:20px 16px 16px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(15,25,40,0.04);}
-  .hb-quick-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px;}
-  .hb-quick-ti{font-size:14px;font-weight:800;color:#191F28;letter-spacing:-.2px;}
+  .hb-quick-section{margin:14px 16px 0;padding:0;background:transparent;box-shadow:none;}
   .hb-quick-more{font-size:12px;font-weight:700;color:#8B93A1;background:none;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:2px;letter-spacing:-.1px;}
   .hb-quick-more svg{width:11px;height:11px;}
   .hb-quick-menu{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-  .hb-quick{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:8px 4px;font-family:inherit;border-radius:12px;transition:background .15s;}
-  .hb-quick:hover{background:#F7F8FA;}
-  .hb-quick-ic{position:relative;width:48px;height:48px;border-radius:14px;background:#F4F6F8;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-  .hb-quick-ic img{width:24px;height:24px;}
-  .hb-quick-label{font-size:11.5px;font-weight:700;color:#4E5968;text-align:center;letter-spacing:-.2px;line-height:1.3;}
-  .hb-quick-badge{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 4px;font-size:9.5px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;letter-spacing:-.1px;}
+  .hb-quick{display:flex;flex-direction:column;align-items:center;gap:8px;background:#fff;border:none;cursor:pointer;padding:14px 6px 12px;font-family:inherit;border-radius:16px;transition:transform .15s, box-shadow .15s;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 4px 14px rgba(15,25,40,0.04);min-height:100px;}
+  .hb-quick:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,25,40,0.05),0 8px 22px rgba(15,25,40,0.06);}
+  .hb-quick-ic{position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
+  .hb-quick-ic img{width:28px;height:28px;}
+  .hb-quick-label{font-size:11.5px;font-weight:700;color:#4E5968;text-align:center;letter-spacing:-.2px;line-height:1.35;}
+  .hb-quick-badge{position:absolute;top:-4px;right:-6px;min-width:16px;height:16px;padding:0 4px;font-size:9.5px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;letter-spacing:-.1px;}
   .hb-quick-badge.brand{background:#00c362;}
 
   /* 트렌드 리스트 (요즘 보는 기업) */
@@ -4403,59 +4401,64 @@
     <div class="hb-radar-wrap">
       <svg viewBox="0 0 280 280" class="hb-radar-svg" aria-hidden="true">
         <defs>
-          <clipPath id="bubClip"><circle cx="140" cy="140" r="105"/></clipPath>
-          <radialGradient id="bubBaseG" cx="50%" cy="45%" r="65%">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.98"/>
-            <stop offset="70%" stop-color="#F5F2FC" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#E8E4F8" stop-opacity="0.65"/>
+          <clipPath id="radarClip"><path d="M 140,36 Q 172,86 238,88 Q 206,140 238,192 Q 172,194 140,244 Q 108,194 42,192 Q 74,140 42,88 Q 108,86 140,36 Z"/></clipPath>
+          <radialGradient id="rdrBase" cx="50%" cy="45%" r="60%">
+            <stop offset="0%" stop-color="#F0FDF7" stop-opacity="0.95"/>
+            <stop offset="70%" stop-color="#D4F5E5" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#A8F0CC" stop-opacity="0.7"/>
           </radialGradient>
-          <radialGradient id="bubHaloG" cx="50%" cy="50%" r="55%">
-            <stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"/>
-            <stop offset="85%" stop-color="#E3D9F7" stop-opacity="0.55"/>
-            <stop offset="92%" stop-color="#FFD4E6" stop-opacity="0.4"/>
+          <radialGradient id="rdrHaloG" cx="50%" cy="50%" r="55%">
+            <stop offset="65%" stop-color="#FFFFFF" stop-opacity="0"/>
+            <stop offset="82%" stop-color="#B8F2D5" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#6BE3A0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rdrBlobGreenDeep" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00A362" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#00A362" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rdrBlobMint" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3DE0A8" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#3DE0A8" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rdrBlobAccent" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#7E86FF" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#7E86FF" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rdrBlobAccent2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFB5D6" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#FFB5D6" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="rdrShine" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.92"/>
             <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
           </radialGradient>
-          <radialGradient id="blobPinkG" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#FF9EC6" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#FF9EC6" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobVioletG" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#8B6FF0" stop-opacity="0.85"/>
-            <stop offset="100%" stop-color="#8B6FF0" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobCyanG" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#5CA5F5" stop-opacity="0.78"/>
-            <stop offset="100%" stop-color="#5CA5F5" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobGreenG" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#00C362" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#00C362" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="blobShineG" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="bubBlurL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
-          <filter id="bubBlurM" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
-          <filter id="bubBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+          <linearGradient id="rdrStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00C362" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#A8F0CC" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="rdrBlurL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+          <filter id="rdrBlurM" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="rdrBlurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
         </defs>
 
-        <!-- 외부 헤일로 림 -->
-        <circle class="bub bub-halo" cx="140" cy="140" r="128" fill="url(#bubHaloG)" filter="url(#bubBlurM)"/>
-        <!-- 림 그라데이션 -->
-        <circle class="bub bub-rim" cx="140" cy="140" r="108" fill="none" stroke="#E0D6F5" stroke-width="3" opacity="0.55" filter="url(#bubBlurS)"/>
+        <!-- 외부 헤일로 (곡선 오프셋) -->
+        <path class="bub bub-halo" d="M 140,20 Q 180,78 256,80 Q 216,140 256,200 Q 180,202 140,260 Q 100,202 24,200 Q 64,140 24,80 Q 100,78 140,20 Z" fill="url(#rdrHaloG)" filter="url(#rdrBlurL)"/>
 
-        <!-- 베이스 버블 -->
-        <circle cx="140" cy="140" r="105" fill="url(#bubBaseG)"/>
+        <!-- 베이스 레이더 (구불 곡선) -->
+        <path d="M 140,36 Q 172,86 238,88 Q 206,140 238,192 Q 172,194 140,244 Q 108,194 42,192 Q 74,140 42,88 Q 108,86 140,36 Z" fill="url(#rdrBase)"/>
 
-        <!-- 내부 색수차 블롭 (clip to sphere) -->
-        <g clip-path="url(#bubClip)">
-          <circle class="bub bub-pink" cx="118" cy="92" r="82" fill="url(#blobPinkG)" filter="url(#bubBlurL)"/>
-          <circle class="bub bub-violet" cx="108" cy="148" r="72" fill="url(#blobVioletG)" filter="url(#bubBlurL)"/>
-          <circle class="bub bub-cyan" cx="178" cy="175" r="80" fill="url(#blobCyanG)" filter="url(#bubBlurL)"/>
-          <circle class="bub bub-green" cx="200" cy="118" r="58" fill="url(#blobGreenG)" filter="url(#bubBlurL)"/>
-          <circle class="bub bub-shine" cx="112" cy="104" r="44" fill="url(#blobShineG)" filter="url(#bubBlurM)" style="mix-blend-mode:screen;"/>
+        <!-- 내부 색 블롭 (clip to radar shape) -->
+        <g clip-path="url(#radarClip)">
+          <circle class="bub bub-pink" cx="102" cy="90" r="74" fill="url(#rdrBlobMint)" filter="url(#rdrBlurL)"/>
+          <circle class="bub bub-violet" cx="178" cy="118" r="70" fill="url(#rdrBlobGreenDeep)" filter="url(#rdrBlurL)"/>
+          <circle class="bub bub-cyan" cx="120" cy="190" r="78" fill="url(#rdrBlobMint)" filter="url(#rdrBlurL)"/>
+          <circle class="bub bub-green" cx="196" cy="200" r="60" fill="url(#rdrBlobAccent)" filter="url(#rdrBlurL)"/>
+          <circle class="bub bub-pink" cx="90" cy="152" r="48" fill="url(#rdrBlobAccent2)" filter="url(#rdrBlurL)" style="animation-delay:-2s;"/>
+          <circle class="bub bub-shine" cx="118" cy="98" r="42" fill="url(#rdrShine)" filter="url(#rdrBlurM)" style="mix-blend-mode:screen;"/>
         </g>
+
+        <!-- 외곽 라인 (부드러운 강조) -->
+        <path class="bub bub-rim" d="M 140,36 Q 172,86 238,88 Q 206,140 238,192 Q 172,194 140,244 Q 108,194 42,192 Q 74,140 42,88 Q 108,86 140,36 Z" fill="none" stroke="url(#rdrStroke)" stroke-width="1.5" opacity="0.6" filter="url(#rdrBlurS)"/>
 
         <g class="hb-emo-labels">
           <g transform="translate(140,24)" style="--d:.55s"><text class="hb-emo-lbl" text-anchor="middle">성장</text></g>
@@ -4486,7 +4489,7 @@
       </button>
       <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-quick-ic"><img src="emoji-trophy.svg" alt=""></span>
-        <span class="hb-quick-label">이번 주 인기 기업</span>
+        <span class="hb-quick-label">이번 주<br>인기 기업</span>
       </button>
       <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('salary');}">
         <span class="hb-quick-ic"><img src="emoji-moneybag.svg" alt=""></span>
