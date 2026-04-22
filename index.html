@@ -3735,11 +3735,11 @@
   .th3-salary-nhis strong{font-weight:800;color:var(--brand-dk);}
   .th3-salary-title{font-size:24px;font-weight:700;letter-spacing:-.5px;margin:0 0 4px;color:var(--tx);line-height:1.3;}
   .th3-salary-title em{color:var(--brand);font-style:normal;}
-  .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 2px;letter-spacing:-.1px;}
+  .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 22px;letter-spacing:-.1px;}
 
   .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:0;align-items:start;}
-  .th3-salary-left{display:flex;flex-direction:column;gap:14px;min-width:0;}
-  .th3-salary-form-wrap{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .th3-salary-left{display:flex;flex-direction:column;gap:12px;min-width:0;}
+  .th3-salary-form-wrap{display:flex;flex-direction:column;gap:12px;}
   .th3-salary-field{display:flex;flex-direction:column;gap:8px;}
   .th3-salary-field label{font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:-.1px;}
   .th3-salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -4007,7 +4007,7 @@
   body.mobile-mode #mobile-home{display:block !important;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#fff;overflow-y:auto;overflow-x:hidden;}
 
   .mw-container{width:400px;margin:0 auto;background:#F2F4F6;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
-  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;background:#fff;}
+  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;background:transparent;}
   .mw-icon-btn{width:40px;height:40px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx);border-radius:10px;transition:background .15s;}
   .mw-icon-btn:hover{background:#F9FAFB;}
   .mw-icon-btn svg{width:22px;height:22px;}
@@ -4017,7 +4017,7 @@
   .mw-float-logo{cursor:pointer;}
   .mw-float-logo:hover{background:var(--brand-dk);}
 
-  .mw-hero{padding:20px 24px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:calc(68vh - 56px);background:#fff;}
+  .mw-hero{padding:20px 24px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:calc(60vh - 56px);background:transparent;}
   @keyframes mwFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-6px) rotate(-3deg);}}
 
   .mw-searchbar{width:100%;max-width:340px;display:flex;align-items:center;gap:6px;padding:5px 5px 5px 18px;background:#fff;border:2px solid var(--brand);border-radius:999px;box-shadow:0 4px 18px rgba(0,194,116,0.14),0 1px 3px rgba(0,194,116,0.08);transition:all .18s;cursor:text;margin:0 auto;}
@@ -4053,12 +4053,12 @@
   .mw-float-mic{width:34px;height:34px;border-radius:50%;background:var(--brand-lt);border:none;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .mw-float-mic svg{width:15px;height:15px;}
 
-  /* Content section */
-  .mw-updates{margin:12px 12px 0;padding:16px 16px 14px;background:#fff;border-radius:16px;box-shadow:0 1px 2px rgba(15,25,40,0.03);}
+  /* Content section — 통합 화이트 플로어 (gray hero 아래로 rounded-top white) */
+  .mw-updates{margin:0;padding:20px 20px 8px;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -2px 10px rgba(15,25,40,0.04);}
   .mw-updates-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px;}
   .mw-updates-ti{font-size:15px;font-weight:700;color:var(--tx);letter-spacing:-.3px;margin:0;display:flex;align-items:center;gap:6px;}
   .mw-updates-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;background:var(--brand);color:#fff;border-radius:var(--rfull);font-size:10.5px;font-weight:800;letter-spacing:-.1px;}
-  .mw-updates-list{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:2px 16px 6px;}
+  .mw-updates-list{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 6px;}
   .mw-updates-list::-webkit-scrollbar{display:none;}
   .mw-update-card{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;background:#F9FAFB;border:1px solid transparent;border-radius:999px;cursor:pointer;transition:background .15s, transform .12s;text-align:left;font-family:var(--font);width:auto;white-space:nowrap;}
   .mw-update-card:hover{background:#F2F4F6;}
@@ -4082,7 +4082,7 @@
   .mw-update-card.urgent .mw-update-dday{background:#EF4444;color:#fff;}
   .mw-update-chev{display:none;}
 
-  .mw-section{margin:12px 12px 0;padding:16px 16px 18px;background:#fff;border-radius:16px;box-shadow:0 1px 2px rgba(15,25,40,0.03);}
+  .mw-section{margin:0;padding:18px 20px 100px;background:#fff;border-radius:0;}
   .mw-section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;gap:12px;}
   .mw-section-ti{display:flex;flex-direction:column;gap:2px;}
   .mw-section-ti h2{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;}
@@ -4095,7 +4095,7 @@
   .mw-mini-tab img{width:13px;height:13px;}
   .mw-mini-tab.active{background:var(--tx);color:#fff;}
 
-  .mw-cards{display:flex;flex-direction:row;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:2px 16px 10px;scroll-padding-left:16px;scroll-padding-inline-start:16px;}
+  .mw-cards{display:flex;flex-direction:row;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 10px;scroll-padding-left:20px;scroll-padding-inline-start:20px;}
   .mw-cards::-webkit-scrollbar{display:none;}
   .mw-cards > .mw-card{flex:0 0 44%;scroll-snap-align:start;min-width:0;}
   .mw-cards > .mw-card:last-child{margin-right:24px;}
@@ -4162,7 +4162,7 @@
 
     <section class="mw-updates">
       <div class="mw-updates-hd">
-        <h2 class="mw-updates-ti">내 관심기업 업데이트 <span class="mw-updates-count">3</span></h2>
+        <h2 class="mw-updates-ti">내 관심 기업 새 소식 <span class="mw-updates-count">3</span></h2>
         <button type="button" class="mw-section-more">전체 ›</button>
       </div>
       <div class="mw-updates-list">
@@ -4735,10 +4735,10 @@
 
       return ''+
         '<div class="th3-salary">'+
+          '<h2 class="th3-salary-title">내 연봉, 또래보다 <em>얼마나?</em></h2>'+
+          '<p class="th3-salary-sub" id="th3SalaryPeer">IT·인터넷 프로덕트 디자이너 5년차·중견기업 <strong>12,430명</strong>과 비교해보세요</p>'+
           '<div class="th3-salary-main">'+
             '<div class="th3-salary-left">'+
-              '<h2 class="th3-salary-title">내 연봉, 또래보다 <em>얼마나?</em></h2>'+
-              '<p class="th3-salary-sub" id="th3SalaryPeer">IT·인터넷 프로덕트 디자이너 5년차·중견기업 <strong>12,430명</strong>과 비교해보세요</p>'+
               '<form class="th3-salary-form-wrap" onsubmit="return th3SalaryCompare(event)">'+
                 '<div class="th3-salary-row">'+
                   '<div class="th3-salary-field">'+
