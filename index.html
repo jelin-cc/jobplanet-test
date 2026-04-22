@@ -3737,7 +3737,7 @@
   .th3-salary-title em{color:var(--brand);font-style:normal;}
   .th3-salary-sub{font-size:14px;color:var(--tx3);margin:0 0 22px;letter-spacing:-.1px;}
 
-  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:0;align-items:start;}
+  .th3-salary-main{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:0;align-items:stretch;}
   .th3-salary-left{display:flex;flex-direction:column;gap:12px;min-width:0;}
   .th3-salary-form-wrap{display:flex;flex-direction:column;gap:12px;}
   .th3-salary-field{display:flex;flex-direction:column;gap:8px;}
@@ -3754,7 +3754,7 @@
   .th3-salary-btn{height:52px;padding:0 26px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-size:15px;font-weight:800;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:-.1px;box-shadow:0 2px 8px rgba(0,194,116,0.3);}
   .th3-salary-btn:hover{background:var(--brand-dk);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,194,116,0.4);}
 
-  .th3-salary-viz{background:#F9FAFB;border-radius:20px;padding:20px 22px 20px;display:flex;flex-direction:column;gap:16px;position:relative;align-self:start;overflow:hidden;}
+  .th3-salary-viz{background:#F9FAFB;border-radius:20px;padding:20px 22px 20px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;}
   .th3-salary-viz.is-pending > :not(.th3-salary-pending-ov){filter:blur(4px);opacity:.42;pointer-events:none;user-select:none;transition:filter .25s, opacity .25s;}
   .th3-salary-viz:not(.is-pending) > :not(.th3-salary-pending-ov){filter:none;opacity:1;transition:filter .35s, opacity .35s;}
   .th3-salary-pending-ov{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:20px;z-index:4;}
@@ -3790,7 +3790,7 @@
   .th3-salary-viz-nhis strong{font-weight:800;color:var(--brand-dk);}
 
   /* 분포 히스토그램 */
-  .th3-salary-hist-wrap{position:relative;margin-top:4px;padding-top:32px;}
+  .th3-salary-hist-wrap{position:relative;margin-top:auto;padding-top:32px;}
   .th3-salary-hist{display:flex;align-items:flex-end;gap:3px;height:86px;position:relative;}
   .th3-salary-hist-bar{flex:1;min-width:0;background:#E5E8EB;border-radius:4px 4px 0 0;transition:background .35s, transform .35s, box-shadow .35s;position:relative;}
   .th3-salary-hist-bar.peak{background:#D5ECDF;}
