@@ -5032,10 +5032,10 @@
     },
     follow: function(){
       var items = [
-        {logo:'카',co:'카카오',sub:'내 전직장',cardType:'action',badgeLabel:'내 직무 채용중',update:'채용 <strong>3건</strong> 진행중',dest:'job'},
-        {logo:'토',co:'토스',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 채용중',update:'<strong>2건</strong> 채용 <span class="th3-follow-dday">D-5</span>',dest:'job'},
-        {logo:'네',co:'네이버',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 채용중',update:'신규 공고 <strong>1건</strong>',dest:'job'},
-        {logo:'당',co:'당근',sub:'팔로우 중',cardType:'info',badgeLabel:'관심 업데이트',update:'3년차 연봉 <strong>6,400만</strong> 공개',dest:'review'}
+        {logo:'카',co:'카카오',sub:'내 전직장',cardType:'action',badgeLabel:'내 직무 3건 채용중',update:'채용 공고 확인하기',dest:'job'},
+        {logo:'토',co:'토스',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 2건 채용중',update:'<span class="th3-follow-dday">D-5</span> 마감 임박',dest:'job'},
+        {logo:'네',co:'네이버',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 1건 채용중',update:'<strong>오늘</strong> 신규 등록',dest:'job'},
+        {logo:'당',co:'당근',sub:'팔로우 중',cardType:'info',badgeLabel:'관심 업데이트',update:'신규 리뷰 · 3년차 연봉 <strong>6,400만</strong>',dest:'review'}
       ];
       return '<div class="th3-follow-grid">'+items.map(function(it){
         return '<div class="th3-follow-card '+it.cardType+'" onclick="th3Go(\''+it.dest+'\')">'+
@@ -5048,8 +5048,8 @@
           '</div>'+
           '<span class="th3-follow-badge '+it.cardType+'">'+
             (it.cardType==='action'
-              ? '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>'
-              : '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>')+
+              ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 3a2 2 0 00-2 2v1H4a2 2 0 00-2 2v2.5a1 1 0 00.8.98L11 13.15V12a1 1 0 112 0v1.15l8.2-1.67a1 1 0 00.8-.98V8a2 2 0 00-2-2h-4V5a2 2 0 00-2-2h-4zm0 3h4V5h-4v1zM2 13.5V19a2 2 0 002 2h16a2 2 0 002-2v-5.5l-8 1.63V15a1 1 0 11-2 0v-.87L2 13.5z"/></svg>'
+              : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a6 6 0 00-6 6v3.26L4.3 15.14A1 1 0 005.18 16.5h13.64a1 1 0 00.88-1.36L18 11.26V8a6 6 0 00-6-6zm-2.5 16a2.5 2.5 0 005 0h-5z"/></svg>')+
             it.badgeLabel+
           '</span>'+
           '<div class="th3-follow-update">'+it.update+'</div>'+
