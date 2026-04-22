@@ -4010,7 +4010,9 @@
   #mobile-home{display:none;}
   body.mobile-mode #mobile-home{display:block !important;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#fff;overflow-y:auto;overflow-x:hidden;}
 
-  .mw-container{width:400px;margin:0 auto;background:#F2F4F6;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
+  .mw-container{width:400px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
+  .mw-container::before{content:'';position:absolute;top:0;left:0;right:0;height:320px;background:#F2F4F6;z-index:0;pointer-events:none;}
+  .mw-container > *{position:relative;z-index:1;}
   .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;background:transparent;}
   .mw-icon-btn{width:40px;height:40px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx);border-radius:10px;transition:background .15s;}
   .mw-icon-btn:hover{background:#F9FAFB;}
@@ -4098,10 +4100,8 @@
   .mw-mini-tab img{width:13px;height:13px;}
   .mw-mini-tab.active{background:var(--tx);color:#fff;}
 
-  .mw-cards{display:flex;flex-direction:row;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 10px;scroll-padding-left:20px;scroll-padding-inline-start:20px;}
-  .mw-cards::-webkit-scrollbar{display:none;}
-  .mw-cards > .mw-card{flex:0 0 44%;scroll-snap-align:start;min-width:0;}
-  .mw-cards > .mw-card:last-child{margin-right:24px;}
+  .mw-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:2px 0 10px;}
+  .mw-cards > .mw-card{min-width:0;}
   .mw-card{padding:14px 14px;background:#fff;border:1px solid #F2F4F6;border-radius:14px;cursor:pointer;box-shadow:0 1px 3px rgba(15,25,40,0.04);transition:all .15s;}
   .mw-card:active{transform:scale(0.99);}
   .mw-card.peach{background:linear-gradient(180deg,#FEF3EC 0%,#fff 70%);}
@@ -4218,58 +4218,12 @@
         </div>
         <button type="button" class="mw-section-more">전체 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
       </div>
-      <div class="mw-mini-tabs">
-        <button type="button" class="mw-mini-tab active"><img src="emoji-fire.svg" alt="" aria-hidden="true">인기 리뷰</button>
-        <button type="button" class="mw-mini-tab"><img src="emoji-officebuilding.svg" alt="" aria-hidden="true">전·현직장</button>
-        <button type="button" class="mw-mini-tab"><img src="emoji-briefcase.svg" alt="" aria-hidden="true">내 직무</button>
+      <div class="mw-mini-tabs" id="mwMiniTabs">
+        <button type="button" class="mw-mini-tab active" data-mwtab="hot" onclick="mwSwitchPick(this)"><img src="emoji-fire.svg" alt="" aria-hidden="true">인기 리뷰</button>
+        <button type="button" class="mw-mini-tab" data-mwtab="prev" onclick="mwSwitchPick(this)"><img src="emoji-officebuilding.svg" alt="" aria-hidden="true">전·현직장</button>
+        <button type="button" class="mw-mini-tab" data-mwtab="job" onclick="mwSwitchPick(this)"><img src="emoji-briefcase.svg" alt="" aria-hidden="true">내 직무</button>
       </div>
-      <div class="mw-cards" id="mwPickCards">
-        <div class="mw-card peach">
-          <div class="mw-card-hd">
-            <img src="emoji-thumbsup.svg" alt="" aria-hidden="true">
-            <span class="mw-card-badge">솔직 후기</span>
-          </div>
-          <h3 class="mw-card-title">"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"</h3>
-          <p class="mw-card-excerpt">보상과 실제 업무 환경이 입사 전 듣던 것과 많이 달랐습니다.</p>
-          <div class="mw-card-meta">
-            <span class="mw-card-meta-logo">쿠</span>
-            <strong>쿠팡</strong>
-            <span>·</span>
-            <span>물류·IT</span>
-            <svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-        <div class="mw-card red">
-          <div class="mw-card-hd">
-            <img src="emoji-fire.svg" alt="" aria-hidden="true">
-            <span class="mw-card-badge">이번주 조회수 폭발</span>
-          </div>
-          <h3 class="mw-card-title">"퇴사를 고민 중이라면 이 회사는 피하세요"</h3>
-          <p class="mw-card-excerpt">최근 조직개편 이후 분위기가 완전히 바뀌었어요.</p>
-          <div class="mw-card-meta">
-            <span class="mw-card-meta-logo">비</span>
-            <strong>비바리퍼블리카</strong>
-            <span>·</span>
-            <span>IT·핀테크</span>
-            <svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-        <div class="mw-card purple">
-          <div class="mw-card-hd">
-            <img src="emoji-rocket.svg" alt="" aria-hidden="true">
-            <span class="mw-card-badge">요즘 뜨는 기업</span>
-          </div>
-          <h3 class="mw-card-title">"자유로운 분위기가 최고, 다만 연봉은 협상 필요"</h3>
-          <p class="mw-card-excerpt">수평 문화와 재택은 만족스럽지만 초봉 협상은 강하게 들어가야 해요.</p>
-          <div class="mw-card-meta">
-            <span class="mw-card-meta-logo">네</span>
-            <strong>네이버</strong>
-            <span>·</span>
-            <span>IT·플랫폼</span>
-            <svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </div>
-      </div>
+      <div class="mw-cards" id="mwPickCards"></div>
     </section>
 
     <button type="button" class="mw-scroll-hint" id="mwScrollHint" onclick="mwScrollDown()" aria-label="지금 뜨는 기업 리뷰 보기">
@@ -4680,12 +4634,46 @@
         mh.scrollBy({top: window.innerHeight * 0.7, behavior:'smooth'});
       }
     };
-    document.querySelectorAll('.mw-mini-tab').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.mw-mini-tab').forEach(function(b){b.classList.remove('active');});
-        btn.classList.add('active');
-      });
-    });
+    var MW_PICK_DATA = {
+      hot: [
+        {cls:'peach', emo:'emoji-thumbsup.svg', badge:'솔직 후기', title:'"입사 3개월 만에 퇴사한 이유를 솔직하게 씁니다"', excerpt:'보상과 실제 업무 환경이 입사 전 듣던 것과 많이 달랐습니다.', logo:'쿠', co:'쿠팡', cat:'물류·IT'},
+        {cls:'red', emo:'emoji-fire.svg', badge:'이번주 조회수 폭발', title:'"퇴사 고민 중이라면 이 회사는 피하세요"', excerpt:'최근 조직개편 이후 분위기가 완전히 바뀌었어요.', logo:'비', co:'비바리퍼블리카', cat:'IT·핀테크'},
+        {cls:'purple', emo:'emoji-rocket.svg', badge:'요즘 뜨는 기업', title:'"자유로운 분위기 최고, 연봉은 협상 필요"', excerpt:'수평 문화와 재택은 만족스럽지만 초봉은 강하게 들어가야 해요.', logo:'네', co:'네이버', cat:'IT·플랫폼'},
+        {cls:'peach', emo:'emoji-moneybag.svg', badge:'연봉 실화', title:'"5년차에 9천, 그래도 만족하냐면"', excerpt:'숫자는 좋은데 주변 업계랑 비교하면 또 애매해요.', logo:'카', co:'카카오', cat:'IT·플랫폼'}
+      ],
+      prev: [
+        {cls:'peach', emo:'emoji-officebuilding.svg', badge:'전 직장', title:'"3년 근무 후 느낀 진짜 문화"', excerpt:'입사 전 기대와 나온 뒤 판단이 꽤 달랐습니다.', logo:'토', co:'토스', cat:'IT·핀테크'},
+        {cls:'red', emo:'emoji-fire.svg', badge:'현 직장', title:'"지금 다니면서 느끼는 솔직한 점수"', excerpt:'좋은 점도 많지만 최근 들어 바뀐 부분이 꽤 있어요.', logo:'당', co:'당근', cat:'IT·플랫폼'},
+        {cls:'purple', emo:'emoji-thumbsup.svg', badge:'전 직장', title:'"돌이켜보면 연봉 협상은 꼭 하세요"', excerpt:'재직 시절엔 몰랐는데 이직하고 나서 확실히 보여요.', logo:'라', co:'라인', cat:'IT·플랫폼'},
+        {cls:'peach', emo:'emoji-briefcase.svg', badge:'현 직장', title:'"복지는 좋은데 업무 강도는 준비하세요"', excerpt:'초반 3개월이 고비였어요. 지금은 잘 맞는다고 생각해요.', logo:'삼', co:'삼성SDS', cat:'SI·IT'}
+      ],
+      job: [
+        {cls:'peach', emo:'emoji-briefcase.svg', badge:'내 직무 리뷰', title:'"프로덕트 디자이너, 진짜 일하는 법"', excerpt:'PM·개발자와 협업 비중이 생각보다 커요. 주도성 중요.', logo:'우', co:'우아한형제들', cat:'IT·커머스'},
+        {cls:'red', emo:'emoji-fire.svg', badge:'동일 직무', title:'"시니어로 가면서 가장 고민됐던 포인트"', excerpt:'리드 역할과 실무 밸런스를 어떻게 잡는지 정리했어요.', logo:'무', co:'무신사', cat:'커머스·패션'},
+        {cls:'purple', emo:'emoji-rocket.svg', badge:'성장 후기', title:'"이 회사 디자인 시스템이 특별한 이유"', excerpt:'규모 작지만 디자이너가 결정권을 갖고 일합니다.', logo:'오', co:'오늘의집', cat:'커머스·라이프'},
+        {cls:'peach', emo:'emoji-thumbsup.svg', badge:'동일 직무', title:'"실제 포트폴리오에 뭐가 중요한지"', excerpt:'화려함보다 의사결정 과정이 보이는 포폴을 선호한대요.', logo:'컬', co:'컬리', cat:'커머스·푸드'}
+      ]
+    };
+    window.mwRenderPick = function(tab){
+      var grid = document.getElementById('mwPickCards');
+      if(!grid) return;
+      var list = MW_PICK_DATA[tab] || MW_PICK_DATA.hot;
+      grid.innerHTML = list.map(function(c){
+        return '<div class="mw-card '+c.cls+'">'+
+          '<div class="mw-card-hd"><img src="'+c.emo+'" alt="" aria-hidden="true"><span class="mw-card-badge">'+c.badge+'</span></div>'+
+          '<h3 class="mw-card-title">'+c.title+'</h3>'+
+          '<p class="mw-card-excerpt">'+c.excerpt+'</p>'+
+          '<div class="mw-card-meta"><span class="mw-card-meta-logo">'+c.logo+'</span><strong>'+c.co+'</strong><span>·</span><span>'+c.cat+'</span>'+
+          '<svg class="mw-card-meta-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'+
+          '</div></div>';
+      }).join('');
+    };
+    window.mwSwitchPick = function(btn){
+      document.querySelectorAll('.mw-mini-tab').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      mwRenderPick(btn.getAttribute('data-mwtab'));
+    };
+    mwRenderPick('hot');
     document.querySelectorAll('.mw-tab').forEach(function(btn){
       btn.addEventListener('click', function(){
         document.querySelectorAll('.mw-tab').forEach(function(b){b.classList.remove('active');});
