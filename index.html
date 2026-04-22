@@ -4348,19 +4348,22 @@
   .hb-emo-dots circle:nth-child(6){animation-delay:1.1s;}
   @keyframes hbDotIn{0%{opacity:0;transform:scale(0);}60%{transform:scale(1.5);}100%{opacity:1;transform:scale(1);}}
   .hb-emo-labels g{opacity:0;animation:hbLblIn .5s ease var(--d,0s) forwards;}
-  @keyframes hbLblIn{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes hbLblIn{from{opacity:0;}to{opacity:1;}}
 
   .hb-radar-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:84px;padding:10px 16px;background:#fff;border-radius:999px;box-shadow:0 6px 22px rgba(0,194,116,0.2),0 0 0 5px rgba(255,255,255,0.75);display:flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap;}
   .hb-radar-score{font-size:26px;font-weight:900;color:#00A362;line-height:1;letter-spacing:-.6px;}
   .hb-radar-score small{font-size:12px;font-weight:800;color:#AFB5BE;margin-left:2px;letter-spacing:-.1px;}
   .hb-radar-score-lbl{font-size:10.5px;color:#8B93A1;font-weight:700;letter-spacing:-.1px;}
 
-  .hb-radar-stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+  .hb-radar-stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
   .hb-stat-chip{font-size:11.5px;font-weight:700;color:#00A362;background:rgba(0,194,116,0.09);padding:5px 10px;border-radius:100px;letter-spacing:-.1px;}
   .hb-stat-chip.neutral{color:#8B93A1;background:#F2F4F6;}
-  .hb-insight-cta{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:15px;background:#191F28;color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:background .15s;}
-  .hb-insight-cta:hover{background:#000;}
-  .hb-insight-cta svg{width:16px;height:16px;}
+  .hb-insight-divider{display:flex;align-items:center;gap:10px;margin:4px 0 14px;color:#AFB5BE;font-size:11.5px;font-weight:700;letter-spacing:-.1px;}
+  .hb-insight-divider::before,.hb-insight-divider::after{content:'';flex:1;height:1px;background:#EEF0F3;}
+  .hb-insight-match{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:14px;}
+  .hb-insight-match .hb-reco-logos{justify-content:center;margin-bottom:0;}
+  .hb-insight-social{font-size:12px;font-weight:700;color:#00A362;letter-spacing:-.1px;display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:#F0FBF5;border-radius:100px;}
+  .hb-insight-social strong{font-weight:800;}
 
   /* 직군 맞춤 추천 카드 (소셜프루프) */
   .hb-reco{margin:14px 16px 0;background:#fff;border:1.5px solid #E8F5EE;border-radius:20px;padding:22px 20px 20px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 8px 24px rgba(0,194,116,0.06);}
@@ -4370,9 +4373,9 @@
   .hb-reco-title{font-size:19px;font-weight:800;color:#191F28;letter-spacing:-.4px;margin:0 0 16px;line-height:1.35;}
   .hb-reco-logos{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
   .hb-reco-logo-stack{display:flex;align-items:center;flex-shrink:0;}
-  .hb-reco-logo{width:40px;height:40px;border-radius:50%;background:#fff;border:1.5px solid #F2F4F6;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 2px 8px rgba(15,25,40,0.08);margin-left:-10px;flex-shrink:0;}
+  .hb-reco-logo{width:40px;height:40px;border-radius:50%;background:#fff;border:1.5px solid #F2F4F6;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 2px 8px rgba(15,25,40,0.08);margin-left:-10px;flex-shrink:0;padding:4px;}
   .hb-reco-logo:first-child{margin-left:0;}
-  .hb-reco-logo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+  .hb-reco-logo img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;}
   .hb-reco-more{font-size:13.5px;color:#4E5968;font-weight:700;letter-spacing:-.2px;}
   .hb-reco-more strong{color:#191F28;font-weight:800;}
   .hb-reco-cta{display:block;width:100%;padding:16px;background:#00C362;color:#fff;font-size:15.5px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:background .15s, transform .1s;box-shadow:0 4px 14px rgba(0,194,116,0.28);}
@@ -4496,21 +4499,17 @@
       <span class="hb-stat-chip">성장 상위 18%</span>
       <span class="hb-stat-chip neutral">급여 보통</span>
     </div>
-  </section>
-
-  <section class="hb-reco">
-    <span class="hb-reco-badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      이번 달 <strong>2,847명</strong>이 추천받았어요
-    </span>
-    <h3 class="hb-reco-title">위 분석 기반, 맞춤 기업 보기</h3>
-    <div class="hb-reco-logos">
-      <div class="hb-reco-logo-stack">
-        <span class="hb-reco-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg" alt=""></span>
-        <span class="hb-reco-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_12.svg" alt=""></span>
-        <span class="hb-reco-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_5.svg" alt=""></span>
+    <div class="hb-insight-divider"><span>이 분석을 기반으로</span></div>
+    <div class="hb-insight-match">
+      <div class="hb-reco-logos">
+        <div class="hb-reco-logo-stack">
+          <span class="hb-reco-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg" alt=""></span>
+          <span class="hb-reco-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_12.svg" alt=""></span>
+          <span class="hb-reco-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_5.svg" alt=""></span>
+        </div>
+        <span class="hb-reco-more">외 <strong>127개</strong> 맞춤 기업</span>
       </div>
-      <span class="hb-reco-more">외 <strong>127개</strong> 기업</span>
+      <div class="hb-insight-social">이번 달 <strong>2,847명</strong>이 추천받았어요</div>
     </div>
     <button type="button" class="hb-reco-cta" onclick="closeHomeB();if(typeof go==='function'){go('job');}">나에게 맞는 기업 보기</button>
   </section>
