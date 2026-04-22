@@ -4371,15 +4371,19 @@
   .hb-salary-amount{font-size:26px;font-weight:900;color:#191F28;letter-spacing:-.8px;line-height:1;}
   .hb-salary-unit{font-size:15px;font-weight:800;color:#191F28;letter-spacing:-.3px;}
   .hb-salary-delta{display:inline-flex;align-items:center;gap:2px;font-size:11.5px;font-weight:800;color:#EA580C;background:#FEF2EC;padding:3px 8px;border-radius:100px;letter-spacing:-.1px;margin-left:auto;}
-  .hb-salary-bars{display:flex;align-items:flex-end;gap:6px;height:42px;margin-bottom:12px;padding:0 2px;position:relative;}
-  .hb-salary-bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;}
-  .hb-salary-bar-col{width:100%;background:linear-gradient(180deg,#FFD58A 0%,#F5A623 100%);border-radius:6px 6px 0 0;position:relative;}
+  .hb-salary-bars{display:flex;align-items:flex-end;gap:10px;height:100px;margin:8px 0 16px;padding:22px 10px 0;position:relative;}
+  .hb-salary-bar{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;position:relative;}
+  .hb-salary-bar-chart{width:100%;flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;margin-bottom:8px;}
+  .hb-salary-bar-col{width:100%;max-width:46px;background:linear-gradient(180deg,#FFD58A 0%,#F5A623 100%);border-radius:8px 8px 0 0;min-height:10px;}
   .hb-salary-bar.me .hb-salary-bar-col{background:linear-gradient(180deg,#4CE0A2 0%,#00A362 100%);box-shadow:0 2px 8px rgba(0,194,116,0.25);}
-  .hb-salary-bar-lbl{font-size:9.5px;font-weight:700;color:#8B93A1;letter-spacing:-.1px;white-space:nowrap;}
+  .hb-salary-bar-lbl{font-size:11px;font-weight:700;color:#8B93A1;letter-spacing:-.1px;white-space:nowrap;}
   .hb-salary-bar.me .hb-salary-bar-lbl{color:#00A362;font-weight:800;}
-  .hb-salary-bar-marker{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;color:#00A362;background:#fff;padding:2px 6px;border-radius:100px;box-shadow:0 1px 4px rgba(0,0,0,0.08);white-space:nowrap;letter-spacing:-.1px;}
-  .hb-salary-cta{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:800;color:#4E5968;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;letter-spacing:-.1px;position:relative;}
-  .hb-salary-cta svg{width:12px;height:12px;}
+  .hb-salary-bar-marker{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;color:#00A362;background:#fff;padding:3px 8px;border-radius:100px;box-shadow:0 2px 6px rgba(0,194,116,0.18),0 0 0 1.5px #00C362;white-space:nowrap;letter-spacing:-.1px;z-index:3;}
+  .hb-salary-bar-marker::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%) rotate(45deg);width:7px;height:7px;background:#fff;box-shadow:1.5px 1.5px 0 0 #00C362;}
+  .hb-salary-cta{display:flex;align-items:center;justify-content:center;gap:4px;width:100%;padding:12px 14px;background:linear-gradient(135deg,#FFB84A 0%,#F59E0B 100%);color:#fff;border:none;border-radius:12px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:-.2px;box-shadow:0 3px 10px rgba(245,158,11,0.24);transition:filter .15s, transform .1s;}
+  .hb-salary-cta:hover{filter:brightness(1.05);}
+  .hb-salary-cta:active{transform:scale(0.98);}
+  .hb-salary-cta svg{width:14px;height:14px;}
 
   /* 트렌드 리스트 (요즘 보는 기업) */
   .hb-trend{margin:24px 16px 0;background:#fff;border-radius:20px;padding:20px 16px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(15,25,40,0.04);}
@@ -4560,12 +4564,24 @@
     <div class="hb-salary-main">
       <span class="hb-salary-amount">5,820</span>
       <span class="hb-salary-unit">만원</span>
-      <span class="hb-salary-delta">▲ 320만 (전년比)</span>
+      <span class="hb-salary-delta">▲ 320만 (작년보다)</span>
     </div>
     <div class="hb-salary-bars" aria-hidden="true">
-      <div class="hb-salary-bar"><div class="hb-salary-bar-col" style="height:38%"></div><span class="hb-salary-bar-lbl">하위 25%</span></div>
-      <div class="hb-salary-bar me"><div class="hb-salary-bar-col" style="height:68%"><span class="hb-salary-bar-marker">내 위치</span></div><span class="hb-salary-bar-lbl">평균</span></div>
-      <div class="hb-salary-bar"><div class="hb-salary-bar-col" style="height:88%"></div><span class="hb-salary-bar-lbl">상위 10%</span></div>
+      <div class="hb-salary-bar">
+        <div class="hb-salary-bar-chart"><div class="hb-salary-bar-col" style="height:38%"></div></div>
+        <span class="hb-salary-bar-lbl">낮음</span>
+      </div>
+      <div class="hb-salary-bar me">
+        <div class="hb-salary-bar-chart">
+          <span class="hb-salary-bar-marker">내 위치</span>
+          <div class="hb-salary-bar-col" style="height:68%"></div>
+        </div>
+        <span class="hb-salary-bar-lbl">평균</span>
+      </div>
+      <div class="hb-salary-bar">
+        <div class="hb-salary-bar-chart"><div class="hb-salary-bar-col" style="height:90%"></div></div>
+        <span class="hb-salary-bar-lbl">높음</span>
+      </div>
     </div>
     <button type="button" class="hb-salary-cta" onclick="event.stopPropagation();closeHomeB();if(typeof go==='function'){go('salary');}">내 연봉 비교하기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
   </section>
