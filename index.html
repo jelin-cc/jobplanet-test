@@ -3971,7 +3971,7 @@
 
     <section class="th3-modular-content">
       <div class="th3-modular-content-hd">
-        <h2 class="th3-modular-content-title">🎁 취업축하금 받는 공고</h2>
+        <h2 class="th3-modular-content-title">🔥 지금 가장 뜨거운 마감 임박 공고</h2>
         <div class="th3-modular-content-nav">
           <button type="button" aria-label="이전" onclick="tmContentScroll(-1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
           <button type="button" aria-label="다음" onclick="tmContentScroll(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -4145,7 +4145,7 @@
       <button type="button" class="mw-icon-btn" aria-label="메뉴">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <button type="button" class="mw-icon-btn" aria-label="알림">
+      <button type="button" class="mw-icon-btn" aria-label="알림" onclick="openHomeB()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
       </button>
     </header>
@@ -4295,6 +4295,166 @@
     </nav>
   </div>
 </div>
+
+<!-- 모바일 홈 B안 (필라이즈 스타일: 레이더차트 + 강조 검색 + 퀵메뉴) -->
+<style>
+  #mobileHomeB{position:fixed;inset:0;z-index:9999;background:linear-gradient(180deg,#EAF6F0 0%,#F7F8FA 40%);overflow-y:auto;display:none;font-family:Pretendard,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  #mobileHomeB.visible{display:block;}
+  .hb-header{position:sticky;top:0;z-index:3;background:transparent;display:flex;justify-content:flex-end;padding:14px 16px 4px;}
+  .hb-close{width:40px;height:40px;border:none;background:rgba(255,255,255,0.9);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+  .hb-close svg{width:22px;height:22px;}
+  .hb-radar-section{padding:4px 20px 28px;text-align:center;}
+  .hb-radar-badge{display:inline-block;padding:6px 14px;background:rgba(0,194,116,0.12);color:#00A362;font-size:12px;font-weight:700;border-radius:100px;margin-bottom:12px;}
+  .hb-radar-title{font-size:22px;font-weight:800;color:#1A1A1E;letter-spacing:-.4px;margin-bottom:6px;line-height:1.35;}
+  .hb-radar-sub{font-size:13px;color:#686A6D;margin-bottom:20px;}
+  .hb-radar-wrap{position:relative;width:240px;height:240px;margin:0 auto 18px;}
+  .hb-radar-wrap svg{width:100%;height:100%;}
+  .hb-radar-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .hb-radar-score{font-size:24px;font-weight:800;color:#00A362;line-height:1;}
+  .hb-radar-score-lbl{font-size:10px;color:#8B93A1;margin-top:2px;}
+  .hb-radar-stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+  .hb-stat-chip{font-size:11.5px;font-weight:600;color:#00A362;background:rgba(0,194,116,0.1);padding:5px 10px;border-radius:100px;}
+  .hb-radar-cta{display:block;width:100%;padding:15px;background:#00c362;color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,194,116,0.28);}
+  .hb-radar-cta:hover{background:#00A362;}
+  .hb-search-section{padding:0 20px 28px;}
+  .hb-search-wrap{position:relative;background:#fff;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,0.08);padding:16px 18px;display:flex;align-items:center;gap:12px;border:2px solid #00c362;}
+  .hb-search-wrap svg.sic{width:22px;height:22px;color:#00c362;flex-shrink:0;}
+  .hb-search-wrap input{flex:1;border:none;outline:none;background:none;font-size:16px;font-weight:500;color:#1A1A1E;font-family:inherit;}
+  .hb-search-wrap input::placeholder{color:#AFB5BE;font-weight:400;}
+  .hb-search-submit{width:38px;height:38px;border:none;background:#00c362;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+  .hb-search-submit svg{width:18px;height:18px;}
+  .hb-quick-section{padding:8px 20px 40px;}
+  .hb-quick-wrap{background:#fff;border-radius:18px;padding:24px 16px;box-shadow:0 4px 16px rgba(0,0,0,0.05);}
+  .hb-quick-menu{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px;}
+  .hb-quick-menu::-webkit-scrollbar{display:none;}
+  .hb-quick{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;padding:0;min-width:56px;}
+  .hb-quick-ic{position:relative;width:56px;height:56px;border-radius:16px;background:#F2F4F6;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .hb-quick:hover .hb-quick-ic{background:#E5E8EB;}
+  .hb-quick-ic img{width:26px;height:26px;}
+  .hb-quick-label{font-size:12px;font-weight:600;color:#4B5563;text-align:center;letter-spacing:-.2px;line-height:1.25;white-space:nowrap;}
+  .hb-quick-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;font-size:10px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;}
+  .hb-quick-badge.brand{background:#00c362;}
+</style>
+
+<div id="mobileHomeB" aria-hidden="true" role="dialog">
+  <header class="hb-header">
+    <button type="button" class="hb-close" aria-label="닫기" onclick="closeHomeB()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#242628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </header>
+
+  <section class="hb-radar-section">
+    <span class="hb-radar-badge">내 직무 평균 3.8점</span>
+    <h2 class="hb-radar-title">내 직무 리뷰 인사이트 📊</h2>
+    <p class="hb-radar-sub">개발자 리뷰 2,341건을 바탕으로 분석했어요</p>
+    <div class="hb-radar-wrap">
+      <svg viewBox="0 0 240 240" aria-hidden="true">
+        <defs>
+          <radialGradient id="hbRg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00C274" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#00A362" stop-opacity="0.08"/>
+          </radialGradient>
+        </defs>
+        <!-- 축 원 -->
+        <polygon points="120,22 200,70 200,170 120,218 40,170 40,70" fill="none" stroke="#E5E8EB" stroke-width="1"/>
+        <polygon points="120,55 176,85 176,155 120,185 64,155 64,85" fill="none" stroke="#E5E8EB" stroke-width="1"/>
+        <polygon points="120,88 152,100 152,140 120,152 88,140 88,100" fill="none" stroke="#E5E8EB" stroke-width="1"/>
+        <!-- 축 선 -->
+        <line x1="120" y1="22" x2="120" y2="218" stroke="#E5E8EB" stroke-width="1"/>
+        <line x1="40" y1="70" x2="200" y2="170" stroke="#E5E8EB" stroke-width="1"/>
+        <line x1="40" y1="170" x2="200" y2="70" stroke="#E5E8EB" stroke-width="1"/>
+        <!-- 내 직무 리뷰 (채워진 다각형) -->
+        <polygon points="120,38 186,78 178,158 120,202 58,162 48,82" fill="url(#hbRg)" stroke="#00C274" stroke-width="2" stroke-linejoin="round"/>
+        <!-- 포인트 -->
+        <circle cx="120" cy="38" r="4" fill="#00C274"/>
+        <circle cx="186" cy="78" r="4" fill="#00C274"/>
+        <circle cx="178" cy="158" r="4" fill="#00C274"/>
+        <circle cx="120" cy="202" r="4" fill="#00C274"/>
+        <circle cx="58" cy="162" r="4" fill="#00C274"/>
+        <circle cx="48" cy="82" r="4" fill="#00C274"/>
+        <!-- 라벨 -->
+        <text x="120" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">성장</text>
+        <text x="212" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">급여</text>
+        <text x="212" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">복지</text>
+        <text x="120" y="234" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">워라밸</text>
+        <text x="28" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">문화</text>
+        <text x="28" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">경영진</text>
+      </svg>
+      <div class="hb-radar-center">
+        <div class="hb-radar-score">3.8</div>
+        <div class="hb-radar-score-lbl">내 직무 평균</div>
+      </div>
+    </div>
+    <div class="hb-radar-stats">
+      <span class="hb-stat-chip">워라밸 ▲ 상위 12%</span>
+      <span class="hb-stat-chip">성장 ▲ 상위 18%</span>
+      <span class="hb-stat-chip">급여 보통</span>
+    </div>
+    <button type="button" class="hb-radar-cta" onclick="closeHomeB();if(typeof go==='function'){go('review');}">전체 리뷰 인사이트 보기</button>
+  </section>
+
+  <section class="hb-search-section">
+    <form class="hb-search-wrap" onsubmit="event.preventDefault();closeHomeB();if(typeof go==='function'){go('search');}">
+      <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" placeholder="어떤 회사가 궁금하세요?" autocomplete="off">
+      <button type="submit" class="hb-search-submit" aria-label="검색">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </form>
+  </section>
+
+  <section class="hb-quick-section">
+    <div class="hb-quick-wrap">
+      <div class="hb-quick-menu">
+        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('job');}else if(typeof go==='function'){go('job');}">
+          <span class="hb-quick-ic"><img src="emoji-fire.svg" alt=""><span class="hb-quick-badge">3</span></span>
+          <span class="hb-quick-label">마감 임박 공고</span>
+        </button>
+        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('review');}else if(typeof go==='function'){go('review');}">
+          <span class="hb-quick-ic"><img src="emoji-trophy.svg" alt=""></span>
+          <span class="hb-quick-label">이번 주 인기 기업</span>
+        </button>
+        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('salary');}else if(typeof go==='function'){go('salary');}">
+          <span class="hb-quick-ic"><img src="emoji-moneybag.svg" alt=""></span>
+          <span class="hb-quick-label">실연봉 비교</span>
+        </button>
+        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('job');}else if(typeof go==='function'){go('job');}">
+          <span class="hb-quick-ic"><img src="emoji-briefcase.svg" alt=""></span>
+          <span class="hb-quick-label">내 직무 공고</span>
+        </button>
+        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof showToast==='function'){showToast('지금은 지원하지 않는 서비스입니다.');}">
+          <span class="hb-quick-ic"><img src="emoji-memo.svg" alt=""><span class="hb-quick-badge brand">N</span></span>
+          <span class="hb-quick-label">리뷰 작성</span>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  window.openHomeB = function(){
+    var m = document.getElementById('mobileHomeB');
+    if(!m) return;
+    m.classList.add('visible');
+    m.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    m.scrollTop = 0;
+  };
+  window.closeHomeB = function(){
+    var m = document.getElementById('mobileHomeB');
+    if(!m) return;
+    m.classList.remove('visible');
+    m.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  };
+  // ESC로 닫기
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      var m = document.getElementById('mobileHomeB');
+      if(m && m.classList.contains('visible')) closeHomeB();
+    }
+  });
+</script>
 
 <script>
   window.enterMobileView = function(){
@@ -16859,6 +17019,10 @@ function closeRatePopup() {
   .list-card .lc-body{flex:1;display:flex;flex-direction:column;gap:8px;}
   .list-card .lc-logo{height:16px;margin-bottom:4px;}
   .list-card .lc-logo img{height:16px;display:block;}
+  .list-card .lc-logo-box{width:40px;height:40px;border-radius:10px;overflow:hidden;margin-bottom:6px;background:#fff;border:1px solid #EEF0F3;display:flex;align-items:center;justify-content:center;}
+  .list-card .lc-logo-box img{width:100%;height:100%;object-fit:cover;display:block;}
+  .list-card .lc-logo-box.fallback{background:#F3FCF9;}
+  .list-card .lc-logo-box.fallback span{font-size:15px;font-weight:700;color:#00C274;}
   .list-card .lc-title{font-size:16px;font-weight:600;color:#292C32;line-height:1.45;}
   .list-card .lc-company{font-size:13px;font-weight:600;color:#768091;}
   .list-card .lc-meta{font-size:11px;font-weight:400;color:#768091;margin-top:0;}
@@ -16893,6 +17057,10 @@ function closeRatePopup() {
   .img-card .ic-tag.ratio-tag{background:#F4F5F7;color:#768091;}
   .ic-dday{padding:0;background:none;border-radius:0;font-size:11px;font-weight:700;color:#FA5252;margin-left:4px;}
   .ic-dday.normal{background:none;color:#768091;}
+  .ic-dday.gray{background:none;color:#9CA3AF;}
+  .list-card .lc-dday.gray{color:#9CA3AF;}
+  .list-card .lc-tag.dday-tag-urgent{background:#FFF0F0;color:#FA5252;font-weight:700;}
+  .list-card .lc-tag.dday-tag-gray{background:#F4F5F7;color:#768091;font-weight:700;}
   /* 로고형 카드 리스트 */
   .logo-list{display:flex;flex-direction:column;gap:8px;}
   .logo-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);display:flex;align-items:center;gap:16px;padding:16px 20px;cursor:pointer;transition:all .2s;}
@@ -17017,9 +17185,13 @@ function closeRatePopup() {
         document.querySelectorAll('#filterSecJob .filter-job-item.active').forEach(function(el){ el.classList.remove('active'); });
         // 고용형태 칩 초기화
         document.querySelectorAll('#filterSecEmploy .filter-employ-item.active').forEach(function(el){ el.classList.remove('active'); });
-        // 경력 슬라이더 초기화
+        // 경력 레인지 슬라이더 초기화 (min=0, max=11 → 전체)
+        var cMinR = document.getElementById('filterCareerRangeMin');
+        var cMaxR = document.getElementById('filterCareerRangeMax');
+        if(cMinR){ cMinR.value = 0; cMinR.dispatchEvent(new Event('input')); }
+        if(cMaxR){ cMaxR.value = 11; cMaxR.dispatchEvent(new Event('input')); }
         var careerRange = document.getElementById('filterCareerRange');
-        if(careerRange){ careerRange.value = 0; var ev = new Event('input'); careerRange.dispatchEvent(ev); }
+        if(careerRange){ careerRange.value = 0; }
         // 핫태그 초기화
         currentHotTags = [];
         var allIds = ['hot-initpay5000','hot-salary5000','hot-conglomerate','hot-foreign','hot-public','hot-wlb'];
@@ -17304,6 +17476,33 @@ function closeRatePopup() {
         return corpImagePool[idx];
       }
 
+      // 공고카드 메타 파서: 경력/지역/고용형태 분리
+      function _parseJobMeta(meta) {
+        var out = { career:'', region:'', employ:'' };
+        if(!meta) return out;
+        var parts = String(meta).split('·').map(function(s){ return s.trim(); }).filter(Boolean);
+        parts.forEach(function(p){
+          if(/경력|신입/.test(p)) out.career = out.career || p;
+          else if(/정규직|계약직|인턴|프리랜서|파견직|파트타임|아르바이트/.test(p)) out.employ = out.employ || p;
+          else out.region = out.region || p;
+        });
+        return out;
+      }
+      // 핵심 장점 태그 풀 (c.tags 비어있을 때 폴백)
+      var _coreAdvantagePool = ['워라밸 상위 10%','재택근무 가능','자율 출퇴근','수평문화','성과 보상','복지 우수','글로벌 환경','성장 빠름'];
+      function _pickAdvantage(seedStr){
+        var h=0;
+        for(var i=0;i<seedStr.length;i++){h=((h<<5)-h)+seedStr.charCodeAt(i);h|=0;}
+        return _coreAdvantagePool[Math.abs(h)%_coreAdvantagePool.length];
+      }
+      // D-day 색상 단계: <=5 긴급(빨강), 6~14 기본, >14 그레이
+      function _ddayTier(n){
+        if(typeof n !== 'number') return 'normal';
+        if(n <= 5) return 'urgent';
+        if(n > 14) return 'gray';
+        return 'normal';
+      }
+
       function renderCards(caseKey) {
         var cfg = caseConfig[caseKey];
         var allCards = cfg.cards;
@@ -17345,7 +17544,11 @@ function closeRatePopup() {
           if(fJobs.length) fJobMode = 'specific';
         }
 
-        var fCareer = parseInt(document.getElementById('filterCareerRange') ? document.getElementById('filterCareerRange').value : 0);
+        var _fcMinEl = document.getElementById('filterCareerRangeMin');
+        var _fcMaxEl = document.getElementById('filterCareerRangeMax');
+        var fCareerMin = _fcMinEl ? parseInt(_fcMinEl.value) : 0;
+        var fCareerMax = _fcMaxEl ? parseInt(_fcMaxEl.value) : 11;
+        var fCareer = (fCareerMin === 0 && fCareerMax === 11) ? 0 : fCareerMin; // 호환
         var fEmploy = [];
         document.querySelectorAll('#filterSecEmploy .filter-employ-item.active').forEach(function(el){ fEmploy.push(el.textContent.trim()); });
         var fEdu = [];
@@ -17378,13 +17581,16 @@ function closeRatePopup() {
             });
           });
         }
-        if(fCareer > 0){
+        if(!(fCareerMin === 0 && fCareerMax === 11)){
+          // 인덱스 0=전체, 1=신입, 2=1년, ..., 11=10년+
           var careerYears = [0,0,1,2,3,4,5,6,7,8,9,10];
-          var minYr = careerYears[fCareer] || 0;
+          var minYr = careerYears[fCareerMin] || 0;
+          var maxYr = careerYears[fCareerMax] || 99;
+          var includeFresh = fCareerMin <= 1; // 신입 포함
           filtered = filtered.filter(function(c){
             var m = c.meta.match(/경력\s*(\d+)/);
-            if(m) return parseInt(m[1]) >= minYr;
-            if(c.meta.indexOf('신입') !== -1) return minYr === 0;
+            if(m){ var y = parseInt(m[1]); return y >= minYr && y <= (fCareerMax === 11 ? 99 : maxYr); }
+            if(c.meta.indexOf('신입') !== -1) return includeFresh;
             return true;
           });
         }
@@ -17420,12 +17626,15 @@ function closeRatePopup() {
             });
             var extraWithFilters = sameCatAll.slice();
             if(fRegions.length) extraWithFilters = extraWithFilters.filter(function(c){ return fRegions.some(function(r){ return c.meta.indexOf(r) !== -1; }); });
-            if(fCareer > 0){
-              var _yrs = [0,0,1,2,3,4,5,6,7,8,9,10]; var _minYr = _yrs[fCareer] || 0;
+            if(!(fCareerMin === 0 && fCareerMax === 11)){
+              var _yrs = [0,0,1,2,3,4,5,6,7,8,9,10];
+              var _minYr = _yrs[fCareerMin] || 0;
+              var _maxYr = _yrs[fCareerMax] || 99;
+              var _incFresh = fCareerMin <= 1;
               extraWithFilters = extraWithFilters.filter(function(c){
                 var m = c.meta.match(/경력\s*(\d+)/);
-                if(m) return parseInt(m[1]) >= _minYr;
-                if(c.meta.indexOf('신입') !== -1) return _minYr === 0;
+                if(m){ var y = parseInt(m[1]); return y >= _minYr && y <= (fCareerMax === 11 ? 99 : _maxYr); }
+                if(c.meta.indexOf('신입') !== -1) return _incFresh;
                 return true;
               });
             }
@@ -17503,18 +17712,18 @@ function closeRatePopup() {
             var bMatch = c.bonus.match(/(\d+)/);
             cardTags.push({text:'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="vertical-align:middle;margin-right:2px;"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 13.125C10.3827 13.125 13.125 10.3827 13.125 7C13.125 3.61726 10.3827 0.875 7 0.875C3.61726 0.875 0.875 3.61726 0.875 7C0.875 10.3827 3.61726 13.125 7 13.125Z" fill="#FFB701"/><path d="M7.75087 9.44648L7.00002 6.89361L6.26028 9.40874C6.21799 9.60061 6.07523 9.7642 5.87342 9.82356C5.82084 9.83902 5.7678 9.84637 5.71564 9.84633C5.66349 9.84637 5.61045 9.83902 5.55787 9.82356C5.35605 9.7642 5.21329 9.60061 5.17101 9.40874L4.40521 6.80502H3.65911C3.35159 6.80502 3.10229 6.55572 3.10229 6.2482C3.10229 5.94067 3.35159 5.69138 3.65911 5.69138H4.07767L3.89722 5.07785C3.81044 4.78282 3.97927 4.47331 4.27429 4.38654C4.56932 4.29977 4.87883 4.46859 4.9656 4.76362L5.71564 7.31376L6.46568 4.76362C6.53707 4.5209 6.75921 4.3636 7.00002 4.36377C7.24083 4.3636 7.46297 4.5209 7.53436 4.76362L8.28549 7.31746L9.03662 4.76362C9.12339 4.46859 9.4329 4.29977 9.72793 4.38654C10.023 4.47331 10.1918 4.78282 10.105 5.07785L9.92455 5.69138H10.3427C10.6503 5.69138 10.8996 5.94067 10.8996 6.2482C10.8996 6.55572 10.6503 6.80502 10.3427 6.80502H9.59701L8.82011 9.44648C8.74869 9.68929 8.5264 9.84662 8.28549 9.84633C8.04457 9.84662 7.82228 9.68929 7.75087 9.44648Z" fill="white"/></svg> 취업축하금 '+(bMatch?bMatch[1]:'100')+'만원', cls:'bonus-tag'});
           }
-          // 잡코리아 라벨은 이미지 배지로 대체 (하단 태그에서 제거)
-          if(c.tags.length>0 && cardTags.length<3) cardTags.push({text:c.tags[0], cls:''});
-          var ratioTags = ['승진 언급 ▲'+Math.floor(5+Math.random()*20)+'건', '연봉 언급 +'+Math.floor(3+Math.random()*15)+'건', '워라밸 언급 +'+Math.floor(3+Math.random()*10)+'건', '성장성 상위 '+Math.floor(10+Math.random()*20)+'%'];
-          if(cardTags.length < 3) {
-            cardTags.push({text:ratioTags[Math.floor(Math.random()*ratioTags.length)], cls:'ratio-tag'});
-          }
-          if(cardTags.length === 0) {
-            cardTags.push({text:ratioTags[Math.floor(Math.random()*ratioTags.length)], cls:'ratio-tag'});
+          // 핵심 장점 태그 (리뷰 기반 키워드) - c.tags 우선, 비어있으면 풀에서 픽
+          var advTags = (c.tags && c.tags.length) ? c.tags.slice() : [_pickAdvantage(c.co+c.title)];
+          for(var _ai=0;_ai<advTags.length && cardTags.length<2;_ai++){
+            cardTags.push({text:advTags[_ai], cls:''});
           }
           cardTags = cardTags.slice(0, 2);
           var tagsHtml = cardTags.map(function(t){ return '<span class="ic-tag '+t.cls+'">'+t.text+'</span>'; }).join('');
-          var ddayCls = c.urgent ? 'ic-dday' : 'ic-dday normal';
+          var _ddayT = _ddayTier(c.ddayNum);
+          var ddayCls = _ddayT === 'urgent' ? 'ic-dday' : (_ddayT === 'gray' ? 'ic-dday gray' : 'ic-dday normal');
+          // 정보 위계: 이미지형은 경력만 노출 (지역·고용형태 제거)
+          var _pm = _parseJobMeta(c.meta);
+          var _metaPrimary = _pm.career || c.meta;
           var safeTitle = c.title.replace(/'/g,'\\&#39;');
           var safeCo = c.co.replace(/'/g,'\\&#39;');
           var safeMeta = c.meta.replace(/'/g,'\\&#39;');
@@ -17526,7 +17735,7 @@ function closeRatePopup() {
             + '<div class="ic-title">' + c.title + '</div>'
             + '<div class="ic-co">' + c.co + ' <span class="' + ddayCls + '">' + c.dday + '</span></div>'
             + '</div>'
-            + '<div class="ic-meta">' + c.meta + '</div>'
+            + '<div class="ic-meta">' + _metaPrimary + '</div>'
             + (tagsHtml ? '<div class="ic-tags">' + tagsHtml + '</div>' : '')
             + '</div></div>';
         }).join('');
@@ -17534,10 +17743,16 @@ function closeRatePopup() {
         // 로고형 리스트
         var logoHtml = cards.map(function(c) {
           var isExt = c.external === 'jobkorea';
-          var tagsHtml = c.tags.map(function(t){ return '<span class="lc-tag">' + t + '</span>'; }).join('');
+          // 핵심 장점 태그 (리뷰 기반 키워드) - 언급형 라벨 제거
+          var _advL = (c.tags && c.tags.length) ? c.tags.slice(0,2) : [_pickAdvantage(c.co+c.title)];
+          var tagsHtml = _advL.map(function(t){ return '<span class="lc-tag">' + t + '</span>'; }).join('');
           var bonusHtml = c.bonus ? '<span style="font-size:11px;font-weight:700;color:#F59E0B;background:#FFFBEB;padding:2px 7px;border-radius:var(--rfull);margin-left:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" style="vertical-align:middle;margin-right:2px;"><path d="M12 2l1.5 4.5L18 5l-2 4 4 2-4.5 1.5L17 17l-4-2.5L10 17l1.5-4.5L7 11l4-2-2-4 4.5 1.5z"/><circle cx="6" cy="4" r="1" fill="#EF4444"/><circle cx="19" cy="7" r="1" fill="#3B82F6"/><circle cx="18" cy="18" r="1" fill="#22C55E"/></svg> ' + c.bonus + '</span>' : '';
-          var ddayStyle = c.urgent ? 'color:#EF4444;' : 'color:var(--tx4);';
-          var skillsHtml = c.skills ? '<div class="lc-meta">' + c.meta + ' · ' + c.skills + '</div>' : '<div class="lc-meta">' + c.meta + '</div>';
+          var _ddayT3 = _ddayTier(c.ddayNum);
+          var ddayStyle = _ddayT3 === 'urgent' ? 'color:#EF4444;' : (_ddayT3 === 'gray' ? 'color:#9CA3AF;' : 'color:var(--tx4);');
+          // 정보 위계: 로고형도 경력 먼저, 지역 뒤 (고용형태 제거)
+          var _pm3 = _parseJobMeta(c.meta);
+          var _metaL = [_pm3.career, _pm3.region].filter(Boolean).join(' · ') || c.meta;
+          var skillsHtml = c.skills ? '<div class="lc-meta">' + _metaL + ' · ' + c.skills + '</div>' : '<div class="lc-meta">' + _metaL + '</div>';
           var extBadgeHtml = '';
           var lcImgFile = logoMap[c.logo];
           var lcLogoInner = lcImgFile
@@ -17633,25 +17848,40 @@ function closeRatePopup() {
             var bMatch2 = c.bonus.match(/(\d+)/);
             cardTags2.push({text:'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="vertical-align:middle;margin-right:2px;"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 13.125C10.3827 13.125 13.125 10.3827 13.125 7C13.125 3.61726 10.3827 0.875 7 0.875C3.61726 0.875 0.875 3.61726 0.875 7C0.875 10.3827 3.61726 13.125 7 13.125Z" fill="#FFB701"/><path d="M7.75087 9.44648L7.00002 6.89361L6.26028 9.40874C6.21799 9.60061 6.07523 9.7642 5.87342 9.82356C5.82084 9.83902 5.7678 9.84637 5.71564 9.84633C5.66349 9.84637 5.61045 9.83902 5.55787 9.82356C5.35605 9.7642 5.21329 9.60061 5.17101 9.40874L4.40521 6.80502H3.65911C3.35159 6.80502 3.10229 6.55572 3.10229 6.2482C3.10229 5.94067 3.35159 5.69138 3.65911 5.69138H4.07767L3.89722 5.07785C3.81044 4.78282 3.97927 4.47331 4.27429 4.38654C4.56932 4.29977 4.87883 4.46859 4.9656 4.76362L5.71564 7.31376L6.46568 4.76362C6.53707 4.5209 6.75921 4.3636 7.00002 4.36377C7.24083 4.3636 7.46297 4.5209 7.53436 4.76362L8.28549 7.31746L9.03662 4.76362C9.12339 4.46859 9.4329 4.29977 9.72793 4.38654C10.023 4.47331 10.1918 4.78282 10.105 5.07785L9.92455 5.69138H10.3427C10.6503 5.69138 10.8996 5.94067 10.8996 6.2482C10.8996 6.55572 10.6503 6.80502 10.3427 6.80502H9.59701L8.82011 9.44648C8.74869 9.68929 8.5264 9.84662 8.28549 9.84633C8.04457 9.84662 7.82228 9.68929 7.75087 9.44648Z" fill="white"/></svg> 취업축하금 '+(bMatch2?bMatch2[1]:'100')+'만원', cls:'bonus-tag'});
           }
-          if(c.tags.length>0 && cardTags2.length<2) cardTags2.push({text:c.tags[0], cls:''});
-          var rt2 = ['승진 언급 ▲'+Math.floor(5+Math.random()*20)+'건','연봉 언급 +'+Math.floor(3+Math.random()*15)+'건','워라밸 언급 +'+Math.floor(3+Math.random()*10)+'건','성장성 상위 '+Math.floor(10+Math.random()*20)+'%'];
-          if(cardTags2.length < 2) {
-            cardTags2.push({text:rt2[Math.floor(Math.random()*rt2.length)], cls:''});
+          // 핵심 장점 태그 (리뷰 기반 키워드) - c.tags 우선, 비어있으면 풀에서 픽
+          var advTags2 = (c.tags && c.tags.length) ? c.tags.slice() : [_pickAdvantage(c.co+c.title)];
+          for(var _ai2=0;_ai2<advTags2.length && cardTags2.length<2;_ai2++){
+            cardTags2.push({text:advTags2[_ai2], cls:''});
           }
           cardTags2 = cardTags2.slice(0,2);
-          var ddayTag = '<span class="lc-tag" style="background:#FFF0F0;color:#FA5252;font-weight:700;">'+c.dday+'</span>';
+          // D-day 라벨: 14일 초과면 그레이
+          var _ddayT2 = _ddayTier(c.ddayNum);
+          var _ddayCls2 = _ddayT2 === 'urgent' ? 'dday-tag-urgent' : (_ddayT2 === 'gray' ? 'dday-tag-gray' : 'dday-tag-gray');
+          var ddayTag = '<span class="lc-tag '+_ddayCls2+'">'+c.dday+'</span>';
           var tags2Html = ddayTag + cardTags2.map(function(t){return '<span class="lc-tag '+t.cls+'">'+t.text+'</span>';}).join('');
+          // 정보 위계: 리스트형은 경력 먼저, 지역 뒤 (고용형태 제거)
+          var _pm2 = _parseJobMeta(c.meta);
+          var _metaPrimary2 = [_pm2.career, _pm2.region].filter(Boolean).join(' · ') || c.meta;
 
           // 잡코리아 지원 버튼 (external=jobkorea인 경우)
           var jkApplyBtn = isExt ? '<div style="display:flex;align-items:flex-end;flex-shrink:0;"><button onclick="event.stopPropagation();openJK()" style="display:inline-flex;align-items:center;gap:4px;height:36px;padding:0 12px;background:#083CCC;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;"><div style="width:18px;height:18px;background:#083CCC;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><img src="https://jelin-cc.github.io/jobplanet-ut/jk.png" width="14" height="14"></div><span style="color:#fff;font-size:13px;font-weight:600;font-family:var(--font);">잡코리아에서 지원</span></button></div>' : '';
 
+          // 로고 토글 ON: 회사명 위에 로고 이미지 노출
+          var _listLogoHtml = '';
+          if(currentListShowLogo){
+            var _lmf = logoMap[c.logo];
+            _listLogoHtml = _lmf
+              ? '<div class="lc-logo-box"><img src="'+_lmf+'" alt=""></div>'
+              : '<div class="lc-logo-box fallback"><span>'+c.logo+'</span></div>';
+          }
           return '<div class="list-card"'+clickAttr+'>'
             + '<div class="lc-body">'
             + '<div style="display:flex;flex-direction:column;gap:4px;">'
+            + _listLogoHtml
             + '<div class="lc-title">'+c.title+'</div>'
             + '<div class="lc-company">'+c.co+'</div>'
             + '</div>'
-            + '<div class="lc-meta">'+c.meta+'</div>'
+            + '<div class="lc-meta">'+_metaPrimary2+'</div>'
             + '<div class="lc-tags">'+tags2Html+'</div>'
             + '</div>'
             + '<div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;align-self:stretch;">'
@@ -24668,13 +24898,17 @@ function closeRatePopup() {
         + '<div class="filter-job-cats" id="filterJobCats"></div>'
         + '</div>'
 
-        // 경력
+        // 경력 (레인지 슬라이더 - 최소/최대)
         + '<div class="filter-section" id="filterSecCareer">'
         + '<div class="filter-section-title">경력</div>'
-        + '<div class="filter-range-wrap">'
-        + '<div class="filter-range-value" id="filterCareerValue">전체</div>'
-        + '<div class="filter-range"><input type="range" min="0" max="11" value="0" id="filterCareerRange"></div>'
-        + '<div class="filter-range-labels"><span>전체</span><span>신입</span><span>3년</span><span>5년</span><span>7년</span><span>10년+</span></div>'
+        + '<div class="career-slider-wrap">'
+        + '<div class="career-slider-label"><span>경력</span><span class="career-range-text" id="filterCareerValue">전체</span></div>'
+        + '<div class="career-slider-track"><div class="career-slider-fill" id="filterCareerFill"></div>'
+        + '<input type="range" min="0" max="11" value="0" id="filterCareerRangeMin">'
+        + '<input type="range" min="0" max="11" value="11" id="filterCareerRangeMax">'
+        + '</div>'
+        + '<div class="career-slider-ticks"><span>전체</span><span>신입</span><span>3년</span><span>5년</span><span>7년</span><span>10년+</span></div>'
+        + '<input type="hidden" id="filterCareerRange" value="0">'
         + '</div></div>'
 
         // 고용형태
@@ -24750,18 +24984,39 @@ function closeRatePopup() {
         tabs.forEach(function(t,i){t.classList.toggle('active', i===activeIdx);});
       });
 
-      // 경력 슬라이더
-      var careerLabels = ['전체','신입','1년','2년','3년','4년','5년','6년','7년','8년','9년','10년 +'];
-      function updateRangeTrack(el){
-        var pct = (el.value / el.max) * 100;
-        el.style.background = 'linear-gradient(to right, var(--brand) 0%, var(--brand) '+pct+'%, var(--ln) '+pct+'%, var(--ln) 100%)';
+      // 경력 레인지 슬라이더 (최소~최대 듀얼 핸들)
+      var careerLabels = ['전체','신입','1년','2년','3년','4년','5년','6년','7년','8년','9년','10년+'];
+      var careerLabelsShort = ['전체','신입','1년','2년','3년','4년','5년','6년','7년','8년','9년','10년+'];
+      var careerMinEl = document.getElementById('filterCareerRangeMin');
+      var careerMaxEl = document.getElementById('filterCareerRangeMax');
+      var careerFillEl = document.getElementById('filterCareerFill');
+      var careerValEl = document.getElementById('filterCareerValue');
+      var careerHidden = document.getElementById('filterCareerRange');
+      function updateCareerRange(){
+        var minV = parseInt(careerMinEl.value);
+        var maxV = parseInt(careerMaxEl.value);
+        if(minV > maxV){
+          if(this === careerMinEl){ maxV = minV; careerMaxEl.value = maxV; }
+          else { minV = maxV; careerMinEl.value = minV; }
+        }
+        var maxRange = parseInt(careerMinEl.max);
+        var lPct = (minV / maxRange) * 100;
+        var rPct = (maxV / maxRange) * 100;
+        if(careerFillEl){ careerFillEl.style.left = lPct + '%'; careerFillEl.style.width = (rPct - lPct) + '%'; }
+        // 라벨 결정
+        var txt;
+        if(minV === 0 && maxV === 11) txt = '전체';
+        else if(minV === maxV) txt = careerLabels[minV];
+        else if(minV === 0) txt = careerLabels[maxV] + ' 이하';
+        else if(maxV === 11) txt = careerLabels[minV] + ' 이상';
+        else txt = careerLabels[minV] + ' ~ ' + careerLabels[maxV];
+        if(careerValEl) careerValEl.textContent = txt;
+        // 호환성: 단일 값 hidden input — 최소값 기준
+        if(careerHidden) careerHidden.value = minV;
       }
-      var rangeEl = document.getElementById('filterCareerRange');
-      rangeEl.addEventListener('input', function(){
-        document.getElementById('filterCareerValue').textContent = careerLabels[this.value] || '전체';
-        updateRangeTrack(this);
-      });
-      updateRangeTrack(rangeEl);
+      careerMinEl.addEventListener('input', updateCareerRange);
+      careerMaxEl.addEventListener('input', updateCareerRange);
+      updateCareerRange();
     })();
 
     // 직무 필터: "전체" 토글 (전체 ↔ 개별 선택 배타적)
@@ -25075,12 +25330,21 @@ function closeRatePopup() {
       var _hasJobFilter = _jobAllActive ? !!_jobCatEl : jobs.length > 0;
       jobBtn.classList.toggle('filtered', _hasJobFilter);
 
-      // 경력
-      var careerVal = parseInt(document.getElementById('filterCareerRange').value);
+      // 경력 (레인지 슬라이더)
+      var careerMinE = document.getElementById('filterCareerRangeMin');
+      var careerMaxE = document.getElementById('filterCareerRangeMax');
+      var careerMinV = careerMinE ? parseInt(careerMinE.value) : 0;
+      var careerMaxV = careerMaxE ? parseInt(careerMaxE.value) : 11;
       var careerBtn = document.getElementById('fc-career');
-      if(careerVal > 0){
-        var careerLabels = ['전체','신입','1년','2년','3년','4년','5년','6년','7년','8년','9년','10년+'];
-        careerBtn.innerHTML = careerLabels[careerVal] + chevronSvg;
+      var careerBtnLabels = ['전체','신입','1년','2년','3년','4년','5년','6년','7년','8년','9년','10년+'];
+      var isCareerActive = !(careerMinV === 0 && careerMaxV === 11);
+      if(isCareerActive){
+        var ctxt;
+        if(careerMinV === careerMaxV) ctxt = careerBtnLabels[careerMinV];
+        else if(careerMinV === 0) ctxt = careerBtnLabels[careerMaxV] + ' 이하';
+        else if(careerMaxV === 11) ctxt = careerBtnLabels[careerMinV] + ' 이상';
+        else ctxt = careerBtnLabels[careerMinV] + '~' + careerBtnLabels[careerMaxV];
+        careerBtn.innerHTML = ctxt + chevronSvg;
         careerBtn.classList.add('filtered');
       } else {
         careerBtn.innerHTML = '경력' + chevronSvg;
