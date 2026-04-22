@@ -3945,23 +3945,23 @@
     <div class="th3-modular-top">
       <div class="th3-modular-main">
         <button type="button" class="tm-quick" onclick="th3Go('job')">
-          <span class="tm-quick-ic"><img src="emoji-fire.svg" alt="" aria-hidden="true"><span class="tm-quick-badge">3</span></span>
+          <span class="tm-quick-ic"><img src="emoji-fire.svg" alt="" aria-hidden="true"><span class="tm-quick-badge urgent">3</span></span>
           <span class="tm-quick-label">마감 임박 공고</span>
         </button>
         <button type="button" class="tm-quick" onclick="th3Go('review')">
-          <span class="tm-quick-ic"><img src="emoji-star.svg" alt="" aria-hidden="true"><span class="tm-quick-badge brand">8</span></span>
-          <span class="tm-quick-label">관심기업 새 리뷰</span>
+          <span class="tm-quick-ic"><img src="emoji-trophy.svg" alt="" aria-hidden="true"></span>
+          <span class="tm-quick-label">이번 주 인기 기업</span>
         </button>
         <button type="button" class="tm-quick" onclick="th3Go('salary')">
           <span class="tm-quick-ic"><img src="emoji-moneybag.svg" alt="" aria-hidden="true"></span>
           <span class="tm-quick-label">실연봉 비교</span>
         </button>
-        <button type="button" class="tm-quick" onclick="th3Go('review')">
-          <span class="tm-quick-ic"><img src="emoji-handshake.svg" alt="" aria-hidden="true"></span>
-          <span class="tm-quick-label">면접 후기</span>
+        <button type="button" class="tm-quick" onclick="th3Go('job')">
+          <span class="tm-quick-ic"><img src="emoji-briefcase.svg" alt="" aria-hidden="true"></span>
+          <span class="tm-quick-label">내 직무 공고</span>
         </button>
         <button type="button" class="tm-quick" onclick="showToast('지금은 지원하지 않는 서비스입니다.')">
-          <span class="tm-quick-ic"><img src="emoji-pen.svg" alt="" aria-hidden="true"><span class="tm-quick-badge n">N</span></span>
+          <span class="tm-quick-ic"><img src="emoji-memo.svg" alt="" aria-hidden="true"><span class="tm-quick-badge n">N</span></span>
           <span class="tm-quick-label">리뷰 작성</span>
         </button>
       </div>
@@ -3969,7 +3969,7 @@
 
     <section class="th3-modular-content">
       <div class="th3-modular-content-hd">
-        <h2 class="th3-modular-content-title">모두가 주목하고 있어요</h2>
+        <h2 class="th3-modular-content-title">🎁 취업축하금 받는 공고</h2>
         <div class="th3-modular-content-nav">
           <button type="button" aria-label="이전" onclick="tmContentScroll(-1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
           <button type="button" aria-label="다음" onclick="tmContentScroll(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -4017,7 +4017,7 @@
   .mw-float-logo{cursor:pointer;}
   .mw-float-logo:hover{background:var(--brand-dk);}
 
-  .mw-hero{padding:20px 24px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:calc(60vh - 56px);background:transparent;}
+  .mw-hero{padding:16px 24px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:calc(60vh - 56px);background:transparent;}
   @keyframes mwFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-6px) rotate(-3deg);}}
 
   .mw-searchbar{width:100%;max-width:340px;display:flex;align-items:center;gap:6px;padding:5px 5px 5px 18px;background:#fff;border:2px solid var(--brand);border-radius:999px;box-shadow:0 4px 18px rgba(0,194,116,0.14),0 1px 3px rgba(0,194,116,0.08);transition:all .18s;cursor:text;margin:0 auto;}
@@ -4087,7 +4087,8 @@
   .mw-section-ti{display:flex;flex-direction:column;gap:2px;}
   .mw-section-ti h2{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;}
   .mw-section-ti .mw-section-sub{font-size:12px;color:var(--tx3);}
-  .mw-section-more{border:none;background:none;font-size:12px;color:var(--tx3);cursor:pointer;font-family:var(--font);font-weight:600;display:inline-flex;align-items:center;gap:2px;padding:4px 6px;}
+  .mw-section-more{border:none;background:none;font-size:12.5px;color:var(--tx3);cursor:pointer;font-family:var(--font);font-weight:600;display:inline-flex;align-items:center;gap:2px;padding:4px 6px;letter-spacing:-.2px;}
+  .mw-section-more svg{width:12px;height:12px;color:var(--tx4);flex-shrink:0;}
 
   .mw-mini-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
   .mw-mini-tabs::-webkit-scrollbar{display:none;}
@@ -4163,7 +4164,7 @@
     <section class="mw-updates">
       <div class="mw-updates-hd">
         <h2 class="mw-updates-ti">내 관심 기업 새 소식 <span class="mw-updates-count">3</span></h2>
-        <button type="button" class="mw-section-more">전체 ›</button>
+        <button type="button" class="mw-section-more">전체 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
       </div>
       <div class="mw-updates-list">
         <button type="button" class="mw-update-card urgent">
@@ -4210,7 +4211,7 @@
         <div class="mw-section-ti">
           <h2>지금 뜨는 기업 리뷰</h2>
         </div>
-        <button type="button" class="mw-section-more">전체 ›</button>
+        <button type="button" class="mw-section-more">전체 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
       </div>
       <div class="mw-mini-tabs">
         <button type="button" class="mw-mini-tab active"><img src="emoji-fire.svg" alt="" aria-hidden="true">인기 리뷰</button>
