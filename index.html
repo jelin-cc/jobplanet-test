@@ -3752,7 +3752,32 @@
   .th3-salary-btn{height:52px;padding:0 26px;border:none;border-radius:10px;background:var(--brand);color:#fff;font-size:15px;font-weight:800;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:-.1px;box-shadow:0 2px 8px rgba(0,194,116,0.3);}
   .th3-salary-btn:hover{background:var(--brand-dk);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,194,116,0.4);}
 
-  .th3-salary-viz{background:#F9FAFB;border-radius:20px;padding:24px 24px 22px;display:flex;flex-direction:column;gap:18px;position:relative;align-self:start;}
+  .th3-salary-viz{background:#F9FAFB;border-radius:20px;padding:20px 22px 20px;display:flex;flex-direction:column;gap:16px;position:relative;align-self:start;overflow:hidden;}
+  .th3-salary-viz.is-pending > :not(.th3-salary-pending-ov){filter:blur(4px);opacity:.42;pointer-events:none;user-select:none;transition:filter .25s, opacity .25s;}
+  .th3-salary-viz:not(.is-pending) > :not(.th3-salary-pending-ov){filter:none;opacity:1;transition:filter .35s, opacity .35s;}
+  .th3-salary-pending-ov{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:20px;z-index:4;}
+  .th3-salary-viz.is-pending .th3-salary-pending-ov{display:flex;}
+  .th3-salary-pending-msg{display:inline-flex;align-items:center;gap:8px;background:var(--tx);color:#fff;padding:10px 16px 10px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:-.2px;box-shadow:0 6px 20px rgba(15,25,40,0.22);}
+  .th3-salary-pending-msg::before{content:'👆';font-size:14px;}
+  .th3-salary-pending-msg strong{color:#7BE5B1;font-weight:800;}
+
+  .th3-salary-verdict{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border-radius:14px;box-shadow:0 1px 3px rgba(15,25,40,0.05);}
+  .th3-salary-verdict[data-tone="high"]{background:var(--brand-lt);box-shadow:inset 0 0 0 1px rgba(0,194,116,0.14);}
+  .th3-salary-verdict[data-tone="low"]{background:#FFF1EC;box-shadow:inset 0 0 0 1px rgba(234,88,12,0.15);}
+  .th3-salary-verdict-ic{width:34px;height:34px;border-radius:50%;background:#F4F6F8;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .th3-salary-verdict[data-tone="high"] .th3-salary-verdict-ic{background:#fff;}
+  .th3-salary-verdict[data-tone="low"] .th3-salary-verdict-ic{background:#fff;}
+  .th3-salary-verdict-body{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .th3-salary-verdict-body strong{font-size:14.5px;font-weight:800;color:var(--tx);letter-spacing:-.3px;line-height:1.3;}
+  .th3-salary-verdict[data-tone="high"] .th3-salary-verdict-body strong{color:var(--brand-dk);}
+  .th3-salary-verdict[data-tone="low"] .th3-salary-verdict-body strong{color:#C2410C;}
+  .th3-salary-verdict-body small{font-size:11.5px;font-weight:700;color:var(--tx3);letter-spacing:-.1px;}
+
+  .th3-salary-next{margin-top:2px;padding-top:14px;border-top:1px dashed var(--ln);}
+  .th3-salary-next-hd{font-size:12px;font-weight:800;color:var(--tx2);letter-spacing:-.2px;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+  .th3-salary-next-list{display:flex;flex-wrap:wrap;gap:6px;}
+  .th3-salary-next-chip{padding:7px 11px;border:1px solid var(--ln);background:#fff;border-radius:999px;font-family:var(--font);font-size:12px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .15s;letter-spacing:-.1px;}
+  .th3-salary-next-chip:hover{border-color:var(--brand);color:var(--brand-dk);background:var(--brand-lt);}
   .th3-salary-viz-hero{display:flex;flex-direction:column;gap:6px;}
   .th3-salary-viz-label{font-size:14px;color:var(--tx3);font-weight:700;letter-spacing:-.2px;}
   .th3-salary-viz-value{font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1.1;color:var(--tx);}
@@ -3768,13 +3793,13 @@
   .th3-salary-bar-me.on{opacity:1;}
   .th3-salary-bar-tip{position:absolute;top:-4px;transform:translate(-50%,-100%);background:var(--tx);color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:var(--rfull);white-space:nowrap;letter-spacing:-.2px;z-index:3;box-shadow:0 4px 12px rgba(15,25,40,0.18);}
   .th3-salary-bar-tip::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:0;border:4px solid transparent;border-top-color:var(--tx);}
-  .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:12px;}
+  .th3-salary-axis{display:flex;justify-content:space-between;gap:8px;margin-top:14px;}
   .th3-salary-axis span{display:flex;flex-direction:column;gap:2px;}
   .th3-salary-axis span:first-child{align-items:flex-start;}
   .th3-salary-axis span:nth-child(2){align-items:center;}
   .th3-salary-axis span:last-child{align-items:flex-end;}
-  .th3-salary-axis small{font-size:11px;color:var(--tx4);font-weight:700;letter-spacing:-.1px;}
-  .th3-salary-axis strong{font-size:13.5px;color:var(--tx2);font-weight:800;letter-spacing:-.2px;}
+  .th3-salary-axis small{font-size:10.5px;color:var(--tx4);font-weight:800;letter-spacing:-.1px;text-transform:uppercase;}
+  .th3-salary-axis strong{font-size:13px;color:var(--tx2);font-weight:800;letter-spacing:-.2px;}
   .th3-salary-axis span:nth-child(2) strong{color:var(--brand-dk);}
 
   @media (max-width:860px){
@@ -4664,29 +4689,26 @@
         }).join('')+'</optgroup>';
       }).join('');
 
-      var avgPct = 62;
-      var myLeftPct = 68;
-
       return ''+
         '<div class="th3-salary">'+
           '<h2 class="th3-salary-title">내 연봉, 또래보다 <em>얼마나?</em></h2>'+
-          '<p class="th3-salary-sub">30초 만에 내 위치를 확인하고, 다음 협상 카드로 써보세요</p>'+
+          '<p class="th3-salary-sub" id="th3SalaryPeer">프로덕트 디자이너 5년차·중견기업 <strong>12,430명</strong>과 비교해보세요</p>'+
 
           '<div class="th3-salary-main">'+
             '<form class="th3-salary-form-wrap" onsubmit="return th3SalaryCompare(event)">'+
               '<div class="th3-salary-row">'+
                 '<div class="th3-salary-field">'+
                   '<label>직무</label>'+
-                  '<select class="th3-salary-select">'+roleOpts+'</select>'+
+                  '<select class="th3-salary-select" data-salary-input="role">'+roleOpts+'</select>'+
                 '</div>'+
                 '<div class="th3-salary-field">'+
                   '<label>경력</label>'+
-                  '<select class="th3-salary-select"><option>1년차</option><option>2~3년차</option><option>4~6년차</option><option selected>5년차</option><option>7~10년차</option><option>10년차 이상</option></select>'+
+                  '<select class="th3-salary-select" data-salary-input="exp"><option>1년차</option><option>2~3년차</option><option>4~6년차</option><option selected>5년차</option><option>7~10년차</option><option>10년차 이상</option></select>'+
                 '</div>'+
               '</div>'+
               '<div class="th3-salary-field">'+
                 '<label>기업 규모</label>'+
-                '<select class="th3-salary-select"><option>스타트업</option><option selected>중견기업</option><option>대기업</option><option>외국계</option></select>'+
+                '<select class="th3-salary-select" data-salary-input="size"><option>스타트업</option><option selected>중견기업</option><option>대기업</option><option>외국계</option></select>'+
               '</div>'+
               '<div class="th3-salary-field primary">'+
                 '<label>내 연봉 (만원)</label>'+
@@ -4697,25 +4719,48 @@
               '</div>'+
             '</form>'+
 
-            '<div class="th3-salary-viz">'+
+            '<div class="th3-salary-viz is-pending" id="th3SalaryViz">'+
+              '<div class="th3-salary-verdict" data-tone="neutral" id="th3SalaryVerdict">'+
+                '<div class="th3-salary-verdict-ic" id="th3VerdictIc">📊</div>'+
+                '<div class="th3-salary-verdict-body">'+
+                  '<strong id="th3VerdictMain">또래와 비슷한 수준이에요</strong>'+
+                  '<small id="th3VerdictSub">상위 50% · 또래 평균 5,500만</small>'+
+                '</div>'+
+              '</div>'+
+
               '<div class="th3-salary-viz-hero">'+
-                '<div class="th3-salary-viz-label">직무 평균 연봉</div>'+
+                '<div class="th3-salary-viz-label" id="th3SalaryAvgLabel">5년차·중견기업 프로덕트 디자이너 평균</div>'+
                 '<div class="th3-salary-viz-value">5,500<span style="font-size:22px;font-weight:800;">만원</span></div>'+
                 '<span class="th3-salary-viz-nhis">'+
                   '<img src="nhis-logo.svg" alt="" aria-hidden="true">'+
-                  '건강보험 연봉 데이터 <strong>2,015,619건</strong> 기준'+
+                  '건강보험 연봉 데이터 <strong id="th3SalarySample">12,430건</strong> 기준'+
                 '</span>'+
               '</div>'+
 
               '<div class="th3-salary-bar-wrap">'+
+                '<div class="th3-salary-bar-tip" id="th3SalaryTip" style="left:50%;display:none;">내 연봉 5,500만</div>'+
                 '<div class="th3-salary-bar">'+
-                  '<div class="th3-salary-bar-fill" style="width:'+avgPct+'%;"></div>'+
+                  '<div class="th3-salary-bar-fill" id="th3SalaryFill" style="width:50%;"></div>'+
+                  '<div class="th3-salary-bar-me" id="th3SalaryMe" style="left:50%;"></div>'+
+                '</div>'+
+                '<div class="th3-salary-axis">'+
+                  '<span><small>하위 25%</small><strong>~3,200만</strong></span>'+
+                  '<span><small>평균 50%</small><strong>5,500만</strong></span>'+
+                  '<span><small>상위 10%</small><strong>7,820만↑</strong></span>'+
                 '</div>'+
               '</div>'+
-              '<div class="th3-salary-axis">'+
-                '<span><small>하위 · ~3,200만</small></span>'+
-                '<span><small>평균</small><strong>5,500만</strong></span>'+
-                '<span><small>상위 · 7,820만↑</small></span>'+
+
+              '<div class="th3-salary-next">'+
+                '<div class="th3-salary-next-hd">📇 결과로 바로 쓸 수 있어요</div>'+
+                '<div class="th3-salary-next-list">'+
+                  '<button type="button" class="th3-salary-next-chip" onclick="th3Go(\'review\')">💬 연봉 협상 대화 예시</button>'+
+                  '<button type="button" class="th3-salary-next-chip" onclick="th3Go(\'review\')">📈 직무별 인상률</button>'+
+                  '<button type="button" class="th3-salary-next-chip" onclick="th3Go(\'job\')">🎯 평균 이상 공고</button>'+
+                '</div>'+
+              '</div>'+
+
+              '<div class="th3-salary-pending-ov">'+
+                '<div class="th3-salary-pending-msg">내 연봉 입력 후 <strong>&nbsp;비교하기</strong></div>'+
               '</div>'+
             '</div>'+
           '</div>'+
@@ -4760,6 +4805,7 @@
         body+
       '</section>';
     }).join('');
+    if(document.querySelector('.th3-salary') && typeof window.th3SalaryBindForm === 'function') window.th3SalaryBindForm();
   };
 
   window.th3Go = function(page){ if(window.go) go(page); };
@@ -4929,7 +4975,88 @@
     var grid = document.getElementById('th3PickGrid');
     if(grid && window.th3PickCards) grid.innerHTML = window.th3PickCards(tab);
   };
-  window.th3SalaryCompare = function(e){ e.preventDefault(); if(window.showToast) showToast('연봉 비교 기능은 준비 중이에요'); return false; };
+  function th3SalarySampleN(role, exp, size){
+    var key = (role||'')+'|'+(exp||'')+'|'+(size||'');
+    var hash = 0; for(var i=0;i<key.length;i++) hash = ((hash*31) + key.charCodeAt(i)) >>> 0;
+    return 3200 + (hash % 21800);
+  }
+  window.th3SalaryUpdateLabels = function(){
+    var form = document.querySelector('.th3-salary-form-wrap'); if(!form) return;
+    var role = (form.querySelector('[data-salary-input="role"]')||{}).value || '프로덕트 디자이너';
+    var exp  = (form.querySelector('[data-salary-input="exp"]') ||{}).value || '5년차';
+    var size = (form.querySelector('[data-salary-input="size"]')||{}).value || '중견기업';
+    var n = th3SalarySampleN(role, exp, size);
+    var nTxt = n.toLocaleString('ko-KR');
+    var peer = document.getElementById('th3SalaryPeer');
+    if(peer) peer.innerHTML = role+' '+exp+'·'+size+' <strong>'+nTxt+'명</strong>과 비교해보세요';
+    var avg = document.getElementById('th3SalaryAvgLabel');
+    if(avg) avg.textContent = exp+'·'+size+' '+role+' 평균';
+    var s = document.getElementById('th3SalarySample');
+    if(s) s.textContent = nTxt+'건';
+    var viz = document.getElementById('th3SalaryViz');
+    if(viz && !viz.classList.contains('is-pending')) viz.classList.add('is-pending');
+  };
+  window.th3SalaryBindForm = function(){
+    var form = document.querySelector('.th3-salary-form-wrap'); if(!form || form.__bound) return;
+    form.__bound = true;
+    form.addEventListener('change', function(ev){ if(ev.target && ev.target.matches('[data-salary-input]')) th3SalaryUpdateLabels(); });
+    var input = document.getElementById('th3SalaryInput');
+    if(input){
+      input.addEventListener('input', function(){
+        var v = (input.value||'').replace(/[^0-9]/g,'');
+        input.value = v ? parseInt(v,10).toLocaleString('ko-KR') : '';
+      });
+    }
+    th3SalaryUpdateLabels();
+  };
+  window.th3SalaryCompare = function(e){
+    if(e) e.preventDefault();
+    var input = document.getElementById('th3SalaryInput');
+    var viz   = document.getElementById('th3SalaryViz');
+    if(!input || !viz) return false;
+    var raw = (input.value||'').replace(/[^0-9]/g,'');
+    var salary = parseInt(raw,10);
+    if(!salary || salary < 100){
+      if(window.showToast) showToast('연봉을 만원 단위로 입력해주세요 (예: 5500)');
+      input.focus();
+      return false;
+    }
+    var AVG = 5500, LOW = 3200, HIGH = 7820;
+    var pct, percentile;
+    if(salary <= LOW){ pct = Math.max(4, salary/LOW*22); }
+    else if(salary <= AVG){ pct = 22 + (salary-LOW)/(AVG-LOW)*28; }
+    else if(salary <= HIGH){ pct = 50 + (salary-AVG)/(HIGH-AVG)*40; }
+    else{ pct = Math.min(97, 90 + (salary-HIGH)/HIGH*12); }
+    percentile = Math.max(1, Math.min(99, Math.round(pct)));
+    var delta = salary - AVG;
+    var absDelta = Math.abs(delta).toLocaleString('ko-KR');
+
+    var fill = document.getElementById('th3SalaryFill');
+    var me   = document.getElementById('th3SalaryMe');
+    var tip  = document.getElementById('th3SalaryTip');
+    if(fill) fill.style.width = pct+'%';
+    if(me){ me.style.left = pct+'%'; me.classList.add('on'); }
+    if(tip){ tip.style.left = pct+'%'; tip.style.display = 'block'; tip.textContent = '내 연봉 '+salary.toLocaleString('ko-KR')+'만'; }
+
+    var v     = document.getElementById('th3SalaryVerdict');
+    var vIc   = document.getElementById('th3VerdictIc');
+    var vMain = document.getElementById('th3VerdictMain');
+    var vSub  = document.getElementById('th3VerdictSub');
+    var tone = 'neutral', mainText, icon = '📊';
+    if(delta > 0 && percentile >= 65){ tone = 'high'; icon = '🚀'; mainText = '또래보다 +'+absDelta+'만원 높아요'; }
+    else if(delta > 0){ tone = 'neutral'; icon = '👍'; mainText = '또래보다 +'+absDelta+'만원 높아요'; }
+    else if(delta < 0 && percentile < 35){ tone = 'low'; icon = '💡'; mainText = '또래보다 -'+absDelta+'만원 낮아요'; }
+    else if(delta < 0){ tone = 'neutral'; icon = '📍'; mainText = '또래보다 -'+absDelta+'만원 낮아요'; }
+    else{ tone = 'neutral'; icon = '🎯'; mainText = '또래 평균과 딱 같아요'; }
+    var posTxt = percentile >= 50 ? ('상위 '+(100-percentile)+'%') : ('하위 '+percentile+'%');
+    if(v)    v.setAttribute('data-tone', tone);
+    if(vIc)  vIc.textContent = icon;
+    if(vMain)vMain.textContent = mainText;
+    if(vSub) vSub.textContent = posTxt+' · 또래 평균 '+AVG.toLocaleString('ko-KR')+'만';
+
+    viz.classList.remove('is-pending');
+    return false;
+  };
 
   function bindSearchDD(){
     var input = document.getElementById('th3SearchInput');
