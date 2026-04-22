@@ -4171,7 +4171,7 @@
       </div>
       <div class="mw-updates-list">
         <button type="button" class="mw-update-card urgent">
-          <div class="mw-update-logo dot"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg" alt=""></div>
+          <div class="mw-update-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg" alt=""></div>
           <div class="mw-update-body">
             <div class="mw-update-co"><span class="mw-update-co-name">토스</span><span class="mw-update-sub">팔로우 중</span></div>
             <div class="mw-update-line"><strong>내 직무 공고 2건</strong> 마감 임박</div>
@@ -4179,7 +4179,7 @@
           <span class="mw-update-dday">D-5</span>
         </button>
         <button type="button" class="mw-update-card">
-          <div class="mw-update-logo dot"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_1.svg" alt=""></div>
+          <div class="mw-update-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_1.svg" alt=""></div>
           <div class="mw-update-body">
             <div class="mw-update-co"><span class="mw-update-co-name">카카오</span><span class="mw-update-sub">전 직장</span></div>
             <div class="mw-update-line"><strong>새 리뷰 8건</strong> 오늘 업데이트</div>
@@ -4286,27 +4286,18 @@
   .hb-radar-wrap{position:relative;width:280px;height:280px;margin:0 auto 4px;}
   .hb-radar-svg{width:100%;height:100%;overflow:visible;display:block;}
   .hb-emo-lbl{font-size:11px;font-weight:700;fill:#6B7684;letter-spacing:-.1px;font-family:inherit;}
-  .hb-emo-val{font-size:12px;font-weight:800;letter-spacing:-.2px;font-family:inherit;}
-  .hb-emo-glow{transform-origin:140px 140px;animation:hbGlowBreathe 4.5s ease-in-out infinite;}
-  @keyframes hbGlowBreathe{0%,100%{transform:scale(1);opacity:0.85;}50%{transform:scale(1.08);opacity:1;}}
-  .hb-emo-data{transform-box:fill-box;transform-origin:center;animation:hbDataIn 1.1s cubic-bezier(.2,.8,.2,1) both, hbDataPulse 4s ease-in-out 1.2s infinite;}
-  @keyframes hbDataIn{0%{transform:scale(0.35);opacity:0;}55%{transform:scale(1.06);opacity:1;}100%{transform:scale(1);opacity:1;}}
-  @keyframes hbDataPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.025);}}
-  .hb-emo-dots circle{opacity:0;transform-box:fill-box;transform-origin:center;animation:hbDotIn .55s cubic-bezier(.4,1.6,.5,1) forwards;}
-  .hb-emo-dots circle:nth-child(1){animation-delay:.6s;}
-  .hb-emo-dots circle:nth-child(2){animation-delay:.7s;}
-  .hb-emo-dots circle:nth-child(3){animation-delay:.8s;}
-  .hb-emo-dots circle:nth-child(4){animation-delay:.9s;}
-  .hb-emo-dots circle:nth-child(5){animation-delay:1s;}
-  .hb-emo-dots circle:nth-child(6){animation-delay:1.1s;}
-  @keyframes hbDotIn{0%{opacity:0;transform:scale(0);}60%{transform:scale(1.5);}100%{opacity:1;transform:scale(1);}}
-  .hb-emo-labels g{opacity:0;animation:hbLblIn .5s ease var(--d,0s) forwards;}
+  /* 블러 오브 레이더 - 필라이즈/토스 무드 */
+  .hb-orb{transform-box:fill-box;transform-origin:center;}
+  .hb-orb-halo{transform-box:fill-box;transform-origin:center;animation:hbOrbHalo 6s ease-in-out infinite;}
+  .hb-orb-3{animation:hbOrbPulse3 9s ease-in-out infinite;}
+  .hb-orb-2{animation:hbOrbPulse2 7s ease-in-out infinite;}
+  .hb-orb-1{animation:hbOrbPulse1 5s ease-in-out infinite;}
+  @keyframes hbOrbHalo{0%,100%{opacity:0.75;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+  @keyframes hbOrbPulse1{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.06) rotate(6deg);}}
+  @keyframes hbOrbPulse2{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(0.96) rotate(-8deg);}}
+  @keyframes hbOrbPulse3{0%,100%{transform:scale(1) rotate(0deg);}50%{transform:scale(1.09) rotate(4deg);}}
+  .hb-emo-labels g{opacity:0;animation:hbLblIn .6s ease var(--d,0s) forwards;}
   @keyframes hbLblIn{from{opacity:0;}to{opacity:1;}}
-
-  .hb-radar-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:84px;padding:10px 16px;background:#fff;border-radius:999px;box-shadow:0 6px 22px rgba(0,194,116,0.2),0 0 0 5px rgba(255,255,255,0.75);display:flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap;}
-  .hb-radar-score{font-size:26px;font-weight:900;color:#00A362;line-height:1;letter-spacing:-.6px;}
-  .hb-radar-score small{font-size:12px;font-weight:800;color:#AFB5BE;margin-left:2px;letter-spacing:-.1px;}
-  .hb-radar-score-lbl{font-size:10.5px;color:#8B93A1;font-weight:700;letter-spacing:-.1px;}
 
   .hb-radar-stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
   .hb-stat-chip{font-size:11.5px;font-weight:700;color:#00A362;background:rgba(0,194,116,0.09);padding:5px 10px;border-radius:100px;letter-spacing:-.1px;}
@@ -4406,43 +4397,40 @@
     <div class="hb-radar-wrap">
       <svg viewBox="0 0 280 280" class="hb-radar-svg" aria-hidden="true">
         <defs>
-          <linearGradient id="hbEmoGrad" x1="10%" y1="0%" x2="90%" y2="100%">
-            <stop offset="0%" stop-color="#6BE3A0" stop-opacity="0.85"/>
-            <stop offset="100%" stop-color="#3DCDD4" stop-opacity="0.8"/>
-          </linearGradient>
-          <linearGradient id="hbEmoStroke" x1="10%" y1="0%" x2="90%" y2="100%">
-            <stop offset="0%" stop-color="#00C362"/>
-            <stop offset="100%" stop-color="#1BB8B0"/>
-          </linearGradient>
-          <radialGradient id="hbEmoGlowG" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stop-color="#6BE3A0" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#3DCDD4" stop-opacity="0"/>
+          <radialGradient id="hbOrbFill1" cx="45%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#D6F9E7" stop-opacity="0.95"/>
+            <stop offset="65%" stop-color="#7DE7BC" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#3DCDD4" stop-opacity="0.5"/>
           </radialGradient>
-          <filter id="hbEmoBlurF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+          <radialGradient id="hbOrbFill2" cx="60%" cy="55%" r="65%">
+            <stop offset="0%" stop-color="#E6FDF2" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#8EE9D3" stop-opacity="0.35"/>
+          </radialGradient>
+          <radialGradient id="hbOrbFill3" cx="50%" cy="50%" r="70%">
+            <stop offset="0%" stop-color="#F0FBF6" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#A8F0CC" stop-opacity="0.18"/>
+          </radialGradient>
+          <radialGradient id="hbOrbHaloG" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#A8F0CC" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#3DD4D0" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="hbBigBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="hbSoftBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+          <filter id="hbMidBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
         </defs>
-        <g class="hb-emo-glow"><circle cx="140" cy="140" r="100" fill="url(#hbEmoGlowG)" filter="url(#hbEmoBlurF)"/></g>
-        <path class="hb-emo-data" d="M 140,52 Q 162,96 204,103 Q 184,139 201,175 Q 161,184 140,230 Q 117,185 74,178 Q 97,142 83,107 Q 120,98 140,52 Z" fill="url(#hbEmoGrad)" stroke="url(#hbEmoStroke)" stroke-width="2" stroke-linejoin="round"/>
-        <g class="hb-emo-dots">
-          <circle cx="140" cy="52" r="4" fill="#00C362" stroke="#fff" stroke-width="2"/>
-          <circle cx="204" cy="103" r="4" fill="#00C362" stroke="#fff" stroke-width="2"/>
-          <circle cx="201" cy="175" r="4" fill="#00C362" stroke="#fff" stroke-width="2"/>
-          <circle cx="140" cy="230" r="4" fill="#00C362" stroke="#fff" stroke-width="2"/>
-          <circle cx="74" cy="178" r="4" fill="#00C362" stroke="#fff" stroke-width="2"/>
-          <circle cx="83" cy="107" r="4" fill="#00C362" stroke="#fff" stroke-width="2"/>
-        </g>
+        <circle class="hb-orb-halo" cx="140" cy="140" r="118" fill="url(#hbOrbHaloG)" filter="url(#hbBigBlur)"/>
+        <path class="hb-orb hb-orb-3" d="M 140,34 Q 172,84 232,86 Q 204,140 232,194 Q 172,196 140,246 Q 108,196 48,194 Q 76,140 48,86 Q 108,84 140,34 Z" fill="url(#hbOrbFill3)" filter="url(#hbBigBlur)"/>
+        <path class="hb-orb hb-orb-2" d="M 140,54 Q 167,98 222,102 Q 198,140 222,178 Q 167,182 140,224 Q 113,182 58,178 Q 82,140 58,102 Q 113,98 140,54 Z" fill="url(#hbOrbFill2)" filter="url(#hbMidBlur)"/>
+        <path class="hb-orb hb-orb-1" d="M 140,74 Q 162,110 204,114 Q 184,140 204,166 Q 162,170 140,204 Q 118,170 76,166 Q 96,140 76,114 Q 118,110 140,74 Z" fill="url(#hbOrbFill1)" filter="url(#hbSoftBlur)"/>
         <g class="hb-emo-labels">
-          <g transform="translate(140,26)" style="--d:.55s"><text class="hb-emo-lbl" text-anchor="middle">성장</text></g>
+          <g transform="translate(140,24)" style="--d:.55s"><text class="hb-emo-lbl" text-anchor="middle">성장</text></g>
           <g transform="translate(244,100)" style="--d:.65s"><text class="hb-emo-lbl" text-anchor="middle">급여</text></g>
           <g transform="translate(244,192)" style="--d:.75s"><text class="hb-emo-lbl" text-anchor="middle">복지</text></g>
-          <g transform="translate(140,258)" style="--d:.85s"><text class="hb-emo-lbl" text-anchor="middle">워라밸</text></g>
+          <g transform="translate(140,262)" style="--d:.85s"><text class="hb-emo-lbl" text-anchor="middle">워라밸</text></g>
           <g transform="translate(36,192)" style="--d:.95s"><text class="hb-emo-lbl" text-anchor="middle">문화</text></g>
           <g transform="translate(36,100)" style="--d:1.05s"><text class="hb-emo-lbl" text-anchor="middle">경영진</text></g>
         </g>
       </svg>
-      <div class="hb-radar-center">
-        <div class="hb-radar-score">127<small>개</small></div>
-        <div class="hb-radar-score-lbl">맞춤 기업</div>
-      </div>
     </div>
     <div class="hb-insight-match">
       <div class="hb-reco-logo-stack">
