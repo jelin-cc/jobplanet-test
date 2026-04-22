@@ -3678,8 +3678,8 @@
   }
 
   /* Urgent jobs — 콤팩트 4x1 그리드 */
-  .th3-urgent-cta{display:flex;align-items:center;gap:10px;padding:12px 18px;background:linear-gradient(90deg,#FEF2F2 0%,#FFF7F7 100%);border:1px solid #FECACA;border-radius:14px;margin-bottom:14px;}
-  .th3-urgent-cta-ic{width:20px;height:20px;flex-shrink:0;}
+  .th3-urgent-cta{display:flex;align-items:center;gap:8px;padding:12px 18px;background:linear-gradient(90deg,#FEF2F2 0%,#FFF7F7 100%);border:1px solid #FECACA;border-radius:14px;margin-bottom:14px;}
+  .th3-urgent-cta-ic{width:14px;height:14px;flex-shrink:0;}
   .th3-urgent-cta-text{flex:1;font-size:13px;color:#991B1B;font-weight:600;letter-spacing:-.1px;}
   .th3-urgent-cta-text strong{color:#DC2626;font-weight:800;}
   .th3-urgent-cta-countdown{font-size:12px;font-weight:700;color:#DC2626;background:#fff;padding:4px 10px;border-radius:var(--rfull);letter-spacing:-.1px;}
@@ -3697,7 +3697,8 @@
   .th3-urgent-title{font-size:15px;font-weight:800;color:var(--tx);letter-spacing:-.3px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px;}
   .th3-urgent-meta{font-size:12px;color:var(--tx4);letter-spacing:-.1px;line-height:1.4;font-weight:500;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
   .th3-urgent-hot{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:800;color:#EF4444;background:#FEF2F2;padding:4px 9px;letter-spacing:-.1px;border-radius:var(--rfull);line-height:1.2;flex-shrink:0;position:static;top:auto;right:auto;box-shadow:none;}
-  .th3-urgent-item.imminent .th3-urgent-hot{color:#fff;background:rgba(255,255,255,0.22);}
+  .th3-urgent-hot img{width:12px;height:12px;display:block;}
+  .th3-urgent-item.imminent .th3-urgent-hot{color:#EF4444;background:#fff;}
   .th3-urgent-salary{margin-top:auto;padding-top:10px;border-top:1px solid var(--ln2);font-size:12px;font-weight:700;color:var(--tx2);letter-spacing:-.1px;display:flex;align-items:center;gap:5px;}
   .th3-urgent-salary::before{content:'';width:14px;height:14px;flex-shrink:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'><path fill-rule='evenodd' clip-rule='evenodd' d='M7 13.125C10.3827 13.125 13.125 10.3827 13.125 7C13.125 3.61726 10.3827 0.875 7 0.875C3.61726 0.875 0.875 3.61726 0.875 7C0.875 10.3827 3.61726 13.125 7 13.125Z' fill='%23FFB701'/><path d='M7.75087 9.44648L7.00002 6.89361L6.26028 9.40874C6.21799 9.60061 6.07523 9.7642 5.87342 9.82356C5.82084 9.83902 5.7678 9.84637 5.71564 9.84633C5.66349 9.84637 5.61045 9.83902 5.55787 9.82356C5.35605 9.7642 5.21329 9.60061 5.17101 9.40874L4.40521 6.80502H3.65911C3.35159 6.80502 3.10229 6.55572 3.10229 6.2482C3.10229 5.94067 3.35159 5.69138 3.65911 5.69138H4.07767L3.89722 5.07785C3.81044 4.78282 3.97927 4.47331 4.27429 4.38654C4.56932 4.29977 4.87883 4.46859 4.9656 4.76362L5.71564 7.31376L6.46568 4.76362C6.53707 4.5209 6.75921 4.3636 7.00002 4.36377C7.24083 4.3636 7.46297 4.5209 7.53436 4.76362L8.28549 7.31746L9.03662 4.76362C9.12339 4.46859 9.4329 4.29977 9.72793 4.38654C10.023 4.47331 10.1918 4.78282 10.105 5.07785L9.92455 5.69138H10.3427C10.6503 5.69138 10.8996 5.94067 10.8996 6.2482C10.8996 6.55572 10.6503 6.80502 10.3427 6.80502H9.59701L8.82011 9.44648C8.74869 9.68929 8.5264 9.84662 8.28549 9.84633C8.04457 9.84662 7.82228 9.68929 7.75087 9.44648Z' fill='white'/></svg>");background-repeat:no-repeat;background-size:contain;}
 
@@ -4590,7 +4591,7 @@
         '<span class="th3-urgent-cta-countdown">오늘 자정까지</span>'+
       '</div>';
       return cta+'<div class="th3-urgent">'+items.map(function(it){
-        var hotTag = it.hot ? '<span class="th3-urgent-hot">🔥 '+it.hot+'</span>' : '';
+        var hotTag = it.hot ? '<span class="th3-urgent-hot"><img src="emoji-fire.svg" alt="" aria-hidden="true" width="12" height="12" style="display:block;">'+it.hot+'</span>' : '';
         return '<div class="th3-urgent-item'+(it.imminent?' imminent':'')+'" onclick="th3Go(\'job\')">'+
           '<div class="th3-urgent-top">'+
             '<div class="th3-urgent-dday">'+it.dday+'</div>'+
@@ -4705,10 +4706,8 @@
               '</div>'+
 
               '<div class="th3-salary-bar-wrap">'+
-                '<div class="th3-salary-bar-tip" style="left:'+myLeftPct+'%;">내 연봉 5,500만 · 상위 32%</div>'+
                 '<div class="th3-salary-bar">'+
                   '<div class="th3-salary-bar-fill" style="width:'+avgPct+'%;"></div>'+
-                  '<div class="th3-salary-bar-me on" style="left:'+myLeftPct+'%;"></div>'+
                 '</div>'+
               '</div>'+
               '<div class="th3-salary-axis">'+
