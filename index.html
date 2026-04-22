@@ -4719,7 +4719,7 @@
               '</div>'+
             '</form>'+
 
-            '<div class="th3-salary-viz is-pending" id="th3SalaryViz">'+
+            '<div class="th3-salary-viz" id="th3SalaryViz">'+
               '<div class="th3-salary-verdict" data-tone="neutral" id="th3SalaryVerdict">'+
                 '<div class="th3-salary-verdict-ic" id="th3VerdictIc">📊</div>'+
                 '<div class="th3-salary-verdict-body">'+
@@ -4993,8 +4993,6 @@
     if(avg) avg.textContent = exp+'·'+size+' '+role+' 평균';
     var s = document.getElementById('th3SalarySample');
     if(s) s.textContent = nTxt+'건';
-    var viz = document.getElementById('th3SalaryViz');
-    if(viz && !viz.classList.contains('is-pending')) viz.classList.add('is-pending');
   };
   window.th3SalaryBindForm = function(){
     var form = document.querySelector('.th3-salary-form-wrap'); if(!form || form.__bound) return;
