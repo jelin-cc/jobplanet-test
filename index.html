@@ -4303,59 +4303,108 @@
   </div>
 </div>
 
-<!-- 모바일 홈 B안 (필라이즈 스타일: 레이더차트 + 강조 검색 + 퀵메뉴) -->
+<!-- 모바일 홈 B안 (필라이즈 스타일 레이아웃 + 토스 디자인 시스템) -->
 <style>
-  #mobileHomeB{position:fixed;inset:0;z-index:9999;background:rgba(15,25,40,0.45);display:none;font-family:Pretendard,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;}
+  #mobileHomeB{position:fixed;inset:0;z-index:9999;display:none;font-family:Pretendard,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:rgba(15,25,40,0.2);}
   #mobileHomeB.visible{display:flex;justify-content:center;align-items:stretch;}
-  .hb-frame{width:400px;max-width:100vw;height:100%;overflow-y:auto;background:linear-gradient(180deg,#EAF6F0 0%,#F7F8FA 40%);position:relative;box-shadow:0 0 40px rgba(15,25,40,0.18);}
-  .hb-header{position:sticky;top:0;z-index:3;background:transparent;display:flex;justify-content:flex-end;padding:14px 16px 4px;}
-  .hb-close{width:40px;height:40px;border:none;background:rgba(255,255,255,0.9);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
-  .hb-close svg{width:22px;height:22px;}
-  .hb-radar-section{padding:4px 20px 28px;text-align:center;}
-  .hb-radar-badge{display:inline-block;padding:6px 14px;background:rgba(0,194,116,0.12);color:#00A362;font-size:12px;font-weight:700;border-radius:100px;margin-bottom:12px;}
-  .hb-radar-title{font-size:22px;font-weight:800;color:#1A1A1E;letter-spacing:-.4px;margin-bottom:6px;line-height:1.35;}
-  .hb-radar-sub{font-size:13px;color:#686A6D;margin-bottom:20px;}
-  .hb-radar-wrap{position:relative;width:240px;height:240px;margin:0 auto 18px;}
+  .hb-frame{width:400px;max-width:100vw;height:100%;overflow-y:auto;background:#F7F8FA;position:relative;box-shadow:0 0 40px rgba(15,25,40,0.18);padding-bottom:40px;}
+  .hb-frame::-webkit-scrollbar{display:none;}
+  /* 고정 상단 검색 헤더 */
+  .hb-top{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,#E7F7EE 0%,#F0FBF5 100%);padding:14px 16px 16px;backdrop-filter:blur(8px);}
+  .hb-top-row{display:flex;align-items:center;gap:10px;}
+  .hb-close{width:40px;height:40px;border:none;background:#fff;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(15,25,40,0.06);flex-shrink:0;}
+  .hb-close svg{width:20px;height:20px;color:#191F28;}
+  .hb-search-wrap{flex:1;min-width:0;background:#fff;border-radius:100px;padding:0 6px 0 18px;display:flex;align-items:center;gap:10px;height:48px;box-shadow:0 1px 3px rgba(15,25,40,0.06);border:1.5px solid transparent;transition:border-color .15s, box-shadow .15s;}
+  .hb-search-wrap:focus-within{border-color:#00c362;box-shadow:0 0 0 4px rgba(0,194,116,0.12);}
+  .hb-search-wrap svg.sic{width:18px;height:18px;color:#8B93A1;flex-shrink:0;}
+  .hb-search-wrap input{flex:1;border:none;outline:none;background:none;font-size:14.5px;font-weight:600;color:#191F28;font-family:inherit;min-width:0;letter-spacing:-.2px;}
+  .hb-search-wrap input::placeholder{color:#AFB5BE;font-weight:500;}
+  .hb-search-submit{width:36px;height:36px;border:none;background:#00c362;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .15s, background .15s;}
+  .hb-search-submit:hover{background:#00A362;transform:scale(1.04);}
+  .hb-search-submit svg{width:15px;height:15px;}
+
+  /* 메인 인사이트 카드 (레이더) */
+  .hb-insight{margin:16px 16px 0;background:#fff;border-radius:24px;padding:24px 20px 22px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 8px 28px rgba(15,25,40,0.05);text-align:center;}
+  .hb-insight-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(0,194,116,0.1);color:#00A362;font-size:12px;font-weight:700;border-radius:100px;margin-bottom:10px;letter-spacing:-.1px;}
+  .hb-insight-title{font-size:20px;font-weight:800;color:#191F28;letter-spacing:-.4px;margin:0 0 4px;line-height:1.35;}
+  .hb-insight-sub{font-size:13px;color:#8B93A1;margin:0 0 18px;font-weight:500;letter-spacing:-.1px;}
+  .hb-radar-wrap{position:relative;width:220px;height:220px;margin:0 auto 14px;}
   .hb-radar-wrap svg{width:100%;height:100%;}
-  .hb-radar-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .hb-radar-score{font-size:24px;font-weight:800;color:#00A362;line-height:1;}
-  .hb-radar-score-lbl{font-size:10px;color:#8B93A1;margin-top:2px;}
-  .hb-radar-stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
-  .hb-stat-chip{font-size:11.5px;font-weight:600;color:#00A362;background:rgba(0,194,116,0.1);padding:5px 10px;border-radius:100px;}
-  .hb-radar-cta{display:block;width:100%;padding:15px;background:#00c362;color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,194,116,0.28);}
-  .hb-radar-cta:hover{background:#00A362;}
-  .hb-search-section{padding:0 20px 28px;}
-  .hb-search-wrap{position:relative;background:#fff;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,0.08);padding:16px 18px;display:flex;align-items:center;gap:12px;border:2px solid #00c362;}
-  .hb-search-wrap svg.sic{width:22px;height:22px;color:#00c362;flex-shrink:0;}
-  .hb-search-wrap input{flex:1;border:none;outline:none;background:none;font-size:16px;font-weight:500;color:#1A1A1E;font-family:inherit;}
-  .hb-search-wrap input::placeholder{color:#AFB5BE;font-weight:400;}
-  .hb-search-submit{width:38px;height:38px;border:none;background:#00c362;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
-  .hb-search-submit svg{width:18px;height:18px;}
-  .hb-quick-section{padding:8px 20px 40px;}
-  .hb-quick-wrap{background:#fff;border-radius:18px;padding:24px 16px;box-shadow:0 4px 16px rgba(0,0,0,0.05);}
-  .hb-quick-menu{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px;}
-  .hb-quick-menu::-webkit-scrollbar{display:none;}
-  .hb-quick{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;padding:0;min-width:56px;}
-  .hb-quick-ic{position:relative;width:56px;height:56px;border-radius:16px;background:#F2F4F6;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-  .hb-quick:hover .hb-quick-ic{background:#E5E8EB;}
-  .hb-quick-ic img{width:26px;height:26px;}
-  .hb-quick-label{font-size:12px;font-weight:600;color:#4B5563;text-align:center;letter-spacing:-.2px;line-height:1.25;white-space:nowrap;}
-  .hb-quick-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;font-size:10px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;}
+  .hb-radar-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,194,116,0.18);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .hb-radar-score{font-size:24px;font-weight:900;color:#00A362;line-height:1;letter-spacing:-.6px;}
+  .hb-radar-score-lbl{font-size:10px;color:#8B93A1;margin-top:3px;font-weight:700;letter-spacing:-.1px;}
+  .hb-radar-stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+  .hb-stat-chip{font-size:11.5px;font-weight:700;color:#00A362;background:rgba(0,194,116,0.09);padding:5px 10px;border-radius:100px;letter-spacing:-.1px;}
+  .hb-stat-chip.neutral{color:#8B93A1;background:#F2F4F6;}
+  .hb-insight-cta{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:15px;background:#191F28;color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;letter-spacing:-.2px;transition:background .15s;}
+  .hb-insight-cta:hover{background:#000;}
+  .hb-insight-cta svg{width:16px;height:16px;}
+
+  /* 피처 2x 카드 (Fillize 스타일 big cards) */
+  .hb-features{margin:14px 16px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .hb-feature{position:relative;background:#fff;border:none;border-radius:20px;padding:20px 18px 16px;text-align:left;cursor:pointer;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(15,25,40,0.04);transition:transform .15s, box-shadow .15s;font-family:inherit;overflow:hidden;min-height:148px;display:flex;flex-direction:column;justify-content:space-between;}
+  .hb-feature:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,25,40,0.05),0 14px 30px rgba(15,25,40,0.08);}
+  .hb-feature-eyebrow{font-size:11px;font-weight:700;color:#8B93A1;letter-spacing:-.1px;margin-bottom:4px;}
+  .hb-feature-title{font-size:16px;font-weight:800;color:#191F28;letter-spacing:-.3px;line-height:1.3;margin:0;}
+  .hb-feature-emoji{position:absolute;right:-4px;bottom:-4px;width:76px;height:76px;display:flex;align-items:center;justify-content:center;}
+  .hb-feature-emoji img{width:60px;height:60px;opacity:.96;}
+  .hb-feature.accent-green{background:linear-gradient(145deg,#EAF8F0 0%,#fff 60%);}
+  .hb-feature.accent-peach{background:linear-gradient(145deg,#FFF2E8 0%,#fff 60%);}
+
+  /* 퀵 메뉴 (가로 스크롤 아닌 그리드) */
+  .hb-quick-section{margin:14px 16px 0;background:#fff;border-radius:20px;padding:20px 16px 16px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(15,25,40,0.04);}
+  .hb-quick-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px;}
+  .hb-quick-ti{font-size:14px;font-weight:800;color:#191F28;letter-spacing:-.2px;}
+  .hb-quick-more{font-size:12px;font-weight:700;color:#8B93A1;background:none;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:2px;letter-spacing:-.1px;}
+  .hb-quick-more svg{width:11px;height:11px;}
+  .hb-quick-menu{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .hb-quick{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:8px 4px;font-family:inherit;border-radius:12px;transition:background .15s;}
+  .hb-quick:hover{background:#F7F8FA;}
+  .hb-quick-ic{position:relative;width:48px;height:48px;border-radius:14px;background:#F4F6F8;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .hb-quick-ic img{width:24px;height:24px;}
+  .hb-quick-label{font-size:11.5px;font-weight:700;color:#4E5968;text-align:center;letter-spacing:-.2px;line-height:1.3;}
+  .hb-quick-badge{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;padding:0 4px;font-size:9.5px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;letter-spacing:-.1px;}
   .hb-quick-badge.brand{background:#00c362;}
+
+  /* 트렌드 리스트 (요즘 보는 기업) */
+  .hb-trend{margin:14px 16px 0;background:#fff;border-radius:20px;padding:20px 16px;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 6px 20px rgba(15,25,40,0.04);}
+  .hb-trend-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px;}
+  .hb-trend-ti{font-size:14px;font-weight:800;color:#191F28;letter-spacing:-.2px;display:flex;align-items:center;gap:6px;}
+  .hb-trend-ti img{width:16px;height:16px;}
+  .hb-trend-list{display:flex;flex-direction:column;gap:2px;}
+  .hb-trend-item{display:flex;align-items:center;gap:10px;padding:10px 4px;border:none;background:none;cursor:pointer;text-align:left;font-family:inherit;border-radius:10px;transition:background .15s;}
+  .hb-trend-item:hover{background:#F7F8FA;}
+  .hb-trend-rank{width:18px;font-size:14px;font-weight:900;color:#00A362;letter-spacing:-.3px;flex-shrink:0;text-align:center;}
+  .hb-trend-rank.gray{color:#AFB5BE;}
+  .hb-trend-logo{width:28px;height:28px;border-radius:8px;background:#F4F6F8;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#4E5968;flex-shrink:0;letter-spacing:-.2px;}
+  .hb-trend-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+  .hb-trend-co{font-size:13.5px;font-weight:700;color:#191F28;letter-spacing:-.2px;line-height:1.3;}
+  .hb-trend-meta{font-size:11px;color:#8B93A1;font-weight:600;letter-spacing:-.1px;}
+  .hb-trend-delta{font-size:11.5px;font-weight:800;color:#00A362;flex-shrink:0;letter-spacing:-.1px;padding:3px 7px;background:rgba(0,194,116,0.09);border-radius:6px;}
+  .hb-trend-delta.down{color:#EF4444;background:rgba(239,68,68,0.08);}
 </style>
 
 <div id="mobileHomeB" aria-hidden="true" role="dialog" onclick="if(event.target===this)closeHomeB()">
  <div class="hb-frame">
-  <header class="hb-header">
-    <button type="button" class="hb-close" aria-label="닫기" onclick="closeHomeB()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#242628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+  <header class="hb-top">
+    <div class="hb-top-row">
+      <button type="button" class="hb-close" aria-label="모바일 홈 A로 돌아가기" onclick="closeHomeB()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </button>
+      <form class="hb-search-wrap" onsubmit="event.preventDefault();closeHomeB();if(typeof go==='function'){go('search');}">
+        <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="기업·직무·연봉 검색" autocomplete="off">
+        <button type="submit" class="hb-search-submit" aria-label="검색">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+    </div>
   </header>
 
-  <section class="hb-radar-section">
-    <span class="hb-radar-badge">내 직무 평균 3.8점</span>
-    <h2 class="hb-radar-title">내 직무 리뷰 인사이트 📊</h2>
-    <p class="hb-radar-sub">개발자 리뷰 2,341건을 바탕으로 분석했어요</p>
+  <section class="hb-insight">
+    <span class="hb-insight-badge">📊 내 직무 리뷰 인사이트</span>
+    <h2 class="hb-insight-title">개발자 평균 <span style="color:#00A362;">3.8점</span></h2>
+    <p class="hb-insight-sub">리뷰 2,341건 기준 내 직무의 강점·약점을 분석했어요</p>
     <div class="hb-radar-wrap">
       <svg viewBox="0 0 240 240" aria-hidden="true">
         <defs>
@@ -4364,78 +4413,116 @@
             <stop offset="100%" stop-color="#00A362" stop-opacity="0.08"/>
           </radialGradient>
         </defs>
-        <!-- 축 원 -->
         <polygon points="120,22 200,70 200,170 120,218 40,170 40,70" fill="none" stroke="#E5E8EB" stroke-width="1"/>
         <polygon points="120,55 176,85 176,155 120,185 64,155 64,85" fill="none" stroke="#E5E8EB" stroke-width="1"/>
         <polygon points="120,88 152,100 152,140 120,152 88,140 88,100" fill="none" stroke="#E5E8EB" stroke-width="1"/>
-        <!-- 축 선 -->
         <line x1="120" y1="22" x2="120" y2="218" stroke="#E5E8EB" stroke-width="1"/>
         <line x1="40" y1="70" x2="200" y2="170" stroke="#E5E8EB" stroke-width="1"/>
         <line x1="40" y1="170" x2="200" y2="70" stroke="#E5E8EB" stroke-width="1"/>
-        <!-- 내 직무 리뷰 (채워진 다각형) -->
         <polygon points="120,38 186,78 178,158 120,202 58,162 48,82" fill="url(#hbRg)" stroke="#00C274" stroke-width="2" stroke-linejoin="round"/>
-        <!-- 포인트 -->
         <circle cx="120" cy="38" r="4" fill="#00C274"/>
         <circle cx="186" cy="78" r="4" fill="#00C274"/>
         <circle cx="178" cy="158" r="4" fill="#00C274"/>
         <circle cx="120" cy="202" r="4" fill="#00C274"/>
         <circle cx="58" cy="162" r="4" fill="#00C274"/>
         <circle cx="48" cy="82" r="4" fill="#00C274"/>
-        <!-- 라벨 -->
-        <text x="120" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">성장</text>
-        <text x="212" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">급여</text>
-        <text x="212" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">복지</text>
-        <text x="120" y="234" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">워라밸</text>
-        <text x="28" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">문화</text>
-        <text x="28" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#4B5563">경영진</text>
+        <text x="120" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5968">성장</text>
+        <text x="212" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5968">급여</text>
+        <text x="212" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5968">복지</text>
+        <text x="120" y="234" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5968">워라밸</text>
+        <text x="28" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5968">문화</text>
+        <text x="28" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#4E5968">경영진</text>
       </svg>
       <div class="hb-radar-center">
         <div class="hb-radar-score">3.8</div>
-        <div class="hb-radar-score-lbl">내 직무 평균</div>
+        <div class="hb-radar-score-lbl">평균</div>
       </div>
     </div>
     <div class="hb-radar-stats">
       <span class="hb-stat-chip">워라밸 ▲ 상위 12%</span>
       <span class="hb-stat-chip">성장 ▲ 상위 18%</span>
-      <span class="hb-stat-chip">급여 보통</span>
+      <span class="hb-stat-chip neutral">급여 보통</span>
     </div>
-    <button type="button" class="hb-radar-cta" onclick="closeHomeB();if(typeof go==='function'){go('review');}">전체 리뷰 인사이트 보기</button>
+    <button type="button" class="hb-insight-cta" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+      전체 리뷰 인사이트 보기
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </section>
 
-  <section class="hb-search-section">
-    <form class="hb-search-wrap" onsubmit="event.preventDefault();closeHomeB();if(typeof go==='function'){go('search');}">
-      <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input type="text" placeholder="어떤 회사가 궁금하세요?" autocomplete="off">
-      <button type="submit" class="hb-search-submit" aria-label="검색">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-    </form>
-  </section>
+  <div class="hb-features">
+    <button type="button" class="hb-feature accent-green" onclick="closeHomeB();if(typeof go==='function'){go('salary');}">
+      <div>
+        <div class="hb-feature-eyebrow">데이터 기반</div>
+        <h3 class="hb-feature-title">실연봉<br>비교하기</h3>
+      </div>
+      <div class="hb-feature-emoji"><img src="emoji-moneybag.svg" alt=""></div>
+    </button>
+    <button type="button" class="hb-feature accent-peach" onclick="closeHomeB();if(typeof go==='function'){go('job');}">
+      <div>
+        <div class="hb-feature-eyebrow">오늘 마감</div>
+        <h3 class="hb-feature-title">놓치면<br>안 될 공고</h3>
+      </div>
+      <div class="hb-feature-emoji"><img src="emoji-fire.svg" alt=""></div>
+    </button>
+  </div>
 
   <section class="hb-quick-section">
-    <div class="hb-quick-wrap">
-      <div class="hb-quick-menu">
-        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('job');}else if(typeof go==='function'){go('job');}">
-          <span class="hb-quick-ic"><img src="emoji-fire.svg" alt=""><span class="hb-quick-badge">3</span></span>
-          <span class="hb-quick-label">마감 임박 공고</span>
-        </button>
-        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('review');}else if(typeof go==='function'){go('review');}">
-          <span class="hb-quick-ic"><img src="emoji-trophy.svg" alt=""></span>
-          <span class="hb-quick-label">이번 주 인기 기업</span>
-        </button>
-        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('salary');}else if(typeof go==='function'){go('salary');}">
-          <span class="hb-quick-ic"><img src="emoji-moneybag.svg" alt=""></span>
-          <span class="hb-quick-label">실연봉 비교</span>
-        </button>
-        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof th3Go==='function'){th3Go('job');}else if(typeof go==='function'){go('job');}">
-          <span class="hb-quick-ic"><img src="emoji-briefcase.svg" alt=""></span>
-          <span class="hb-quick-label">내 직무 공고</span>
-        </button>
-        <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof showToast==='function'){showToast('지금은 지원하지 않는 서비스입니다.');}">
-          <span class="hb-quick-ic"><img src="emoji-memo.svg" alt=""><span class="hb-quick-badge brand">N</span></span>
-          <span class="hb-quick-label">리뷰 작성</span>
-        </button>
-      </div>
+    <div class="hb-quick-hd">
+      <span class="hb-quick-ti">바로가기</span>
+    </div>
+    <div class="hb-quick-menu">
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+        <span class="hb-quick-ic"><img src="emoji-trophy.svg" alt=""></span>
+        <span class="hb-quick-label">인기 기업</span>
+      </button>
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('job');}">
+        <span class="hb-quick-ic"><img src="emoji-briefcase.svg" alt=""></span>
+        <span class="hb-quick-label">내 직무 공고</span>
+      </button>
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof showToast==='function'){showToast('지금은 지원하지 않는 서비스입니다.');}">
+        <span class="hb-quick-ic"><img src="emoji-memo.svg" alt=""><span class="hb-quick-badge brand">N</span></span>
+        <span class="hb-quick-label">리뷰 작성</span>
+      </button>
+      <button type="button" class="hb-quick" onclick="closeHomeB();if(typeof go==='function'){go('story');}">
+        <span class="hb-quick-ic"><img src="emoji-officebuilding.svg" alt=""></span>
+        <span class="hb-quick-label">취업 스토리</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="hb-trend">
+    <div class="hb-trend-hd">
+      <span class="hb-trend-ti"><img src="emoji-fire.svg" alt="">이번 주 뜨는 기업</span>
+      <button type="button" class="hb-quick-more" onclick="closeHomeB();if(typeof go==='function'){go('review');}">전체<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="hb-trend-list">
+      <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+        <span class="hb-trend-rank">1</span>
+        <span class="hb-trend-logo">토</span>
+        <span class="hb-trend-body">
+          <span class="hb-trend-co">토스</span>
+          <span class="hb-trend-meta">리뷰 1,284 · ⭐ 4.3</span>
+        </span>
+        <span class="hb-trend-delta">▲ 320</span>
+      </button>
+      <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+        <span class="hb-trend-rank">2</span>
+        <span class="hb-trend-logo">당</span>
+        <span class="hb-trend-body">
+          <span class="hb-trend-co">당근</span>
+          <span class="hb-trend-meta">리뷰 612 · ⭐ 4.1</span>
+        </span>
+        <span class="hb-trend-delta">▲ 180</span>
+      </button>
+      <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+        <span class="hb-trend-rank gray">3</span>
+        <span class="hb-trend-logo">네</span>
+        <span class="hb-trend-body">
+          <span class="hb-trend-co">네이버</span>
+          <span class="hb-trend-meta">리뷰 3,402 · ⭐ 3.9</span>
+        </span>
+        <span class="hb-trend-delta down">▼ 42</span>
+      </button>
     </div>
   </section>
  </div>
