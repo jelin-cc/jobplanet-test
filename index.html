@@ -4010,8 +4010,8 @@
   #mobile-home{display:none;}
   body.mobile-mode #mobile-home{display:block !important;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#fff;overflow-y:auto;overflow-x:hidden;}
 
-  .mw-container{width:400px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);}
-  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;background:#F2F4F6;}
+  .mw-container{width:400px;margin:0 auto;background:#F2F4F6;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);display:flex;flex-direction:column;}
+  .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;background:transparent;}
   .mw-icon-btn{width:40px;height:40px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx);border-radius:10px;transition:background .15s;}
   .mw-icon-btn:hover{background:#F9FAFB;}
   .mw-icon-btn svg{width:22px;height:22px;}
@@ -4021,7 +4021,7 @@
   .mw-float-logo{cursor:pointer;}
   .mw-float-logo:hover{background:var(--brand-dk);}
 
-  .mw-hero{padding:16px 24px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:calc(60vh - 56px);background:#F2F4F6;}
+  .mw-hero{padding:16px 24px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:calc(60vh - 56px);background:transparent;}
   @keyframes mwFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-6px) rotate(-3deg);}}
 
   .mw-searchbar{width:100%;max-width:340px;display:flex;align-items:center;gap:6px;padding:5px 5px 5px 18px;background:#fff;border:2px solid var(--brand);border-radius:999px;box-shadow:0 4px 18px rgba(0,194,116,0.14),0 1px 3px rgba(0,194,116,0.08);transition:all .18s;cursor:text;margin:0 auto;}
@@ -4058,11 +4058,11 @@
   .mw-float-mic svg{width:15px;height:15px;}
 
   /* Content section — 통합 화이트 플로어 (gray hero 아래로 rounded-top white) */
-  .mw-updates{margin:12px 14px 14px;padding:16px 16px 12px;background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(15,25,40,0.04);}
-  .mw-updates-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px;}
+  .mw-updates{margin:12px 14px 18px;padding:14px 16px 14px;background:#fff;border-radius:16px;box-shadow:0 2px 10px rgba(15,25,40,0.06),0 1px 2px rgba(15,25,40,0.04);}
+  .mw-updates-hd{display:none;}
   .mw-updates-ti{font-size:15px;font-weight:700;color:var(--tx);letter-spacing:-.3px;margin:0;display:flex;align-items:center;gap:6px;}
   .mw-updates-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;background:var(--brand);color:#fff;border-radius:var(--rfull);font-size:10.5px;font-weight:800;letter-spacing:-.1px;}
-  .mw-updates-list{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 6px;}
+  .mw-updates-list{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px;}
   .mw-updates-list::-webkit-scrollbar{display:none;}
   .mw-update-card{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;background:#F9FAFB;border:1px solid transparent;border-radius:999px;cursor:pointer;transition:background .15s, transform .12s;text-align:left;font-family:var(--font);width:auto;white-space:nowrap;}
   .mw-update-card:hover{background:#F2F4F6;}
@@ -4084,7 +4084,7 @@
   .mw-update-dday{color:#EF4444;background:rgba(239,68,68,0.12);font-weight:800;padding:3px 8px;border-radius:999px;font-size:10.5px;line-height:1;letter-spacing:-.1px;flex-shrink:0;margin-left:4px;display:inline-flex;align-items:center;justify-content:center;}
   .mw-update-card.urgent .mw-update-dday{background:#EF4444;color:#fff;}
 
-  .mw-section{margin:0;padding:22px 20px 100px;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -2px 8px rgba(15,25,40,0.04);}
+  .mw-section{margin:0;padding:22px 20px 100px;background:#fff;border-radius:20px 20px 0 0;flex:1;}
   .mw-section-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;gap:12px;}
   .mw-section-ti{display:flex;flex-direction:column;gap:2px;}
   .mw-section-ti h2{font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.4px;margin:0;}
