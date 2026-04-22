@@ -3709,9 +3709,8 @@
   .th3-follow-card.action:hover{border-color:var(--brand);box-shadow:0 2px 10px rgba(0,194,116,0.08);}
 
   .th3-follow-top{display:flex;align-items:center;gap:10px;}
-  .th3-follow-logo{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #EEF0F3;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;padding:4px;box-sizing:border-box;}
+  .th3-follow-logo{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #EEF0F3;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:4px;box-sizing:border-box;}
   .th3-follow-logo img{width:100%;height:100%;object-fit:contain;display:block;}
-  .th3-follow-logo::after{content:'';position:absolute;top:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:#FF5A5F;border:2px solid #fff;z-index:2;}
   .th3-follow-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
   .th3-follow-co{font-size:14px;font-weight:700;color:var(--tx);letter-spacing:-.2px;line-height:1.25;}
   .th3-follow-sub{font-size:11.5px;color:var(--tx3);font-weight:500;letter-spacing:-.1px;line-height:1.3;}
@@ -4060,16 +4059,16 @@
   .mw-float-mic svg{width:15px;height:15px;}
 
   /* Content section — 통합 화이트 플로어 (gray hero 아래로 rounded-top white) */
-  .mw-updates{margin:12px 14px 18px;padding:14px 16px 14px;background:#fff;border-radius:16px;box-shadow:0 2px 10px rgba(15,25,40,0.06),0 1px 2px rgba(15,25,40,0.04);}
+  .mw-updates{margin:12px 0 18px;padding:0;background:transparent;}
   .mw-updates-hd{display:none;}
   .mw-updates-ti{font-size:15px;font-weight:700;color:var(--tx);letter-spacing:-.3px;margin:0;display:flex;align-items:center;gap:6px;}
   .mw-updates-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 6px;background:var(--brand);color:#fff;border-radius:var(--rfull);font-size:10.5px;font-weight:800;letter-spacing:-.1px;}
-  .mw-updates-list{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px;}
+  .mw-updates-list{display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:6px 14px 10px;}
   .mw-updates-list::-webkit-scrollbar{display:none;}
-  .mw-update-card{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;background:#F9FAFB;border:1px solid transparent;border-radius:999px;cursor:pointer;transition:background .15s, transform .12s;text-align:left;font-family:var(--font);width:auto;white-space:nowrap;}
-  .mw-update-card:hover{background:#F2F4F6;}
+  .mw-update-card{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;background:#fff;border:1px solid transparent;border-radius:999px;cursor:pointer;transition:background .15s, transform .12s, box-shadow .15s;text-align:left;font-family:var(--font);width:auto;white-space:nowrap;box-shadow:0 2px 8px rgba(15,25,40,0.08),0 1px 2px rgba(15,25,40,0.04);}
+  .mw-update-card:hover{background:#FAFBFC;box-shadow:0 4px 12px rgba(15,25,40,0.10),0 1px 2px rgba(15,25,40,0.04);}
   .mw-update-card:active{transform:scale(0.98);}
-  .mw-update-card.urgent{background:#FFF0F0;}
+  .mw-update-card.urgent{background:#FFF5F5;}
   .mw-update-card.urgent:hover{background:#FEECEC;}
   .mw-update-logo{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #EEF0F3;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;padding:3px;box-sizing:border-box;}
   .mw-update-logo img{width:100%;height:100%;object-fit:contain;display:block;}
@@ -5038,9 +5037,9 @@
     follow: function(){
       var items = [
         {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_1.svg',co:'카카오',sub:'내 전직장',cardType:'action',badgeLabel:'내 직무 <strong>3건</strong> 채용중',btnLabel:'채용 공고 보기',dest:'job'},
-        {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg',co:'토스',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 <strong>2건</strong> 채용중',btnLabel:'마감 임박 공고 보기',dest:'job'},
-        {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_12.svg',co:'네이버',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 <strong>1건</strong> 채용중',btnLabel:'신규 공고 보기',dest:'job'},
-        {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_9.svg',co:'당근',sub:'팔로우 중',cardType:'info',badgeLabel:'관심 업데이트',btnLabel:'새 연봉 리뷰 보기',dest:'review'}
+        {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg',co:'토스',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 <strong>2건</strong> 채용중',btnLabel:'채용 공고 보기',dest:'job'},
+        {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_12.svg',co:'네이버',sub:'팔로우 중',cardType:'action',badgeLabel:'내 직무 <strong>1건</strong> 채용중',btnLabel:'채용 공고 보기',dest:'job'},
+        {logoImg:'https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_9.svg',co:'당근',sub:'팔로우 중',cardType:'info',badgeLabel:'관심 업데이트',btnLabel:'채용 공고 보기',dest:'review'}
       ];
       return '<div class="th3-follow-grid">'+items.map(function(it){
         return '<div class="th3-follow-card '+it.cardType+'">'+
