@@ -4011,7 +4011,10 @@
   #mobile-home{display:none;}
   body.mobile-mode #mobile-home{display:block !important;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#fff;overflow-y:auto;overflow-x:hidden;}
 
-  .mw-container{width:400px;margin:0 auto;background:#F2F4F6;min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);display:flex;flex-direction:column;}
+  .mw-container{width:400px;margin:0 auto;background:linear-gradient(180deg,#E6FBF1 0%,#F0FBF6 22%,#F2F4F6 44%,#F2F4F6 100%);min-height:100vh;padding-bottom:84px;position:relative;font-family:var(--font);display:flex;flex-direction:column;}
+  .mw-container::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(76,196,240,0.22),rgba(76,196,240,0) 70%);filter:blur(4px);pointer-events:none;z-index:0;}
+  .mw-container::after{content:'';position:absolute;top:120px;left:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,116,0.18),rgba(0,194,116,0) 70%);filter:blur(6px);pointer-events:none;z-index:0;}
+  .mw-container > *{position:relative;z-index:1;}
   .mw-header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 4px;background:transparent;}
   .mw-icon-btn{width:40px;height:40px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--tx);border-radius:10px;transition:background .15s;}
   .mw-icon-btn:hover{background:#F9FAFB;}
@@ -4025,14 +4028,14 @@
   .mw-hero{padding:16px 24px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:calc(60vh - 56px);background:transparent;}
   @keyframes mwFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-6px) rotate(-3deg);}}
 
-  .mw-searchbar{width:100%;max-width:340px;display:flex;align-items:center;gap:6px;padding:5px 5px 5px 18px;background:#fff;border:2px solid var(--brand);border-radius:999px;box-shadow:0 4px 18px rgba(0,194,116,0.14),0 1px 3px rgba(0,194,116,0.08);transition:all .18s;cursor:text;margin:0 auto;}
-  .mw-searchbar:hover{box-shadow:0 6px 22px rgba(0,194,116,0.2),0 1px 3px rgba(0,194,116,0.1);}
-  .mw-searchbar:focus-within{border-color:var(--brand-dk);}
+  .mw-searchbar{width:100%;max-width:340px;display:flex;align-items:center;gap:6px;padding:5px 5px 5px 18px;border:2px solid transparent;border-radius:999px;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#00C362 0%,#4CC4F0 55%,#8B6FFF 100%) border-box;box-shadow:0 6px 22px rgba(0,194,116,0.18),0 2px 6px rgba(76,196,240,0.10);transition:all .18s;cursor:text;margin:0 auto;}
+  .mw-searchbar:hover{box-shadow:0 8px 26px rgba(0,194,116,0.24),0 2px 8px rgba(76,196,240,0.14);}
+  .mw-searchbar:focus-within{box-shadow:0 10px 30px rgba(0,194,116,0.28),0 3px 10px rgba(76,196,240,0.16);}
   .mw-searchbar-ic{width:18px;height:18px;color:var(--brand);flex-shrink:0;}
   .mw-searchbar input{flex:1;border:none;outline:none;font-size:14.5px;color:var(--tx);background:none;font-family:var(--font);height:46px;font-weight:700;padding:0;min-width:0;letter-spacing:-.3px;}
   .mw-searchbar input::placeholder{color:var(--tx3);font-weight:600;}
-  .mw-searchbar-submit{width:46px;height:46px;border-radius:50%;background:var(--brand);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s, transform .15s;box-shadow:0 2px 6px rgba(0,194,116,0.3);}
-  .mw-searchbar-submit:hover{background:var(--brand-dk);transform:scale(1.06);}
+  .mw-searchbar-submit{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#00D475 0%,#00A9A4 70%,#2BB5E8 100%);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:filter .15s, transform .15s;box-shadow:0 4px 12px rgba(0,194,116,0.32),0 1px 2px rgba(43,181,232,0.18);}
+  .mw-searchbar-submit:hover{filter:brightness(1.06);transform:scale(1.06);}
   .mw-searchbar-submit svg{width:15px;height:15px;}
   .mw-mic-btn{width:40px;height:40px;border-radius:50%;background:var(--brand-lt);border:none;color:var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
   .mw-mic-btn:hover{background:#BDF0D6;}
@@ -4345,12 +4348,12 @@
   .hb-quick-section{margin:14px 16px 0;padding:0;background:transparent;box-shadow:none;}
   .hb-quick-more{font-size:12px;font-weight:700;color:#8B93A1;background:none;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:2px;letter-spacing:-.1px;}
   .hb-quick-more svg{width:11px;height:11px;}
-  .hb-quick-menu{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-  .hb-quick{display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;border:none;cursor:pointer;padding:0;font-family:inherit;transition:transform .15s;}
+  .hb-quick-menu{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;justify-items:center;}
+  .hb-quick{display:flex;flex-direction:column;align-items:center;gap:8px;background:transparent;border:none;cursor:pointer;padding:0;font-family:inherit;transition:transform .15s;}
   .hb-quick:hover .hb-quick-box{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,25,40,0.05),0 8px 22px rgba(15,25,40,0.06);}
-  .hb-quick-box{position:relative;width:100%;aspect-ratio:1/1;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 4px 14px rgba(15,25,40,0.04);transition:transform .15s, box-shadow .15s;}
-  .hb-quick-ic{width:36px;height:36px;display:flex;align-items:center;justify-content:center;}
-  .hb-quick-ic img{width:30px;height:30px;}
+  .hb-quick-box{position:relative;width:64px;height:64px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(15,25,40,0.04),0 4px 14px rgba(15,25,40,0.04);transition:transform .15s, box-shadow .15s;}
+  .hb-quick-ic{width:28px;height:28px;display:flex;align-items:center;justify-content:center;}
+  .hb-quick-ic img{max-width:24px;max-height:24px;width:auto;height:auto;object-fit:contain;}
   .hb-quick-label{font-size:11.5px;font-weight:700;color:#4E5968;text-align:center;letter-spacing:-.2px;line-height:1.35;}
   .hb-quick-badge{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;font-size:9.5px;font-weight:800;color:#fff;background:#EF4444;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;letter-spacing:-.1px;z-index:2;}
   .hb-quick-badge.brand{background:#00c362;}
@@ -4365,7 +4368,8 @@
   .hb-trend-item:hover{background:#F7F8FA;}
   .hb-trend-rank{width:18px;font-size:14px;font-weight:900;color:#00A362;letter-spacing:-.3px;flex-shrink:0;text-align:center;}
   .hb-trend-rank.gray{color:#AFB5BE;}
-  .hb-trend-logo{width:28px;height:28px;border-radius:8px;background:#F4F6F8;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#4E5968;flex-shrink:0;letter-spacing:-.2px;}
+  .hb-trend-logo{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #EEF0F3;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#4E5968;flex-shrink:0;letter-spacing:-.2px;overflow:hidden;padding:3px;box-sizing:border-box;}
+  .hb-trend-logo img{width:100%;height:100%;object-fit:contain;display:block;}
   .hb-trend-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
   .hb-trend-co{font-size:13.5px;font-weight:700;color:#191F28;letter-spacing:-.2px;line-height:1.3;}
   .hb-trend-meta{font-size:11px;color:#8B93A1;font-weight:600;letter-spacing:-.1px;}
@@ -4506,13 +4510,13 @@
 
   <section class="hb-trend">
     <div class="hb-trend-hd">
-      <span class="hb-trend-ti"><img src="emoji-fire.svg" alt="">이번 주 뜨는 기업</span>
+      <span class="hb-trend-ti"><img src="emoji-fire.svg" alt="">이번 주 핫한 기업</span>
       <button type="button" class="hb-quick-more" onclick="closeHomeB();if(typeof go==='function'){go('review');}">전체<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
     <div class="hb-trend-list">
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank">1</span>
-        <span class="hb-trend-logo">토</span>
+        <span class="hb-trend-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_18.svg" alt=""></span>
         <span class="hb-trend-body">
           <span class="hb-trend-co">토스</span>
           <span class="hb-trend-meta">리뷰 1,284 · ⭐ 4.3</span>
@@ -4521,7 +4525,7 @@
       </button>
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank">2</span>
-        <span class="hb-trend-logo">당</span>
+        <span class="hb-trend-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_9.svg" alt=""></span>
         <span class="hb-trend-body">
           <span class="hb-trend-co">당근</span>
           <span class="hb-trend-meta">리뷰 612 · ⭐ 4.1</span>
@@ -4530,12 +4534,30 @@
       </button>
       <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
         <span class="hb-trend-rank gray">3</span>
-        <span class="hb-trend-logo">네</span>
+        <span class="hb-trend-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_12.svg" alt=""></span>
         <span class="hb-trend-body">
           <span class="hb-trend-co">네이버</span>
           <span class="hb-trend-meta">리뷰 3,402 · ⭐ 3.9</span>
         </span>
         <span class="hb-trend-delta down">▼ 42</span>
+      </button>
+      <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+        <span class="hb-trend-rank gray">4</span>
+        <span class="hb-trend-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_1.svg" alt=""></span>
+        <span class="hb-trend-body">
+          <span class="hb-trend-co">카카오</span>
+          <span class="hb-trend-meta">리뷰 2,891 · ⭐ 4.0</span>
+        </span>
+        <span class="hb-trend-delta">▲ 96</span>
+      </button>
+      <button type="button" class="hb-trend-item" onclick="closeHomeB();if(typeof go==='function'){go('review');}">
+        <span class="hb-trend-rank gray">5</span>
+        <span class="hb-trend-logo"><img src="https://jelin-cc.github.io/jobplanet-ut/D-sample_logo_5.svg" alt=""></span>
+        <span class="hb-trend-body">
+          <span class="hb-trend-co">쿠팡</span>
+          <span class="hb-trend-meta">리뷰 4,120 · ⭐ 3.7</span>
+        </span>
+        <span class="hb-trend-delta">▲ 54</span>
       </button>
     </div>
   </section>
@@ -5053,7 +5075,7 @@
           '</div>'+
           '<span class="th3-follow-badge '+it.cardType+'">'+
             (it.cardType==='action'
-              ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4h8a2 2 0 012 2v1h3a1 1 0 011 1v2.5a1 1 0 01-.68.95L14 13.4V13a1 1 0 10-2 0v.4l-7.32-1.95A1 1 0 014 10.5V8a1 1 0 011-1h3V6a2 2 0 012-2h-2zm2 2v1h4V6h-4zM4 13.5V18a2 2 0 002 2h12a2 2 0 002-2v-4.5l-6 1.6V16a1 1 0 11-2 0v-.9l-6-1.6z"/></svg>'
+              ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>'
               : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a6 6 0 00-6 6v3.26L4.3 15.14A1 1 0 005.18 16.5h13.64a1 1 0 00.88-1.36L18 11.26V8a6 6 0 00-6-6zm-2.5 16a2.5 2.5 0 005 0h-5z"/></svg>')+
             it.badgeLabel+
           '</span>'+
