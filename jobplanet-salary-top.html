@@ -115,6 +115,16 @@
   .stack{display:flex;flex-direction:column;gap:16px;}
   .sec-gap{margin-top:16px;}
 
+  /* 리뷰로 찾는 채용 공고 (photo cards) */
+  .next-sec{margin-top:32px;}
+  .stack2{display:flex;flex-direction:column;gap:16px;}
+  .pcard{border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);overflow:hidden;background:#fff;}
+  .pcard-img{height:142px;background-size:cover;background-position:center;background-color:#dfe3ea;padding:16px;}
+  .pcard-tag{display:inline-flex;align-items:center;background:rgba(0,0,0,.8);color:#fff;font-size:13px;font-weight:600;line-height:20px;padding:4px 12px;border-radius:999px;}
+  .pcard-body{padding:20px 20px 32px;}
+  .pcard-t{font-size:18px;font-weight:700;color:var(--g900);line-height:26px;}
+  .pcard-s{font-size:15px;font-weight:400;color:var(--g400);line-height:24px;margin-top:2px;}
+
   /* STATUS BAR */
   .statusbar{position:absolute;top:0;left:0;width:100%;height:44px;z-index:40;background:var(--status);display:flex;align-items:center;justify-content:space-between;padding:0 21px 0 27px;will-change:background;}
   .sb-time{font-size:15px;font-weight:600;color:#000;letter-spacing:.2px;margin-top:-2px;}
@@ -271,6 +281,29 @@
             <div class="rc-foot">
               <div class="divider"></div>
               <div class="rc-company"><span class="logo-box"><span style="color:#03C75A;font-size:7px">NAVER</span></span><span class="rc-name">네이버</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 32px 여백 후 리뷰로 찾는 채용 공고 -->
+        <div class="next-sec">
+          <div class="sec-head"><div class="sec-title">리뷰로 찾는 채용 공고</div></div>
+          <div class="stack2">
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">최고의 보상</span></div>
+              <div class="pcard-body"><div class="pcard-t">성과만큼 챙겨주는 곳</div><div class="pcard-s">복리후생부터 보너스까지 든든하게</div></div>
+            </div>
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">유연한 일터</span></div>
+              <div class="pcard-body"><div class="pcard-t">자율적으로 일하는 곳</div><div class="pcard-s">젊고 자유로운 사내문화</div></div>
+            </div>
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">탄탄한 규모</span></div>
+              <div class="pcard-body"><div class="pcard-t">한 번쯤 다녀보고 싶은 곳</div><div class="pcard-s">안정적인 비즈니스 기반</div></div>
+            </div>
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">믿고보는 동료</span></div>
+              <div class="pcard-body"><div class="pcard-t">함께하고 싶은 사람들이 모인 곳</div><div class="pcard-s">스마트한 동료, 수평한 관계</div></div>
             </div>
           </div>
         </div>
