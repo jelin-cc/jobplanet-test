@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Jobplanet · #연봉 언급 TOP 회사</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --brand:#00C274;
+    --g900:#242628; --g800:#323438; --g700:#4B4C50; --g600:#57595B; --g500:#686A6D;
+    --g400:#85878C; --g300:#A4A6AD; --g100:#E5E6E9; --g50:#F3F3F4;
+    --orange:#FF9800; --orange50:#FFF3E0;
+    --red:#EF5350; --red30:#FFF7F7;
+    --status:#E0FAEC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{font-family:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,sans-serif;background:#e9ebef;display:flex;align-items:center;justify-content:center;min-height:100vh;color:var(--g900);}
+
+  .phone{position:relative;width:393px;height:852px;background:#fff;overflow:hidden;border-radius:44px;box-shadow:0 24px 70px rgba(0,0,0,.30);}
+  .scroll{position:relative;width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-top:44px;background:#F9F9FB;}
+  .scroll::-webkit-scrollbar{display:none;}
+  .scroll{scrollbar-width:none;}
+
+  /* HERO */
+  .hero{position:relative;padding-bottom:24px;background:linear-gradient(180deg, rgba(214,248,231,.85) 0%, rgba(255,255,255,.55) 70%, #F9F9FB 100%);}
+  .navbar{display:flex;align-items:center;justify-content:flex-end;padding:8px 10px 8px 16px;will-change:opacity;}
+  .navbar .ico{padding:8px;display:flex;cursor:pointer;}
+  .hero-body{display:flex;flex-direction:column;align-items:center;padding:14px 28px 0;}
+  .logo{font-size:34px;font-weight:800;letter-spacing:-1px;color:var(--brand);line-height:1;margin-bottom:24px;}
+  .search-big{width:100%;height:56px;background:#fff;border-radius:999px;outline:2px solid var(--brand);outline-offset:-2px;box-shadow:0 0 24px rgba(184,235,208,.5);display:flex;align-items:center;gap:4px;padding:0 12px 0 24px;will-change:opacity;}
+  .search-big .ph{flex:1;font-size:15px;color:var(--g400);font-weight:400;}
+  .search-big .sbtn{width:32px;height:32px;border-radius:20px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;flex:none;}
+
+  .rank{width:254px;margin:20px auto 0;display:flex;align-items:center;gap:8px;}
+  .rank-main{flex:1;display:flex;align-items:center;justify-content:space-between;}
+  .rank-l{display:flex;align-items:center;gap:8px;}
+  .rank-num{color:var(--brand);font-size:14px;font-weight:600;line-height:22px;}
+  .rank-name{color:#000;font-size:14px;font-weight:600;line-height:22px;}
+  .badge-hot{background:var(--orange50);color:var(--orange);font-size:11px;font-weight:600;line-height:16px;padding:2px 6px;border-radius:4px;}
+  .rank-r{display:flex;align-items:center;gap:2px;}
+  .rank-up{color:var(--red);font-size:13px;font-weight:600;line-height:20px;}
+  .rank-toggle{width:24px;height:24px;border-radius:6px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;flex:none;}
+
+  .quick{display:flex;justify-content:center;gap:16px;margin-top:60px;}
+  .quick-item{width:72px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;}
+  .quick-ico{width:60px;height:60px;border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;}
+  .quick-label{font-size:13px;font-weight:600;color:var(--g800);line-height:20px;text-align:center;white-space:nowrap;}
+
+  .banner{margin:32px 24px 0;background:var(--red30);border-radius:999px;box-shadow:0 4px 16px rgba(0,0,0,.08);padding:12px 14px;display:flex;align-items:center;gap:4px;}
+  .banner-l{flex:1;display:flex;align-items:center;gap:4px;min-width:0;}
+  .toss-logo{width:28px;height:28px;border-radius:6px;background:#fff;border:1px solid var(--g100);display:flex;align-items:center;justify-content:center;flex:none;}
+  .toss-logo span{color:#3182F6;font-size:9px;font-weight:800;letter-spacing:-.3px;}
+  .banner-name{color:var(--g800);font-size:14px;font-weight:600;line-height:22px;flex:none;}
+  .banner-dot{color:var(--g300);font-size:12px;font-weight:600;}
+  .banner-msg{color:var(--red);font-size:12px;font-weight:600;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+  /* sheet */
+  .sheet{margin-top:20px;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 16px rgba(0,0,0,.08);padding:24px 20px 130px;}
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:16px;}
+  .sec-title-wrap{flex:1;display:flex;align-items:center;gap:4px;min-width:0;}
+  .sec-title{font-size:18px;font-weight:700;color:var(--g900);line-height:26px;}
+  .sec-title .hl{color:var(--orange);}
+  .sec-more{display:flex;align-items:center;gap:4px;color:var(--g400);font-size:13px;font-weight:600;line-height:20px;flex:none;}
+
+  /* ===== morphing simple cards (2단 ↔ 1단) ===== */
+  .morph{position:relative;width:353px;--p:0;}
+  .mcard{position:absolute;top:0;left:0;will-change:transform,width;}
+  .scard{background:linear-gradient(180deg,#FFF3E0 0%,#fff 100%);border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.08);padding:20px;display:flex;flex-direction:column;gap:16px;}
+  .sc-head{display:flex;align-items:center;gap:8px;min-width:0;}
+  .logo-lg{width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid var(--g100);display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden;}
+  .logo-lg span{font-weight:800;letter-spacing:-.3px;}
+  .sc-name-wrap{display:flex;flex-direction:column;justify-content:center;min-width:0;}
+  .sc-name{color:var(--g800);font-size:14px;font-weight:600;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sc-sub{color:var(--g500);font-size:12px;font-weight:500;line-height:18px;}
+  .sc-btn{width:100%;background:#fff;border:1px solid var(--g100);border-radius:8px;padding:17px;display:flex;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--g700);font-size:12px;font-weight:600;line-height:18px;}
+
+  .stack{display:flex;flex-direction:column;gap:16px;margin-top:16px;}
+
+  /* 지금 뜨는 회사 리뷰 (photo cards) */
+  .next-sec{margin-top:32px;}
+  .stack2{display:flex;flex-direction:column;gap:16px;}
+  .pcard{border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);overflow:hidden;background:#fff;}
+  .pcard-img{height:142px;background-size:cover;background-position:center;background-color:#dfe3ea;padding:16px;}
+  .pcard-tag{display:inline-flex;align-items:center;background:rgba(0,0,0,.8);color:#fff;font-size:13px;font-weight:600;line-height:20px;padding:4px 12px;border-radius:999px;}
+  .pcard-body{padding:20px 20px 32px;}
+  .pcard-t{font-size:18px;font-weight:700;color:var(--g900);line-height:26px;}
+  .pcard-s{font-size:15px;font-weight:400;color:var(--g400);line-height:24px;margin-top:2px;}
+
+  /* STATUS BAR */
+  .statusbar{position:absolute;top:0;left:0;width:100%;height:44px;z-index:40;background:var(--status);display:flex;align-items:center;justify-content:space-between;padding:0 21px 0 27px;will-change:background;}
+  .sb-time{font-size:15px;font-weight:600;color:#000;letter-spacing:.2px;margin-top:-2px;}
+  .sb-r{display:flex;align-items:center;gap:6px;}
+
+  /* STICKY collapsed header */
+  .sticky{position:absolute;top:44px;left:0;width:100%;z-index:35;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08);height:56px;display:flex;align-items:center;gap:4px;padding:0 10px 0 16px;opacity:0;transform:translateY(-8px);pointer-events:none;will-change:opacity,transform;}
+  .sticky .search-sm{flex:1;height:44px;background:#fff;border-radius:999px;outline:2px solid var(--brand);outline-offset:-2px;display:flex;align-items:center;gap:4px;padding:0 12px 0 24px;}
+  .sticky .search-sm .ph{flex:1;font-size:15px;color:var(--g400);font-weight:400;}
+  .sticky .search-sm .sbtn{width:32px;height:32px;border-radius:20px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;flex:none;}
+  .sticky .ico{padding:8px;display:flex;}
+
+  /* TAB BAR */
+  .tabbar{position:absolute;left:0;bottom:0;width:100%;z-index:45;background:#fff;border-top:1px solid var(--g100);padding-bottom:22px;}
+  .tabs{display:flex;}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 0 9px;cursor:pointer;}
+  .tab span{font-size:11px;font-weight:500;line-height:16px;color:var(--g300);}
+  .tab.active span{color:var(--g900);}
+  .home-ind{position:absolute;left:50%;transform:translateX(-50%);bottom:8px;width:140px;height:5px;border-radius:10px;background:#1A1A1E;}
+</style>
+</head>
+<body>
+  <div class="phone">
+
+    <div class="scroll" id="scroll">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="navbar" id="navbar">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#323438" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#323438" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></div>
+        </div>
+        <div class="hero-body">
+          <div class="logo">Jobplanet</div>
+          <div class="search-big" id="searchBig">
+            <div class="ph">어떤 회사가 궁금하세요?</div>
+            <div class="sbtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#85878C" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          </div>
+          <div class="rank">
+            <div class="rank-main">
+              <div class="rank-l"><span class="rank-num">3</span><span class="rank-name">무신사</span><span class="badge-hot">HOT</span></div>
+              <div class="rank-r"><span class="rank-up">2</span><svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 3.26 8.75 7.5h-5.5z" fill="#EF5350"/></svg></div>
+            </div>
+            <div class="rank-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+          </div>
+        </div>
+        <div class="quick">
+          <div class="quick-item">
+            <div class="quick-ico"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M3 13a9 9 0 0 1 9-9h2a9 9 0 0 1 0 18h-4l-4 3v-3.5A9 9 0 0 1 3 13z" fill="#3FEAAA"/><circle cx="9.5" cy="11" r="1.3" fill="#222"/><circle cx="14" cy="11" r="1.3" fill="#222"/><path d="M18 18a8 8 0 0 1 8-8 8 8 0 0 1 0 16h-1l-4 3v-3.2A8 8 0 0 1 18 18z" fill="#FFCD5C"/><circle cx="23" cy="18" r="1.2" fill="#222"/><circle cx="27" cy="18.5" r="1.2" fill="#222"/><path d="M22.5 22.5q2 1.5 4 0" stroke="#222" stroke-width="1" stroke-linecap="round"/></svg></div>
+            <div class="quick-label">커뮤니티</div>
+          </div>
+          <div class="quick-item">
+            <div class="quick-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="3" width="19" height="23" rx="3" fill="#A9C7FF"/><rect x="9" y="8" width="19" height="23" rx="3" fill="#9AA4FF"/><rect x="13" y="13" width="6" height="2" rx="1" fill="#fff"/><rect x="13" y="18" width="11.5" height="2" rx="1" fill="#fff"/><rect x="13" y="23" width="11.5" height="2" rx="1" fill="#fff"/></svg></div>
+            <div class="quick-label">지원현황</div>
+          </div>
+          <div class="quick-item">
+            <div class="quick-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M3 9a3 3 0 0 1 3-3h6l3 3h9a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" fill="#FFC35F"/><path d="M5 13h22a2 2 0 0 1 2 2.3l-1.6 9A3 3 0 0 1 24.4 27H7.6A3 3 0 0 1 4.6 24.3L3 15.3A2 2 0 0 1 5 13z" fill="#FFD15C"/></svg></div>
+            <div class="quick-label">이력서 관리</div>
+          </div>
+          <div class="quick-item">
+            <div class="quick-ico"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M11 7h10l-1.5 4h-7z" fill="#FFC300"/><path d="M16 9c6 0 11 5 11 11s-5 9-11 9-11-3-11-9S10 9 16 9z" fill="#FFD445"/><text x="16" y="23" font-size="11" font-weight="800" fill="#C98A00" text-anchor="middle" font-family="Pretendard,sans-serif">₩</text></svg></div>
+            <div class="quick-label">실연봉 비교</div>
+          </div>
+        </div>
+        <div class="banner">
+          <div class="banner-l">
+            <div class="toss-logo"><span>toss</span></div>
+            <span class="banner-name">비바퍼블리카</span>
+            <span class="banner-dot">·</span>
+            <span class="banner-msg">내 직무 공고 2건 마감 임박</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85878C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </div>
+      </div>
+
+      <!-- WHITE SHEET -->
+      <div class="sheet">
+        <!-- #연봉 언급 TOP 회사 -->
+        <div class="sec-head">
+          <div class="sec-title-wrap">
+            <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><path d="M11 7h10l-1.5 4h-7z" fill="#FFC300"/><path d="M16 9c6 0 11 5 11 11s-5 9-11 9-11-3-11-9S10 9 16 9z" fill="#FFD445"/><text x="16" y="23" font-size="11" font-weight="800" fill="#C98A00" text-anchor="middle" font-family="Pretendard,sans-serif">₩</text></svg>
+            <div class="sec-title"><span class="hl">#연봉</span> 언급 TOP 회사</div>
+          </div>
+          <div class="sec-more">전체보기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85878C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+          </div>
+        </div>
+
+        <!-- 모핑되는 심플 카드 2개 -->
+        <div class="morph" id="morph">
+          <div class="scard mcard" id="cardA">
+            <div class="sc-head">
+              <div class="logo-lg"><span style="color:#3182F6;font-size:11px">toss</span></div>
+              <div class="sc-name-wrap"><div class="sc-name">비바퍼블리카</div></div>
+            </div>
+            <button class="sc-btn">자세히 보기
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+          </div>
+          <div class="scard mcard" id="cardB">
+            <div class="sc-head">
+              <div class="logo-lg"><span style="color:#FF6F0F;font-size:11px">당근</span></div>
+              <div class="sc-name-wrap"><div class="sc-name">당근</div></div>
+            </div>
+            <button class="sc-btn">자세히 보기
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 스크롤 후 이어지는 풀폭 카드 -->
+        <div class="stack">
+          <div class="scard">
+            <div class="sc-head">
+              <div class="logo-lg"><span style="color:#EC008C;font-size:9px">yanolja</span></div>
+              <div class="sc-name-wrap"><div class="sc-name">(주)야놀자</div></div>
+            </div>
+            <button class="sc-btn">자세히 보기
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 32px 여백 후 지금 뜨는 회사 리뷰 -->
+        <div class="next-sec">
+          <div class="sec-head"><div class="sec-title">리뷰로 찾는 채용 공고</div></div>
+          <div class="stack2">
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">최고의 보상</span></div>
+              <div class="pcard-body"><div class="pcard-t">성과만큼 챙겨주는 곳</div><div class="pcard-s">복리후생부터 보너스까지 든든하게</div></div>
+            </div>
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">유연한 일터</span></div>
+              <div class="pcard-body"><div class="pcard-t">자율적으로 일하는 곳</div><div class="pcard-s">젊고 자유로운 사내문화</div></div>
+            </div>
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">탄탄한 규모</span></div>
+              <div class="pcard-body"><div class="pcard-t">한 번쯤 다녀보고 싶은 곳</div><div class="pcard-s">안정적인 비즈니스 기반</div></div>
+            </div>
+            <div class="pcard">
+              <div class="pcard-img" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=760&q=80&auto=format&fit=crop')"><span class="pcard-tag">믿고보는 동료</span></div>
+              <div class="pcard-body"><div class="pcard-t">함께하고 싶은 사람들이 모인 곳</div><div class="pcard-s">스마트한 동료, 수평한 관계</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="statusbar" id="statusbar">
+      <div class="sb-time">9:41</div>
+      <div class="sb-r">
+        <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#000"/><rect x="4.5" y="6" width="3" height="6" rx="1" fill="#000"/><rect x="9" y="3.5" width="3" height="8.5" rx="1" fill="#000"/><rect x="13.5" y="1" width="3" height="11" rx="1" fill="#000"/></svg>
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M8.5 11l-.01 0" stroke="#000" stroke-width="2" stroke-linecap="round"/><path d="M5 8a5 5 0 0 1 7 0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M2.3 5.4a9 9 0 0 1 12.4 0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x="1" y="1" width="22" height="11" rx="3" stroke="#000" stroke-opacity=".45" stroke-width="1"/><rect x="2.5" y="2.5" width="19" height="8" rx="1.5" fill="#000"/><rect x="24" y="4.5" width="1.6" height="4" rx="1" fill="#000" fill-opacity=".5"/></svg>
+      </div>
+    </div>
+
+    <!-- STICKY collapsed header -->
+    <div class="sticky" id="sticky">
+      <div class="search-sm">
+        <div class="ph">어떤 회사가 궁금하세요?</div>
+        <div class="sbtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#85878C" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      </div>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#686A6D" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></div>
+    </div>
+
+    <!-- TAB BAR -->
+    <div class="tabbar">
+      <div class="tabs">
+        <div class="tab active"><svg width="22" height="22" viewBox="0 0 24 24" fill="#242628"><path d="M12 3 3 10v10a1 1 0 0 0 1 1h5v-6h6v6h5a1 1 0 0 0 1-1V10z"/></svg><span>홈</span></div>
+        <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8"><rect x="8" y="3" width="13" height="13" rx="2.5"/><path d="M16 19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9"/></svg><span>리뷰피드</span></div>
+        <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg><span>채용공고</span></div>
+        <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2.5"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg><span>콘텐츠</span></div>
+        <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>MY</span></div>
+      </div>
+      <div class="home-ind"></div>
+    </div>
+
+  </div>
+
+<script>
+  const scroll    = document.getElementById('scroll');
+  const sticky    = document.getElementById('sticky');
+  const statusbar = document.getElementById('statusbar');
+  const navbar    = document.getElementById('navbar');
+  const searchBig = document.getElementById('searchBig');
+  const morph     = document.getElementById('morph');
+  const cardA     = document.getElementById('cardA');
+  const cardB     = document.getElementById('cardB');
+
+  const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+  const lerp  = (a,b,t)=>a+(b-a)*t;
+
+  /* ===== 카드 모핑: 좌우 2단 ↔ 세로 1단(풀폭) ===== */
+  const GAP = 12;
+  let HALF = 170.5, FULL = 353;
+  function calcWidths(){ FULL = morph.clientWidth || 353; HALF = (FULL - GAP) / 2; }
+  function applyMorph(st){
+    const p = clamp(st / 300, 0, 1);
+    morph.style.setProperty('--p', p);
+    const w = HALF + (FULL - HALF) * p;
+    cardA.style.width = w + 'px';
+    cardB.style.width = w + 'px';
+    cardA.style.transform = 'translate(0px,0px)';
+    const Ah = cardA.offsetHeight;
+    const Bx = (1 - p) * (HALF + GAP);
+    const By = p * (Ah + GAP);
+    cardB.style.transform = `translate(${Bx}px, ${By}px)`;
+    const Bh = cardB.offsetHeight;
+    morph.style.height = Math.max(Ah, By + Bh) + 'px';
+  }
+
+  function onScroll(){
+    const st = scroll.scrollTop;
+    const top = searchBig.offsetTop;
+    const start = top - 90, end = top + 10;
+    const p = clamp((st - start) / (end - start), 0, 1);
+
+    sticky.style.opacity = p;
+    sticky.style.transform = `translateY(${lerp(-8,0,p)}px)`;
+    sticky.style.pointerEvents = p > 0.5 ? 'auto' : 'none';
+    navbar.style.opacity = clamp(1 - p*1.6, 0, 1);
+    searchBig.style.opacity = clamp(1 - (p-0.35)*1.8, 0, 1);
+
+    const r=Math.round(lerp(224,255,p)), g=Math.round(lerp(250,255,p)), b=Math.round(lerp(236,255,p));
+    statusbar.style.background = `rgb(${r},${g},${b})`;
+
+    applyMorph(st);
+  }
+  scroll.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', ()=>{ calcWidths(); onScroll(); });
+  calcWidths();
+  onScroll();
+</script>
+</body>
+</html>
