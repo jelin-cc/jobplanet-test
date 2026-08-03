@@ -288,9 +288,9 @@ ul,li{list-style:none}
   display:grid;grid-template-rows:0fr;
   transition:grid-template-rows var(--d-page) var(--ease-sheet);
 }
-.sheet[data-depth="job"] .selpanel{grid-template-rows:1fr}
+.sheet.has-panel .selpanel{grid-template-rows:1fr}
 .selpanel-in{overflow:hidden;min-height:0;opacity:0;transition:opacity .24s var(--ease-soft)}
-.sheet[data-depth="job"] .selpanel-in{opacity:1;transition-delay:.1s}
+.sheet.has-panel .selpanel-in{opacity:1;transition-delay:.1s}
 .sel-head{padding:12px 16px 4px;font-size:13px;font-weight:600;line-height:20px;color:var(--gray-900)}
 .sel-head .n{color:var(--green-500)}
 .chips{
@@ -484,7 +484,7 @@ ul,li{list-style:none}
 
       <h4>3. 선택한 직무 영역</h4>
       <ul>
-        <li>2뎁스에서만 노출. 1뎁스에서는 접힘(<code>grid-template-rows 0fr → 1fr</code>, 320ms)</li>
+        <li>2뎁스는 항상 노출, 1뎁스는 선택이 1개 이상일 때 노출. 접고 펴는 건 <code>grid-template-rows 0fr → 1fr</code>, 380ms</li>
         <li>칩 구조: [직군 칩(다크)] &gt; [직무 칩(화이트)] ... 직군 단위로 묶임</li>
         <li>직군 전체 선택 시에는 다크 칩 하나만 노출되고 화살표/직무 칩 없음</li>
         <li><b>정렬</b>: 가장 최근에 선택한 직무가 맨 앞. 해당 직군 그룹도 맨 앞으로 이동</li>
@@ -741,9 +741,13 @@ chipsEl.addEventListener('click', e=>{
 
 /* ============ 푸터 높이 ============ */
 // 시트 하단 오버레이 높이(패널 애니메이션 중에도 값이 튀지 않도록 계산값 사용)
+// 선택한 직무 패널 노출 조건: 2뎁스는 항상, 1뎁스는 선택이 있을 때
+function panelVisible(){ return depth==='job' || sel.length>0; }
 function syncFooter(){
+  const show = panelVisible();
+  sheet.classList.toggle('has-panel', show);
   const base = 80 + 32;                       // 버튼 영역 + 홈 인디케이터
-  const panel = depth==='job' ? 36 + (sel.length ? 82 : 8) : 0;
+  const panel = show ? 36 + (sel.length ? 82 : 8) : 0;
   document.documentElement.style.setProperty('--footer-h', (base+panel)+'px');
 }
 
@@ -751,8 +755,8 @@ function syncFooter(){
 function renderAll(){
   syncGroupPane();
   if(curGid) renderJobPane();
-  renderChips();
   syncFooter();
+  renderChips();
   syncBgChip();
 }
 
