@@ -433,7 +433,7 @@ ul,li{list-style:none}
     <div class="footer" id="footer">
       <div class="selpanel">
         <div class="selpanel-in">
-          <div class="sel-head">선택한 직군 <span class="n" id="selCount">0</span></div>
+          <div class="sel-head">선택한 직군·직무 <span class="n" id="selCount">0</span></div>
           <div class="chips empty" id="chips"></div>
         </div>
       </div>
@@ -479,10 +479,10 @@ ul,li{list-style:none}
         <li>2뎁스 "OO 전체"를 켜면 해당 직군의 개별 직무 체크가 모두 해제됨(그룹 단위 1개로 취급)</li>
         <li>개별 직무를 켜면 "OO 전체"는 자동 해제됨</li>
         <li>선택 0개가 되면 1뎁스 "전체"가 자동으로 체크됨</li>
-        <li>선택한 직군 카운트 = 직군별(전체 선택 시 1) + 개별 직무 수의 합</li>
+        <li>선택한 직군·직무 카운트 = 직군별(전체 선택 시 1) + 개별 직무 수의 합</li>
       </ul>
 
-      <h4>3. 선택한 직군 영역</h4>
+      <h4>3. 선택한 직군·직무 영역</h4>
       <ul>
         <li>2뎁스는 항상 노출, 1뎁스는 선택이 1개 이상일 때 노출. 접고 펴는 건 <code>grid-template-rows 0fr → 1fr</code>, 380ms</li>
         <li>칩 구조: [직군 칩(다크)] &gt; [직무 칩(화이트)] ... 직군 단위로 묶임</li>
@@ -592,7 +592,7 @@ function removeJob(gid, job){
   renderAll();
 }
 function resetAll(fromBar){
-  if(!sel.length){ if(!fromBar) toast('선택한 직군이 없습니다'); return; }
+  if(!sel.length){ if(!fromBar) toast('선택한 직군·직무가 없습니다'); return; }
   sel=[]; renderAll();
   if(fromBar) toast('필터를 초기화했습니다');
 }
@@ -741,7 +741,7 @@ chipsEl.addEventListener('click', e=>{
 
 /* ============ 푸터 높이 ============ */
 // 시트 하단 오버레이 높이(패널 애니메이션 중에도 값이 튀지 않도록 계산값 사용)
-// 선택한 직군 패널 노출 조건: 2뎁스는 항상, 1뎁스는 선택이 있을 때
+// 선택한 직군·직무 패널 노출 조건: 2뎁스는 항상, 1뎁스는 선택이 있을 때
 function panelVisible(){ return depth==='job' || sel.length>0; }
 function syncFooter(){
   const show = panelVisible();
