@@ -12,6 +12,14 @@
   --gray-900:#242628;
   --gray-800:#323438;
   --gray-600:#57595B;
+  --gray-500:#686A6D;
+  --green-600:#00A866;
+  --green-50:#E3F8ED;
+  --yellow-600:#D79304;
+  --yellow-50:#FAF9EC;
+  --red-400:#EF5350;
+  --jk-blue:#083CCC;
+  --jk-line:#96B1FD;
   --gray-400:#8B8D94;
   --gray-300:#A4A6AD;
   --gray-200:#C5C7CC;
@@ -21,14 +29,18 @@
   --white:#fff;
 
   /* 모션 토큰 */
-  --ease-sheet:cubic-bezier(.32,.72,0,1);
-  --ease-out:cubic-bezier(.22,1,.36,1);
-  --ease-pop:cubic-bezier(.34,1.4,.64,1);
-  --d-sheet:340ms;
-  --d-page:320ms;
-  --d-chip-in:220ms;
-  --d-chip-out:160ms;
-  --d-move:280ms;
+  --ease-sheet:cubic-bezier(.22,.9,.24,1);   /* 감속 위주, 튀지 않음 */
+  --ease-out:cubic-bezier(.2,.9,.25,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --ease-pop:cubic-bezier(.34,1.25,.64,1);   /* 아주 약한 오버슈트 */
+  --d-sheet:420ms;
+  --d-page:380ms;
+  --d-chip-in:280ms;
+  --d-chip-out:180ms;
+  --d-move:340ms;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -62,35 +74,94 @@ ul,li{list-style:none}
 .statusbar .time{font-size:16px;font-weight:600;letter-spacing:-.3px;padding-top:4px}
 .statusbar .icons{display:flex;align-items:center;gap:5px;padding-top:4px}
 
-/* ===== 배경 화면 ===== */
-.bg{position:absolute;inset:0;background:var(--white);display:flex;flex-direction:column}
-.bg-top{padding:44px 20px 0}
-.bg-title{font-size:22px;font-weight:700;line-height:30px;padding:12px 0 4px}
-.bg-sub{font-size:13px;color:var(--gray-400);line-height:20px;padding-bottom:14px}
-.filterbar{display:flex;gap:8px;padding:0 0 14px;overflow-x:auto;scrollbar-width:none}
-.filterbar::-webkit-scrollbar{display:none}
-.fchip{
-  flex:0 0 auto;height:36px;padding:0 14px;border-radius:100px;
-  border:1px solid var(--gray-100);background:var(--white);
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:14px;font-weight:600;color:var(--gray-600);white-space:nowrap;
-  transition:background .18s ease,border-color .18s ease,color .18s ease;
+/* ===== 배경 화면 (채용 공고) ===== */
+.bg{position:absolute;inset:0;background:var(--white);display:flex;flex-direction:column;padding-top:44px}
+
+/* 앱바 */
+.appbar{
+  flex:0 0 auto;padding:8px 10px 8px 16px;background:var(--white);
+  display:flex;align-items:center;justify-content:space-between;
 }
-.fchip.on{background:var(--gray-900);border-color:var(--gray-900);color:#fff}
-.fchip .cnt{color:var(--green-500);font-weight:700}
-.fchip.on .cnt{color:#5BE3AE}
-.bg-list{flex:1;overflow-y:auto;padding:4px 20px 20px;border-top:1px solid var(--gray-50)}
-.jcard{padding:16px 0;border-bottom:1px solid var(--gray-50)}
-.jcard .co{font-size:12px;color:var(--gray-400);line-height:18px}
-.jcard .tt{font-size:15px;font-weight:600;line-height:22px;margin-top:2px}
-.jcard .mt{font-size:12px;color:var(--gray-400);line-height:18px;margin-top:6px}
-.bg-empty{padding:40px 0;text-align:center;font-size:14px;color:var(--gray-300);line-height:22px}
+.appbar h1{font-size:22px;font-weight:700;line-height:30px;color:var(--gray-900)}
+.appbar .acts{display:flex;align-items:center}
+.appbar .acts button{padding:8px;display:flex;color:var(--gray-500)}
+
+/* 필터바 */
+.filterbar{
+  flex:0 0 auto;height:44px;padding:4px 16px;
+  display:flex;align-items:center;gap:8px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.filterbar::-webkit-scrollbar{display:none}
+.fdiv{flex:0 0 auto;width:1px;height:16px;background:var(--gray-100)}
+.fchip{
+  flex:0 0 auto;height:36px;padding:8px 12px;border-radius:100px;
+  background:var(--white);box-shadow:inset 0 0 0 1px var(--gray-100);
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:13px;font-weight:400;line-height:20px;color:var(--gray-900);white-space:nowrap;
+  transition:box-shadow .22s var(--ease-soft),font-weight .22s var(--ease-soft);
+}
+.fchip .cv{color:var(--gray-300);transition:color .22s var(--ease-soft)}
+.fchip.on{box-shadow:inset 0 0 0 1px var(--gray-900);font-weight:600}
+.fchip.on .cv{color:var(--gray-900)}
+.freset{
+  flex:0 0 auto;width:36px;height:36px;border-radius:999px;
+  background:var(--white);box-shadow:inset 0 0 0 1px var(--gray-100);
+  display:none;align-items:center;justify-content:center;color:var(--gray-800);
+  animation:badgeIn 260ms var(--ease-pop);
+}
+.freset.show{display:flex}
+
+/* 공고 카드 */
+.bg-list{flex:1;overflow-y:auto;padding:12px 16px 12px;display:flex;flex-direction:column;gap:12px}
+.bg-list::-webkit-scrollbar{display:none}
+.jcard{
+  flex:0 0 auto;padding:16px 20px 20px;background:var(--white);
+  border-radius:12px;box-shadow:inset 0 0 0 1px var(--gray-100);
+}
+.jcard .row1{height:32px;display:flex;align-items:center;gap:4px}
+.jcard .co{flex:1;font-size:13px;font-weight:600;line-height:20px;color:var(--gray-500)}
+.jcard .bm{color:var(--gray-200);display:flex}
+.jcard .tt{
+  font-size:15px;font-weight:600;line-height:24px;color:var(--gray-900);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.jcard .meta{display:flex;align-items:center;gap:4px;margin-top:4px}
+.jcard .dday{font-size:12px;font-weight:500;line-height:18px;color:var(--red-400)}
+.jcard .meta span{font-size:12px;font-weight:500;line-height:18px;color:var(--gray-300)}
+.jcard .meta i{font-size:11px;font-weight:600;line-height:16px;color:var(--gray-300);font-style:normal}
+.jcard .row3{height:32px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.jcard .tags{flex:1;display:flex;align-items:flex-end;gap:4px;padding-top:8px;min-width:0}
+.tag{
+  flex:0 0 auto;height:20px;padding:2px 6px;border-radius:4px;
+  display:inline-flex;align-items:center;gap:2px;
+  font-size:11px;font-weight:600;line-height:16px;white-space:nowrap;
+}
+.tag.y{background:var(--yellow-50);color:var(--yellow-600)}
+.tag.g{background:var(--green-50);color:var(--green-600)}
+.jkbtn{
+  flex:0 0 auto;height:32px;min-width:32px;padding:0 10px;border-radius:6px;
+  background:var(--white);box-shadow:inset 0 0 0 1px var(--jk-line);color:var(--jk-blue);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;line-height:20px;
+}
+.bg-empty{padding:48px 0;text-align:center;font-size:14px;color:var(--gray-300);line-height:22px}
+
+/* 하단 탭바 */
+.tabbar{flex:0 0 auto;display:flex;border-top:1px solid var(--gray-100);background:var(--white)}
+.tabbar .tb{
+  flex:1;padding:8px 0 9px;display:flex;flex-direction:column;align-items:center;gap:5px;
+  color:var(--gray-300);
+}
+.tabbar .tb.on{color:var(--gray-800)}
+.tabbar .tb span{font-size:11px;font-weight:500;line-height:16px}
+.tabbar .tb.on span{color:var(--gray-900)}
 
 /* 스펙 버튼 */
 .spec-btn{
-  position:absolute;right:14px;top:52px;z-index:6;
-  width:32px;height:32px;border-radius:50%;
-  background:var(--gray-50);color:var(--gray-600);
+  position:absolute;left:12px;bottom:104px;z-index:6;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(36,38,40,.72);color:#fff;backdrop-filter:blur(6px);
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;
 }
@@ -127,8 +198,11 @@ ul,li{list-style:none}
   transition:width .26s var(--ease-out),margin-right .26s var(--ease-out),opacity .2s ease,transform .26s var(--ease-out);
 }
 .sheet[data-depth="job"] .sh-back{width:20px;margin-right:8px;opacity:1;transform:none}
-.sh-title{font-size:20px;font-weight:700;line-height:28px;color:var(--gray-900);transition:opacity .16s ease}
-.sh-title.fade{opacity:0}
+.sh-title{
+  font-size:20px;font-weight:700;line-height:28px;color:var(--gray-900);
+  transition:opacity .18s var(--ease-soft),transform .18s var(--ease-soft);
+}
+.sh-title.fade{opacity:0;transform:translateY(-5px)}
 .sh-close{width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:var(--gray-300);flex:0 0 auto}
 
 /* 페인 */
@@ -141,54 +215,64 @@ ul,li{list-style:none}
   will-change:transform;
 }
 .pane::-webkit-scrollbar{display:none}
-.pane-job{transform:translateX(100%)}
-.sheet[data-depth="job"] .pane-group{transform:translateX(-28%);opacity:.35}
-.sheet[data-depth="job"] .pane-job{transform:translateX(0)}
+.pane-job{transform:translateX(100%);box-shadow:-8px 0 24px rgba(0,0,0,0)}
+.sheet[data-depth="job"] .pane-group{transform:translateX(-26%);opacity:.4}
+.sheet[data-depth="job"] .pane-job{transform:translateX(0);box-shadow:-8px 0 24px rgba(0,0,0,.06)}
+.pane-job{transition:transform var(--d-page) var(--ease-sheet),box-shadow var(--d-page) var(--ease-sheet)}
+/* 진입 직후 1프레임은 애니메이션 억제(리스트 재구성 시 전체가 튀는 것 방지) */
+.noanim *{transition:none!important;animation:none!important}
 
 /* 직군 행 */
 .grow{
-  position:relative;height:49px;padding:0 28px;
+  position:relative;height:49px;padding:0 28px 1px;
   display:flex;align-items:center;justify-content:space-between;gap:8px;
-  transition:background .15s ease;
+  transition:background .2s var(--ease-soft);
 }
-.grow::after{content:"";position:absolute;left:28px;right:28px;bottom:0;height:1px;background:var(--gray-50)}
-.grow:active{background:var(--gray-30)}
-.grow .nm{font-size:15px;font-weight:400;line-height:24px;color:var(--gray-800)}
+.grow::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:var(--gray-50)}
+.grow:active{background:var(--gray-30);transition-duration:60ms}
+.grow .nm{font-size:15px;font-weight:400;line-height:24px;color:var(--gray-900)}
 .grow .rt{display:flex;align-items:center;gap:8px;color:var(--gray-300)}
 .badge{
-  min-width:24px;height:24px;padding:0 7px;border-radius:6px;
+  display:inline-block;min-width:24px;height:24px;padding:0 7px;border-radius:6px;
   background:var(--green-bg);color:var(--green-500);
   font-size:13px;font-weight:600;line-height:24px;text-align:center;
-  animation:badgePop var(--d-chip-in) var(--ease-pop);
+  animation:badgeIn var(--d-chip-in) var(--ease-pop);
 }
-@keyframes badgePop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.badge.bump{animation:badgeBump 260ms var(--ease-pop)}
+@keyframes badgeIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes badgeBump{0%{transform:scale(1)}40%{transform:scale(1.16)}100%{transform:scale(1)}}
 .grow .allcheck{color:var(--green-500);display:none}
-.grow.all-on .allcheck{display:block;animation:badgePop var(--d-chip-in) var(--ease-pop)}
+.grow.all-on .allcheck{display:block;animation:badgeIn var(--d-chip-in) var(--ease-pop)}
 
 /* 직무 행 */
 .pane-job-inner{padding:12px 16px 0}
 .jrow{
   min-height:48px;padding:11px 12px;
   display:flex;align-items:flex-start;gap:8px;
-  transition:background .15s ease;border-radius:8px;
+  transition:background .2s var(--ease-soft);border-radius:8px;
 }
-.jrow:active{background:var(--gray-30)}
+.jrow:active{background:var(--gray-30);transition-duration:60ms}
 .cbwrap{height:24px;padding:2px 0;display:flex;align-items:center;flex:0 0 auto}
 .cb{
   width:20px;height:20px;border-radius:4px;
   border:1px solid var(--gray-200);background:var(--white);
   display:flex;align-items:center;justify-content:center;
-  transition:background .18s var(--ease-out),border-color .18s var(--ease-out);
+  transition:background .22s var(--ease-soft),border-color .22s var(--ease-soft);
 }
-.cb svg{opacity:0;transform:scale(.4);transition:opacity .16s ease,transform .22s var(--ease-pop)}
-.jrow.on .cb{background:var(--green-500);border-color:var(--green-500)}
-.jrow.on .cb svg{opacity:1;transform:scale(1)}
+/* 체크는 선을 그려 넣는 방식 → 팝업보다 자연스러움 */
+.cb svg polyline{
+  stroke-dasharray:18;stroke-dashoffset:18;
+  transition:stroke-dashoffset .34s var(--ease-out) .06s;
+}
+.jrow.on .cb{background:var(--green-500);border-color:var(--green-500);animation:cbPress 340ms var(--ease-pop)}
+.jrow.on .cb svg polyline{stroke-dashoffset:0}
+@keyframes cbPress{0%{transform:scale(1)}30%{transform:scale(.86)}100%{transform:scale(1)}}
 .jrow .lb{flex:1;font-size:15px;font-weight:400;line-height:24px;color:var(--gray-800);word-break:keep-all}
 
 /* ===== 푸터 ===== */
 .footer{
   position:absolute;left:0;bottom:0;width:393px;z-index:4;
-  box-shadow:0 -4px 12px rgba(0,0,0,.08);
+  box-shadow:0 -4px 16px rgba(0,0,0,.08);
   display:flex;flex-direction:column;
   background:var(--white);
 }
@@ -198,7 +282,8 @@ ul,li{list-style:none}
   transition:grid-template-rows var(--d-page) var(--ease-sheet);
 }
 .sheet[data-depth="job"] .selpanel{grid-template-rows:1fr}
-.selpanel-in{overflow:hidden;min-height:0}
+.selpanel-in{overflow:hidden;min-height:0;opacity:0;transition:opacity .24s var(--ease-soft)}
+.sheet[data-depth="job"] .selpanel-in{opacity:1;transition-delay:.1s}
 .sel-head{padding:12px 16px 4px;font-size:13px;font-weight:600;line-height:20px;color:var(--gray-900)}
 .sel-head .n{color:var(--green-500)}
 .chips{
@@ -268,22 +353,41 @@ ul,li{list-style:none}
 <body>
 <div class="phone">
 
-  <!-- 배경 -->
+  <!-- 배경: 채용 공고 -->
   <div class="bg">
-    <div class="bg-top">
-      <div class="bg-title">채용정보</div>
-      <div class="bg-sub" id="bgCount">전체 공고 1,284건</div>
-      <div class="filterbar">
-        <button class="fchip" id="fchipJob" onclick="openSheet()">
-          <span id="fchipJobLabel">직무</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <button class="fchip">지역<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <button class="fchip">경력<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <button class="fchip">기업형태<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="appbar">
+      <h1>채용 공고</h1>
+      <div class="acts">
+        <button aria-label="검색"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button>
+        <button aria-label="알림"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5a6 6 0 0 0-6 6v3.6L4.5 15.5h15L18 12.1V8.5a6 6 0 0 0-6-6Z"/><path d="M9.8 18.5a2.3 2.3 0 0 0 4.4 0"/></svg></button>
+        <button aria-label="메뉴"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="5" x2="22" y2="5"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="19" x2="22" y2="19"/></svg></button>
       </div>
     </div>
+
+    <div class="filterbar">
+      <button class="fchip on">최신순 <span class="cv"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.92 5.25 7 9.92 11.09 5.25"/></svg></span></button>
+      <span class="fdiv"></span>
+      <button class="freset" id="fReset" onclick="resetAll(true)" aria-label="필터 초기화">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.4 6.2A5.4 5.4 0 1 0 11.7 9.6"/><polyline points="12.8 1.8 12.4 6.2 8.2 5.6"/></svg>
+      </button>
+      <button class="fchip" id="fchipJob" onclick="openSheet()">
+        <span id="fchipJobLabel">직무</span> <span class="cv"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.92 5.25 7 9.92 11.09 5.25"/></svg></span>
+      </button>
+      <button class="fchip">경력 <span class="cv"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.92 5.25 7 9.92 11.09 5.25"/></svg></span></button>
+      <button class="fchip">근무 지역 <span class="cv"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.92 5.25 7 9.92 11.09 5.25"/></svg></span></button>
+      <button class="fchip">고용 형태 <span class="cv"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.92 5.25 7 9.92 11.09 5.25"/></svg></span></button>
+    </div>
+
     <div class="bg-list" id="bgList"></div>
+
+    <div class="tabbar">
+      <div class="tb"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M2.5 8.3 10 2.1l7.5 6.2v9.1h-5v-5.2h-5v5.2h-5z"/></svg><span>홈</span></div>
+      <div class="tb"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M17.2 11.2c0 1.5-1.2 2.7-2.7 2.7H8.4L4 17.3v-3.4H3.9c-.9-.5-1.5-1.5-1.5-2.7V4.6c0-1.5 1.2-2.7 2.7-2.7h9.4c1.5 0 2.7 1.2 2.7 2.7z"/><path d="M7.3 5.5v2.2a2 2 0 0 1-1.8 2M12.7 5.5v2.2a2 2 0 0 1-1.8 2"/></svg><span>기업 리뷰</span></div>
+      <div class="tb on"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M7.2 3.3c0-.8.6-1.4 1.4-1.4h2.8c.8 0 1.4.6 1.4 1.4v1.1h3.4c1 0 1.8.8 1.8 1.8v10c0 1-.8 1.8-1.8 1.8H3.8c-1 0-1.8-.8-1.8-1.8v-10c0-1 .8-1.8 1.8-1.8h3.4zm1.6.3v.8h2.4v-.8z"/></svg><span>채용 공고</span></div>
+      <div class="tb"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1.9" y="2.3" width="16.2" height="15.4" rx="2.2"/><line x1="5.6" y1="7" x2="14.4" y2="7"/><line x1="5.6" y1="10.5" x2="14.4" y2="10.5"/><line x1="5.6" y1="14" x2="11" y2="14"/></svg><span>잡플위키</span></div>
+      <div class="tb"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="6.2" r="3.7"/><path d="M2.9 18a7.1 7.1 0 0 1 14.2 0"/></svg><span>MY</span></div>
+    </div>
+    <div class="homebar"><i></i></div>
   </div>
 
   <!-- 상태바 -->
@@ -305,12 +409,12 @@ ul,li{list-style:none}
     <div class="sh-head">
       <div class="sh-left">
         <button class="sh-back" id="btnBack" onclick="goGroup()" aria-label="뒤로">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12.5 4.17 5.83 10 12.5 15.83"/></svg>
         </button>
         <div class="sh-title" id="shTitle">직군</div>
       </div>
       <button class="sh-close" onclick="closeSheet()" aria-label="닫기">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4.17" y1="4.17" x2="15.83" y2="15.83"/><line x1="15.83" y1="4.17" x2="4.17" y2="15.83"/></svg>
       </button>
     </div>
 
@@ -345,8 +449,8 @@ ul,li{list-style:none}
       <h4>1. 화면 구조 (2뎁스 푸시)</h4>
       <ul>
         <li>1뎁스 = 직군 목록, 2뎁스 = 해당 직군의 직무 목록</li>
-        <li>전환은 좌우 푸시. 나가는 화면은 <code>translateX(-28%)</code> + <code>opacity .35</code>, 들어오는 화면은 <code>translateX(100%) → 0</code></li>
-        <li>duration <code>320ms</code> / easing <code>cubic-bezier(.32,.72,0,1)</code></li>
+        <li>전환은 좌우 푸시. 나가는 화면은 <code>translateX(-26%)</code> + <code>opacity .4</code>, 들어오는 화면은 <code>translateX(100%) → 0</code> + 좌측 그림자</li>
+        <li>duration <code>380ms</code> / easing <code>cubic-bezier(.22,.9,.24,1)</code></li>
         <li>뒤로가기 아이콘은 2뎁스에서만 노출, 폭 0 → 20px로 확장</li>
       </ul>
 
@@ -370,18 +474,27 @@ ul,li{list-style:none}
 
       <h4>4. 칩 모션</h4>
       <ul>
-        <li>추가: <code>scale(.8)+opacity 0 → 1</code>, 220ms, <code>cubic-bezier(.34,1.4,.64,1)</code></li>
-        <li>삭제: 누른 칩만 <code>scale(.8)+opacity 0</code>으로 160ms 축소 후 제거</li>
-        <li>재배치: FLIP 방식으로 남은 칩이 280ms 동안 새 위치로 이동(점프 없음)</li>
+        <li>추가: <code>translateY(4px)+scale(.86)+opacity 0 → 1</code>, 280ms, <code>cubic-bezier(.34,1.25,.64,1)</code></li>
+        <li>삭제: 누른 칩만 <code>scale(.84)+opacity 0</code>으로 180ms 축소 후 제거</li>
+        <li>재배치: FLIP 방식으로 남은 칩이 340ms 동안 새 위치로 이동(점프 없음)</li>
+        <li>이동하는 칩은 순서대로 14ms씩(최대 70ms) 지연시켜 물결처럼 자리 잡음</li>
         <li>직군 칩(다크) X = 해당 직군의 선택 전체 삭제</li>
       </ul>
 
-      <h4>5. 기타</h4>
+      <h4>5. 체크박스·배지</h4>
       <ul>
-        <li>1뎁스 직군 행의 초록 배지 = 그 직군에서 선택한 개수(전체 선택 시 1)</li>
+        <li>체크는 팝업이 아니라 선을 그려 넣는 방식(<code>stroke-dashoffset 18 → 0</code>, 340ms, 60ms 지연)</li>
+        <li>박스는 동시에 <code>scale 1 → .86 → 1</code>로 눌리는 느낌만 340ms</li>
+        <li>체크 글리프 비율은 디자인 스펙 그대로 20px 박스 안에서 12 × 8.67</li>
+        <li>1뎁스 직군 행의 초록 배지 = 그 직군에서 선택한 개수(전체 선택 시 1). 숫자가 바뀌면 1.16배로 한 번 튕김</li>
+      </ul>
+
+      <h4>6. 기타</h4>
+      <ul>
         <li>초기화: 현재 화면 유지, 선택만 전부 해제</li>
-        <li>공고 보기: 시트 닫고 필터 칩에 결과 반영</li>
-        <li>시트 등장: <code>translateY(100%) → 0</code>, 340ms</li>
+        <li>공고 보기: 시트 닫고 상단 필터 칩에 "첫 직무명 외 N"으로 반영. 선택이 있으면 필터바에 초기화 버튼 노출</li>
+        <li>시트 등장: <code>translateY(100%) → 0</code>, 420ms</li>
+        <li><code>prefers-reduced-motion</code> 설정 시 모든 모션 비활성화</li>
       </ul>
       <button class="spec-close" onclick="toggleSpec(false)">닫기</button>
     </div>
@@ -457,7 +570,11 @@ function removeJob(gid, job){
   if(!s.jobs.length) sel = sel.filter(x=>x!==s);
   renderAll();
 }
-function resetAll(){ if(!sel.length){ toast('선택한 직무가 없습니다'); return; } sel=[]; renderAll(); }
+function resetAll(fromBar){
+  if(!sel.length){ if(!fromBar) toast('선택한 직무가 없습니다'); return; }
+  sel=[]; renderAll();
+  if(fromBar) toast('필터를 초기화했습니다');
+}
 
 /* ============ 렌더: 1뎁스 ============ */
 // 한 번만 그리고 이후엔 상태만 동기화 → 체크/배지 모션이 살아 있음
@@ -465,7 +582,7 @@ function buildGroupPane(){
   let html = `<div class="grow" data-all="1">
       <span class="nm">전체</span>
       <span class="rt"><span class="allcheck">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.29 10.38 7.83 15.63 18.12 3.96"/></svg>
       </span></span>
     </div>`;
   GROUPS.forEach(g=>{
@@ -473,7 +590,7 @@ function buildGroupPane(){
       <span class="nm">${g.name}</span>
       <span class="rt">
         <span class="badge-slot"></span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 16 12 9 18"/></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7.5 4.17 14.17 10 7.5 15.83"/></svg>
       </span>
     </div>`;
   });
@@ -492,13 +609,17 @@ function syncGroupPane(){
     const s=findSel(g.id), c=s?groupCount(s):0;
     const cur = slot.firstElementChild;
     if(!c){ slot.innerHTML=''; return; }
-    if(!cur) slot.innerHTML = `<span class="badge">${c}</span>`;
-    else if(cur.textContent !== String(c)) cur.textContent = c;
+    if(!cur){ slot.innerHTML = `<span class="badge">${c}</span>`; return; }
+    if(cur.textContent !== String(c)){
+      cur.textContent = c;
+      cur.classList.remove('bump'); void cur.offsetWidth; cur.classList.add('bump');
+    }
   });
 }
 
 /* ============ 렌더: 2뎁스 ============ */
-const CHECK_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+// 체크박스 20px 안에서 체크 글리프 12×8.67 (디자인 스펙 비율)
+const CHECK_SVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 10.44 8.2 14.34 16 5.67"/></svg>`;
 function renderJobPane(){
   if(!curGid) return;
   const inner=$('#paneJobInner'), g=GMAP[curGid];
@@ -515,6 +636,11 @@ function renderJobPane(){
       </div>`;
     });
     inner.innerHTML = html;
+    // 방금 만든 목록은 첫 프레임 애니메이션을 억제 (이미 선택된 항목이 한꺼번에 그려지는 것 방지)
+    inner.classList.add('noanim');
+    syncJobPane();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>inner.classList.remove('noanim')));
+    return;
   }
   syncJobPane();
 }
@@ -529,8 +655,8 @@ function syncJobPane(){
 function esc(t){ return t.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
 /* ============ 렌더: 칩 (FLIP) ============ */
-const X_SVG = c=>`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>`;
-const ARROW_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 16 12 9 18"/></svg>`;
+const X_SVG = c=>`<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round"><line x1="2.92" y1="2.92" x2="11.09" y2="11.09"/><line x1="11.09" y1="2.92" x2="2.92" y2="11.09"/></svg>`;
+const ARROW_SVG = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 3.33 11.33 8 6 12.67"/></svg>`;
 
 function buildChipsHTML(){
   return sel.map(s=>{
@@ -559,17 +685,23 @@ function renderChips(){
   chipsEl.classList.toggle('empty', sel.length===0);
   $('#selCount').textContent = totalCount();
 
+  // 이동하는 칩은 순서대로 아주 짧게 지연시켜 물결처럼 자리를 잡게 함
+  let moved = 0;
   chipsEl.querySelectorAll('[data-key]').forEach(el=>{
     const b = prev.get(el.dataset.key);
     const n = el.getBoundingClientRect();
     if(b){
       const dx=b.left-n.left, dy=b.top-n.top;
-      if(dx||dy) el.animate(
-        [{transform:`translate(${dx}px,${dy}px)`},{transform:'translate(0,0)'}],
-        {duration:280, easing:'cubic-bezier(.22,1,.36,1)'});
+      if(dx||dy){
+        el.animate(
+          [{transform:`translate(${dx}px,${dy}px)`},{transform:'translate(0,0)'}],
+          {duration:340, delay:Math.min(moved*14,70), easing:'cubic-bezier(.2,.9,.25,1)', fill:'backwards'});
+        moved++;
+      }
     }else{
-      el.animate([{transform:'scale(.8)',opacity:0},{transform:'scale(1)',opacity:1}],
-        {duration:220, easing:'cubic-bezier(.34,1.4,.64,1)'});
+      el.animate(
+        [{transform:'translateY(4px) scale(.86)',opacity:0},{transform:'translateY(0) scale(1)',opacity:1}],
+        {duration:280, easing:'cubic-bezier(.34,1.25,.64,1)'});
     }
   });
 }
@@ -580,10 +712,10 @@ chipsEl.addEventListener('click', e=>{
   const gchip = e.target.closest('.chip.g');
   const target = jchip || (gchip && gchip.closest('.gwrap'));
   if(!target) return;
-  target.animate([{transform:'scale(1)',opacity:1},{transform:'scale(.8)',opacity:0}],
-    {duration:160, easing:'ease-in', fill:'forwards'});
+  target.animate([{transform:'scale(1)',opacity:1},{transform:'scale(.84)',opacity:0}],
+    {duration:180, easing:'cubic-bezier(.4,0,1,1)', fill:'forwards'});
   const gid=target.dataset.gid, job=target.dataset.job;
-  setTimeout(()=>{ jchip ? removeJob(gid, job) : removeGroup(gid); }, 150);
+  setTimeout(()=>{ jchip ? removeJob(gid, job) : removeGroup(gid); }, 165);
 });
 
 /* ============ 푸터 높이 ============ */
@@ -607,7 +739,7 @@ function renderAll(){
 function setTitle(t){
   const el=$('#shTitle');
   el.classList.add('fade');
-  setTimeout(()=>{ el.textContent=t; el.classList.remove('fade'); },140);
+  setTimeout(()=>{ el.textContent=t; el.classList.remove('fade'); },160);
 }
 function goJob(gid){
   curGid=gid; depth='job';
@@ -641,29 +773,41 @@ function apply(){
 function syncBgChip(){
   const n=totalCount();
   const chip=$('#fchipJob'), label=$('#fchipJobLabel');
-  if(!n){ chip.classList.remove('on'); label.textContent='직무'; }
-  else{
-    chip.classList.add('on');
-    const first = sel[0];
-    const name = first.all ? GMAP[first.gid].name+' 전체' : first.jobs[0];
-    label.innerHTML = n>1 ? `${name} <span class="cnt">+${n-1}</span>` : name;
-  }
+  $('#fReset').classList.toggle('show', n>0);
+  if(!n){ chip.classList.remove('on'); label.textContent='직무'; return; }
+  chip.classList.add('on');
+  const first = sel[0];
+  const name = first.all ? GMAP[first.gid].name+' 전체' : first.jobs[0];
+  label.textContent = n>1 ? `${name} 외 ${n-1}` : name;
 }
-const CO=['(주)토스뱅크','카카오엔터프라이즈','우아한형제들','당근마켓','네이버클라우드','컬리','무신사','뱅크샐러드','리디','쏘카'];
-const TT=['서비스 기획자 채용','시니어 백엔드 개발자','프로덕트 디자이너','데이터 분석가','QA 엔지니어','브랜드 마케터','iOS 개발자','그로스 마케팅 매니저'];
+
+const BOOKMARK = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4.5 2.5h11v15.4l-5.5-4.4-5.5 4.4z"/></svg>`;
+const COIN = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" fill="currentColor"/><path d="M3.4 4.2 4.6 8h.5l.9-2.6L6.9 8h.5l1.2-3.8" stroke="#fff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CARDS=[
+  {co:'비바퍼블리카', tt:'[비바퍼블리카] 커머스 부문 프로덕트 디자이너 (3년차 이상)', d:'D-6', career:'경력무관', loc:'서울', reward:true,  jk:false},
+  {co:'비바퍼블리카', tt:'[비바퍼블리카] 커머스 부문 프로덕트 디자이너 (3년차 이상)', d:'D-6', career:'경력무관', loc:'서울', reward:false, jk:false},
+  {co:'비바퍼블리카', tt:'[비바퍼블리카] 커머스 부문 프로덕트 디자이너 (3년차 이상)', d:'D-6', career:'경력무관', loc:'서울', reward:false, jk:true },
+  {co:'비바퍼블리카', tt:'[비바퍼블리카] 커머스 부문 프로덕트 디자이너 (3년차 이상)', d:'D-6', career:'경력무관', loc:'서울', reward:false, jk:false},
+  {co:'비바퍼블리카', tt:'[비바퍼블리카] 커머스 부문 프로덕트 디자이너 (3년차 이상)', d:'D-6', career:'경력무관', loc:'서울', reward:true,  jk:false},
+];
 function renderBgList(){
-  const n=totalCount();
-  const cnt = n? 84+n*17 : 1284;
-  $('#bgCount').textContent = `전체 공고 ${cnt.toLocaleString()}건`;
-  let html='';
-  for(let i=0;i<8;i++){
-    html+=`<div class="jcard">
-      <div class="co">${CO[i%CO.length]}</div>
-      <div class="tt">${TT[i%TT.length]}</div>
-      <div class="mt">서울 강남구 · 경력 3~7년 · 대졸이상</div>
-    </div>`;
-  }
-  $('#bgList').innerHTML=html;
+  $('#bgList').innerHTML = CARDS.map(c=>`
+    <div class="jcard">
+      <div class="row1"><div class="co">${c.co}</div><div class="bm">${BOOKMARK}</div></div>
+      <div class="tt">${c.tt}</div>
+      <div class="meta">
+        <span class="dday">${c.d}</span><i>·</i>
+        <span>${c.career}</span><i>·</i>
+        <span>${c.loc}</span>
+      </div>
+      <div class="row3">
+        <div class="tags">
+          ${c.reward?`<span class="tag y">${COIN} 축하금 100만원</span>`:''}
+          <span class="tag g">경영진 평가 상위 10%</span>
+        </div>
+        ${c.jk?`<button class="jkbtn">잡코리아 지원</button>`:''}
+      </div>
+    </div>`).join('');
 }
 
 /* ============ 토스트 ============ */
@@ -683,7 +827,7 @@ $('#paneJobInner').addEventListener('click', e=>{
 });
 renderBgList();
 renderAll();
-setTimeout(openSheet, 400);
+setTimeout(openSheet, 550);
 </script>
 </body>
 </html>
