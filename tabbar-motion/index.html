@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기업 리뷰 탭 아이콘 모션 비교</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --brand:#00C274;
+  --brand-lt:rgba(0,194,116,.10);
+  --tx:#242628;
+  --tx2:#4B4C50;
+  --tx3:#85878C;
+  --tx4:#A4A6AD;
+  --bg:#fff;
+  --bg2:#F9F9FB;
+  --ln:#E5E6E9;
+  --ln2:#F3F3F4;
+  --rd:12px;
+  --rd-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  background:var(--bg2);color:var(--tx);
+  -webkit-font-smoothing:antialiased;
+  padding:40px 20px 80px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* ── 헤더 ── */
+.head{margin-bottom:32px}
+.head h1{font-size:24px;font-weight:700;letter-spacing:-.4px;margin-bottom:8px}
+.head p{font-size:14px;color:var(--tx3);line-height:22px}
+
+/* ── 컨트롤 바 ── */
+.ctrl{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  background:var(--bg);border:1px solid var(--ln);border-radius:var(--rd);
+  padding:12px 14px;margin-bottom:28px;
+}
+.ctrl .lbl{font-size:13px;font-weight:600;color:var(--tx2);margin-right:4px}
+.btn{
+  font-family:inherit;font-size:13px;font-weight:600;
+  padding:8px 14px;border-radius:999px;border:1.5px solid var(--ln);
+  background:#fff;color:var(--tx2);cursor:pointer;transition:all .15s;
+}
+.btn:hover{border-color:var(--tx4)}
+.btn.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.sep{width:1px;height:20px;background:var(--ln);margin:0 6px}
+
+/* ── 메인 프리뷰 (폰 프레임) ── */
+.stage{display:flex;gap:32px;align-items:flex-start;margin-bottom:44px;flex-wrap:wrap}
+.phone{
+  width:393px;border-radius:28px;overflow:hidden;
+  border:1px solid var(--ln);background:#fff;
+  box-shadow:0 8px 32px rgba(0,0,0,.08);flex-shrink:0;
+}
+.phone-content{
+  height:260px;position:relative;
+  background:linear-gradient(180deg,#FFF3E0 0%,#fff 100%);
+  padding:20px 20px 0;
+}
+.rv-card{
+  background:#fff;border:1px solid rgba(36,38,40,.10);border-radius:16px;
+  padding:20px;margin-top:8px;
+}
+.rv-card .t{font-size:15px;font-weight:600;line-height:24px;color:var(--tx);margin-bottom:12px}
+.rv-card .m{display:flex;align-items:center;gap:8px}
+.tag{
+  background:#ECF6FE;color:#1E88E5;font-size:11px;font-weight:600;
+  padding:2px 6px;border-radius:4px;line-height:16px;
+}
+.rv-card .s{font-size:14px;color:#686A6D;line-height:22px;flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── 탭바 ── */
+.tabbar{
+  display:flex;border-top:1px solid var(--ln);background:#fff;
+  position:relative;
+}
+.tab{
+  flex:1;padding:8px 0 9px;display:flex;flex-direction:column;
+  align-items:center;gap:5px;cursor:pointer;
+  position:relative;
+}
+.tab .ico{width:20px;height:20px;position:relative;display:grid;place-items:center}
+.tab .ico svg{width:20px;height:20px;display:block}
+.tab .txt{font-size:11px;font-weight:500;line-height:16px;color:var(--tx4)}
+.tab.active .txt{color:var(--tx)}
+.tab.review .txt{color:var(--tx4)}
+.home-indicator{height:32px;background:#fff;display:grid;place-items:center}
+.home-indicator i{display:block;width:140px;height:5px;border-radius:10px;background:#1A1A1E}
+
+/* ── 툴팁 ── */
+.tip{
+  position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(100% + 10px);
+  background:#fff;border:2px solid var(--brand);border-radius:999px;
+  padding:6px 14px;white-space:nowrap;
+  font-size:12px;font-weight:600;color:var(--tx);line-height:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;
+}
+.tip::after{
+  content:'';position:absolute;left:50%;top:100%;
+  width:10px;height:10px;background:#fff;
+  border-right:2px solid var(--brand);border-bottom:2px solid var(--brand);
+  transform:translate(-50%,-6px) rotate(45deg);border-radius:0 0 3px 0;
+}
+.tip.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.tip.hide{opacity:0}
+
+/* ── 설명 패널 ── */
+.panel{flex:1;min-width:280px}
+.panel h2{font-size:16px;font-weight:700;margin-bottom:12px}
+.panel .row{
+  display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--ln2);
+  font-size:13px;line-height:20px;
+}
+.panel .row:last-child{border-bottom:0}
+.panel .k{width:96px;flex-shrink:0;color:var(--tx3);font-weight:600}
+.panel .v{color:var(--tx2)}
+.note{
+  margin-top:14px;background:var(--brand-lt);border-radius:var(--rd-sm);
+  padding:12px 14px;font-size:13px;line-height:21px;color:var(--tx2);
+}
+
+/* ── 변형 그리드 ── */
+.grid-h{font-size:16px;font-weight:700;margin-bottom:4px}
+.grid-s{font-size:13px;color:var(--tx3);margin-bottom:18px;line-height:21px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{
+  background:#fff;border:1.5px solid var(--ln);border-radius:var(--rd);
+  padding:18px 16px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s;
+}
+.card:hover{border-color:var(--tx4)}
+.card.sel{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-lt)}
+.card .demo{
+  height:64px;display:grid;place-items:center;
+  background:var(--bg2);border-radius:var(--rd-sm);margin-bottom:12px;
+}
+.card .demo .ico{width:20px;height:20px;position:relative;display:grid;place-items:center}
+.card .demo .ico svg{width:20px;height:20px;display:block}
+.card .nm{font-size:14px;font-weight:700;margin-bottom:5px}
+.card .ds{font-size:12px;color:var(--tx3);line-height:18px}
+.card .mt{
+  display:inline-block;margin-top:9px;font-size:11px;font-weight:600;
+  padding:3px 8px;border-radius:4px;background:var(--ln2);color:var(--tx2);
+}
+
+/* ══ 모션 정의 ══ */
+/* 공통: motion-host 가 애니메이션을 받는 래퍼 */
+.ico .mv{width:20px;height:20px;display:grid;place-items:center;position:relative}
+
+/* 1. 팝 바운스 */
+[data-motion="pop"] .mv{animation:m-pop var(--dur,2.4s) ease-in-out infinite}
+@keyframes m-pop{
+  0%,58%,100%{transform:translateY(0) scale(1)}
+  66%{transform:translateY(-7px) scale(1.14)}
+  74%{transform:translateY(0) scale(.94)}
+  82%{transform:translateY(-2px) scale(1.04)}
+  90%{transform:translateY(0) scale(1)}
+}
+
+/* 2. 흔들기 */
+[data-motion="wiggle"] .mv{animation:m-wiggle var(--dur,2.4s) ease-in-out infinite}
+@keyframes m-wiggle{
+  0%,58%,100%{transform:rotate(0)}
+  63%{transform:rotate(-11deg)}
+  70%{transform:rotate(10deg)}
+  77%{transform:rotate(-7deg)}
+  84%{transform:rotate(5deg)}
+  91%{transform:rotate(0)}
+}
+
+/* 3. 확산 링 */
+[data-motion="ripple"] .mv::before,
+[data-motion="ripple"] .mv::after{
+  content:'';position:absolute;left:50%;top:50%;
+  width:20px;height:20px;margin:-10px 0 0 -10px;
+  border-radius:999px;border:2px solid var(--brand);
+  animation:m-ripple var(--dur,2.4s) ease-out infinite;
+}
+[data-motion="ripple"] .mv::after{animation-delay:calc(var(--dur,2.4s) * .18)}
+@keyframes m-ripple{
+  0%{transform:scale(.55);opacity:.55}
+  55%,100%{transform:scale(2.1);opacity:0}
+}
+
+/* 4. 숨쉬기 */
+[data-motion="breath"] .mv{animation:m-breath var(--dur,2.4s) ease-in-out infinite}
+@keyframes m-breath{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(0,194,116,0))}
+  50%{transform:scale(1.09);filter:drop-shadow(0 0 5px rgba(0,194,116,.6))}
+}
+
+/* 5. 광택 스윕 */
+[data-motion="shine"] .mv{overflow:hidden;border-radius:6px}
+[data-motion="shine"] .mv::after{
+  content:'';position:absolute;top:-50%;left:-120%;
+  width:60%;height:200%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.95),transparent);
+  transform:rotate(18deg);
+  animation:m-shine var(--dur,2.4s) ease-in-out infinite;
+}
+@keyframes m-shine{
+  0%,55%{left:-120%}
+  85%,100%{left:160%}
+}
+
+/* 6. 말풍선 톡 */
+[data-motion="bubble"] .mv{
+  transform-origin:50% 100%;
+  animation:m-bubble var(--dur,2.4s) cubic-bezier(.34,1.56,.64,1) infinite;
+}
+@keyframes m-bubble{
+  0%,56%,100%{transform:scale(1,1) translateY(0)}
+  62%{transform:scale(1.16,.84) translateY(2px)}
+  70%{transform:scale(.9,1.18) translateY(-5px)}
+  78%{transform:scale(1.06,.95) translateY(0)}
+  86%{transform:scale(1,1) translateY(0)}
+}
+
+/* 정지 상태 */
+[data-motion="none"] .mv{animation:none!important}
+[data-motion="none"] .mv::before,[data-motion="none"] .mv::after{animation:none!important;opacity:0!important}
+.paused .mv,.paused .mv::before,.paused .mv::after{animation-play-state:paused!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>기업 리뷰 탭 아이콘 모션 비교</h1>
+    <p>하단 탭바 '기업 리뷰' 아이콘에 적용할 모션 후보 6종. 카드를 누르면 상단 프리뷰에 적용됨.<br>
+       툴팁은 최초 1회 · 탭 진입 시 모션과 함께 영구 소멸하는 스펙 기준으로 동작함.</p>
+  </div>
+
+  <div class="ctrl">
+    <span class="lbl">속도</span>
+    <button class="btn" data-dur="1.6s">빠름</button>
+    <button class="btn on" data-dur="2.4s">보통</button>
+    <button class="btn" data-dur="3.6s">느림</button>
+    <span class="sep"></span>
+    <button class="btn on" id="tipBtn">툴팁 표시</button>
+    <button class="btn" id="pauseBtn">일시정지</button>
+    <span class="sep"></span>
+    <button class="btn" id="enterBtn">탭 진입 시뮬레이션</button>
+    <button class="btn" id="resetBtn">초기화</button>
+  </div>
+
+  <div class="stage">
+    <div class="phone">
+      <div class="phone-content">
+        <div class="rv-card">
+          <div class="t">안정적일 때 미래 먹거리를 위해 투자 할 줄 아는 회사 하지만 직원들 말을 귀담아 듣지는 않음</div>
+          <div class="m">
+            <span class="tag">장점</span>
+            <span class="s">대부분의 부서들이 워라밸 보장 근태관리가 시작되면서</span>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M3.5 10.2 12 3.5l8.5 6.7v9.3a1.2 1.2 0 0 1-1.2 1.2h-4.4v-6h-5.8v6H4.7a1.2 1.2 0 0 1-1.2-1.2z" fill="#323438"/></svg></span>
+          <span class="txt">홈</span>
+        </div>
+
+        <div class="tab review" id="reviewTab" data-motion="pop">
+          <span class="ico">
+            <span class="mv">
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_20247_3801)">
+<path d="M15.92 0.849976H4.08C2.17 0.849976 0.619995 2.39998 0.619995 4.31998V12.24C0.619995 14.16 2.17 15.71 4.08 15.71H6.4V18.64C6.4 18.95 6.57 19.24 6.84 19.38C6.97 19.45 7.1 19.48 7.24 19.48C7.39999 19.48 7.56 19.43 7.71 19.33L13.02 15.71H15.92C17.83 15.71 19.38 14.16 19.38 12.24V4.31998C19.38 2.39998 17.83 0.849976 15.92 0.849976ZM9.08 8.26998C9.08 9.79998 7.84 11.04 6.31 11.04C5.84 11.04 5.47 10.67 5.47 10.21C5.47 9.74997 5.84 9.36997 6.31 9.36997C6.91 9.36997 7.41 8.87998 7.41 8.26998V7.15997H6.31C5.84 7.15997 5.47 6.78997 5.47 6.32997C5.47 5.86997 5.84 5.48997 6.31 5.48997H8.25C8.71 5.48997 9.08 5.86997 9.08 6.32997V8.26998ZM14.53 8.26998C14.53 9.79998 13.28 11.04 11.75 11.04C11.29 11.04 10.92 10.67 10.92 10.21C10.92 9.74997 11.29 9.36997 11.75 9.36997C12.36 9.36997 12.86 8.87998 12.86 8.26998V7.15997H11.75C11.29 7.15997 10.92 6.78997 10.92 6.32997C10.92 5.86997 11.29 5.48997 11.75 5.48997H13.69C14.16 5.48997 14.53 5.86997 14.53 6.32997V8.26998Z" fill="#00C274"/>
+</g>
+<defs>
+<clipPath id="clip0_20247_3801">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+            </span>
+          </span>
+          <span class="txt">기업 리뷰</span>
+          <div class="tip show" id="tip">내 직군 리뷰 모아보기</div>
+        </div>
+
+        <div class="tab">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5.5h6a1 1 0 0 1 1 1V8h3.2a1.8 1.8 0 0 1 1.8 1.8v8.4a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 18.2V9.8A1.8 1.8 0 0 1 4.8 8H8V6.5a1 1 0 0 1 1-1zm.6 2.5h4.8v-1H9.6z" fill="#A4A6AD"/></svg></span>
+          <span class="txt">채용 공고</span>
+        </div>
+        <div class="tab">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="4.5" width="17.6" height="15" rx="2.2" fill="#A4A6AD"/><path d="M7 9h10M7 12.4h10M7 15.8h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="txt">잡플위키</span>
+        </div>
+        <div class="tab">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" fill="#A4A6AD"/><path d="M4.6 20.2c0-3.8 3.3-6.2 7.4-6.2s7.4 2.4 7.4 6.2z" fill="#A4A6AD"/></svg></span>
+          <span class="txt">MY</span>
+        </div>
+      </div>
+      <div class="home-indicator"><i></i></div>
+    </div>
+
+    <div class="panel">
+      <h2>현재 적용</h2>
+      <div class="row"><span class="k">모션</span><span class="v" id="curName">팝 바운스</span></div>
+      <div class="row"><span class="k">주기</span><span class="v" id="curDur">2.4초</span></div>
+      <div class="row"><span class="k">방해도</span><span class="v" id="curLevel">중</span></div>
+      <div class="row"><span class="k">권장 상황</span><span class="v" id="curUse">주목을 확실히 끌어야 할 때</span></div>
+      <div class="note">
+        <b>모션 종료 조건</b><br>
+        기업 리뷰 탭 최초 진입 시 모션·툴팁 모두 영구 소멸.
+        '탭 진입 시뮬레이션'으로 확인 가능함.<br><br>
+        <b>툴팁</b><br>
+        최초 1회 · 최소 표시 2초 · 스크롤 또는 5초 경과 시 소멸.
+        모션은 툴팁이 사라진 뒤에도 탭 진입 전까지 유지됨.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-h">모션 후보</div>
+  <div class="grid-s">
+    아래 6종은 하단 탭바 아이콘에 흔히 쓰이는 패턴임. 방해도가 낮을수록 가드레일(이탈률·기존 CTA 클릭) 위험이 작으나 주목도도 함께 낮아짐.
+  </div>
+  <div class="grid" id="grid"></div>
+
+</div>
+
+<script>
+const MOTIONS = [
+  {id:'pop',    name:'팝 바운스',  desc:'위로 튀어올랐다 안착. 가장 보편적이고 인지율이 높음', level:'중', use:'주목을 확실히 끌어야 할 때'},
+  {id:'bubble', name:'말풍선 톡',  desc:'스쿼시·스트레치로 말풍선이 튀어나오는 느낌. 아이콘 형태와 가장 잘 맞음', level:'중', use:'아이콘 정체성을 함께 전달할 때'},
+  {id:'wiggle', name:'흔들기',     desc:'좌우로 흔들림. 주목도는 가장 높지만 장난스럽고 거부감이 생길 수 있음', level:'높음', use:'단발성 강한 환기가 필요할 때'},
+  {id:'ripple', name:'확산 링',    desc:'아이콘 뒤로 링이 퍼짐. 알림·새 기능 느낌이 강함', level:'중', use:'신규 기능 인지를 노릴 때'},
+  {id:'breath', name:'숨쉬기',     desc:'은은한 확대와 발광. 방해도가 가장 낮음', level:'낮음', use:'오래 유지해도 부담이 없어야 할 때'},
+  {id:'shine',  name:'광택 스윕',  desc:'아이콘 위로 빛이 스쳐감. 절제된 강조', level:'낮음', use:'톤을 해치지 않고 살짝만 알릴 때'},
+];
+
+const ICON_SVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_20247_3801)">
+<path d="M15.92 0.849976H4.08C2.17 0.849976 0.619995 2.39998 0.619995 4.31998V12.24C0.619995 14.16 2.17 15.71 4.08 15.71H6.4V18.64C6.4 18.95 6.57 19.24 6.84 19.38C6.97 19.45 7.1 19.48 7.24 19.48C7.39999 19.48 7.56 19.43 7.71 19.33L13.02 15.71H15.92C17.83 15.71 19.38 14.16 19.38 12.24V4.31998C19.38 2.39998 17.83 0.849976 15.92 0.849976ZM9.08 8.26998C9.08 9.79998 7.84 11.04 6.31 11.04C5.84 11.04 5.47 10.67 5.47 10.21C5.47 9.74997 5.84 9.36997 6.31 9.36997C6.91 9.36997 7.41 8.87998 7.41 8.26998V7.15997H6.31C5.84 7.15997 5.47 6.78997 5.47 6.32997C5.47 5.86997 5.84 5.48997 6.31 5.48997H8.25C8.71 5.48997 9.08 5.86997 9.08 6.32997V8.26998ZM14.53 8.26998C14.53 9.79998 13.28 11.04 11.75 11.04C11.29 11.04 10.92 10.67 10.92 10.21C10.92 9.74997 11.29 9.36997 11.75 9.36997C12.36 9.36997 12.86 8.87998 12.86 8.26998V7.15997H11.75C11.29 7.15997 10.92 6.78997 10.92 6.32997C10.92 5.86997 11.29 5.48997 11.75 5.48997H13.69C14.16 5.48997 14.53 5.86997 14.53 6.32997V8.26998Z" fill="#00C274"/>
+</g>
+<defs>
+<clipPath id="clip0_20247_3801">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>`;
+
+const tab   = document.getElementById('reviewTab');
+const tip   = document.getElementById('tip');
+const grid  = document.getElementById('grid');
+let current = 'pop';
+let entered = false;
+
+// 카드 렌더
+grid.innerHTML = MOTIONS.map(m => `
+  <div class="card${m.id===current?' sel':''}" data-id="${m.id}">
+    <div class="demo" data-motion="${m.id}">
+      <span class="ico"><span class="mv">${ICON_SVG}</span></span>
+    </div>
+    <div class="nm">${m.name}</div>
+    <div class="ds">${m.desc}</div>
+    <span class="mt">방해도 ${m.level}</span>
+  </div>
+`).join('');
+
+function apply(id){
+  if(entered) return;
+  current = id;
+  tab.dataset.motion = id;
+  const m = MOTIONS.find(x=>x.id===id);
+  document.getElementById('curName').textContent  = m.name;
+  document.getElementById('curLevel').textContent = m.level;
+  document.getElementById('curUse').textContent   = m.use;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel', c.dataset.id===id));
+}
+
+grid.addEventListener('click', e=>{
+  const card = e.target.closest('.card');
+  if(card) apply(card.dataset.id);
+});
+
+// 속도
+document.querySelectorAll('[data-dur]').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-dur]').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.documentElement.style.setProperty('--dur', b.dataset.dur);
+    document.getElementById('curDur').textContent = b.dataset.dur.replace('s','초');
+  });
+});
+
+// 툴팁 토글
+const tipBtn = document.getElementById('tipBtn');
+tipBtn.addEventListener('click',()=>{
+  if(entered) return;
+  const on = tipBtn.classList.toggle('on');
+  tip.classList.toggle('show', on);
+});
+
+// 일시정지
+const pauseBtn = document.getElementById('pauseBtn');
+pauseBtn.addEventListener('click',()=>{
+  const on = pauseBtn.classList.toggle('on');
+  document.body.classList.toggle('paused', on);
+  pauseBtn.textContent = on ? '재생' : '일시정지';
+});
+
+// 탭 진입 → 영구 소멸
+function enter(){
+  if(entered) return;
+  entered = true;
+  tip.classList.remove('show');
+  tab.dataset.motion = 'none';
+  tab.querySelector('.txt').style.color = 'var(--tx)';
+  document.getElementById('curName').textContent = '소멸 (탭 진입 완료)';
+}
+document.getElementById('enterBtn').addEventListener('click', enter);
+tab.addEventListener('click', enter);
+
+// 초기화
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  entered = false;
+  tab.querySelector('.txt').style.color = '';
+  tipBtn.classList.add('on');
+  tip.classList.add('show');
+  apply(current);
+});
+
+// 초기값
+document.documentElement.style.setProperty('--dur','2.4s');
+</script>
+</body>
+</html>
