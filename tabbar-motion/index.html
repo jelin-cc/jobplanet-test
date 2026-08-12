@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>기업 리뷰 탭 아이콘 모션 비교</title>
+<title>기업 리뷰 탭 아이콘 모션 최종 시안</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 :root{
   --accent:#00C274;
+  --accent-dk:#00A863;
   --accent-bg:#F0FAF5;
   --accent-ln:rgba(0,194,116,.16);
 
@@ -27,6 +28,8 @@
   --r-lg:20px;
   --r:14px;
   --r-sm:10px;
+
+  --dur:2.4s;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -41,7 +44,7 @@ body{
 .head{margin-bottom:28px}
 .eyebrow{
   display:inline-flex;align-items:center;gap:6px;
-  background:var(--accent-bg);color:var(--accent);
+  background:var(--accent-bg);color:var(--accent-dk);
   font-size:12px;font-weight:700;letter-spacing:-.2px;
   padding:5px 11px;border-radius:20px;margin-bottom:14px;
 }
@@ -52,7 +55,32 @@ body{
 }
 .head p{
   font-size:15px;color:var(--t4);line-height:25px;letter-spacing:-.2px;
-  max-width:640px;
+  max-width:660px;
+}
+
+/* ══ 섹션 타이틀 ══ */
+.sec{
+  display:flex;align-items:center;gap:10px;margin-bottom:8px;
+}
+.sec h2{font-size:19px;font-weight:700;letter-spacing:-.5px}
+.sec-desc{
+  font-size:14px;color:var(--t4);line-height:23px;letter-spacing:-.2px;
+  margin-bottom:20px;max-width:680px;
+}
+
+/* 채택 칩 */
+.chip-adopt{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--accent);color:#fff;
+  font-size:12px;font-weight:700;letter-spacing:-.2px;
+  padding:5px 11px;border-radius:20px;line-height:16px;
+}
+.chip-adopt svg{width:12px;height:12px;display:block}
+.chip-ghost{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--fill);color:var(--t4);
+  font-size:12px;font-weight:700;letter-spacing:-.2px;
+  padding:5px 11px;border-radius:20px;line-height:16px;
 }
 
 /* ══ 컨트롤 ══ */
@@ -89,6 +117,8 @@ body{
 .pill:hover{background:#ECEDF0}
 .pill.on{background:var(--accent);color:#fff}
 .pill.on:hover{background:#00b06a}
+.pill.key{background:var(--accent-bg);color:var(--accent-dk)}
+.pill.key:hover{background:#E3F6ED}
 .spacer{flex:1}
 
 /* ══ 스테이지 ══ */
@@ -100,21 +130,41 @@ body{
 }
 @media (max-width:900px){.stage{grid-template-columns:1fr}}
 
+/* 미리보기 안내 바 */
+.preview-bar{
+  grid-column:1/-1;
+  display:none;align-items:center;gap:12px;
+  background:#FFF8E9;border:1px solid rgba(229,138,0,.18);
+  border-radius:var(--r);padding:12px 16px;margin-bottom:-8px;
+}
+.preview-bar.on{display:flex}
+.preview-bar p{font-size:13px;font-weight:600;color:#B26A00;letter-spacing:-.2px;flex:1}
+.preview-bar button{
+  font-family:inherit;font-size:12px;font-weight:700;letter-spacing:-.2px;
+  padding:7px 12px;border:0;border-radius:8px;
+  background:#fff;color:#B26A00;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+
 /* 폰 */
 .phone{
+  align-self:center;
   width:375px;border-radius:30px;overflow:hidden;
   border:1px solid var(--ln);background:#fff;
   box-shadow:0 12px 32px rgba(25,31,40,.10);
 }
 .phone-content{
-  height:250px;position:relative;
+  height:290px;position:relative;overflow-y:auto;
   background:linear-gradient(180deg,#FFF6E9 0%,#fff 62%);
-  padding:22px 18px 0;
+  padding:22px 18px 20px;
+  -webkit-overflow-scrolling:touch;
 }
+.phone-content::-webkit-scrollbar{width:0}
 .rv-card{
   background:#fff;border:1px solid rgba(25,31,40,.07);border-radius:16px;
   padding:20px;box-shadow:0 1px 3px rgba(25,31,40,.04);
+  margin-bottom:12px;
 }
+.rv-card:last-child{margin-bottom:0}
 .rv-card .t{font-size:15px;font-weight:600;line-height:24px;color:var(--t1);
   letter-spacing:-.3px;margin-bottom:14px}
 .rv-card .m{display:flex;align-items:center;gap:8px}
@@ -139,43 +189,66 @@ body{
 .home-indicator{height:30px;background:#fff;display:grid;place-items:center}
 .home-indicator i{display:block;width:134px;height:5px;border-radius:10px;background:var(--t1)}
 
-/* 툴팁 */
+/* ══ 툴팁 ══ */
 .tip{
-  position:absolute;left:50%;bottom:calc(100% + 9px);
-  transform:translateX(-50%) translateY(4px);
+  position:absolute;left:50%;bottom:calc(100% + 10px);
   background:#fff;border:2px solid var(--accent);border-radius:999px;
   padding:6px 14px;white-space:nowrap;
   font-size:12px;font-weight:600;color:var(--t1);line-height:18px;letter-spacing:-.2px;
   box-shadow:0 4px 12px rgba(0,194,116,.14);
-  opacity:0;pointer-events:none;
-  transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.4,.64,1);
+  opacity:0;visibility:hidden;
+  transform:translateX(-50%) translateY(6px) scale(.96);
+  transform-origin:50% 100%;
+  pointer-events:none;
+  transition:opacity .22s ease,transform .3s cubic-bezier(.34,1.4,.64,1),visibility 0s linear .3s;
 }
+.tip.show{
+  opacity:1;visibility:visible;
+  transform:translateX(-50%) translateY(0) scale(1);
+  transition:opacity .22s ease,transform .34s cubic-bezier(.34,1.4,.64,1),visibility 0s;
+}
+/* 꼬리 - 바깥 테두리 삼각형 */
+.tip::before,
 .tip::after{
-  content:'';position:absolute;left:50%;top:100%;
-  width:9px;height:9px;background:#fff;
-  border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
-  transform:translate(-50%,-6px) rotate(45deg);border-radius:0 0 3px 0;
+  content:'';position:absolute;left:50%;width:0;height:0;
+  border-left-style:solid;border-right-style:solid;border-top-style:solid;
+  border-left-color:transparent;border-right-color:transparent;
+  transform:translateX(-50%);
 }
-.tip.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.tip::before{
+  top:100%;
+  border-left-width:7px;border-right-width:7px;border-top-width:8px;
+  border-top-color:var(--accent);
+}
+/* 꼬리 - 안쪽 흰 면. 말풍선 아래 테두리를 덮어 이음새를 없앰 */
+.tip::after{
+  top:calc(100% - 2px);
+  border-left-width:6px;border-right-width:6px;border-top-width:7px;
+  border-top-color:#fff;
+}
 
 /* ══ 정보 패널 ══ */
 .panel{min-width:0;display:flex;flex-direction:column}
 .panel .ph{
   font-size:13px;font-weight:700;color:var(--t4);letter-spacing:-.2px;
-  margin-bottom:14px;
+  margin-bottom:14px;display:flex;align-items:center;gap:8px;
 }
 .spec{border-radius:var(--r);background:var(--fill2);padding:6px 18px;margin-bottom:18px}
 .spec .row{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 0;border-bottom:1px solid #EDEFF2;
+  display:flex;align-items:flex-start;gap:14px;
+  padding:13px 0;border-bottom:1px solid #EDEFF2;
 }
 .spec .row:last-child{border-bottom:0}
 .spec .k{
-  width:88px;flex-shrink:0;font-size:13px;font-weight:600;
-  color:var(--t4);letter-spacing:-.2px;
+  width:92px;flex-shrink:0;font-size:13px;font-weight:600;
+  color:var(--t4);letter-spacing:-.2px;line-height:22px;
 }
-.spec .v{font-size:15px;font-weight:600;color:var(--t1);letter-spacing:-.3px}
+.spec .v{font-size:15px;font-weight:600;color:var(--t1);letter-spacing:-.3px;line-height:22px}
 .spec .v.sub{font-weight:500;color:var(--t2);font-size:14px}
+.spec .v em{
+  display:block;font-style:normal;font-size:12px;font-weight:500;
+  color:var(--t4);line-height:19px;margin-top:4px;
+}
 .badge{
   display:inline-block;font-size:12px;font-weight:700;letter-spacing:-.2px;
   padding:4px 10px;border-radius:20px;
@@ -189,7 +262,7 @@ body{
   border-radius:var(--r);padding:18px 20px;
 }
 .note h4{
-  font-size:13px;font-weight:700;color:#00A863;letter-spacing:-.2px;
+  font-size:13px;font-weight:700;color:var(--accent-dk);letter-spacing:-.2px;
   margin-bottom:7px;display:flex;align-items:center;gap:6px;
 }
 .note h4 + p{margin-bottom:16px}
@@ -197,11 +270,9 @@ body{
 .note p{font-size:14px;line-height:23px;color:var(--t3);letter-spacing:-.2px}
 
 /* ══ 그리드 ══ */
-.gh{font-size:19px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
-.gs{font-size:14px;color:var(--t4);line-height:23px;letter-spacing:-.2px;
-  margin-bottom:20px;max-width:660px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:14px}
 .card{
+  position:relative;
   background:var(--card);border:1.5px solid transparent;border-radius:var(--r);
   padding:18px;cursor:pointer;
   box-shadow:0 1px 4px rgba(0,0,0,.04);
@@ -209,10 +280,20 @@ body{
 }
 .card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(25,31,40,.08)}
 .card.sel{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.card.adopted{border-color:var(--accent)}
+.card .flag{
+  position:absolute;top:14px;right:14px;
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--accent);color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:-.2px;
+  padding:4px 9px;border-radius:20px;line-height:15px;
+}
+.card .flag svg{width:11px;height:11px;display:block}
 .card .demo{
   height:68px;display:grid;place-items:center;
   background:var(--fill);border-radius:12px;margin-bottom:14px;
 }
+.card.adopted .demo{background:var(--accent-bg)}
 .card .demo .ico{width:20px;height:20px;position:relative;display:grid;place-items:center}
 .card .demo .ico svg{width:20px;height:20px;display:block}
 .card .nm{font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
@@ -246,7 +327,7 @@ body{
   86%{transform:scale(1,1) translateY(0)}
 }
 
-/* 3. 흔들기 */
+/* 3. 흔들기 — 채택안 */
 [data-motion="wiggle"] .mv{animation:m-wiggle var(--dur,2.4s) ease-in-out infinite}
 @keyframes m-wiggle{
   0%,58%,100%{transform:rotate(0)}
@@ -257,7 +338,7 @@ body{
   91%{transform:rotate(0)}
 }
 
-/* 4. 확산 링 — 아이콘 중심에서 퍼짐 */
+/* 4. 확산 링 */
 [data-motion="ripple"] .mv::before,
 [data-motion="ripple"] .mv::after{
   content:'';position:absolute;left:50%;top:50%;
@@ -297,10 +378,22 @@ body{
 <div class="wrap">
 
   <div class="head">
-    <span class="eyebrow"><i></i>리뷰 피드 진입점 개선 1차</span>
-    <h1>기업 리뷰 탭 아이콘 모션 비교</h1>
-    <p>하단 탭바 '기업 리뷰' 아이콘에 적용할 모션 후보 5종입니다.
-       카드를 누르면 프리뷰에 바로 적용되며, 툴팁은 최초 1회 노출 · 탭 최초 진입 시 모션과 툴팁이 모두 미노출 처리되는 스펙으로 동작합니다.</p>
+    <span class="eyebrow"><i></i>리뷰 피드 진입점 개선 · A안</span>
+    <h1>기업 리뷰 탭 아이콘 모션 최종 시안</h1>
+    <p>하단 탭바 '기업 리뷰' 아이콘 모션과 툴팁의 최종 시안입니다.
+       모션은 <strong>흔들기</strong>로 채택했으며, 모션 시작과 동시에 툴팁이 나타났다가 조건에 따라 스스로 사라집니다.
+       함께 검토한 후보 5종은 아래 '모션 후보'에서 비교할 수 있습니다.</p>
+  </div>
+
+  <div class="sec">
+    <h2>최종 시안</h2>
+    <span class="chip-adopt">
+      <svg viewBox="0 0 12 12" fill="none"><path d="M2.2 6.2 4.8 8.8 9.8 3.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      흔들기 채택
+    </span>
+  </div>
+  <div class="sec-desc">
+    툴팁은 스크롤하거나 시간이 지나면 사라지며, 탭에 진입하면 모션과 툴팁이 함께 종료됩니다.
   </div>
 
   <div class="ctrl">
@@ -310,7 +403,7 @@ body{
       <button data-dur="2.4s" class="on">보통</button>
       <button data-dur="3.6s">느림</button>
     </div>
-    <button class="pill on" id="tipBtn">툴팁 표시</button>
+    <button class="pill key" id="playBtn">노출 다시 보기</button>
     <button class="pill" id="pauseBtn">일시정지</button>
     <div class="spacer"></div>
     <button class="pill" id="enterBtn">탭 진입 시뮬레이션</button>
@@ -318,13 +411,39 @@ body{
   </div>
 
   <div class="stage">
+    <div class="preview-bar" id="previewBar">
+      <p>후보 미리보기 중입니다. 최종 시안은 흔들기입니다.</p>
+      <button id="backBtn">최종 시안으로 되돌리기</button>
+    </div>
+
     <div class="phone">
-      <div class="phone-content">
+      <div class="phone-content" id="phoneContent">
         <div class="rv-card">
           <div class="t">안정적일 때 미래 먹거리를 위해 투자 할 줄 아는 회사 하지만 직원들 말을 귀담아 듣지는 않음</div>
           <div class="m">
             <span class="tag">장점</span>
             <span class="s">대부분의 부서들이 워라밸 보장 근태관리가 시작되면서</span>
+          </div>
+        </div>
+        <div class="rv-card">
+          <div class="t">복지는 업계 평균 이상. 다만 부서별 편차가 커서 어디로 배치되는지가 만족도를 가른다</div>
+          <div class="m">
+            <span class="tag">장점</span>
+            <span class="s">식대 지원과 재택 병행이 자유로운 편이고 연차 사용에</span>
+          </div>
+        </div>
+        <div class="rv-card">
+          <div class="t">성장할 사람은 확실히 성장하는 구조. 대신 스스로 일을 만들어야 한다</div>
+          <div class="m">
+            <span class="tag">단점</span>
+            <span class="s">온보딩 문서가 부족해 초반 적응에 시간이 오래 걸림</span>
+          </div>
+        </div>
+        <div class="rv-card">
+          <div class="t">연봉 인상 폭은 아쉽지만 사람들이 좋아서 오래 다니게 되는 회사</div>
+          <div class="m">
+            <span class="tag">장점</span>
+            <span class="s">수평적인 분위기라 의견을 내는 데 부담이 없는 편</span>
           </div>
         </div>
       </div>
@@ -334,7 +453,7 @@ body{
           <span class="txt">홈</span>
         </div>
 
-        <div class="tab" id="reviewTab" data-motion="pop">
+        <div class="tab" id="reviewTab" data-motion="none">
           <span class="ico">
             <span class="mv">
 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -350,7 +469,7 @@ body{
             </span>
           </span>
           <span class="txt">기업 리뷰</span>
-          <div class="tip show" id="tip">내 직군 리뷰 모아보기</div>
+          <div class="tip" id="tip">내 직군 리뷰 모아보기</div>
         </div>
 
         <div class="tab">
@@ -370,38 +489,57 @@ body{
     </div>
 
     <div class="panel">
-      <div class="ph">현재 적용</div>
+      <div class="ph">현재 적용 <span class="chip-adopt" id="stageFlag">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M2.2 6.2 4.8 8.8 9.8 3.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        채택</span></div>
       <div class="spec">
-        <div class="row"><span class="k">모션</span><span class="v" id="curName">팝 바운스</span></div>
+        <div class="row"><span class="k">모션</span><span class="v" id="curName">흔들기</span></div>
         <div class="row"><span class="k">주기</span><span class="v sub" id="curDur">2.4초</span></div>
-        <div class="row"><span class="k">방해도</span><span id="curLevel"><span class="badge mid">중</span></span></div>
-        <div class="row"><span class="k">권장 상황</span><span class="v sub" id="curUse">주목을 확실히 끌어야 할 때</span></div>
+        <div class="row"><span class="k">방해도</span><span id="curLevel"><span class="badge high">높음</span></span></div>
+        <div class="row"><span class="k">툴팁 문구</span><span class="v sub">내 직군 리뷰 모아보기</span></div>
+      </div>
+
+      <div class="ph">노출 조건</div>
+      <div class="spec">
+        <div class="row"><span class="k">노출 대상</span><span class="v">전체 이용자</span></div>
+        <div class="row"><span class="k">동작</span><span class="v sub">아이콘 모션이 시작되고 툴팁이 함께 노출됨</span></div>
+        <div class="row"><span class="k">종료</span><span class="v sub">툴팁은 최소 2초 유지 후 스크롤하거나 시간이 지나면 사라짐<em>프로토타입 기준 노출 0.5초 지연 · 스크롤 100px 또는 5초 경과 시 종료</em></span></div>
+        <div class="row"><span class="k">재노출 간격</span><span class="v">14일<em>홈 1인당 조회가 4주 3.9회로 평균 방문 간격이 약 7일임. 7일로 잡으면 사실상 매 방문 노출이 되어 두 배로 잡음</em></span></div>
+        <div class="row"><span class="k">노출 상한</span><span class="v">최대 3회<em>3회까지 반응이 없으면 관심이 없는 것으로 보고 중단함</em></span></div>
+        <div class="row"><span class="k">즉시 중단</span><span class="v sub">툴팁이나 아이콘을 눌러 리뷰 피드에 진입하면 이후 노출하지 않음</span></div>
+        <div class="row"><span class="k">저장 기준</span><span class="v sub">노출 횟수와 마지막 노출 시각을 저장해야 함<em>기기에만 저장하면 비로그인 이용자나 기기를 바꾼 이용자는 초기화됨. 로그인 이용자는 계정 기준 저장이 필요함</em></span></div>
       </div>
 
       <div class="note">
-        <h4>노출 종료 조건</h4>
-        <p>기업 리뷰 탭 최초 진입 시 모션과 툴팁이 미노출 처리되며, 이후 세션에서 재노출되지 않습니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
-        <h4>툴팁 노출 조건</h4>
-        <p>노출 대상은 배정 시점 기준 기업 리뷰 탭 진입 이력이 없는 유저입니다. 최초 1회 노출 · 표시 0.5초 지연 · 최소 표시 2초 · 스크롤 100px 또는 5초 경과 시 노출 종료. 모션은 툴팁 노출 종료 이후에도 탭 최초 진입 전까지 유지됩니다.</p>
+        <h4>확인 방법</h4>
+        <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 폰 화면을 스크롤하거나 5초가 지나면 툴팁이 사라지고, 모션은 탭 진입 전까지 유지됩니다.</p>
+        <h4>종료 조건</h4>
+        <p>기업 리뷰 탭에 진입하면 모션과 툴팁이 함께 종료되며 이후 재노출되지 않습니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
       </div>
     </div>
   </div>
 
-  <div class="gh">모션 후보</div>
-  <div class="gs">
+  <div class="sec">
+    <h2>모션 후보</h2>
+    <span class="chip-ghost">5종 검토 · 흔들기 채택</span>
+  </div>
+  <div class="sec-desc">
     하단 탭바 아이콘에 흔히 쓰이는 패턴 5종입니다. 방해도가 낮을수록 가드레일(이탈률 · 기존 CTA 클릭) 위험이 작지만 주목도도 함께 낮아집니다.
+    카드를 누르면 위 프리뷰에 미리 적용해 비교할 수 있으며, 최종 시안은 흔들기입니다.
   </div>
   <div class="grid" id="grid"></div>
 
 </div>
 
 <script>
+const ADOPTED = 'wiggle';
+
 const MOTIONS = [
-  {id:'pop',    name:'팝 바운스', desc:'위로 튀어올랐다 안착. 가장 보편적이고 인지율이 높음', level:'중', cls:'mid', use:'주목을 확실히 끌어야 할 때'},
-  {id:'bubble', name:'말풍선 톡', desc:'스쿼시·스트레치로 말풍선이 튀어나오는 느낌. 아이콘 형태와 가장 잘 맞음', level:'중', cls:'mid', use:'아이콘 정체성을 함께 전달할 때'},
-  {id:'wiggle', name:'흔들기',    desc:'좌우로 흔들림. 주목도는 가장 높지만 장난스럽고 거부감이 생길 수 있음', level:'높음', cls:'high', use:'단발성 강한 환기가 필요할 때'},
-  {id:'ripple', name:'확산 링',   desc:'아이콘 중심에서 링이 퍼져나감. 알림·새 기능 느낌이 강함', level:'중', cls:'mid', use:'신규 기능 인지를 노릴 때'},
-  {id:'shine',  name:'광택 스윕', desc:'아이콘 위로 빛이 스쳐감. 절제된 강조', level:'낮음', cls:'low', use:'톤을 해치지 않고 살짝만 알릴 때'},
+  {id:'pop',    name:'팝 바운스', desc:'위로 튀어올랐다 안착. 가장 보편적이고 인지율이 높음', level:'중', cls:'mid'},
+  {id:'bubble', name:'말풍선 톡', desc:'스쿼시·스트레치로 말풍선이 튀어나오는 느낌. 아이콘 형태와 가장 잘 맞음', level:'중', cls:'mid'},
+  {id:'wiggle', name:'흔들기',    desc:'좌우로 흔들림. 주목도가 가장 높아 최초 인지 목적에 가장 적합함', level:'높음', cls:'high'},
+  {id:'shine',  name:'광택 스윕', desc:'아이콘 위로 빛이 스쳐감. 절제된 강조', level:'낮음', cls:'low'},
+  {id:'ripple', name:'확산 링',   desc:'아이콘 중심에서 링이 퍼져나감. 알림·새 기능 느낌이 강함', level:'중', cls:'mid'},
 ];
 
 const ICON_SVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -415,14 +553,73 @@ const ICON_SVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xm
 </defs>
 </svg>`;
 
-const tab  = document.getElementById('reviewTab');
-const tip  = document.getElementById('tip');
-const grid = document.getElementById('grid');
-let current = 'pop';
+const CHECK = `<svg viewBox="0 0 12 12" fill="none"><path d="M2.2 6.2 4.8 8.8 9.8 3.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const tab     = document.getElementById('reviewTab');
+const tip     = document.getElementById('tip');
+const grid    = document.getElementById('grid');
+const content = document.getElementById('phoneContent');
+const stageFlag  = document.getElementById('stageFlag');
+const previewBar = document.getElementById('previewBar');
+
+let current = ADOPTED;
 let entered = false;
 
+/* ── 툴팁 노출 시퀀스 ──
+   모션 시작과 동시에 노출 → 최소 2초 유지 → 스크롤 100px 또는 5초 경과 시 종료 */
+const DELAY   = 500;   // 노출 지연
+const MIN_SHOW= 2000;  // 최소 유지
+const MAX_SHOW= 5000;  // 자동 종료
+const SCROLL_THRESHOLD = 100;
+
+let startTimer=null, autoTimer=null, shownAt=0, visible=false;
+
+function clearTimers(){
+  clearTimeout(startTimer); clearTimeout(autoTimer);
+  startTimer=null; autoTimer=null;
+}
+
+function hideTip(){
+  if(!visible) return;
+  visible=false;
+  tip.classList.remove('show');
+  clearTimeout(autoTimer); autoTimer=null;
+}
+
+/* 최소 유지 시간을 보장하며 종료 */
+function requestHide(){
+  if(!visible) return;
+  const elapsed = Date.now() - shownAt;
+  if(elapsed >= MIN_SHOW) hideTip();
+  else { clearTimeout(autoTimer); autoTimer = setTimeout(hideTip, MIN_SHOW - elapsed); }
+}
+
+function play(){
+  if(entered) return;
+  clearTimers();
+  hideTip();
+  tab.dataset.motion = 'none';
+  content.scrollTop = 0;
+
+  startTimer = setTimeout(()=>{
+    if(entered) return;
+    void tab.offsetWidth;                 // 애니메이션 재시작
+    tab.dataset.motion = current;         // 모션 시작
+    tip.classList.add('show');            // 툴팁 동시 노출
+    visible = true;
+    shownAt = Date.now();
+    autoTimer = setTimeout(hideTip, MAX_SHOW);
+  }, DELAY);
+}
+
+content.addEventListener('scroll', ()=>{
+  if(visible && content.scrollTop >= SCROLL_THRESHOLD) requestHide();
+});
+
+/* ── 모션 후보 카드 ── */
 grid.innerHTML = MOTIONS.map(m => `
-  <div class="card${m.id===current?' sel':''}" data-id="${m.id}">
+  <div class="card${m.id===current?' sel':''}${m.id===ADOPTED?' adopted':''}" data-id="${m.id}">
+    ${m.id===ADOPTED ? `<span class="flag">${CHECK}채택</span>` : ''}
     <div class="demo" data-motion="${m.id}">
       <span class="ico"><span class="mv">${ICON_SVG}</span></span>
     </div>
@@ -435,18 +632,24 @@ grid.innerHTML = MOTIONS.map(m => `
 function apply(id){
   if(entered) return;
   current = id;
-  tab.dataset.motion = id;
   const m = MOTIONS.find(x=>x.id===id);
   document.getElementById('curName').textContent = m.name;
-  document.getElementById('curUse').textContent  = m.use;
   document.getElementById('curLevel').innerHTML  = `<span class="badge ${m.cls}">${m.level}</span>`;
   document.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel', c.dataset.id===id));
+
+  const isAdopted = id === ADOPTED;
+  stageFlag.style.display  = isAdopted ? '' : 'none';
+  previewBar.classList.toggle('on', !isAdopted);
+
+  play();
 }
 
 grid.addEventListener('click', e=>{
   const card = e.target.closest('.card');
   if(card) apply(card.dataset.id);
 });
+
+document.getElementById('backBtn').addEventListener('click', ()=>apply(ADOPTED));
 
 document.querySelectorAll('[data-dur]').forEach(b=>{
   b.addEventListener('click',()=>{
@@ -457,11 +660,7 @@ document.querySelectorAll('[data-dur]').forEach(b=>{
   });
 });
 
-const tipBtn = document.getElementById('tipBtn');
-tipBtn.addEventListener('click',()=>{
-  if(entered) return;
-  tip.classList.toggle('show', tipBtn.classList.toggle('on'));
-});
+document.getElementById('playBtn').addEventListener('click', play);
 
 const pauseBtn = document.getElementById('pauseBtn');
 pauseBtn.addEventListener('click',()=>{
@@ -473,11 +672,11 @@ pauseBtn.addEventListener('click',()=>{
 function enter(){
   if(entered) return;
   entered = true;
-  tip.classList.remove('show');
-  tipBtn.classList.remove('on');
+  clearTimers();
+  hideTip();
   tab.dataset.motion = 'none';
   tab.classList.add('active');
-  document.getElementById('curName').textContent = '미노출 (탭 진입 완료)';
+  document.getElementById('curName').textContent = '노출 종료 (탭 진입 완료)';
 }
 document.getElementById('enterBtn').addEventListener('click', enter);
 tab.addEventListener('click', enter);
@@ -485,12 +684,11 @@ tab.addEventListener('click', enter);
 document.getElementById('resetBtn').addEventListener('click',()=>{
   entered = false;
   tab.classList.remove('active');
-  tipBtn.classList.add('on');
-  tip.classList.add('show');
-  apply(current);
+  apply(ADOPTED);
 });
 
 document.documentElement.style.setProperty('--dur','2.4s');
+play();
 </script>
 </body>
 </html>
