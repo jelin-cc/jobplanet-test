@@ -143,23 +143,11 @@ a{text-decoration:none;color:inherit}
   transform-origin:50% 0;
   transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s;
 }
-/* 꼬리 — 바깥 그린 삼각형 위에 흰 삼각형을 1px 겹쳐 이음새를 없앰 */
-.tip::before,
-.tip::after{
-  content:'';position:absolute;left:50%;width:0;height:0;
-  border-left-style:solid;border-right-style:solid;border-bottom-style:solid;
-  border-left-color:transparent;border-right-color:transparent;
+/* 꼬리 — 말풍선과 같은 1px 라운드 라인 */
+.tip .tail{
+  position:absolute;left:50%;bottom:calc(100% - 2px);
   transform:translateX(-50%);
-}
-.tip::before{
-  bottom:100%;
-  border-left-width:7px;border-right-width:7px;border-bottom-width:8px;
-  border-bottom-color:var(--green500);
-}
-.tip::after{
-  bottom:calc(100% - 1px);
-  border-left-width:6px;border-right-width:6px;border-bottom-width:7px;
-  border-bottom-color:#fff;
+  width:18px;height:12px;display:block;overflow:visible;
 }
 /* 꼬리를 축으로 내려오며 자리를 잡는 진입 모션 */
 .nav-item.tip-on .tip{
@@ -411,7 +399,12 @@ a{text-decoration:none;color:inherit}
       <nav class="nav">
         <div class="nav-item" id="navReview" data-motion="shine">
           <span class="lb">기업 리뷰<i class="dot"></i></span>
-          <span class="tip">방금 올라온 리뷰가 있어요</span>
+          <span class="tip">방금 올라온 리뷰가 있어요
+            <svg class="tail" viewBox="0 0 18 12" fill="none">
+              <path d="M1 10.4 L9 2.4 L17 10.4" fill="#fff" stroke="#00C274" stroke-width="1"
+                    stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </span>
         </div>
         <div class="nav-item"><span class="lb">채용 공고</span></div>
         <div class="nav-item"><span class="lb">연봉</span></div>
