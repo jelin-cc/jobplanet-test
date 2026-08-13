@@ -143,9 +143,9 @@ a{text-decoration:none;color:inherit}
 }
 /* 꼬리 — 말풍선과 같은 1px 라운드 라인 */
 .tip .tail{
-  position:absolute;left:50%;bottom:100%;
+  position:absolute;left:50%;bottom:calc(100% - 0.25px);
   transform:translateX(-50%);
-  width:20px;height:12px;display:block;overflow:visible;
+  width:24px;height:10px;display:block;overflow:visible;
 }
 /* 꼬리를 축으로 내려오며 자리를 잡는 진입 모션 */
 .nav-item.tip-on .tip{
@@ -398,10 +398,11 @@ a{text-decoration:none;color:inherit}
         <div class="nav-item" id="navReview" data-motion="shine">
           <span class="lb">기업 리뷰<i class="dot"></i></span>
           <span class="tip">내 직군 리뷰 모아보기
-            <svg class="tail" viewBox="0 0 20 12" fill="none">
-              <path d="M1 15 L10 3 L19 15" fill="#fff" stroke="none"/>
-              <path d="M1 11 L10 3 L19 11" fill="none" stroke="#00C274" stroke-width="1.5"
-                    stroke-linejoin="round" stroke-linecap="butt"/>
+            <svg class="tail" viewBox="0 0 24 10" fill="none">
+              <path d="M8.6 10 L12 2.4 L15.4 10 Z" fill="#fff"/>
+              <rect x="0" y="9.1" width="24" height="3.9" fill="#fff"/>
+              <path d="M0 9 H6 C8 9 8.9 8.3 9.7 6.9 L12 2.8 L14.3 6.9 C15.1 8.3 16 9 18 9 H24"
+                    fill="none" stroke="#00C274" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="butt"/>
             </svg>
           </span>
         </div>

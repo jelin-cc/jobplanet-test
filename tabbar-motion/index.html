@@ -214,7 +214,7 @@ body{
   position:absolute;left:50%;bottom:calc(100% + 10px);
   background:#fff;border:1.5px solid var(--accent);border-radius:999px;
   padding:6px 14px;white-space:nowrap;
-  font-size:12px;font-weight:600;color:var(--t1);line-height:18px;letter-spacing:-.2px;
+  font-size:12px;font-weight:600;color:#242628;line-height:18px;letter-spacing:-.2px;
   box-shadow:0 4px 12px rgba(0,194,116,.14);
   opacity:0;visibility:hidden;
   transform:translateX(-50%) translateY(8px) scale(.92);
@@ -238,9 +238,9 @@ body{
 }
 /* 꼬리 - 말풍선과 같은 1px 라운드 라인. 흰 면이 말풍선 아래 테두리를 덮어 이음새를 없앰 */
 .tip .tail{
-  position:absolute;left:50%;top:100%;
+  position:absolute;left:50%;top:calc(100% - 0.25px);
   transform:translateX(-50%);
-  width:20px;height:12px;display:block;overflow:visible;
+  width:24px;height:10px;display:block;overflow:visible;
 }
 
 /* ══ 정보 패널 — 폰 프리뷰 아래 3열 ══ */
@@ -500,10 +500,11 @@ body{
             </span>
           </span>
           <span class="txt">기업 리뷰</span>
-          <div class="tip" id="tip">내 직군 리뷰 모아보기            <svg class="tail" viewBox="0 0 20 12" fill="none">
-              <path d="M1 -3 L10 9 L19 -3" fill="#fff" stroke="none"/>
-              <path d="M1 1 L10 9 L19 1" fill="none" stroke="#00C274" stroke-width="1.5"
-                    stroke-linejoin="round" stroke-linecap="butt"/>
+          <div class="tip" id="tip">내 직군 리뷰 모아보기            <svg class="tail" viewBox="0 0 24 10" fill="none">
+              <path d="M8.6 0 L12 7.6 L15.4 0 Z" fill="#fff"/>
+              <rect x="0" y="-3" width="24" height="3.9" fill="#fff"/>
+              <path d="M0 1 H6 C8 1 8.9 1.7 9.7 3.1 L12 7.2 L14.3 3.1 C15.1 1.7 16 1 18 1 H24"
+                    fill="none" stroke="#00C274" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="butt"/>
             </svg>
           </div>
         </div>
