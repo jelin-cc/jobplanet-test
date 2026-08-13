@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>잡플래닛 PC 홈 · GNB 기업 리뷰 모션 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  /* Gray */
+  --g30:#F9F9FB; --g50:#F3F3F4; --g100:#E5E6E9; --g200:#C5C7CC; --g300:#A4A6AD;
+  --g400:#85878C; --g500:#686A6D; --g600:#57595B; --g700:#4B4C50; --g800:#323438; --g900:#242628;
+  /* Green */
+  --green50:#E3F8ED; --green500:#00C274; --green600:#00A866;
+  /* etc */
+  --red50:#FFF0F2; --red100:#FFCDCD; --red400:#EF5350;
+  --blue50:#ECF6FE; --blue600:#1E88E5;
+  --yellow50:#FAF9EC; --yellow600:#D79304;
+  --orange500:#FF9800;
+  --jk:#083CCC;
+  --dur:2.4s;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Pretendard',-apple-system,system-ui,sans-serif;
+  background:#fff;color:var(--g900);
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block}
+button{font-family:inherit;border:0;background:none;cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+/* ══════════ GNB ══════════ */
+.gnb{position:sticky;top:0;z-index:80;background:#fff;border-bottom:1px solid var(--g100)}
+.gnb-in{height:56px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.gnb-left{display:flex;align-items:flex-end;gap:34px;height:100%}
+.logo{
+  font-size:23px;font-weight:700;color:var(--green500);
+  letter-spacing:-.8px;line-height:25px;
+  align-self:center;
+}
+.nav{display:flex;align-items:flex-end;gap:34px;height:100%;padding-top:18px}
+.nav-item{
+  position:relative;height:38px;display:flex;align-items:flex-start;
+}
+.nav-item .lb{
+  font-size:15px;font-weight:600;line-height:24px;color:var(--g800);
+  letter-spacing:-.2px;white-space:nowrap;
+  transition:color .15s;
+}
+.nav-item::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:var(--green500);transform:scaleX(0);transform-origin:left center;
+  transition:transform .2s cubic-bezier(.4,0,.2,1);
+}
+.nav-item:hover .lb{color:var(--green500)}
+.nav-item:hover::after{transform:scaleX(1)}
+
+.gnb-right{display:flex;align-items:center;gap:24px;padding:10px 0;align-self:stretch;justify-content:flex-end}
+.search-mini{
+  width:188px;height:40px;padding:0 16px;background:var(--g50);border-radius:999px;
+  display:flex;align-items:center;gap:4px;
+}
+.search-mini span{flex:1;font-size:14px;font-weight:400;line-height:22px;color:var(--g300)}
+.util{display:flex;align-items:center;gap:2px}
+.util-row{display:flex;align-items:center;gap:10px}
+.icon-btn{padding:8px;display:flex;align-items:center;color:var(--g500)}
+.profile{
+  width:32px;height:32px;background:var(--g30);border-radius:6px;
+  border:1px solid var(--g100);display:flex;align-items:center;justify-content:center;color:var(--g500);
+}
+.profile-wrap{display:flex;align-items:center;gap:4px;color:var(--g300)}
+.vline{width:1px;height:13px;background:var(--g100)}
+.biz{
+  height:32px;padding:6px 10px;border-radius:8px;
+  font-size:13px;font-weight:600;line-height:20px;color:var(--g500);
+}
+.biz:hover{background:var(--g30)}
+
+/* ══════════ GNB 모션 후보 ══════════ */
+.nav-item .lb{position:relative;display:inline-block}
+
+/* 1. 라이트 스윕 */
+[data-motion="shine"] .lb{
+  /* 기본 상태에서도 그라데이션 좌측(그레이 구간)이 글자를 덮으므로 색이 사라지지 않음 */
+  background:linear-gradient(90deg,var(--g800) 0%,var(--g800) 36%,var(--green500) 50%,var(--g800) 64%,var(--g800) 100%) 0% 0/300% 100% no-repeat;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+[data-motion="shine"].run .lb{
+  animation:m-shine var(--dur) cubic-bezier(.4,0,.2,1) .5s 3 both;
+}
+@keyframes m-shine{
+  0%,38%{background-position:100% 0}
+  88%,100%{background-position:0% 0}
+}
+
+/* 2. 언더라인 드로우 + 아래 방향 힌트 */
+[data-motion="underline"] .draw{
+  position:absolute;left:0;bottom:-2px;height:2px;width:100%;
+  background:var(--green500);border-radius:2px;
+  transform:scaleX(0);transform-origin:left center;opacity:0;
+}
+[data-motion="underline"].run .draw{
+  animation:m-draw var(--dur) cubic-bezier(.4,0,.2,1) .5s 3 both;
+}
+@keyframes m-draw{
+  0%{transform:scaleX(0);transform-origin:left center;opacity:1}
+  28%{transform:scaleX(1);transform-origin:left center;opacity:1}
+  55%{transform:scaleX(1);transform-origin:right center;opacity:1}
+  75%,100%{transform:scaleX(0);transform-origin:right center;opacity:0}
+}
+[data-motion="underline"].run .lb{animation:m-tint var(--dur) ease-in-out .5s 3 both}
+@keyframes m-tint{0%,80%,100%{color:var(--g800)}30%,55%{color:var(--green500)}}
+
+/* 3. 도트 펄스 */
+.dot{
+  position:absolute;top:1px;right:-9px;width:5px;height:5px;border-radius:999px;
+  background:var(--green500);opacity:0;
+}
+.dot::after{
+  content:'';position:absolute;inset:0;border-radius:999px;
+  border:1.5px solid var(--green500);transform:scale(1);opacity:0;
+}
+[data-motion="dot"].run .dot{opacity:1;animation:m-dot var(--dur) ease-in-out .5s 3 both}
+[data-motion="dot"].run .dot::after{animation:m-ripple var(--dur) ease-out .5s 3 both}
+@keyframes m-dot{0%,60%,100%{transform:scale(1)}70%{transform:scale(1.5)}80%{transform:scale(1)}}
+@keyframes m-ripple{0%,45%{transform:scale(1);opacity:.8}75%,100%{transform:scale(3.4);opacity:0}}
+
+/* 4. 흔들기 (모바일 탭바 채택안) */
+[data-motion="wiggle"].run .lb{
+  transform-origin:50% 60%;
+  animation:m-wiggle var(--dur) ease-in-out .5s 3 both;
+}
+@keyframes m-wiggle{
+  0%,58%,100%{transform:rotate(0)}
+  63%{transform:rotate(-6deg)}
+  70%{transform:rotate(5deg)}
+  77%{transform:rotate(-3.5deg)}
+  84%{transform:rotate(2.5deg)}
+  91%{transform:rotate(0)}
+}
+
+/* 5. 팝 바운스 */
+[data-motion="pop"].run .lb{
+  animation:m-pop var(--dur) cubic-bezier(.34,1.56,.64,1) .5s 3 both;
+}
+@keyframes m-pop{
+  0%,58%,100%{transform:translateY(0) scale(1);color:var(--g800)}
+  66%{transform:translateY(-4px) scale(1.06);color:var(--green500)}
+  76%{transform:translateY(0) scale(.98);color:var(--green500)}
+  86%{transform:translateY(0) scale(1);color:var(--g800)}
+}
+
+/* 툴팁 */
+.tip{
+  position:absolute;top:36px;left:50%;transform:translate(-50%,-4px);
+  background:var(--g900);color:#fff;white-space:nowrap;
+  font-size:12px;font-weight:600;line-height:18px;letter-spacing:-.2px;
+  padding:7px 12px;border-radius:8px;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:5;
+}
+.tip::before{
+  content:'';position:absolute;top:-4px;left:50%;margin-left:-4px;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-bottom:4px solid var(--g900);
+}
+.nav-item.tip-on .tip{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  .nav-item.run .lb,.nav-item.run .draw,.nav-item.run .dot,.nav-item.run .dot::after{animation:none!important}
+  [data-motion="underline"].run .draw{opacity:1;transform:scaleX(1)}
+}
+
+/* ══════════ HERO ══════════ */
+.hero{position:relative;padding-top:56px}
+.hero::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:296px;
+  background:linear-gradient(180deg,rgba(227,248,237,.8) 0%,rgba(242,251,247,.8) 55%,#fff 100%);
+}
+.hero-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:28px}
+.hero-title{font-size:32px;font-weight:700;line-height:44px;letter-spacing:-.6px;text-align:center}
+.hero-title em{font-style:normal;color:var(--green500)}
+.search-big{
+  width:672px;height:56px;padding:0 18px 0 24px;background:#fff;
+  border-radius:999px;border:2px solid var(--green500);
+  box-shadow:0 0 24px rgba(184,235,208,.5);
+  display:flex;align-items:center;gap:4px;
+}
+.search-big span{flex:1;font-size:15px;font-weight:400;line-height:24px;color:var(--g400)}
+.rt{width:480px;display:flex;align-items:center;gap:8px}
+.rt-in{flex:1;display:flex;align-items:center;gap:12px}
+.rt-live{display:flex;align-items:center;gap:6px}
+.rt-live i{width:5px;height:5px;background:var(--green500);border-radius:999px;display:block}
+.rt-live b{font-size:13px;font-weight:600;line-height:20px;color:var(--g400)}
+.rt-item{flex:1;display:flex;align-items:center;justify-content:space-between}
+.rt-item .rk{font-size:14px;font-weight:600;line-height:22px;color:var(--green500)}
+.rt-item .nm{font-size:14px;font-weight:600;line-height:22px;color:#000;margin-left:8px}
+.rt-delta{display:flex;align-items:center;gap:2px;font-size:13px;font-weight:600;color:var(--red400)}
+.rt-more{
+  width:24px;height:24px;background:#fff;border-radius:6px;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;color:var(--g600);
+}
+
+/* ══════════ LAYOUT ══════════ */
+.wrap{width:1184px;margin:0 auto}
+.sections{display:flex;flex-direction:column;gap:72px;padding:80px 0 80px}
+
+.sec-head{height:32px;display:flex;align-items:center;gap:24px;margin-bottom:16px}
+.sec-head .t{flex:1;display:flex;align-items:center;gap:8px;font-size:22px;font-weight:700;line-height:30px;color:var(--g900);letter-spacing:-.4px}
+.sec-head .t img{width:24px;height:24px}
+.sec-head .t em{font-style:normal;color:var(--orange500)}
+.more{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:600;line-height:24px;color:var(--g400)}
+
+.rowcards{position:relative;display:flex;align-items:stretch;gap:16px}
+.arrow{
+  position:absolute;right:-20px;top:50%;margin-top:-20px;width:40px;height:40px;background:#fff;border-radius:999px;
+  border:1px solid var(--g100);display:flex;align-items:center;justify-content:center;color:var(--g800);
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+/* 마감 임박 배너 */
+.dday-banner{
+  height:52px;padding:0 16px;background:var(--red50);border-radius:12px;border:1px solid var(--red100);
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+}
+.dday-banner .l{display:flex;align-items:center;gap:8px}
+.pill-white{height:24px;padding:0 10px;background:#fff;border-radius:999px;display:flex;align-items:center;
+  font-size:12px;font-weight:600;line-height:18px;color:var(--red400)}
+.dday-banner .tx{font-size:14px;font-weight:600;line-height:22px;color:var(--red400)}
+
+/* 공고 카드 */
+.job{
+  flex:1;padding:16px 20px 20px;background:#fff;border-radius:12px;border:1px solid var(--g100);
+  display:flex;flex-direction:column;gap:4px;min-height:150px;
+}
+.job:hover{box-shadow:0 4px 14px rgba(36,38,40,.06)}
+.job-top{height:32px;display:flex;align-items:center;gap:4px}
+.job-co{flex:1;display:flex;align-items:center;gap:6px}
+.logo-box{
+  width:32px;height:32px;background:#fff;border-radius:8px;border:1px solid var(--g100);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none;
+}
+.logo-box img{width:28px;height:auto}
+.logo-box b{font-size:10px;font-weight:700;color:var(--g500)}
+.job-co .co{font-size:13px;font-weight:600;line-height:20px;color:var(--g500)}
+.job .ti{font-size:15px;font-weight:600;line-height:24px;color:var(--g900);letter-spacing:-.2px}
+.job .meta{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;line-height:18px;color:var(--g300)}
+.job .meta .d{color:var(--red400)}
+.job-bot{margin-top:auto;padding-top:8px;height:32px;display:flex;align-items:flex-end;justify-content:space-between}
+.tag{height:20px;padding:2px 6px;border-radius:4px;display:inline-flex;align-items:center;gap:2px;
+  font-size:11px;font-weight:600;line-height:16px}
+.tag.y{background:var(--yellow50);color:var(--yellow600)}
+.tag.g{background:var(--green50);color:var(--green600)}
+.btn-jk{
+  height:32px;padding:0 10px;background:#fff;border-radius:6px;border:1px solid #96B1FD;
+  display:flex;align-items:center;font-size:13px;font-weight:600;line-height:20px;color:var(--jk);
+}
+
+/* 리뷰 카드 */
+.rv{
+  flex:1;padding:24px 24px 20px;border-radius:16px;border:1px solid rgba(36,38,40,.1);
+  background:linear-gradient(180deg,#FFF3E0 0%,#fff 100%);
+  display:flex;flex-direction:column;gap:16px;
+}
+.rv .q{font-size:15px;font-weight:600;line-height:24px;color:var(--g900);letter-spacing:-.2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:48px}
+.rv .p{display:flex;align-items:center;gap:8px}
+.rv .p .tx{flex:1;font-size:14px;font-weight:400;line-height:22px;color:var(--g500);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rv .detail{
+  height:32px;background:#fff;border-radius:8px;border:1px solid var(--g100);
+  display:flex;align-items:center;justify-content:center;gap:0;
+  font-size:12px;font-weight:600;line-height:18px;color:var(--g700);
+}
+.rv .hr{height:1px;background:var(--g50)}
+.rv .co{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;line-height:22px;color:var(--g800)}
+
+/* 광고 배너 */
+.ad{
+  height:90px;border-radius:12px;border:1px solid var(--g100);position:relative;overflow:hidden;
+  background:linear-gradient(90deg,var(--g30),var(--g50));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;color:var(--g300);
+}
+.ad .badge{
+  position:absolute;right:12px;top:12px;height:20px;padding:2px 6px;border-radius:6px;
+  border:1px solid var(--g100);display:flex;align-items:center;gap:2px;background:#fff;
+  font-size:11px;font-weight:600;line-height:16px;color:var(--g200);
+}
+
+/* 테마 카드 */
+.theme{flex:1;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;border:1px solid rgba(36,38,40,.1)}
+.theme .ph{height:142px;padding:16px;display:flex;align-items:flex-start}
+.theme .ph .chip{
+  padding:4px 12px;background:rgba(0,0,0,.8);border-radius:999px;
+  font-size:13px;font-weight:600;line-height:20px;color:#fff;
+}
+.theme .bd{padding:20px 20px 32px;background:#fff;display:flex;flex-direction:column;gap:2px}
+.theme .bd h4{font-size:18px;font-weight:700;line-height:26px;color:var(--g900);letter-spacing:-.4px}
+.theme .bd p{font-size:15px;font-weight:400;line-height:24px;color:var(--g400)}
+
+/* 인기글 */
+.post{
+  flex:1;height:226px;padding:20px 20px 14px;background:#fff;border-radius:12px;border:1px solid var(--g100);
+  display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+}
+.post .tx{font-size:16px;font-weight:400;line-height:24px;color:var(--g900);
+  display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.post .st{display:flex;align-items:center;gap:20px;font-size:14px;color:var(--g300)}
+.post .st .l{display:flex;align-items:center;gap:12px}
+.post .st .l span{display:flex;align-items:center;gap:6px}
+.post .st .v{flex:1;text-align:right}
+
+/* 푸터 */
+.footer{border-top:1px solid var(--g100);margin-top:0}
+.f-links{width:1184px;margin:0 auto;padding:8px 0;display:flex;align-items:center;gap:95px}
+.f-links .l{flex:1;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:400;line-height:20px;color:var(--g800)}
+.f-links .l .em{color:var(--green500);font-weight:600}
+.f-links .l i{width:1px;height:12px;background:var(--g100);display:block}
+.f-sns{display:flex;align-items:center;gap:12px}
+.f-sns b{width:20px;height:20px;border-radius:999px;background:var(--g200);display:block}
+.f-body{border-top:1px solid var(--g100);padding:32px 0 48px}
+.f-in{width:1184px;margin:0 auto;display:flex;align-items:flex-start;gap:140px}
+.f-info{flex:1;display:flex;flex-direction:column;gap:28px}
+.f-info .co{font-size:13px;font-weight:600;line-height:20px;color:var(--g800);margin-bottom:10px}
+.f-info .rows{display:flex;flex-direction:column;gap:4px}
+.f-info .row{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:400;line-height:20px;color:var(--g500)}
+.f-info .row i{width:1px;height:12px;background:var(--g100);display:block}
+.f-copy{font-size:12px;font-weight:500;line-height:18px;color:var(--g300)}
+.f-app{display:flex;flex-direction:column;gap:8px}
+.f-app div{
+  width:120px;height:28px;border:1px solid var(--g200);border-radius:4px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 8px;
+  font-size:12px;font-weight:500;color:var(--g500);
+}
+
+/* ══════════ 컨트롤 패널 ══════════ */
+.panel{
+  position:fixed;right:24px;bottom:24px;z-index:200;width:288px;
+  background:#fff;border-radius:16px;border:1px solid var(--g100);
+  box-shadow:0 8px 32px rgba(36,38,40,.12);padding:16px;
+}
+.panel h5{font-size:13px;font-weight:700;line-height:20px;color:var(--g900);margin-bottom:2px;letter-spacing:-.2px}
+.panel .desc{font-size:11px;font-weight:400;line-height:16px;color:var(--g400);margin-bottom:12px}
+.panel .grp{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.opt{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;
+  border:1px solid var(--g100);background:#fff;text-align:left;transition:.15s;
+}
+.opt:hover{background:var(--g30)}
+.opt.on{border-color:var(--green500);background:rgba(0,194,116,.05)}
+.opt .n{font-size:12px;font-weight:700;line-height:18px;color:var(--g900);flex:none;width:76px}
+.opt.on .n{color:var(--green600)}
+.opt .d{font-size:11px;font-weight:400;line-height:16px;color:var(--g400);flex:1}
+.seg{display:flex;gap:4px;margin-bottom:10px}
+.seg button{
+  flex:1;height:28px;border-radius:8px;border:1px solid var(--g100);background:#fff;
+  font-size:11px;font-weight:600;color:var(--g500);
+}
+.seg button.on{background:var(--g900);border-color:var(--g900);color:#fff}
+.panel .foot{display:flex;gap:6px}
+.panel .foot button{
+  flex:1;height:34px;border-radius:10px;font-size:12px;font-weight:700;
+}
+.btn-key{background:var(--green500);color:#fff}
+.btn-key:hover{background:var(--green600)}
+.btn-ghost{background:#fff;border:1px solid var(--g100);color:var(--g600)}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--g500);margin-bottom:10px;cursor:pointer}
+.chk input{accent-color:var(--green500)}
+.hint{font-size:10px;line-height:15px;color:var(--g300);margin-top:10px;border-top:1px solid var(--g50);padding-top:8px}
+</style>
+</head>
+<body>
+
+<!-- ══════════ GNB ══════════ -->
+<header class="gnb">
+  <div class="gnb-in">
+    <div class="gnb-left">
+      <span class="logo">Jobplanet</span>
+      <nav class="nav">
+        <div class="nav-item" id="navReview" data-motion="shine">
+          <span class="lb">기업 리뷰<i class="dot"></i><i class="draw"></i></span>
+          <span class="tip">방금 올라온 리뷰가 있어요</span>
+        </div>
+        <div class="nav-item"><span class="lb">채용 공고</span></div>
+        <div class="nav-item"><span class="lb">연봉</span></div>
+        <div class="nav-item"><span class="lb">잡플위키</span></div>
+        <div class="nav-item"><span class="lb">커뮤니티</span></div>
+        <div class="nav-item"><span class="lb">멤버십</span></div>
+      </nav>
+    </div>
+
+    <div class="gnb-right">
+      <div class="search-mini">
+        <span>기업, 공고 검색</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </div>
+      <div class="util">
+        <div class="util-row">
+          <div style="display:flex;align-items:center;gap:2px">
+            <span class="icon-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            </span>
+            <span class="icon-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </span>
+          </div>
+          <div class="profile-wrap">
+            <span class="profile">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            </span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <span class="vline" style="margin:0 10px"></span>
+      </div>
+      <button class="biz">기업 회원 서비스</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-in">
+    <h1 class="hero-title"><em>어떤 회사·직무</em>가 궁금하신가요?</h1>
+    <div class="search-big">
+      <span>회사·직무 키워드를 검색해 보세요</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#85878C" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </div>
+    <div class="rt">
+      <div class="rt-in">
+        <span class="rt-live"><i></i><b>실시간</b></span>
+        <span class="vline"></span>
+        <div class="rt-item">
+          <div><span class="rk">3</span><span class="nm">무신사</span></div>
+          <span class="rt-delta">2
+            <svg width="9" height="7" viewBox="0 0 10 8" fill="#EF5350"><path d="M5 0l5 8H0z"/></svg>
+          </span>
+        </div>
+      </div>
+      <span class="rt-more">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 본문 ══════════ -->
+<div class="wrap">
+<div class="sections">
+
+  <!-- 마감 임박한 공고 -->
+  <section>
+    <div class="sec-head">
+      <div class="t"><img src="https://jelin-cc.github.io/jobplanet-test/emoji-fire.svg" alt="">마감 임박한 공고</div>
+      <span class="more">전체보기
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </span>
+    </div>
+    <div class="dday-banner">
+      <div class="l"><span class="pill-white">D-6</span><span class="tx">팔로우 회사 중 곧 마감되는 공고가 있어요!</span></div>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#85878C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="rowcards">
+      <div class="job">
+        <div class="job-top">
+          <div class="job-co">
+            <span class="logo-box"><img src="https://jelin-cc.github.io/jobplanet-test/toss.png" alt=""></span>
+            <span class="co">비바퍼블리카</span>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5C7CC" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>
+        </div>
+        <div class="ti">[비바퍼블리카] 커머스 부문 프로덕트 디자이너</div>
+        <div class="meta"><span class="d">D-6</span>·<span>경력무관</span>·<span>서울</span></div>
+        <div class="job-bot">
+          <span class="tag y">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D79304"><circle cx="12" cy="12" r="9"/></svg>
+            축하금 100만원
+          </span>
+          <span class="btn-jk">잡코리아 지원</span>
+        </div>
+      </div>
+      <div class="job">
+        <div class="job-top">
+          <div class="job-co">
+            <span class="logo-box"><img src="https://jelin-cc.github.io/jobplanet-test/naver.png" alt=""></span>
+            <span class="co">네이버파이넨셜</span>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5C7CC" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>
+        </div>
+        <div class="ti">[네이버파이넨셜] 헬스 프로덕트 디자이너 (5년차 이상)</div>
+        <div class="meta"><span class="d">D-6</span>·<span>경력무관</span>·<span>서울</span></div>
+        <div class="job-bot"><span class="tag g">워라밸 4.0</span></div>
+      </div>
+      <div class="job">
+        <div class="job-top">
+          <div class="job-co">
+            <span class="logo-box"><img src="https://jelin-cc.github.io/jobplanet-test/toss.png" alt=""></span>
+            <span class="co">비바퍼블리카</span>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5C7CC" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>
+        </div>
+        <div class="ti">[비바퍼블리카] 커머스 부문 프로덕트 디자이너 (3년차 이상)</div>
+        <div class="meta"><span class="d">D-6</span>·<span>경력무관</span>·<span>서울</span></div>
+        <div class="job-bot"><span class="tag g">워라밸 4.1</span></div>
+      </div>
+      <button class="arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- #연봉 언급 TOP 회사 -->
+  <section>
+    <div class="sec-head">
+      <div class="t"><img src="https://jelin-cc.github.io/jobplanet-test/emoji-moneybag.svg" alt=""><span><em>#연봉</em> 언급 TOP 회사</span></div>
+      <span class="more">전체보기
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </span>
+    </div>
+    <div class="rowcards">
+      <div class="rv">
+        <div class="q">안정적일 때 미래 먹거리를 위해 투자 할 줄 아는 회사 하지만 직원들 말을 귀담아 듣지는 않음</div>
+        <div class="p"><span class="tag" style="background:var(--blue50);color:var(--blue600)">장점</span>
+          <span class="tx">대부분의 부서들이 워라밸 보장 근태관리가 시작되면서</span></div>
+        <div class="detail">자세히 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="hr"></div>
+        <div class="co"><span class="logo-box"><b>yanolja</b></span>야놀자</div>
+      </div>
+      <div class="rv">
+        <div class="q">주변에 모자란 사람이 없다는게 가장 큰 장점, 매일 배우는 환경</div>
+        <div class="p"><span class="tag" style="background:var(--blue50);color:var(--blue600)">장점</span>
+          <span class="tx">각 분야 전문가들과 협업, 코드 리뷰·문서들만 봐도 주변에</span></div>
+        <div class="detail">자세히 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="hr"></div>
+        <div class="co"><span class="logo-box"><img src="https://jelin-cc.github.io/jobplanet-test/%EB%8B%B9%EA%B7%BC.png" alt=""></span>당근</div>
+      </div>
+      <div class="rv">
+        <div class="q">금요일 반차가 디폴트, 주말이 길어서 컨디션 회복에 진심이에요</div>
+        <div class="p"><span class="tag" style="background:var(--blue50);color:var(--blue600)">장점</span>
+          <span class="tx">주 4.5일제 정착, 연차·반차 사용도 눈치 안 보고 사용 가능해요</span></div>
+        <div class="detail">자세히 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57595B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="hr"></div>
+        <div class="co"><span class="logo-box"><img src="https://jelin-cc.github.io/jobplanet-test/naver.png" alt=""></span>네이버파이넨셜</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 광고 -->
+  <section>
+    <div class="ad">광고 영역 1184 × 90<span class="badge">광고
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C5C7CC" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01" stroke-linecap="round"/></svg>
+    </span></div>
+  </section>
+
+  <!-- 리뷰로 찾은 채용 공고 -->
+  <section>
+    <div class="sec-head"><div class="t">리뷰로 찾은 채용 공고</div></div>
+    <div class="rowcards">
+      <div class="theme">
+        <div class="ph" style="background:linear-gradient(140deg,#FFE7C7,#FFD0A8)"><span class="chip">최고의 보상</span></div>
+        <div class="bd"><h4>성과만큼 챙겨주는 곳</h4><p>복리후생부터 보너스까지 든든하게</p></div>
+      </div>
+      <div class="theme">
+        <div class="ph" style="background:linear-gradient(140deg,#D9F2E4,#B6E7CD)"><span class="chip">유연한 일터</span></div>
+        <div class="bd"><h4>자율적으로 일하는 곳</h4><p>젊고 자유로운 사내문화</p></div>
+      </div>
+      <div class="theme">
+        <div class="ph" style="background:linear-gradient(140deg,#D8E4F5,#B9CDE9)"><span class="chip">탄탄한 규모</span></div>
+        <div class="bd"><h4>한 번쯤 다녀보고 싶은 곳</h4><p>안정적인 비즈니스 기반</p></div>
+      </div>
+      <div class="theme">
+        <div class="ph" style="background:linear-gradient(140deg,#EFE3F7,#DDCBEE)"><span class="chip">믿고보는 동료</span></div>
+        <div class="bd"><h4>함께하고 싶은 사람들이 모인 곳</h4><p>스마트한 동료, 수평한 관계</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 실시간 인기글 -->
+  <section>
+    <div class="sec-head">
+      <div class="t">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="11.5" r="9.5" fill="#E1E7FA"/><path d="M3 17.5h5v6l-5-6z" fill="#E1E7FA"/><circle cx="7.9" cy="11.6" r="1.2" fill="#4C7AFB"/><circle cx="12.4" cy="11.6" r="1.2" fill="#4C7AFB"/><circle cx="16.9" cy="11.6" r="1.2" fill="#4C7AFB"/></svg>
+        실시간 인기글
+      </div>
+      <span class="more">전체보기
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </span>
+    </div>
+    <div class="rowcards">
+      <div class="post">
+        <div class="tx">점심메뉴추천<br><br>1. 찌개·탕류: 김치찌개, 된장찌개, 순두부찌개, 부대찌개, 갈비탕, 감자탕, 설렁탕, 육개장, 곰탕, 해장국</div>
+        <div class="st">
+          <span class="l">
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M7 22V11l5-9a2.5 2.5 0 0 1 2.5 3.2L13.5 9H20a2 2 0 0 1 2 2.4l-1.6 8A2 2 0 0 1 18.4 21H7z"/></svg>7</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12z"/></svg>32</span>
+          </span>
+          <span class="v">조회 192</span>
+        </div>
+      </div>
+      <div class="post">
+        <div class="tx">신입 분들, 말투 하나만 바꿔도 일 잘하는 사람처럼 보여요<br><br>요즘은 유연한 조직도 많아서 캐주얼한 말투도 좋지만, 말투는 곧 인상이기 때문에 딱 두 가지만 고치면 신뢰도 급상승합니다.</div>
+        <div class="st">
+          <span class="l">
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M7 22V11l5-9a2.5 2.5 0 0 1 2.5 3.2L13.5 9H20a2 2 0 0 1 2 2.4l-1.6 8A2 2 0 0 1 18.4 21H7z"/></svg>7</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12z"/></svg>32</span>
+          </span>
+          <span class="v">조회 192</span>
+        </div>
+      </div>
+      <div class="post">
+        <div class="tx">화장실갈 때 허락받아야 한다길래 도망쳤어요</div>
+        <div class="st">
+          <span class="l">
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M7 22V11l5-9a2.5 2.5 0 0 1 2.5 3.2L13.5 9H20a2 2 0 0 1 2 2.4l-1.6 8A2 2 0 0 1 18.4 21H7z"/></svg>7</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12z"/></svg>32</span>
+          </span>
+          <span class="v">조회 192</span>
+        </div>
+      </div>
+      <div class="post">
+        <div class="tx">상사와 사내 연애 해보신분?<br>6년 동안 장기연애한 여자친구가 제 상사인데요. 공식적으로 공개한 적은 없지만, 풍기는 분위기 때문인지 주변에서도 다 아는 분위기예요.</div>
+        <div class="st">
+          <span class="l">
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M7 22V11l5-9a2.5 2.5 0 0 1 2.5 3.2L13.5 9H20a2 2 0 0 1 2 2.4l-1.6 8A2 2 0 0 1 18.4 21H7z"/></svg>7</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="1.8" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.5A8 8 0 1 1 21 12z"/></svg>32</span>
+          </span>
+          <span class="v">조회 192</span>
+        </div>
+      </div>
+      <button class="arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<!-- ══════════ 푸터 ══════════ -->
+<footer class="footer">
+  <div class="f-links">
+    <div class="l">
+      <span>회사 소개</span><i></i>
+      <span class="em">이용약관</span><i></i>
+      <span>개인정보처리방침</span><i></i>
+      <span>리뷰 운영 정책</span><i></i>
+      <span>공지사항</span><i></i>
+      <span>광고 및 제휴문의</span><i></i>
+      <span>고객문의</span><i></i>
+      <span>FAQ</span>
+    </div>
+    <div class="f-sns"><b></b><b></b></div>
+  </div>
+  <div class="f-body">
+    <div class="f-in">
+      <div class="f-info">
+        <div>
+          <div class="co">잡플래닛 유한회사</div>
+          <div class="rows">
+            <div class="row"><span>서울특별시 서초구 서초중앙로24길 10, 9층 (서초동, 316타워)</span><i></i><span>대표 이준(LEE JOON)</span><i></i><span>개인정보보호관리자 이준(LEE JOON)</span></div>
+            <div class="row"><span>사업자등록번호 824-87-03495</span><i></i><span>통신판매업 신고번호 제2025-서울서초-04030</span><i></i><span>유료 직업소개사업 등록번호 (국내) 제2025-3210195-14-5-00031호</span></div>
+            <div class="row"><span>대표번호 1644-5641 (10:00~17:00 / 점심시간 11:30~12:30 / 매월 둘째 주 금요일 09:00~13:00) (주말 및 공휴일 휴무)</span></div>
+            <div class="row"><span>대표이메일 : customer_service@jobplanet.co.kr</span></div>
+          </div>
+        </div>
+        <div class="f-copy">©Jobplanet. All rights reserved. 모든 컨텐츠의 무단 전재, 무단 수집, 재배포 및 AI 학습 이용 금지</div>
+      </div>
+      <div class="f-app">
+        <div>Android <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><path d="M4 20h16"/></svg></div>
+        <div>iOS <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A4A6AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><path d="M4 20h16"/></svg></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ 모션 컨트롤 ══════════ -->
+<div class="panel">
+  <h5>GNB '기업 리뷰' 모션 후보</h5>
+  <div class="desc">모바일 탭바 시안(흔들기 2.4초·3회)과 동일한 노출 규칙을 적용했습니다.</div>
+
+  <div class="grp" id="opts">
+    <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span></button>
+    <button class="opt" data-m="underline"><span class="n">언더라인</span><span class="d">밑줄이 좌→우로 그려졌다 사라짐</span></button>
+    <button class="opt" data-m="dot"><span class="n">도트 펄스</span><span class="d">우상단 그린 도트가 퍼짐</span></button>
+    <button class="opt" data-m="wiggle"><span class="n">흔들기</span><span class="d">모바일 채택안과 동일</span></button>
+    <button class="opt" data-m="pop"><span class="n">팝 바운스</span><span class="d">살짝 튀어오르며 그린으로 전환</span></button>
+  </div>
+
+  <div class="seg" id="spd">
+    <button data-d="1.6s">빠름</button>
+    <button data-d="2.4s" class="on">보통</button>
+    <button data-d="3.6s">느림</button>
+  </div>
+
+  <label class="chk"><input type="checkbox" id="tipChk" checked>모션과 함께 툴팁 노출</label>
+
+  <div class="foot">
+    <button class="btn-key" id="replay">노출 다시 보기</button>
+    <button class="btn-ghost" id="stop">종료</button>
+  </div>
+  <div class="hint">노출 규칙 · 진입 0.5초 후 시작 → 3회 반복 후 정지 / 스크롤 100px 또는 GNB hover 시 즉시 종료 / 클릭 시 영구 종료</div>
+</div>
+
+<script>
+(function(){
+  var item   = document.getElementById('navReview');
+  var opts   = document.getElementById('opts');
+  var spd    = document.getElementById('spd');
+  var tipChk = document.getElementById('tipChk');
+  var timer  = null;
+
+  function stop(){
+    item.classList.remove('run','tip-on');
+    clearTimeout(timer);
+  }
+
+  function play(){
+    stop();
+    // reflow로 애니메이션 재시작
+    void item.offsetWidth;
+    item.classList.add('run');
+    if(tipChk.checked){
+      timer = setTimeout(function(){ item.classList.add('tip-on'); }, 500);
+    }
+    var dur = parseFloat(getComputedStyle(item).getPropertyValue('--dur')) || 2.4;
+    setTimeout(function(){ item.classList.remove('tip-on','run'); }, (dur*3 + .5) * 1000);
+  }
+
+  opts.addEventListener('click', function(e){
+    var b = e.target.closest('.opt'); if(!b) return;
+    [].forEach.call(opts.children, function(c){ c.classList.remove('on'); });
+    b.classList.add('on');
+    item.dataset.motion = b.dataset.m;
+    play();
+  });
+
+  spd.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    [].forEach.call(spd.children, function(c){ c.classList.remove('on'); });
+    b.classList.add('on');
+    item.style.setProperty('--dur', b.dataset.d);
+    play();
+  });
+
+  document.getElementById('replay').addEventListener('click', play);
+  document.getElementById('stop').addEventListener('click', stop);
+
+  // 종료 조건
+  item.addEventListener('mouseenter', stop);
+  item.addEventListener('click', stop);
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 100) stop();
+  }, {passive:true});
+
+  play();
+})();
+</script>
+</body>
+</html>
