@@ -236,11 +236,15 @@ body{
   88% {transform:translateX(-50%) translateY(0) scale(1.005)}
   100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
 }
-/* 꼬리 - 말풍선과 같은 1px 라운드 라인. 흰 면이 말풍선 아래 테두리를 덮어 이음새를 없앰 */
-.tip .tail{
-  position:absolute;left:50%;top:calc(100% - 0.25px);
-  transform:translateX(-50%);
-  width:32px;height:12px;display:block;overflow:visible;
+/* 꼬리 - 말풍선 테두리와 동일한 CSS 보더를 45도 회전시켜 이어 붙임 */
+.tip::after{
+  content:'';position:absolute;left:50%;bottom:-7.75px;
+  width:14px;height:14px;margin-left:-7px;
+  background:#fff;
+  border-right:1.5px solid var(--accent);
+  border-bottom:1.5px solid var(--accent);
+  border-bottom-right-radius:3px;
+  transform:rotate(45deg);
 }
 
 /* ══ 정보 패널 — 폰 프리뷰 아래 3열 ══ */
@@ -500,12 +504,7 @@ body{
             </span>
           </span>
           <span class="txt">기업 리뷰</span>
-          <div class="tip" id="tip">내 직군 리뷰 모아보기            <svg class="tail" viewBox="0 0 32 12" fill="none">
-              <path d="M11 0 L16 10.4 L21 0 Z" fill="#fff"/>
-              <rect x="0" y="-3" width="32" height="3.9" fill="#fff"/>
-              <path d="M0 1 H6 C9.2 1 10.8 2.1 12.2 4.4 L16 10 L19.8 4.4 C21.2 2.1 22.8 1 26 1 H32"
-                    fill="none" stroke="#00C274" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="butt"/>
-            </svg>
+          <div class="tip" id="tip">내 직군 리뷰 모아보기
           </div>
         </div>
 
