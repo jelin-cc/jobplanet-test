@@ -34,11 +34,8 @@ a{text-decoration:none;color:inherit}
 .gnb{position:sticky;top:0;z-index:80;background:#fff;border-bottom:1px solid var(--g100)}
 .gnb-in{height:56px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .gnb-left{display:flex;align-items:flex-end;gap:34px;height:100%}
-.logo{
-  font-size:23px;font-weight:700;color:var(--green500);
-  letter-spacing:-.8px;line-height:25px;
-  align-self:center;
-}
+/* Figma 로고 프레임 106×25, 워드마크 잉크 101.8×21.5 기준 */
+.logo{height:21.5px;width:auto;align-self:center;display:block}
 .nav{display:flex;align-items:flex-end;gap:34px;height:100%;padding-top:18px}
 .nav-item{
   position:relative;height:38px;display:flex;align-items:flex-start;
@@ -359,7 +356,7 @@ a{text-decoration:none;color:inherit}
 <header class="gnb">
   <div class="gnb-in">
     <div class="gnb-left">
-      <span class="logo">Jobplanet</span>
+      <img class="logo" src="https://jelin-cc.github.io/jobplanet-test/jp-logo-green.png" alt="잡플래닛">
       <nav class="nav">
         <div class="nav-item" id="navReview" data-motion="shine">
           <span class="lb">기업 리뷰<i class="dot"></i></span>
