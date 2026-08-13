@@ -390,7 +390,7 @@ body{
     <span class="eyebrow"><i></i>리뷰 피드 진입점 개선 · A안</span>
     <h1>기업 리뷰 탭 아이콘 모션 최종 시안</h1>
     <p>하단 탭바 '기업 리뷰' 아이콘 모션과 툴팁의 최종 시안입니다.
-       모션은 <strong>흔들기</strong>로 채택했으며, 모션 시작과 동시에 툴팁이 나타났다가 조건에 따라 스스로 사라집니다.
+       모션은 <strong>흔들기</strong>로 채택했으며, 모션 시작과 동시에 툴팁이 나타나 탭에 진입하기 전까지 계속 유지됩니다.
        함께 검토한 후보 5종은 아래 '모션 후보'에서 비교할 수 있습니다.</p>
   </div>
 
@@ -402,7 +402,7 @@ body{
     </span>
   </div>
   <div class="sec-desc">
-    툴팁은 스크롤하거나 시간이 지나면 사라지며, 탭에 진입하면 모션과 툴팁이 함께 종료됩니다.
+    툴팁은 시간이 지나거나 스크롤해도 사라지지 않으며, 탭에 진입할 때 모션과 함께 종료됩니다.
   </div>
 
   <div class="ctrl">
@@ -517,7 +517,7 @@ body{
       <div class="spec">
         <div class="row"><span class="k">노출 대상</span><span class="v">전체 이용자</span></div>
         <div class="row"><span class="k">동작</span><span class="v sub">아이콘 모션이 시작되고 툴팁이 함께 노출됨</span></div>
-        <div class="row"><span class="k">종료</span><span class="v sub">툴팁은 최소 2초 유지 후 스크롤하거나 시간이 지나면 사라짐<em>프로토타입 기준 노출 0.5초 지연 · 스크롤 100px 또는 5초 경과 시 종료</em></span></div>
+        <div class="row"><span class="k">종료</span><span class="v sub">툴팁은 리뷰 피드에 진입하기 전까지 사라지지 않고 계속 노출됨<em>프로토타입 기준 노출 0.5초 지연 · 스크롤이나 시간 경과로는 종료되지 않음</em></span></div>
         <div class="row"><span class="k">재노출 간격</span><span class="v">14일<em>홈 1인당 조회가 4주 3.9회로 평균 방문 간격이 약 7일임. 7일로 잡으면 사실상 매 방문 노출이 되어 두 배로 잡음</em></span></div>
         <div class="row"><span class="k">노출 상한</span><span class="v">최대 3회<em>3회까지 반응이 없으면 관심이 없는 것으로 보고 중단함</em></span></div>
         <div class="row"><span class="k">즉시 중단</span><span class="v sub">툴팁이나 아이콘을 눌러 리뷰 피드에 진입하면 이후 노출하지 않음</span></div>
@@ -529,7 +529,7 @@ body{
       <div class="ph">동작 확인</div>
       <div class="note">
         <h4>확인 방법</h4>
-        <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 폰 화면을 스크롤하거나 5초가 지나면 툴팁이 사라지고, 모션은 탭 진입 전까지 유지됩니다.</p>
+        <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 폰 화면을 스크롤해도 툴팁은 사라지지 않으며, 모션과 툴팁 모두 탭 진입 전까지 유지됩니다.</p>
         <h4>종료 조건</h4>
         <p>기업 리뷰 탭에 진입하면 모션과 툴팁이 함께 종료되며 이후 재노출되지 않습니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
       </div>
@@ -584,32 +584,21 @@ let current = ADOPTED;
 let entered = false;
 
 /* ── 툴팁 노출 시퀀스 ──
-   모션 시작과 동시에 노출 → 최소 2초 유지 → 스크롤 100px 또는 5초 경과 시 종료 */
-const DELAY   = 500;   // 노출 지연
-const MIN_SHOW= 2000;  // 최소 유지
-const MAX_SHOW= 5000;  // 자동 종료
-const SCROLL_THRESHOLD = 100;
+   모션 시작과 동시에 노출 → 탭에 진입하기 전까지 계속 유지
+   스크롤이나 시간 경과로는 사라지지 않음 */
+const DELAY = 500;   // 노출 지연
 
-let startTimer=null, autoTimer=null, shownAt=0, visible=false;
+let startTimer=null, visible=false;
 
 function clearTimers(){
-  clearTimeout(startTimer); clearTimeout(autoTimer);
-  startTimer=null; autoTimer=null;
+  clearTimeout(startTimer);
+  startTimer=null;
 }
 
 function hideTip(){
   if(!visible) return;
   visible=false;
   tip.classList.remove('show');
-  clearTimeout(autoTimer); autoTimer=null;
-}
-
-/* 최소 유지 시간을 보장하며 종료 */
-function requestHide(){
-  if(!visible) return;
-  const elapsed = Date.now() - shownAt;
-  if(elapsed >= MIN_SHOW) hideTip();
-  else { clearTimeout(autoTimer); autoTimer = setTimeout(hideTip, MIN_SHOW - elapsed); }
 }
 
 function play(){
@@ -625,14 +614,8 @@ function play(){
     tab.dataset.motion = current;         // 모션 시작
     tip.classList.add('show');            // 툴팁 동시 노출
     visible = true;
-    shownAt = Date.now();
-    autoTimer = setTimeout(hideTip, MAX_SHOW);
   }, DELAY);
 }
-
-content.addEventListener('scroll', ()=>{
-  if(visible && content.scrollTop >= SCROLL_THRESHOLD) requestHide();
-});
 
 /* ── 모션 후보 카드 ── */
 grid.innerHTML = MOTIONS.map(m => `
