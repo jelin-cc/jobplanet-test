@@ -123,19 +123,17 @@ body{
 
 /* ══ 스테이지 ══ */
 .stage{
-  display:grid;grid-template-columns:auto 1fr;gap:36px;
+  display:flex;flex-direction:column;gap:30px;
   background:var(--card);border-radius:var(--r-lg);
   padding:32px;margin-bottom:44px;
   box-shadow:0 1px 4px rgba(0,0,0,.04);
 }
-@media (max-width:900px){.stage{grid-template-columns:1fr}}
 
 /* 미리보기 안내 바 */
 .preview-bar{
-  grid-column:1/-1;
   display:none;align-items:center;gap:12px;
   background:#FFF8E9;border:1px solid rgba(229,138,0,.18);
-  border-radius:var(--r);padding:12px 16px;margin-bottom:-8px;
+  border-radius:var(--r);padding:12px 16px;margin-bottom:-10px;
 }
 .preview-bar.on{display:flex}
 .preview-bar p{font-size:13px;font-weight:600;color:#B26A00;letter-spacing:-.2px;flex:1}
@@ -145,9 +143,14 @@ body{
   background:#fff;color:#B26A00;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.06);
 }
 
-/* 폰 */
+/* 폰 프리뷰 영역 */
+.stage-top{
+  display:flex;justify-content:center;
+  background:var(--fill2);border:1px solid var(--ln2);
+  border-radius:var(--r-lg);padding:32px 24px;
+}
 .phone{
-  align-self:center;
+  align-self:center;flex:none;
   width:375px;border-radius:30px;overflow:hidden;
   border:1px solid var(--ln);background:#fff;
   box-shadow:0 12px 32px rgba(25,31,40,.10);
@@ -227,8 +230,14 @@ body{
   border-top-color:#fff;
 }
 
-/* ══ 정보 패널 ══ */
-.panel{min-width:0;display:flex;flex-direction:column}
+/* ══ 정보 패널 — 폰 프리뷰 아래 3열 ══ */
+.panel{
+  display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:24px;align-items:start;
+  border-top:1px solid var(--ln2);padding-top:28px;
+}
+.pcol{min-width:0;display:flex;flex-direction:column}
+.pcol .spec{margin-bottom:0}
+@media (max-width:1000px){.panel{grid-template-columns:1fr}}
 .panel .ph{
   font-size:13px;font-weight:700;color:var(--t4);letter-spacing:-.2px;
   margin-bottom:14px;display:flex;align-items:center;gap:8px;
@@ -416,6 +425,7 @@ body{
       <button id="backBtn">최종 시안으로 되돌리기</button>
     </div>
 
+    <div class="stage-top">
     <div class="phone">
       <div class="phone-content" id="phoneContent">
         <div class="rv-card">
@@ -487,8 +497,10 @@ body{
       </div>
       <div class="home-indicator"><i></i></div>
     </div>
+    </div>
 
     <div class="panel">
+      <div class="pcol">
       <div class="ph">현재 적용 <span class="chip-adopt" id="stageFlag">
         <svg viewBox="0 0 12 12" fill="none"><path d="M2.2 6.2 4.8 8.8 9.8 3.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         채택</span></div>
@@ -498,7 +510,9 @@ body{
         <div class="row"><span class="k">방해도</span><span id="curLevel"><span class="badge high">높음</span></span></div>
         <div class="row"><span class="k">툴팁 문구</span><span class="v sub">내 직군 리뷰 모아보기</span></div>
       </div>
+      </div>
 
+      <div class="pcol">
       <div class="ph">노출 조건</div>
       <div class="spec">
         <div class="row"><span class="k">노출 대상</span><span class="v">전체 이용자</span></div>
@@ -509,12 +523,16 @@ body{
         <div class="row"><span class="k">즉시 중단</span><span class="v sub">툴팁이나 아이콘을 눌러 리뷰 피드에 진입하면 이후 노출하지 않음</span></div>
         <div class="row"><span class="k">저장 기준</span><span class="v sub">노출 횟수와 마지막 노출 시각을 저장해야 함<em>기기에만 저장하면 비로그인 이용자나 기기를 바꾼 이용자는 초기화됨. 로그인 이용자는 계정 기준 저장이 필요함</em></span></div>
       </div>
+      </div>
 
+      <div class="pcol">
+      <div class="ph">동작 확인</div>
       <div class="note">
         <h4>확인 방법</h4>
         <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 폰 화면을 스크롤하거나 5초가 지나면 툴팁이 사라지고, 모션은 탭 진입 전까지 유지됩니다.</p>
         <h4>종료 조건</h4>
         <p>기업 리뷰 탭에 진입하면 모션과 툴팁이 함께 종료되며 이후 재노출되지 않습니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
+      </div>
       </div>
     </div>
   </div>
