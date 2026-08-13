@@ -515,13 +515,13 @@ body{
       <div class="pcol">
       <div class="ph">노출 조건</div>
       <div class="spec">
-        <div class="row"><span class="k">노출 대상</span><span class="v">전체 이용자</span></div>
+        <div class="row"><span class="k">노출 대상</span><span class="v">전체 이용자<em>리뷰 피드 이용 이력과 무관하게 배포 이후 홈을 방문하는 이용자 전원</em></span></div>
         <div class="row"><span class="k">동작</span><span class="v sub">아이콘 모션이 시작되고 툴팁이 함께 노출됨</span></div>
-        <div class="row"><span class="k">종료</span><span class="v sub">리뷰 피드에 진입하면 모션과 툴팁이 함께 종료됨<em>진입 전까지는 계속 노출되며 스크롤이나 시간 경과로는 종료되지 않음 · 프로토타입 기준 노출 0.5초 지연</em></span></div>
-        <div class="row"><span class="k">재노출 간격</span><span class="v">14일<em>홈 1인당 조회가 4주 3.9회로 평균 방문 간격이 약 7일임. 7일로 잡으면 사실상 매 방문 노출이 되어 두 배로 잡음</em></span></div>
-        <div class="row"><span class="k">노출 상한</span><span class="v">최대 3회<em>3회까지 반응이 없으면 관심이 없는 것으로 보고 중단함</em></span></div>
-        <div class="row"><span class="k">즉시 중단</span><span class="v sub">툴팁이나 아이콘을 눌러 리뷰 피드에 진입하면 이후 노출하지 않음</span></div>
-        <div class="row"><span class="k">저장 기준</span><span class="v sub">노출 횟수와 마지막 노출 시각을 저장해야 함<em>기기에만 저장하면 비로그인 이용자나 기기를 바꾼 이용자는 초기화됨. 로그인 이용자는 계정 기준 저장이 필요함</em></span></div>
+        <div class="row"><span class="k">1회 노출 종료</span><span class="v sub">리뷰 피드에 진입하면 모션과 툴팁이 화면에서 함께 사라짐<em>진입하지 않으면 계속 떠 있음 · 스크롤이나 시간 경과로는 사라지지 않음 · 프로토타입 기준 노출 0.5초 지연</em></span></div>
+        <div class="row"><span class="k">재노출 간격</span><span class="v">14일<em>마지막 노출일 기준으로 계산하며 진입 여부는 보지 않음. 홈 1인당 조회가 4주 3.9회로 평균 방문 간격이 약 7일임. 7일로 잡으면 사실상 매 방문 노출이 되어 두 배로 잡음</em></span></div>
+        <div class="row"><span class="k">노출 상한</span><span class="v">이용자당 최대 3회<em>진입 여부와 무관하게 3회를 채우면 종료함. 상한이 없으면 14일마다 무한히 반복되기 때문임</em></span></div>
+        <div class="row"><span class="k">전체 종료</span><span class="v sub">3회를 모두 노출하면 이후 다시 노출하지 않음<em>진입은 해당 회차를 화면에서 끝낼 뿐 남은 회차를 없애지 않음</em></span></div>
+        <div class="row"><span class="k">저장 기준</span><span class="v sub">지금까지 몇 번 보여줬는지, 마지막으로 보여준 날짜가 언제인지를 저장함<em>기기에만 저장하면 앱을 지우거나 기기를 바꿨을 때 횟수가 0으로 돌아가 처음부터 다시 노출됨. 로그인한 이용자는 계정에 저장해야 기기를 바꿔도 이어짐</em></span></div>
       </div>
       </div>
 
@@ -531,7 +531,7 @@ body{
         <h4>확인 방법</h4>
         <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 폰 화면을 스크롤해도 툴팁은 사라지지 않으며, 모션과 툴팁 모두 탭 진입 전까지 유지됩니다.</p>
         <h4>종료 조건</h4>
-        <p>기업 리뷰 탭에 진입하면 모션과 툴팁이 함께 종료되며 이후 재노출되지 않습니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
+        <p>기업 리뷰 탭에 진입하면 그 회차의 모션과 툴팁이 화면에서 사라집니다. 남은 회차는 그대로여서 14일 뒤에 다시 노출되며, 3회를 모두 채우면 종료됩니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
       </div>
       </div>
     </div>
