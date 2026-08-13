@@ -144,7 +144,7 @@ a{text-decoration:none;color:inherit}
   border-left:4px solid transparent;border-right:4px solid transparent;
   border-bottom:4px solid var(--g900);
 }
-.nav-item.tip-on .tip{opacity:1;transform:translate(-50%,0)}
+.nav-item.tip-on .tip{opacity:1;transform:translate(-50%,0);pointer-events:auto;cursor:pointer}
 
 @media (prefers-reduced-motion:reduce){
   .nav-item.run .lb,.nav-item.run .dot,.nav-item.run .dot::after{animation:none!important}
@@ -220,7 +220,9 @@ a{text-decoration:none;color:inherit}
   width:32px;height:32px;background:#fff;border-radius:8px;border:1px solid var(--g100);
   display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none;
 }
-.logo-box img{width:28px;height:auto}
+/* 로고 이미지 자체가 라운드 테두리를 포함하고 있어, 이미지가 박스를 꽉 채우고 컨테이너 라인은 제거 */
+.logo-box img{width:100%;height:100%;object-fit:contain;border-radius:8px}
+.logo-box:has(img){border:0;background:transparent}
 .logo-box b{font-size:10px;font-weight:700;color:var(--g500)}
 .job-co .co{font-size:13px;font-weight:600;line-height:20px;color:var(--g500)}
 .job .ti{font-size:15px;font-weight:600;line-height:24px;color:var(--g900);letter-spacing:-.2px}
@@ -346,7 +348,19 @@ a{text-decoration:none;color:inherit}
 .btn-key:hover{background:var(--green600)}
 .btn-ghost{background:#fff;border:1px solid var(--g100);color:var(--g600)}
 .chk{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--g500);margin-bottom:10px;cursor:pointer}
-.chk input{accent-color:var(--green500)}
+.chk input{
+  appearance:none;-webkit-appearance:none;margin:0;
+  width:14px;height:14px;border-radius:4px;
+  background:#fff;border:1px solid var(--g200);
+  display:grid;place-items:center;cursor:pointer;transition:border-color .15s;
+}
+.chk input::after{
+  content:'';width:7px;height:4px;
+  border-left:1.6px solid var(--g300);border-bottom:1.6px solid var(--g300);
+  transform:rotate(-45deg) translate(1px,-1px);opacity:0;transition:.15s;
+}
+.chk input:checked{border-color:var(--g400)}
+.chk input:checked::after{opacity:1;border-color:var(--g700)}
 .hint{font-size:10px;line-height:15px;color:var(--g300);margin-top:10px;border-top:1px solid var(--g50);padding-top:8px}
 </style>
 </head>
@@ -663,7 +677,7 @@ a{text-decoration:none;color:inherit}
 <!-- ══════════ 모션 컨트롤 ══════════ -->
 <div class="panel">
   <h5>GNB '기업 리뷰' 모션 후보</h5>
-  <div class="desc">모바일 탭바 시안(흔들기 2.4초·3회)과 동일한 노출 규칙을 적용했습니다.</div>
+  <div class="desc">모션은 2.4초 3회 후 정지, 툴팁은 메뉴 진입 전까지 계속 유지됩니다.</div>
 
   <div class="grp" id="opts">
     <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span></button>
@@ -684,7 +698,7 @@ a{text-decoration:none;color:inherit}
     <button class="btn-key" id="replay">노출 다시 보기</button>
     <button class="btn-ghost" id="stop">종료</button>
   </div>
-  <div class="hint">노출 규칙 · 진입 0.5초 후 시작 → 3회 반복 후 정지 / 스크롤 100px 또는 GNB hover 시 즉시 종료 / 클릭 시 영구 종료</div>
+  <div class="hint">노출 규칙 · 진입 0.5초 후 모션과 툴팁 동시 노출 / 모션은 3회 반복 후 정지, 스크롤 100px·hover 시 즉시 정지 / 툴팁은 '기업 리뷰' 진입(클릭) 전까지 계속 유지</div>
 </div>
 
 <script>
@@ -693,23 +707,29 @@ a{text-decoration:none;color:inherit}
   var opts   = document.getElementById('opts');
   var spd    = document.getElementById('spd');
   var tipChk = document.getElementById('tipChk');
-  var timer  = null;
+  var tipTimer = null, endTimer = null;
 
-  function stop(){
+  /* 모션만 정지 — 툴팁은 유지 */
+  function stopMotion(){
+    item.classList.remove('run');
+    clearTimeout(endTimer);
+  }
+  /* 진입(클릭)·종료 시 모션과 툴팁 모두 종료 */
+  function closeAll(){
     item.classList.remove('run','tip-on');
-    clearTimeout(timer);
+    clearTimeout(tipTimer); clearTimeout(endTimer);
   }
 
   function play(){
-    stop();
+    closeAll();
     // reflow로 애니메이션 재시작
     void item.offsetWidth;
     item.classList.add('run');
     if(tipChk.checked){
-      timer = setTimeout(function(){ item.classList.add('tip-on'); }, 500);
+      tipTimer = setTimeout(function(){ item.classList.add('tip-on'); }, 500);
     }
     var dur = parseFloat(getComputedStyle(item).getPropertyValue('--dur')) || 2.4;
-    setTimeout(function(){ item.classList.remove('tip-on','run'); }, (dur*3 + .5) * 1000);
+    endTimer = setTimeout(stopMotion, (dur*3 + .5) * 1000);
   }
 
   opts.addEventListener('click', function(e){
