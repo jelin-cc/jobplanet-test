@@ -684,7 +684,7 @@ a{text-decoration:none;color:inherit}
 <!-- ══════════ 모션 컨트롤 ══════════ -->
 <div class="panel">
   <h5>GNB '기업 리뷰' 모션 후보</h5>
-  <div class="desc">14일 간격으로 최대 3회까지 재노출되며, 리뷰 진입 시에만 종료됩니다.</div>
+  <div class="desc">7일 간격으로 최대 3회 노출되며, 진입해도 남은 회차는 그대로입니다.</div>
 
   <div class="grp" id="opts">
     <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span></button>
@@ -708,9 +708,9 @@ a{text-decoration:none;color:inherit}
     <button class="btn-ghost" id="stop">종료</button>
   </div>
   <div class="hint">
-    노출 규칙 · 재노출 간격 14일 · 노출 상한 최대 3회<br>
+    노출 규칙 · 재노출 간격 7일 · 노출 상한 최대 3회(진입 여부와 무관)<br>
     1회 노출 안에서 · 진입 0.5초 후 모션과 툴팁 동시 노출 / 모션은 2.4초 3회 반복 후 정지, 스크롤 100px·hover 시 즉시 정지 / 툴팁은 '기업 리뷰' 진입 전까지 계속 유지<br>
-    종료 · '기업 리뷰'에 진입하면 그 시점부터 이후 재노출하지 않음
+    전체 종료 · 3회를 모두 노출하면 이후 다시 노출하지 않음. 진입은 해당 회차만 화면에서 끝냄
   </div>
 </div>
 

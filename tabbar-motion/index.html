@@ -30,6 +30,7 @@
   --r-sm:10px;
 
   --dur:2.4s;
+  --tab-off:#A4A6AD;   /* 탭바 비활성 색 */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -186,9 +187,16 @@ body{
 }
 .tab .ico{width:20px;height:20px;position:relative;display:grid;place-items:center}
 .tab .ico svg{width:20px;height:20px;display:block}
-.tab .txt{font-size:11px;font-weight:500;line-height:16px;color:var(--t5);
+.tab .txt{font-size:11px;font-weight:500;line-height:16px;color:var(--tab-off);
   letter-spacing:-.2px;transition:color .2s}
 .tab.active .txt{color:var(--t1)}
+
+/* 폰 탭 모션은 3회만 재생한 뒤 기본(비활성) 상태로 돌아감 — 후보 비교 카드는 계속 반복 */
+#reviewTab .mv,
+#reviewTab .mv::before,
+#reviewTab .mv::after{animation-iteration-count:3;animation-fill-mode:both}
+#reviewTab .ico svg path{transition:fill .35s ease}
+#reviewTab.done .ico svg path{fill:var(--tab-off)}
 .home-indicator{height:30px;background:#fff;display:grid;place-items:center}
 .home-indicator i{display:block;width:134px;height:5px;border-radius:10px;background:var(--t1)}
 
@@ -483,15 +491,15 @@ body{
         </div>
 
         <div class="tab">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5.5h6a1 1 0 0 1 1 1V8h3.2a1.8 1.8 0 0 1 1.8 1.8v8.4a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 18.2V9.8A1.8 1.8 0 0 1 4.8 8H8V6.5a1 1 0 0 1 1-1zm.6 2.5h4.8v-1H9.6z" fill="#B0B8C1"/></svg></span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5.5h6a1 1 0 0 1 1 1V8h3.2a1.8 1.8 0 0 1 1.8 1.8v8.4a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 18.2V9.8A1.8 1.8 0 0 1 4.8 8H8V6.5a1 1 0 0 1 1-1zm.6 2.5h4.8v-1H9.6z" fill="#A4A6AD"/></svg></span>
           <span class="txt">채용 공고</span>
         </div>
         <div class="tab">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="4.5" width="17.6" height="15" rx="2.2" fill="#B0B8C1"/><path d="M7 9h10M7 12.4h10M7 15.8h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="4.5" width="17.6" height="15" rx="2.2" fill="#A4A6AD"/><path d="M7 9h10M7 12.4h10M7 15.8h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="txt">잡플위키</span>
         </div>
         <div class="tab">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" fill="#B0B8C1"/><path d="M4.6 20.2c0-3.8 3.3-6.2 7.4-6.2s7.4 2.4 7.4 6.2z" fill="#B0B8C1"/></svg></span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" fill="#A4A6AD"/><path d="M4.6 20.2c0-3.8 3.3-6.2 7.4-6.2s7.4 2.4 7.4 6.2z" fill="#A4A6AD"/></svg></span>
           <span class="txt">MY</span>
         </div>
       </div>
@@ -516,9 +524,9 @@ body{
       <div class="ph">노출 조건</div>
       <div class="spec">
         <div class="row"><span class="k">노출 대상</span><span class="v">전체 이용자<em>리뷰 피드 이용 이력과 무관하게 배포 이후 홈을 방문하는 이용자 전원</em></span></div>
-        <div class="row"><span class="k">동작</span><span class="v sub">아이콘 모션이 시작되고 툴팁이 함께 노출됨</span></div>
+        <div class="row"><span class="k">동작</span><span class="v sub">아이콘 모션이 시작되고 툴팁이 함께 노출됨<em>모션은 3회 반복 후 멈추고 아이콘은 기본 비활성 색(#A4A6AD)으로 돌아감. 툴팁은 그대로 유지됨</em></span></div>
         <div class="row"><span class="k">1회 노출 종료</span><span class="v sub">리뷰 피드에 진입하면 모션과 툴팁이 화면에서 함께 사라짐<em>진입하지 않으면 계속 떠 있음 · 스크롤이나 시간 경과로는 사라지지 않음 · 프로토타입 기준 노출 0.5초 지연</em></span></div>
-        <div class="row"><span class="k">재노출 간격</span><span class="v">14일<em>마지막 노출일 기준으로 계산하며 진입 여부는 보지 않음. 홈 1인당 조회가 4주 3.9회로 평균 방문 간격이 약 7일임. 7일로 잡으면 사실상 매 방문 노출이 되어 두 배로 잡음</em></span></div>
+        <div class="row"><span class="k">재노출 간격</span><span class="v">7일<em>마지막 노출일 기준으로 계산하며 진입 여부는 보지 않음. 홈 1인당 조회가 4주 3.9회로 평균 방문 간격이 약 7일임. 방문할 때마다 안내가 닿도록 방문 주기와 같게 잡음</em></span></div>
         <div class="row"><span class="k">노출 상한</span><span class="v">이용자당 최대 3회<em>진입 여부와 무관하게 3회를 채우면 종료함. 상한이 없으면 14일마다 무한히 반복되기 때문임</em></span></div>
         <div class="row"><span class="k">전체 종료</span><span class="v sub">3회를 모두 노출하면 이후 다시 노출하지 않음<em>진입은 해당 회차를 화면에서 끝낼 뿐 남은 회차를 없애지 않음</em></span></div>
         <div class="row"><span class="k">저장 기준</span><span class="v sub">지금까지 몇 번 보여줬는지, 마지막으로 보여준 날짜가 언제인지를 저장함<em>기기에만 저장하면 앱을 지우거나 기기를 바꿨을 때 횟수가 0으로 돌아가 처음부터 다시 노출됨. 로그인한 이용자는 계정에 저장해야 기기를 바꿔도 이어짐</em></span></div>
@@ -529,9 +537,9 @@ body{
       <div class="ph">동작 확인</div>
       <div class="note">
         <h4>확인 방법</h4>
-        <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 폰 화면을 스크롤해도 툴팁은 사라지지 않으며, 모션과 툴팁 모두 탭 진입 전까지 유지됩니다.</p>
+        <p>'노출 다시 보기'를 누르면 모션과 툴팁이 처음부터 다시 재생됩니다. 아이콘은 3번 흔들린 뒤 기본 회색으로 돌아가고, 툴팁은 스크롤해도 사라지지 않고 탭 진입 전까지 남습니다.</p>
         <h4>종료 조건</h4>
-        <p>기업 리뷰 탭에 진입하면 그 회차의 모션과 툴팁이 화면에서 사라집니다. 남은 회차는 그대로여서 14일 뒤에 다시 노출되며, 3회를 모두 채우면 종료됩니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
+        <p>기업 리뷰 탭에 진입하면 그 회차의 모션과 툴팁이 화면에서 사라집니다. 남은 회차는 그대로여서 7일 뒤에 다시 노출되며, 3회를 모두 채우면 종료됩니다. 상단 '탭 진입 시뮬레이션'으로 확인할 수 있습니다.</p>
       </div>
       </div>
     </div>
@@ -587,12 +595,18 @@ let entered = false;
    모션 시작과 동시에 노출 → 탭에 진입하기 전까지 계속 유지
    스크롤이나 시간 경과로는 사라지지 않음 */
 const DELAY = 500;   // 노출 지연
+const LOOPS = 3;     // 모션 반복 횟수
 
-let startTimer=null, visible=false;
+let startTimer=null, doneTimer=null, visible=false;
 
 function clearTimers(){
-  clearTimeout(startTimer);
-  startTimer=null;
+  clearTimeout(startTimer); clearTimeout(doneTimer);
+  startTimer=null; doneTimer=null;
+}
+
+/* 현재 속도(--dur) 기준 1회 주기(ms) */
+function durMs(){
+  return (parseFloat(getComputedStyle(tab).getPropertyValue('--dur')) || 2.4) * 1000;
 }
 
 function hideTip(){
@@ -605,6 +619,7 @@ function play(){
   if(entered) return;
   clearTimers();
   hideTip();
+  tab.classList.remove('done');
   tab.dataset.motion = 'none';
   content.scrollTop = 0;
 
@@ -614,6 +629,12 @@ function play(){
     tab.dataset.motion = current;         // 모션 시작
     tip.classList.add('show');            // 툴팁 동시 노출
     visible = true;
+
+    // 3회 반복 후 아이콘을 기본(비활성) 색으로 되돌림. 툴팁은 그대로 유지
+    doneTimer = setTimeout(()=>{
+      if(entered) return;
+      tab.classList.add('done');
+    }, durMs() * LOOPS);
   }, DELAY);
 }
 
