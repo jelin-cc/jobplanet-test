@@ -94,25 +94,7 @@ a{text-decoration:none;color:inherit}
   88%,100%{background-position:0% 0}
 }
 
-/* 2. 언더라인 드로우 + 아래 방향 힌트 */
-[data-motion="underline"] .draw{
-  position:absolute;left:0;bottom:-2px;height:2px;width:100%;
-  background:var(--green500);border-radius:2px;
-  transform:scaleX(0);transform-origin:left center;opacity:0;
-}
-[data-motion="underline"].run .draw{
-  animation:m-draw var(--dur) cubic-bezier(.4,0,.2,1) .5s 3 both;
-}
-@keyframes m-draw{
-  0%{transform:scaleX(0);transform-origin:left center;opacity:1}
-  28%{transform:scaleX(1);transform-origin:left center;opacity:1}
-  55%{transform:scaleX(1);transform-origin:right center;opacity:1}
-  75%,100%{transform:scaleX(0);transform-origin:right center;opacity:0}
-}
-[data-motion="underline"].run .lb{animation:m-tint var(--dur) ease-in-out .5s 3 both}
-@keyframes m-tint{0%,80%,100%{color:var(--g800)}30%,55%{color:var(--green500)}}
-
-/* 3. 도트 펄스 */
+/* 2. 도트 펄스 */
 .dot{
   position:absolute;top:1px;right:-9px;width:5px;height:5px;border-radius:999px;
   background:var(--green500);opacity:0;
@@ -126,7 +108,7 @@ a{text-decoration:none;color:inherit}
 @keyframes m-dot{0%,60%,100%{transform:scale(1)}70%{transform:scale(1.5)}80%{transform:scale(1)}}
 @keyframes m-ripple{0%,45%{transform:scale(1);opacity:.8}75%,100%{transform:scale(3.4);opacity:0}}
 
-/* 4. 흔들기 (모바일 탭바 채택안) */
+/* 3. 흔들기 (모바일 탭바 채택안) */
 [data-motion="wiggle"].run .lb{
   transform-origin:50% 60%;
   animation:m-wiggle var(--dur) ease-in-out .5s 3 both;
@@ -140,7 +122,7 @@ a{text-decoration:none;color:inherit}
   91%{transform:rotate(0)}
 }
 
-/* 5. 팝 바운스 */
+/* 4. 팝 바운스 */
 [data-motion="pop"].run .lb{
   animation:m-pop var(--dur) cubic-bezier(.34,1.56,.64,1) .5s 3 both;
 }
@@ -168,8 +150,8 @@ a{text-decoration:none;color:inherit}
 .nav-item.tip-on .tip{opacity:1;transform:translate(-50%,0)}
 
 @media (prefers-reduced-motion:reduce){
-  .nav-item.run .lb,.nav-item.run .draw,.nav-item.run .dot,.nav-item.run .dot::after{animation:none!important}
-  [data-motion="underline"].run .draw{opacity:1;transform:scaleX(1)}
+  .nav-item.run .lb,.nav-item.run .dot,.nav-item.run .dot::after{animation:none!important}
+  [data-motion="dot"].run .dot{opacity:1}
 }
 
 /* ══════════ HERO ══════════ */
@@ -380,7 +362,7 @@ a{text-decoration:none;color:inherit}
       <span class="logo">Jobplanet</span>
       <nav class="nav">
         <div class="nav-item" id="navReview" data-motion="shine">
-          <span class="lb">기업 리뷰<i class="dot"></i><i class="draw"></i></span>
+          <span class="lb">기업 리뷰<i class="dot"></i></span>
           <span class="tip">방금 올라온 리뷰가 있어요</span>
         </div>
         <div class="nav-item"><span class="lb">채용 공고</span></div>
@@ -688,7 +670,6 @@ a{text-decoration:none;color:inherit}
 
   <div class="grp" id="opts">
     <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span></button>
-    <button class="opt" data-m="underline"><span class="n">언더라인</span><span class="d">밑줄이 좌→우로 그려졌다 사라짐</span></button>
     <button class="opt" data-m="dot"><span class="n">도트 펄스</span><span class="d">우상단 그린 도트가 퍼짐</span></button>
     <button class="opt" data-m="wiggle"><span class="n">흔들기</span><span class="d">모바일 채택안과 동일</span></button>
     <button class="opt" data-m="pop"><span class="n">팝 바운스</span><span class="d">살짝 튀어오르며 그린으로 전환</span></button>
