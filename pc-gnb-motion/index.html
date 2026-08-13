@@ -50,8 +50,6 @@ a{text-decoration:none;color:inherit}
   background:var(--green500);transform:scaleX(0);transform-origin:left center;
   transition:transform .2s cubic-bezier(.4,0,.2,1);
 }
-.nav-item:hover .lb{color:var(--green500)}
-.nav-item:hover::after{transform:scaleX(1)}
 
 .gnb-right{display:flex;align-items:center;gap:24px;padding:10px 0;align-self:stretch;justify-content:flex-end}
 .search-mini{
@@ -133,7 +131,7 @@ a{text-decoration:none;color:inherit}
 /* 툴팁 — 모바일 시안과 동일한 화이트 + 그린 1px 라인 */
 .tip{
   position:absolute;top:38px;left:50%;
-  background:#fff;border:1px solid var(--green500);border-radius:999px;
+  background:#fff;border:1.5px solid var(--green500);border-radius:999px;
   color:var(--g900);white-space:nowrap;
   font-size:12px;font-weight:600;line-height:18px;letter-spacing:-.2px;
   padding:6px 14px;
@@ -399,9 +397,9 @@ a{text-decoration:none;color:inherit}
       <nav class="nav">
         <div class="nav-item" id="navReview" data-motion="shine">
           <span class="lb">기업 리뷰<i class="dot"></i></span>
-          <span class="tip">방금 올라온 리뷰가 있어요
+          <span class="tip">내 직군 리뷰 모아보기
             <svg class="tail" viewBox="0 0 18 12" fill="none">
-              <path d="M1 10.4 L9 2.4 L17 10.4" fill="#fff" stroke="#00C274" stroke-width="1"
+              <path d="M1 10.4 L9 2.4 L17 10.4" fill="#fff" stroke="#00C274" stroke-width="1.5"
                     stroke-linejoin="round" stroke-linecap="round"/>
             </svg>
           </span>
@@ -710,10 +708,10 @@ a{text-decoration:none;color:inherit}
   <div class="desc">한 세션에 1회만, 서로 다른 3개 세션까지 노출됩니다. 진입해도 남은 회차는 그대로입니다.</div>
 
   <div class="grp" id="opts">
-    <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span></button>
-    <button class="opt" data-m="dot"><span class="n">도트 펄스</span><span class="d">우상단 도트 확산</span><span class="flag">
+    <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span><span class="flag">
       <svg viewBox="0 0 12 12" fill="none"><path d="M2.2 6.2 4.8 8.8 9.8 3.4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       채택</span></button>
+    <button class="opt" data-m="dot"><span class="n">도트 펄스</span><span class="d">우상단 그린 도트가 퍼짐</span></button>
     <button class="opt" data-m="wiggle"><span class="n">흔들기</span><span class="d">모바일 채택안과 동일</span></button>
     <button class="opt" data-m="pop"><span class="n">팝 바운스</span><span class="d">살짝 튀어오르며 그린으로 전환</span></button>
   </div>
@@ -733,7 +731,7 @@ a{text-decoration:none;color:inherit}
   <div class="hint">
     노출 규칙 · 한 세션에 1회 · 서로 다른 3개 세션까지(이용자당 최대 3회, 진입 여부와 무관)<br>
     세션 · 진입 후 30분 무활동까지. 같은 세션에서 다른 화면을 갔다 돌아와도 모션을 다시 재생하지 않고 툴팁만 유지<br>
-    1회 노출 안에서 · 진입 0.5초 후 모션과 툴팁 동시 노출 / 모션은 2.4초 3회 반복 후 정지, 스크롤 100px·hover 시 즉시 정지 / 툴팁은 '기업 리뷰' 진입 전까지 계속 유지<br>
+    1회 노출 안에서 · 진입 0.5초 후 모션과 툴팁 동시 노출 / 모션은 2.4초 3회 반복 후 정지, 스크롤 100px에서 즉시 정지 / 툴팁은 '기업 리뷰' 진입 전까지 계속 유지<br>
     전체 종료 · 3회를 모두 노출하면 이후 다시 노출하지 않음. 진입은 해당 회차만 화면에서 끝냄
   </div>
 </div>
@@ -786,13 +784,12 @@ a{text-decoration:none;color:inherit}
   });
 
   document.getElementById('replay').addEventListener('click', play);
-  document.getElementById('stop').addEventListener('click', stop);
+  document.getElementById('stop').addEventListener('click', closeAll);
 
-  // 종료 조건
-  item.addEventListener('mouseenter', stop);
-  item.addEventListener('click', stop);
+  // 종료 조건 — PC는 hover 동작 없음
+  item.addEventListener('click', closeAll);
   window.addEventListener('scroll', function(){
-    if(window.scrollY > 100) stop();
+    if(window.scrollY > 100) stopMotion();
   }, {passive:true});
 
   play();
