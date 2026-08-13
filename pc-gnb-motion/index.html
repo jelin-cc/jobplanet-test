@@ -333,7 +333,14 @@ a{text-decoration:none;color:inherit}
 .opt.on{border-color:var(--green500);background:rgba(0,194,116,.05)}
 .opt .n{font-size:12px;font-weight:700;line-height:18px;color:var(--g900);flex:none;width:76px}
 .opt.on .n{color:var(--green600)}
-.opt .d{font-size:11px;font-weight:400;line-height:16px;color:var(--g400);flex:1}
+.opt .d{font-size:11px;font-weight:400;line-height:16px;color:var(--g400);flex:1;min-width:0}
+.opt .flag{
+  flex:none;display:inline-flex;align-items:center;gap:3px;
+  background:var(--green500);color:#fff;
+  font-size:10px;font-weight:700;line-height:14px;letter-spacing:-.2px;
+  padding:2px 7px;border-radius:20px;
+}
+.opt .flag svg{width:9px;height:9px;display:block}
 .seg{display:flex;gap:4px;margin-bottom:10px}
 .seg button{
   flex:1;height:28px;border-radius:8px;border:1px solid var(--g100);background:#fff;
@@ -681,7 +688,9 @@ a{text-decoration:none;color:inherit}
 
   <div class="grp" id="opts">
     <button class="opt on" data-m="shine"><span class="n">라이트 스윕</span><span class="d">그린 빛이 글자를 훑고 지나감</span></button>
-    <button class="opt" data-m="dot"><span class="n">도트 펄스</span><span class="d">우상단 그린 도트가 퍼짐</span></button>
+    <button class="opt" data-m="dot"><span class="n">도트 펄스</span><span class="d">우상단 도트 확산</span><span class="flag">
+      <svg viewBox="0 0 12 12" fill="none"><path d="M2.2 6.2 4.8 8.8 9.8 3.4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      채택</span></button>
     <button class="opt" data-m="wiggle"><span class="n">흔들기</span><span class="d">모바일 채택안과 동일</span></button>
     <button class="opt" data-m="pop"><span class="n">팝 바운스</span><span class="d">살짝 튀어오르며 그린으로 전환</span></button>
   </div>
