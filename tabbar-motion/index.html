@@ -236,16 +236,9 @@ body{
   88% {transform:translateX(-50%) translateY(0) scale(1.005)}
   100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
 }
-.tip-x{
-  margin-left:8px;vertical-align:middle;
-  width:16px;height:16px;padding:0;border:0;background:none;
-  color:var(--t4);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
-}
-.tip-x svg{width:12px;height:12px;display:block}
-.tip-x:hover{color:var(--t2)}
 /* 꼬리 - 말풍선과 같은 1px 라운드 라인. 흰 면이 말풍선 아래 테두리를 덮어 이음새를 없앰 */
 .tip .tail{
-  position:absolute;left:50%;top:calc(100% - 2px);
+  position:absolute;left:50%;top:calc(100% - 1px);
   transform:translateX(-50%);
   width:18px;height:12px;display:block;overflow:visible;
 }
@@ -507,12 +500,9 @@ body{
             </span>
           </span>
           <span class="txt">기업 리뷰</span>
-          <div class="tip" id="tip">내 직군 리뷰 모아보기<button class="tip-x" id="tipX" aria-label="닫기">
-              <svg viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </button>
-            <svg class="tail" viewBox="0 0 18 12" fill="none">
-              <path d="M1 1.6 L9 9.6 L17 1.6" fill="#fff" stroke="#00C274" stroke-width="1"
-                    stroke-linejoin="round" stroke-linecap="round"/>
+          <div class="tip" id="tip">내 직군 리뷰 모아보기            <svg class="tail" viewBox="0 0 18 12" fill="none">
+              <path d="M1 0 L9 8.6 L17 0" fill="#fff" stroke="#00C274" stroke-width="1"
+                    stroke-linejoin="round" stroke-linecap="butt"/>
             </svg>
           </div>
         </div>
@@ -728,16 +718,6 @@ function enter(){
 document.getElementById('enterBtn').addEventListener('click', enter);
 tab.addEventListener('click', enter);
 
-/* 툴팁 닫기 — 진입과 동일하게 이후 노출하지 않음 */
-document.getElementById('tipX').addEventListener('click', e=>{
-  e.stopPropagation();
-  entered = true;
-  clearTimers();
-  hideTip();
-  tab.classList.add('done');
-  tab.dataset.motion = 'none';
-  document.getElementById('curName').textContent = '노출 종료 (툴팁 닫기)';
-});
 
 document.getElementById('resetBtn').addEventListener('click',()=>{
   entered = false;
